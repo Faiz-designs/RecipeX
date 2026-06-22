@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Scanner from '../components/Scanner'
 import RecipeCard from '../components/RecipeCard'
 import NutritionTable from '../components/NutritionTable'
@@ -14,6 +14,10 @@ export default function Scan() {
     setResult(data)
     setShowReport(true)
   }
+
+  useEffect(() => {
+    if (showReport) window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [showReport])
 
   const handleReset = () => {
     setResult(null)

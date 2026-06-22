@@ -106,11 +106,11 @@ export default function Scanner({ onScanComplete }) {
 
       <div className="flex gap-2 mb-4">
         <button
-          onClick={() => { setMode('upload'); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }}
+          onClick={() => { setMode('upload'); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }}
           className={`px-4 py-2 rounded ${mode === 'upload' ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
         >Upload</button>
         <button
-          onClick={() => { setMode('camera'); startCamera() }}
+          onClick={() => { setMode('camera'); setError(''); startCamera() }}
           className={`px-4 py-2 rounded ${mode === 'camera' ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
         >Camera</button>
       </div>

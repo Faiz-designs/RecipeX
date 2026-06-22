@@ -2,7 +2,10 @@ fastapi
 uvicorn
 pydantic
 sqlalchemy
+passlib
+python-jose
 python-multipart
 pillow
 anthropic
 python-dotenv
+bcrypt

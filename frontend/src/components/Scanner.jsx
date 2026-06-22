@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback } from 'react'
 import axios from 'axios'
 
-const API = 'http://127.0.0.1:8000'
+const API = 'https://FaizBasha05.pythonanywhere.com'
 
 export default function Scanner({ onScanComplete }) {
   const [image, setImage] = useState(null)

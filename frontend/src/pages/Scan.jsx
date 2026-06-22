@@ -29,7 +29,7 @@ export default function Scan() {
       )}
 
       {showReport && r && (
-        <div>
+        <div className="animate-[fadeIn_0.4s_ease-out]">
           <div className="flex items-center justify-between mb-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-800">Scan Results</h1>

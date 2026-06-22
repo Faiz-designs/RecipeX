@@ -9,6 +9,7 @@ export default function Scanner({ onScanComplete }) {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [mode, setMode] = useState('upload')
+  const [dragOver, setDragOver] = useState(false)
   const fileRef = useRef(null)
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
@@ -20,6 +21,29 @@ export default function Scanner({ onScanComplete }) {
     setImage(file)
     setPreview(URL.createObjectURL(file))
     setError('')
+  }, [])
+
+  const handleDrop = useCallback((e) => {
+    e.preventDefault()
+    setDragOver(false)
+    const file = e.dataTransfer.files[0]
+    if (file && file.type.startsWith('image/')) {
+      setImage(file)
+      setPreview(URL.createObjectURL(file))
+      setError('')
+    } else {
+      setError('Please drop an image file')
+    }
+  }, [])
+
+  const handleDragOver = useCallback((e) => {
+    e.preventDefault()
+    setDragOver(true)
+  }, [])
+
+  const handleDragLeave = useCallback((e) => {
+    e.preventDefault()
+    setDragOver(false)
   }, [])
 
   const startCamera = useCallback(async () => {
@@ -94,13 +118,28 @@ export default function Scanner({ onScanComplete }) {
       {mode === 'upload' && (
         <div
           onClick={() => fileRef.current?.click()}
-          className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center cursor-pointer hover:border-green-400 mb-4"
+          onDrop={handleDrop}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer mb-4 transition-colors ${
+            dragOver ? 'border-green-400 bg-green-50' : 'border-gray-300 hover:border-green-400'
+          }`}
         >
           <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
-          {preview
-            ? <img src={preview} alt="Preview" className="max-h-64 mx-auto rounded" />
-            : <p className="text-gray-400 text-lg">Click to upload vegetable image</p>
-          }
+          {loading ? (
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-10 h-10 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
+              <p className="text-green-600 font-medium">Analyzing with AI...</p>
+            </div>
+          ) : preview ? (
+            <img src={preview} alt="Preview" className="max-h-64 mx-auto rounded" />
+          ) : (
+            <div>
+              <p className="text-4xl mb-2">📸</p>
+              <p className="text-gray-400 text-lg">Click or drag & drop an image</p>
+              <p className="text-gray-300 text-sm mt-1">Supports JPG, PNG, WEBP</p>
+            </div>
+          )}
         </div>
       )}
 
@@ -138,16 +177,20 @@ export default function Scanner({ onScanComplete }) {
         <button
           onClick={handleScan}
           disabled={loading || !image}
-          className="flex-1 bg-green-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="flex-1 bg-green-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          {loading ? 'Analyzing with AI...' : 'Scan & Analyze'}
+          {loading ? (
+            <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Analyzing...</>
+          ) : 'Scan & Analyze'}
         </button>
         <button
           onClick={handleDemo}
           disabled={loading}
-          className="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+          className="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
-          Demo Mode
+          {loading ? (
+            <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Loading...</>
+          ) : 'Demo Mode'}
         </button>
       </div>
     </div>

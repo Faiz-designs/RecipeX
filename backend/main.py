@@ -5,7 +5,7 @@ from routes.auth import router as auth_router
 from routes.scan import router as scan_router
 
 app = FastAPI(
-    title="NutriVision AI — Food Management System",
+    title="Recipe_x AI — Food Management System",
     description="AI-powered smart kitchen assistant. Scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.",
     version="1.0.0",
 )
@@ -30,7 +30,7 @@ def startup():
 @app.get("/")
 def root():
     return {
-        "app": "NutriVision AI",
+        "app": "Recipe_x AI",
         "status": "running",
         "version": "1.0.0",
     }

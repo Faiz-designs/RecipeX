@@ -56,7 +56,7 @@ function AppContent() {
               <span className="text-base">🥗</span>
             </div>
             <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 text-base hidden sm:inline">
-              NutriVision AI
+              Recipe_x AI
             </span>
           </Link>
           <Nav />
@@ -116,7 +116,7 @@ function AppContent() {
               <div className="w-7 h-7 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
                 <span className="text-xs">🥗</span>
               </div>
-              <span className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">NutriVision AI</span>
+              <span className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">Recipe_x AI</span>
             </div>
             <p className="text-sm text-slate-400 dark:text-slate-500">{t('footer.tagline')}</p>
           </div>

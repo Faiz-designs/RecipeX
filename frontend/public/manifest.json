@@ -1,6 +1,6 @@
 {
-  "name": "NutriVision AI",
-  "short_name": "NutriVision",
+  "name": "Recipe_x AI",
+  "short_name": "Recipe_x",
   "description": "AI-powered smart kitchen assistant — scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.",
   "start_url": "/",
   "display": "standalone",

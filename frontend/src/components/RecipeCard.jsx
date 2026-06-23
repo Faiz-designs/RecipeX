@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { addRecipeIngredientsToList } from '../utils/shoppingList'
+import { toggleFavorite, isFavorite } from '../utils/favorites'
 
-export default function RecipeCard({ recipes }) {
+export default function RecipeCard({ recipes, showActions }) {
   if (!recipes) return null
   const levels = ['easy', 'intermediate', 'advanced']
   const levelConfig = {
@@ -16,15 +18,26 @@ export default function RecipeCard({ recipes }) {
         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Recipes</h2>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {levels.map(level => { const r = recipes[level]; if (!r) return null; return <RecipeCardItem key={level} level={level} r={r} config={levelConfig[level]} /> })}
+        {levels.map(level => { const r = recipes[level]; if (!r) return null; return <RecipeCardItem key={level} level={level} r={r} config={levelConfig[level]} showActions={showActions} /> })}
       </div>
     </div>
   )
 }
 
-function RecipeCardItem({ level, r, config }) {
+function RecipeCardItem({ level, r, config, showActions }) {
   const [showAll, setShowAll] = useState(false)
+  const [fav, setFav] = useState(isFavorite(r.name))
+  const [addedMsg, setAddedMsg] = useState('')
   const displayed = showAll ? r.steps : r.steps?.slice(0, 3)
+
+  const handleToggleFav = () => { const now = toggleFavorite(r.name); setFav(now) }
+  const handleAddToList = () => {
+    if (r.additional_ingredients_required && r.additional_ingredients_required.length) {
+      addRecipeIngredientsToList(r.additional_ingredients_required)
+      setAddedMsg('Added to shopping list!')
+      setTimeout(() => setAddedMsg(''), 2000)
+    }
+  }
 
   return (
     <div className="group bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300">
@@ -60,7 +73,21 @@ function RecipeCardItem({ level, r, config }) {
           </button>
         )}
         {r.plating_suggestion && <p className="text-xs text-slate-400 dark:text-slate-500 italic mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">💡 {r.plating_suggestion}</p>}
-        {r.servings && <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">🍽 {r.servings} servings</p>}
+        <div className="flex items-center gap-3 mt-2">
+          {r.servings && <span className="text-xs text-slate-400 dark:text-slate-500">🍽 {r.servings} servings</span>}
+          {r.estimated_cost && <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">💰 ~{r.estimated_cost}</span>}
+          {r.budget_friendly && <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">Budget 👍</span>}
+        </div>
+        {showActions && (
+          <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">
+            <button onClick={handleAddToList} className="flex-1 text-xs font-medium bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50 rounded-lg px-3 py-2 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
+              {addedMsg || '🛒 Add to List'}
+            </button>
+            <button onClick={handleToggleFav} className={`px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${fav ? 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border-red-200 dark:border-red-700/50' : 'bg-slate-50 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-600 hover:border-red-200 dark:hover:border-red-700/50'}`}>
+              {fav ? '❤️ Saved' : '🤍 Save'}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   )

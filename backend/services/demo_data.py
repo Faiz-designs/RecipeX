@@ -10,7 +10,10 @@ DEMO_DATA = {
         "estimated_weight_grams": 450,
         "freshness_status": "Fresh",
         "confidence_level": "High",
-        "flag": None
+        "flag": None,
+        "estimated_days_until_spoilage": 5,
+        "spoilage_warning": "Soft spots and wrinkling may appear after 5-7 days at room temperature.",
+        "best_use": "Ideal for fresh salads, sauces, and roasting within 3 days for peak flavor."
       },
       {
         "id": "veg_02",
@@ -20,7 +23,10 @@ DEMO_DATA = {
         "estimated_weight_grams": 60,
         "freshness_status": "Fresh",
         "confidence_level": "High",
-        "flag": None
+        "flag": None,
+        "estimated_days_until_spoilage": 3,
+        "spoilage_warning": "Leaves may wilt and become slimy within 3-5 days if not stored properly.",
+        "best_use": "Best consumed within 2 days raw in salads or sautéed as a side dish."
       },
       {
         "id": "veg_03",
@@ -30,7 +36,10 @@ DEMO_DATA = {
         "estimated_weight_grams": 120,
         "freshness_status": "Fresh",
         "confidence_level": "High",
-        "flag": None
+        "flag": None,
+        "estimated_days_until_spoilage": 14,
+        "spoilage_warning": "Carrots may become limp or develop white blush after 2 weeks in the fridge.",
+        "best_use": "Excellent for roasting, grating raw into salads, or adding to soups and stews."
       },
       {
         "id": "veg_04",
@@ -40,7 +49,10 @@ DEMO_DATA = {
         "estimated_weight_grams": 300,
         "freshness_status": "Fresh",
         "confidence_level": "High",
-        "flag": None
+        "flag": None,
+        "estimated_days_until_spoilage": 7,
+        "spoilage_warning": "Florets may yellow and soften after 7-10 days; strong sulfur odor indicates spoilage.",
+        "best_use": "Best steamed, roasted, or blanched within 5 days for optimal texture and nutrients."
       },
       {
         "id": "veg_05",
@@ -50,7 +62,10 @@ DEMO_DATA = {
         "estimated_weight_grams": 240,
         "freshness_status": "Fresh",
         "confidence_level": "High",
-        "flag": None
+        "flag": None,
+        "estimated_days_until_spoilage": 10,
+        "spoilage_warning": "Wrinkling and soft patches may develop after 10-14 days in the fridge.",
+        "best_use": "Perfect for fresh crudités, stir-fries, stuffing, or roasting within a week."
       }
     ]
   },
@@ -69,7 +84,9 @@ DEMO_DATA = {
         "Toss all vegetables with the dressing. Top with sesame seeds.",
         "Serve immediately at room temperature."
       ],
-      "plating_suggestion": "Serve in a wide wooden bowl with dressing drizzled in a spiral pattern."
+      "plating_suggestion": "Serve in a wide wooden bowl with dressing drizzled in a spiral pattern.",
+      "estimated_cost": "$5.00",
+      "budget_friendly": true
     },
     "intermediate": {
       "name": "Roasted Vegetable Medley with Garlic Herb Sauce",
@@ -85,7 +102,9 @@ DEMO_DATA = {
         "Blend yogurt with roasted garlic, herbs, and lemon juice for the sauce.",
         "Arrange roasted vegetables on a platter and drizzle with herb sauce."
       ],
-      "plating_suggestion": "Arrange roasted vegetables on a large white platter with sauce drizzled artistically."
+      "plating_suggestion": "Arrange roasted vegetables on a large white platter with sauce drizzled artistically.",
+      "estimated_cost": "$8.50",
+      "budget_friendly": true
     },
     "advanced": {
       "name": "Stuffed Bell Peppers with Broccoli-Carrot Rice",
@@ -104,7 +123,9 @@ DEMO_DATA = {
         "Top with breadcrumbs and bake for 15 minutes until golden.",
         "Serve with tomato salad on the side."
       ],
-      "plating_suggestion": "Place stuffed bell pepper in the center of a plate surrounded by a ring of fresh tomato salad and microgreens."
+      "plating_suggestion": "Place stuffed bell pepper in the center of a plate surrounded by a ring of fresh tomato salad and microgreens.",
+      "estimated_cost": "$12.00",
+      "budget_friendly": false
     }
   },
   "nutrition": [
@@ -368,6 +389,266 @@ DEMO_DATA = {
     "meal_balance_score_out_of_10": 8,
     "meal_balance_justification": "The 5-vegetable selection covers an excellent range of vitamins A, C, K, fibre, and antioxidants. Broccoli and bell pepper are standout additions. The main gaps are protein and healthy fats — a serving of legumes would bring this to 10/10.",
     "next_scan_suggestion": "Pair this vegetable plate with chickpeas or grilled tofu for a complete meal with protein and healthy fats",
-    "overall_verdict": "Excellent 5-vegetable selection with high nutritional density. Tomato, spinach, carrot, broccoli, and bell pepper cover a wide spectrum of vitamins, minerals, and antioxidants. Broccoli stands out for its vitamin C and sulforaphane content, while bell pepper delivers the highest vitamin C per gram. The main gaps are protein, healthy fats, and vitamin B12. Adding lentils, avocado, or grilled paneer would make this a perfectly balanced meal."
-  }
+    "overall_verdict": "Excellent 5-vegetable selection with high nutritional density. Tomato, spinach, carrot, broccoli, and bell pepper cover a wide spectrum of vitamins, minerals, and antioxidants. Broccoli stands out for its vitamin C and sulforaphane content, while bell pepper delivers the highest vitamin C per gram. The main gaps are protein, healthy fats, and vitamin B12. Adding lentils, avocado, or grilled paneer would make this a perfectly balanced meal.",
+    "estimated_total_cost": "$7.00 - $10.00",
+    "leftover_recipe_suggestion": "Transform leftover roasted vegetables into a hearty frittata or blend into a creamy soup the next day."
+  },
+  "health_benefits": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "benefits": [
+        {
+          "benefit": "Heart Health",
+          "detail": "Rich in lycopene, a powerful antioxidant that reduces LDL oxidation and lowers the risk of cardiovascular disease.",
+          "science": "Studies show that regular tomato consumption is associated with a 14% reduction in cardiovascular events (Journal of Nutrition, 2019)."
+        },
+        {
+          "benefit": "Cancer Prevention",
+          "detail": "Lycopene and beta-carotene in tomatoes help neutralize free radicals that can lead to cellular DNA damage.",
+          "science": "A meta-analysis of 24 studies found that high tomato intake reduces prostate cancer risk by up to 20% (Cancer Epidemiology, 2020)."
+        },
+        {
+          "benefit": "Skin Protection",
+          "detail": "Carotenoids in tomatoes accumulate in skin tissue and provide natural protection against UV damage.",
+          "science": "Daily intake of 40g tomato paste with olive oil reduced sunburn by 40% over 10 weeks (British Journal of Dermatology, 2011)."
+        }
+      ]
+    },
+    {
+      "vegetable_id": "veg_02",
+      "vegetable_name": "Spinach",
+      "benefits": [
+        {
+          "benefit": "Bone Health",
+          "detail": "High in vitamin K1 which activates osteocalcin, a protein essential for bone mineralization and strength.",
+          "science": "Adults with the highest vitamin K intake had a 35% lower risk of hip fractures (American Journal of Clinical Nutrition, 2017)."
+        },
+        {
+          "benefit": "Eye Protection",
+          "detail": "Contains lutein and zeaxanthin, carotenoids that accumulate in the retina and filter harmful blue light.",
+          "science": "A 12-year study found that 6mg daily of lutein reduced age-related macular degeneration risk by 41% (JAMA Ophthalmology, 2018)."
+        },
+        {
+          "benefit": "Blood Pressure Regulation",
+          "detail": "High nitrate content in spinach helps dilate blood vessels and improve blood flow naturally.",
+          "science": "Consuming 200g of cooked spinach reduced systolic blood pressure by 5.4 mmHg within 3 hours (Nitric Oxide Journal, 2016)."
+        }
+      ]
+    },
+    {
+      "vegetable_id": "veg_03",
+      "vegetable_name": "Carrot",
+      "benefits": [
+        {
+          "benefit": "Vision Support",
+          "detail": "Extremely rich in beta-carotene which the body converts to vitamin A, essential for night vision and eye health.",
+          "science": "A 15-year study on 50,000 women found that those consuming beta-carotene-rich diets had a 39% lower risk of cataracts (Ophthalmology, 2014)."
+        },
+        {
+          "benefit": "Immune Function",
+          "detail": "Vitamin A supports the production and function of white blood cells that fight infections.",
+          "science": "Carrot consumption has been linked to a 20% reduction in respiratory infection risk in children (Nutrients, 2020)."
+        },
+        {
+          "benefit": "Digestive Health",
+          "detail": "Soluble and insoluble fibre in carrots promotes regular bowel movements and feeds beneficial gut bacteria.",
+          "science": "A serving of grilled carrots provides ~2.8g fibre, supporting microbiome diversity and colon health (Nutrients, 2021)."
+        }
+      ]
+    },
+    {
+      "vegetable_id": "veg_04",
+      "vegetable_name": "Broccoli",
+      "benefits": [
+        {
+          "benefit": "Cancer-Fighting Compounds",
+          "detail": "Contains sulforaphane, a potent compound that activates detoxification enzymes and suppresses tumor growth.",
+          "science": "Broccoli sprout extract reduced breast cancer cell proliferation by 65% in lab studies (Cancer Prevention Research, 2019)."
+        },
+        {
+          "benefit": "Anti-Inflammatory",
+          "detail": "Kaempferol and quercetin in broccoli reduce chronic inflammation markers throughout the body.",
+          "science": "Regular broccoli consumption lowered CRP levels by 21% in a 10-week clinical trial (Journal of Nutrition, 2018)."
+        },
+        {
+          "benefit": "Detoxification Support",
+          "detail": "Glucosinolates in broccoli support phase II liver detoxification pathways, aiding toxin elimination.",
+          "science": "Consuming 200g broccoli daily increased glutathione-S-transferase activity by 30% in 2 weeks (Carcinogenesis, 2017)."
+        }
+      ]
+    },
+    {
+      "vegetable_id": "veg_05",
+      "vegetable_name": "Bell Pepper",
+      "benefits": [
+        {
+          "benefit": "Immune Boost",
+          "detail": "One bell pepper contains more vitamin C than an orange, stimulating white blood cell production and activity.",
+          "science": "A single medium red bell pepper provides 169% of the RDI for vitamin C, significantly enhancing immune response (NIH ODS, 2022)."
+        },
+        {
+          "benefit": "Skin Health",
+          "detail": "Vitamin C is essential for collagen synthesis, keeping skin firm, elastic, and youthful.",
+          "science": "Individuals with the highest vitamin C intake had 11% fewer wrinkles and firmer skin (American Journal of Clinical Nutrition, 2012)."
+        },
+        {
+          "benefit": "Eye Health",
+          "detail": "Rich in lutein, zeaxanthin, and beta-cryptoxanthin — carotenoids that protect retinal cells from oxidative stress.",
+          "science": "A diet rich in colorful peppers was associated with a 26% lower risk of age-related macular degeneration (AREDS2 Study, 2017)."
+        }
+      ]
+    }
+  ],
+  "storage_tips": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "method": "Countertop stem-end up, away from direct sunlight",
+      "shelf_life_days": 5,
+      "refrigerate": false,
+      "refrigerate_note": "Refrigeration destroys texture and flavor — only refrigerate if fully ripe and need 2-3 more days.",
+      "freeze_instructions": "Blanch whole tomatoes for 2 minutes, peel, then freeze in zip-top bags for up to 8 months.",
+      "ripen_at_home": true,
+      "ethylene_producer": true,
+      "tip": "Never store tomatoes in the fridge if you plan to eat them within 3 days — cold kills the flavor enzymes."
+    },
+    {
+      "vegetable_id": "veg_02",
+      "vegetable_name": "Spinach",
+      "method": "Refrigerate in a perforated bag with a paper towel to absorb moisture",
+      "shelf_life_days": 5,
+      "refrigerate": true,
+      "refrigerate_note": "Keep at 1-4°C in the crisper drawer. Do not wash before storing — moisture accelerates spoilage.",
+      "freeze_instructions": "Blanch for 30 seconds, squeeze dry, portion into bags and freeze for up to 12 months.",
+      "ripen_at_home": false,
+      "ethylene_producer": false,
+      "tip": "Place a dry paper towel inside the bag — it absorbs condensation and doubles shelf life."
+    },
+    {
+      "vegetable_id": "veg_03",
+      "vegetable_name": "Carrot",
+      "method": "Refrigerate in a sealed container submerged in water or wrapped in a damp cloth",
+      "shelf_life_days": 21,
+      "refrigerate": true,
+      "refrigerate_note": "Remove leafy tops before storing — they draw moisture from the root and cause limpness.",
+      "freeze_instructions": "Blanch sliced carrots for 3 minutes, cool, and freeze in bags for up to 10 months.",
+      "ripen_at_home": false,
+      "ethylene_producer": true,
+      "tip": "Store carrots away from apples and pears — ethylene from those fruits makes carrots bitter."
+    },
+    {
+      "vegetable_id": "veg_04",
+      "vegetable_name": "Broccoli",
+      "method": "Refrigerate in a loose bag with slight moisture — place stem-end in water like a bouquet",
+      "shelf_life_days": 10,
+      "refrigerate": true,
+      "refrigerate_note": "Best kept at 0-1°C. Wrap in a damp paper towel to maintain crispness and prevent wilting.",
+      "freeze_instructions": "Blanch florets for 2 minutes, shock in ice water, drain well, and freeze for up to 12 months.",
+      "ripen_at_home": false,
+      "ethylene_producer": false,
+      "tip": "Wrap broccoli in a damp paper towel inside a perforated bag to keep it crisp for over a week."
+    },
+    {
+      "vegetable_id": "veg_05",
+      "vegetable_name": "Bell Pepper",
+      "method": "Refrigerate whole and dry in the crisper drawer, unwashed",
+      "shelf_life_days": 10,
+      "refrigerate": true,
+      "refrigerate_note": "Keep dry — any moisture on the skin encourages mold. Use within 10 days for best texture.",
+      "freeze_instructions": "Slice or dice, spread on a baking sheet to flash freeze, then transfer to bags for up to 8 months.",
+      "ripen_at_home": true,
+      "ethylene_producer": true,
+      "tip": "Bell peppers continue ripening at room temperature — leave on the counter if you want sweeter peppers."
+    }
+  ],
+  "cooking_tips": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "preparation": "Score an X on the bottom, blanch 30 seconds, then plunge into ice water for easy peeling. Remove seeds if making sauces.",
+      "best_cooking_methods": ["Slow-roasting", "Sautéing", "Grilling", "Raw in salads"],
+      "flavor_pairings": ["Basil", "Mozzarella", "Garlic", "Olive oil", "Oregano", "Balsamic vinegar"],
+      "nutrition_preservation": "Cooking tomatoes with olive oil increases lycopene absorption by 3-5x. Avoid boiling as water-soluble vitamins leach out.",
+      "common_mistakes": ["Refrigerating before ripening", "Overcooking until mushy", "Using dull knives that crush the flesh"]
+    },
+    {
+      "vegetable_id": "veg_02",
+      "vegetable_name": "Spinach",
+      "preparation": "Wash thoroughly in cold water to remove grit. Remove thick stems. Pat dry or spin in a salad spinner.",
+      "best_cooking_methods": ["Quick sauté", "Steaming", "Blanching", "Raw in salads"],
+      "flavor_pairings": ["Garlic", "Lemon", "Nutmeg", "Cream", "Feta cheese", "Pine nuts"],
+      "nutrition_preservation": "Steam for 2 minutes to retain maximum folate and vitamin C. Avoid prolonged boiling which destroys nutrients.",
+      "common_mistakes": ["Overcrowding the pan (causes steaming instead of sautéing)", "Not drying leaves before cooking", "Cooking too long until slimy"]
+    },
+    {
+      "vegetable_id": "veg_03",
+      "vegetable_name": "Carrot",
+      "preparation": "Scrub well — peeling is optional if organic. Cut into uniform sizes for even cooking. Save tops for pesto.",
+      "best_cooking_methods": ["Roasting", "Steaming", "Sautéing", "Glazing", "Raw julienned"],
+      "flavor_pairings": ["Honey", "Cumin", "Ginger", "Coriander", "Orange", "Thyme", "Butter"],
+      "nutrition_preservation": "Lightly cooking carrots increases beta-carotene bioavailability by 65% compared to raw. Steaming is best.",
+      "common_mistakes": ["Cutting pieces unevenly", "Overcrowding the roasting pan (causes steaming)", "Adding salt too early (draws out moisture)"]
+    },
+    {
+      "vegetable_id": "veg_04",
+      "vegetable_name": "Broccoli",
+      "preparation": "Cut florets into even bite-sized pieces. Peel and slice the stem — it is just as nutritious as the florets.",
+      "best_cooking_methods": ["Roasting at high heat", "Steaming", "Blanching", "Stir-frying"],
+      "flavor_pairings": ["Garlic", "Lemon", "Chili flakes", "Parmesan", "Soy sauce", "Sesame", "Almonds"],
+      "nutrition_preservation": "Steam for 4-5 minutes to preserve 90% of vitamin C and sulforaphane. Avoid boiling — it destroys 50% of nutrients.",
+      "common_mistakes": ["Overcooking until mushy and gray", "Discarding the stems", "Cutting florets too small so they crumble"]
+    },
+    {
+      "vegetable_id": "veg_05",
+      "vegetable_name": "Bell Pepper",
+      "preparation": "Cut off the top, remove seeds and white membranes. For roasting, keep whole or halve. The skin is edible.",
+      "best_cooking_methods": ["Roasting", "Grilling", "Sautéing", "Stir-frying", "Raw in salads"],
+      "flavor_pairings": ["Onion", "Garlic", "Basil", "Oregano", "Olive oil", "Capers", "Anchovy"],
+      "nutrition_preservation": "Vitamin C degrades with heat — eat bell peppers raw for maximum vitamin C or lightly sauté for 3 minutes maximum.",
+      "common_mistakes": ["Storing in plastic bags without air circulation", "Charring skin excessively", "Not removing all seeds before stuffing"]
+    }
+  ],
+  "cost_estimation": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "estimated_price_per_kg": "$3.50 - $6.00",
+      "price_seasonality": "Peak summer (July-September) is cheapest at $2.50/kg; winter greenhouse tomatoes can cost up to $8.00/kg.",
+      "budget_tip": "Buy in bulk during farmers market season and can your own tomatoes for year-round savings.",
+      "estimated_cost_for_this_scan": "$1.60 - $2.70"
+    },
+    {
+      "vegetable_id": "veg_02",
+      "vegetable_name": "Spinach",
+      "estimated_price_per_kg": "$5.00 - $8.00",
+      "price_seasonality": "Spring and fall offer the best prices ($4.50/kg); summer heat and winter cold drive prices up by 30-40%.",
+      "budget_tip": "Buy frozen spinach for recipes — it is 50% cheaper, equally nutritious, and lasts months in the freezer.",
+      "estimated_cost_for_this_scan": "$0.30 - $0.50"
+    },
+    {
+      "vegetable_id": "veg_03",
+      "vegetable_name": "Carrot",
+      "estimated_price_per_kg": "$1.50 - $3.00",
+      "price_seasonality": "Carrots are affordable year-round; cheapest in fall harvest season ($1.20/kg) and slightly pricier in early summer.",
+      "budget_tip": "Buy whole carrots with tops still attached — they are fresher and cheaper than pre-cut baby carrots.",
+      "estimated_cost_for_this_scan": "$0.20 - $0.40"
+    },
+    {
+      "vegetable_id": "veg_04",
+      "vegetable_name": "Broccoli",
+      "estimated_price_per_kg": "$3.00 - $5.00",
+      "price_seasonality": "Best prices in fall and winter ($2.50/kg); spring/summer prices rise as supply tightens.",
+      "budget_tip": "Use the entire broccoli — stem, leaves, and florets. The stem is just as tasty when peeled and sliced.",
+      "estimated_cost_for_this_scan": "$0.90 - $1.50"
+    },
+    {
+      "vegetable_id": "veg_05",
+      "vegetable_name": "Bell Pepper",
+      "estimated_price_per_kg": "$4.00 - $7.00",
+      "price_seasonality": "Red and yellow peppers are 2x the price of green ones. Summer offers best value at around $3.00/kg.",
+      "budget_tip": "Green bell peppers are significantly cheaper and have the same nutritional profile — use them when recipes don't require sweetness.",
+      "estimated_cost_for_this_scan": "$1.00 - $1.70"
+    }
+  ]
 }

@@ -5,14 +5,24 @@ import NutritionTable from '../components/NutritionTable'
 import AllergyReport from '../components/AllergyReport'
 import Substitutions from '../components/Substitutions'
 import Improvements from '../components/Improvements'
+import HealthBenefits from '../components/HealthBenefits'
+import StorageTips from '../components/StorageTips'
+import CookingTips from '../components/CookingTips'
+import CostEstimation from '../components/CostEstimation'
 import { addScanToHistory } from '../utils/scanHistory'
+import { addRecipeIngredientsToList } from '../utils/shoppingList'
+import { toggleFavorite, isFavorite } from '../utils/favorites'
 
 const sections = [
   { label: 'Vegetables', id: 'section-veg', emoji: '🥬' },
   { label: 'Recipes', id: 'section-recipes', emoji: '🍳' },
+  { label: 'Health Benefits', id: 'section-health', emoji: '💚' },
   { label: 'Nutrition', id: 'section-nutrition', emoji: '🥦' },
+  { label: 'Storage', id: 'section-storage', emoji: '❄️' },
+  { label: 'Cooking Tips', id: 'section-cooking', emoji: '👨‍🍳' },
   { label: 'Allergies', id: 'section-allergy', emoji: '🩺' },
   { label: 'Substitutions', id: 'section-subs', emoji: '🔄' },
+  { label: 'Cost', id: 'section-cost', emoji: '💰' },
   { label: 'Improvements', id: 'section-improve', emoji: '📊' },
 ]
 
@@ -125,9 +135,13 @@ export default function Scan() {
           )}
 
           <div id="section-recipes" className="scroll-mt-20"><RecipeCard recipes={r.recipes} /></div>
+          <div id="section-health" className="scroll-mt-20"><HealthBenefits health_benefits={r.health_benefits} /></div>
           <div id="section-nutrition" className="scroll-mt-20"><NutritionTable nutrition={r.nutrition} /></div>
+          <div id="section-storage" className="scroll-mt-20"><StorageTips storage_tips={r.storage_tips} /></div>
+          <div id="section-cooking" className="scroll-mt-20"><CookingTips cooking_tips={r.cooking_tips} /></div>
           <div id="section-allergy" className="scroll-mt-20"><AllergyReport allergy_report={r.allergy_report} /></div>
           <div id="section-subs" className="scroll-mt-20"><Substitutions substitutions={r.substitutions} /></div>
+          <div id="section-cost" className="scroll-mt-20"><CostEstimation cost_estimation={r.cost_estimation} improvements={r.improvements} /></div>
           <div id="section-improve" className="scroll-mt-20"><Improvements improvements={r.improvements} /></div>
         </div>
       )}

@@ -28,6 +28,10 @@ Return your entire response as a single valid JSON object with these top-level k
   "nutrition": [],
   "allergy_report": [],
   "substitutions": [],
+  "health_benefits": [],
+  "storage_tips": [],
+  "cooking_tips": [],
+  "cost_estimation": [],
   "improvements": {}
 }
 Return only the raw JSON object — nothing before it, nothing after it.
@@ -120,7 +124,81 @@ Use this exact structure for each vegetable:
   "nutritional_equivalence": "High"
 }
 
-STEP 6 — IMPROVEMENTS — Output key: "improvements"
+STEP 6 — HEALTH BENEFITS — Output key: "health_benefits"
+For each vegetable, list key health benefits with scientific basis.
+{
+  "health_benefits": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "benefits": [
+        {"benefit": "Heart health", "detail": "Lycopene reduces LDL oxidation and lowers cardiovascular disease risk.", "science": "Supported by multiple cohort studies."},
+        {"benefit": "Cancer prevention", "detail": "Lycopene and beta-carotene have antioxidant properties linked to reduced prostate cancer risk.", "science": "Meta-analysis of 24 studies confirms inverse association."},
+        {"benefit": "Skin protection", "detail": "Lycopene helps protect skin from UV damage.", "science": "Journal of Nutrition, 2012."}
+      ]
+    }
+  ]
+}
+
+STEP 7 — STORAGE TIPS — Output key: "storage_tips"
+For each vegetable, provide proper storage methods and shelf life.
+{
+  "storage_tips": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "method": "Countertop at room temperature, stem side down, away from direct sunlight.",
+      "shelf_life_days": "5-7",
+      "refrigerate": false,
+      "refrigerate_note": "Refrigeration destroys texture and flavor. Only refrigerate if fully ripe and cannot be consumed in time.",
+      "freeze_instructions": "Blanch and freeze for up to 3 months. Best used in cooked dishes after thawing.",
+      "ripen_at_home": true,
+      "ethylene_producer": true,
+      "tip": "Place in a paper bag with a banana to speed up ripening."
+    }
+  ]
+}
+
+STEP 8 — COOKING TIPS — Output key: "cooking_tips"
+For each vegetable, provide preparation techniques and cooking methods.
+{
+  "cooking_tips": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "preparation": "Wash thoroughly. Core and dice. For sauces, blanch and peel for smoother texture.",
+      "best_cooking_methods": ["Raw in salads", "Roasted", "Sautéed", "Grilled", "Blended into soups"],
+      "flavor_pairings": ["Basil", "Garlic", "Olive oil", "Mozzarella", "Oregano"],
+      "nutrition_preservation": "Light cooking increases lycopene bioavailability. Avoid prolonged boiling which leaches vitamin C.",
+      "common_mistakes": ["Refrigerating unripe tomatoes", "Overcooking which turns them mushy", "Using dull knife that crushes flesh"]
+    }
+  ]
+}
+
+STEP 9 — COST ESTIMATION — Output key: "cost_estimation"
+For each vegetable, estimate cost based on typical market prices.
+{
+  "cost_estimation": [
+    {
+      "vegetable_id": "veg_01",
+      "vegetable_name": "Tomato",
+      "estimated_price_per_kg": "$3.50 - $5.00",
+      "price_seasonality": "Cheapest in summer (July-September), most expensive in winter.",
+      "budget_tip": "Buy in bulk during peak season and freeze for winter use.",
+      "estimated_cost_for_this_scan": "$1.50 - $2.50"
+    }
+  ]
+}
+
+STEP 10 — EXPIRY & FRESHNESS — Included inside scan_summary items
+Add these fields to each item in scan_summary.items:
+{
+  "estimated_days_until_spoilage": 5,
+  "spoilage_warning": "Use within 2-3 days for optimal freshness.",
+  "best_use": "Eat raw or make fresh salsa today."
+}
+
+STEP 11 — IMPROVEMENTS — Output key: "improvements"
 {
   "improvements": {
     "nutritional_gaps": [],
@@ -129,7 +207,9 @@ STEP 6 — IMPROVEMENTS — Output key: "improvements"
     "meal_balance_score_out_of_10": <number>,
     "meal_balance_justification": "",
     "next_scan_suggestion": "",
-    "overall_verdict": ""
+    "overall_verdict": "",
+    "estimated_total_cost": "$5.00 - $8.00",
+    "leftover_recipe_suggestion": "Use leftover vegetables in a frittata or stir-fry the next day."
   }
 }"""
 

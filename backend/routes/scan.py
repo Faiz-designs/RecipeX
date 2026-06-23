@@ -1,13 +1,17 @@
 from fastapi import APIRouter, Depends, UploadFile, File, HTTPException, Query
+from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from database import get_db
 from models.scan import Scan
 from models.vegetable import Vegetable, Nutrition, Recipe, Substitution
-from services.groq_service import analyze_image
+from services.groq_service import analyze_image, analyze_text
 from services.demo_data import DEMO_DATA
 import json
 
 router = APIRouter(prefix="/scan", tags=["Scan"])
+
+class TextScanRequest(BaseModel):
+    text: str
 
 
 @router.get("/demo")
@@ -84,6 +88,92 @@ def demo_scan(db: Session = Depends(get_db)):
             affected_groups=json.dumps(sub.get("affected_groups", [])),
             substitute_vegetable=sub["substitute_vegetable"],
             why_safer=sub["why_safer"],
+            nutritional_equivalence=sub.get("nutritional_equivalence", ""),
+        )
+        db.add(sub_entry)
+
+    db.commit()
+
+    return {"scan_id": scan.id, "result": result}
+
+
+@router.post("/text")
+async def scan_by_text(req: TextScanRequest, db: Session = Depends(get_db)):
+    if not req.text.strip():
+        raise HTTPException(status_code=400, detail="Text cannot be empty")
+
+    result = analyze_text(req.text)
+
+    scan = Scan(
+        image_path="voice_input.jpg",
+        total_vegetables=result.get("scan_summary", {}).get("total_vegetables_detected", 0),
+        raw_response=json.dumps(result),
+    )
+    db.add(scan)
+    db.commit()
+    db.refresh(scan)
+
+    for item in result.get("scan_summary", {}).get("items", []):
+        veg = Vegetable(
+            scan_id=scan.id,
+            common_name=item.get("common_name", "Unknown"),
+            scientific_name=item.get("scientific_name", ""),
+            estimated_quantity=item.get("estimated_quantity", ""),
+            estimated_weight_grams=item.get("estimated_weight_grams", 0),
+            freshness_status=item.get("freshness_status", ""),
+            confidence_level=item.get("confidence_level", ""),
+        )
+        db.add(veg)
+        db.commit()
+        db.refresh(veg)
+
+        nutrition_data = next(
+            (n for n in result.get("nutrition", []) if n.get("vegetable_id") == item.get("id")),
+            None
+        )
+        if nutrition_data:
+            per = nutrition_data.get("per_100g", {})
+            nut = Nutrition(
+                vegetable_id=veg.id,
+                calories_kcal=per.get("calories_kcal"),
+                carbohydrates_g=per.get("carbohydrates_g"),
+                dietary_fibre_g=per.get("dietary_fibre_g"),
+                protein_g=per.get("protein_g"),
+                fat_g=per.get("fat_g"),
+                vitamin_c_mg=per.get("vitamin_c_mg"),
+                iron_mg=per.get("iron_mg"),
+                potassium_mg=per.get("potassium_mg"),
+                calcium_mg=per.get("calcium_mg"),
+                sodium_mg=per.get("sodium_mg"),
+                glycemic_index=nutrition_data.get("glycemic_index"),
+                health_score=nutrition_data.get("health_score_out_of_10"),
+                data_confidence=nutrition_data.get("data_confidence", ""),
+            )
+            db.add(nut)
+
+    for level in ["easy", "intermediate", "advanced"]:
+        recipe_data = result.get("recipes", {}).get(level)
+        if recipe_data:
+            rec = Recipe(
+                scan_id=scan.id,
+                skill_level=level,
+                name=recipe_data.get("name", ""),
+                total_time_minutes=recipe_data.get("total_time_minutes"),
+                servings=recipe_data.get("servings"),
+                additional_ingredients=json.dumps(recipe_data.get("additional_ingredients_required", [])),
+                steps=json.dumps(recipe_data.get("steps", [])),
+                plating_suggestion=recipe_data.get("plating_suggestion", ""),
+            )
+            db.add(rec)
+
+    for sub in result.get("substitutions", []):
+        sub_entry = Substitution(
+            scan_id=scan.id,
+            original_vegetable_name=sub.get("original_vegetable_name", ""),
+            risk_reason=sub.get("risk_reason", ""),
+            affected_groups=json.dumps(sub.get("affected_groups", [])),
+            substitute_vegetable=sub.get("substitute_vegetable", ""),
+            why_safer=sub.get("why_safer", ""),
             nutritional_equivalence=sub.get("nutritional_equivalence", ""),
         )
         db.add(sub_entry)

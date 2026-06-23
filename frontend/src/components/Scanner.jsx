@@ -87,6 +87,18 @@ export default function Scanner({ onScanComplete }) {
     } finally { setLoading(false) }
   }
 
+  const handleVoiceScan = async (text) => {
+    if (!text.trim()) return
+    setVoiceNote(text)
+    setLoading(true); setError('')
+    try {
+      const res = await axios.post(`${API}/scan/text`, { text })
+      if (onScanComplete) onScanComplete(res.data)
+    } catch (err) {
+      setError(err.response?.data?.message || 'Voice scan failed. Try upload mode.')
+    } finally { setLoading(false) }
+  }
+
   return (
     <div className="max-w-2xl mx-auto">
       <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-6 md:p-8">
@@ -151,7 +163,7 @@ export default function Scanner({ onScanComplete }) {
         <canvas ref={canvasRef} hidden />
 
         <div className="mt-4 flex items-center gap-3 p-3 bg-slate-50/50 dark:bg-slate-700/30 border border-slate-100 dark:border-slate-700 rounded-xl">
-          <VoiceInput onResult={(text) => setVoiceNote(text)} />
+          <VoiceInput onResult={handleVoiceScan} />
           <div className="flex-1">
             {voiceNote ? (
               <p className="text-sm text-slate-600 dark:text-slate-300"><span className="font-medium text-emerald-600 dark:text-emerald-400">Voice note:</span> {voiceNote}</p>

@@ -30,11 +30,11 @@ function Nav() {
     { to: '/about', label: t('nav.about'), icon: 'ℹ️' },
   ]
   return (
-    <div className="flex gap-1 items-center flex-wrap">
+    <div className="flex gap-0.5 items-center overflow-x-auto scrollbar-none">
       {links.map(l => (
-        <Link key={l.to} to={l.to} aria-current={pathname === l.to ? 'page' : undefined} className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap flex items-center gap-1.5 ${pathname === l.to ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-200 dark:ring-emerald-700/50' : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 hover:scale-[1.02]'}`}>
-          <span className="text-[15px]">{l.icon}</span>
-          <span>{l.label}</span>
+        <Link key={l.to} to={l.to} aria-current={pathname === l.to ? 'page' : undefined} className={`px-2 py-1.5 text-xs sm:text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap flex items-center gap-1 ${pathname === l.to ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 ring-1 ring-emerald-200 dark:ring-emerald-700/50' : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 hover:scale-[1.02]'}`}>
+          <span className="text-xs sm:text-[15px]">{l.icon}</span>
+          <span className="hidden sm:inline">{l.label}</span>
         </Link>
       ))}
     </div>
@@ -56,7 +56,7 @@ function AppContent() {
             <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 group-hover:shadow-emerald-400/20 transition-all duration-300">
               <span className="text-lg">🥗</span>
             </div>
-            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 text-base hidden sm:inline">
+            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 text-sm md:text-base hidden md:inline">
               RecipeX AI
             </span>
           </Link>

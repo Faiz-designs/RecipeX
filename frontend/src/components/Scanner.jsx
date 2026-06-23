@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect } from 'react'
 import axios from 'axios'
 
 const API = 'https://FaizBasha05.pythonanywhere.com'
@@ -33,11 +33,16 @@ export default function Scanner({ onScanComplete }) {
 
   const startCamera = useCallback(async () => {
     try {
-      const s = await navigator.mediaDevices.getUserMedia({ video: true })
+      const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } } })
       setStream(s)
-      if (videoRef.current) videoRef.current.srcObject = s
     } catch { setError('Camera access denied. Use upload mode instead.') }
   }, [])
+
+  useEffect(() => {
+    if (videoRef.current && stream) {
+      videoRef.current.srcObject = stream
+    }
+  }, [stream])
 
   const captureFromCamera = useCallback(() => {
     if (!videoRef.current || !canvasRef.current) return

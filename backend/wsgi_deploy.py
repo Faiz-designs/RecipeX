@@ -1,13 +1,17 @@
 import sys, json, os, base64
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 sys.path.insert(0, '/home/FaizBasha05/RecipeX/backend')
 # Set GROQ_API_KEY as environment variable on PythonAnywhere via Web tab -> Environment variables
 # or uncomment the line below with your actual key:
 # os.environ['GROQ_API_KEY'] = 'your-key-here'
 from services.demo_data import DEMO_DATA
 from services.groq_service import analyze_image
+from services.meal_planner_service import generate_meal_plan
 from database import SessionLocal, init_db
 from models.user import User
+from models.favorite import Favorite
+from models.nutrition_log import NutritionLog
+from models.scan import Scan
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -18,12 +22,27 @@ init_db()
 
 def jr(s, d, st='200 OK'):
     r = json.dumps(d).encode()
-    h = [('Content-type', 'application/json'), ('Access-Control-Allow-Origin', '*'), ('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'), ('Access-Control-Allow-Headers', '*')]
+    h = [('Content-type', 'application/json'), ('Access-Control-Allow-Origin', '*'), ('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS'), ('Access-Control-Allow-Headers', '*')]
     s(st, h); return [r]
 
 def rb(e):
     try: return json.loads(e['wsgi.input'].read(int(e.get('CONTENT_LENGTH',0))).decode())
     except: return None
+
+def get_user(a):
+    if not a or not a.startswith('Bearer '): return None
+    try:
+        p = jwt.decode(a.split(' ')[1], SECRET_KEY, algorithms=[ALGORITHM])
+        uid = int(p.get('sub'))
+    except: return None
+    db = SessionLocal()
+    try: return db.query(User).filter(User.id == uid).first()
+    finally: db.close()
+
+def req_user(a):
+    u = get_user(a)
+    if not u: return None, {'error': 'Not authenticated'}
+    return u, None
 
 def reg(b):
     if not b or not b.get('username') or not b.get('password'): return {'error': 'Username and password required'}
@@ -47,28 +66,133 @@ def log(b):
     finally: db.close()
 
 def me(a):
-    if not a or not a.startswith('Bearer '): return {'error': 'Not authenticated'}, 401
-    try:
-        p = jwt.decode(a.split(' ')[1], SECRET_KEY, algorithms=[ALGORITHM])
-        uid = int(p.get('sub'))
-    except: return {'error': 'Invalid token'}, 401
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    return {'id': u.id, 'username': u.username, 'email': u.email, 'full_name': u.full_name or '', 'age': u.age or 0, 'allergies': u.allergies or '', 'medical_conditions': u.medical_conditions or '', 'dietary_preferences': u.dietary_preferences or '', 'created_at': str(u.created_at) if u.created_at else ''}, 200
+
+def scan_history(a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
     db = SessionLocal()
     try:
-        u = db.query(User).filter(User.id == uid).first()
-        if not u: return {'error': 'User not found'}, 401
-        return {'id': u.id, 'username': u.username, 'email': u.email, 'full_name': u.full_name or '', 'age': u.age or 0, 'allergies': u.allergies or '', 'medical_conditions': u.medical_conditions or '', 'dietary_preferences': u.dietary_preferences or '', 'created_at': str(u.created_at) if u.created_at else ''}, 200
+        scans = db.query(Scan).filter(Scan.user_id == u.id).order_by(Scan.created_at.desc()).limit(50).all()
+        result = []
+        for scan in scans:
+            raw = json.loads(scan.raw_response) if scan.raw_response else {}
+            preview = {}
+            if raw.get('scan_summary', {}).get('items'):
+                names = [i.get('common_name', '') for i in raw['scan_summary']['items']]
+                preview['veggies'] = ', '.join(names[:3])
+                if len(names) > 3: preview['veggies'] += f' +{len(names)-3} more'
+            if raw.get('improvements', {}).get('meal_balance_score_out_of_10'):
+                preview['score'] = raw['improvements']['meal_balance_score_out_of_10']
+            result.append({'id': scan.id, 'created_at': str(scan.created_at) if scan.created_at else '', 'total_vegetables': scan.total_vegetables, 'preview': preview})
+        return result, 200
     finally: db.close()
+
+def meal_plan(b, a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    try:
+        preferences = {
+            'allergies': (b.get('allergies') or u.allergies or '') if b else (u.allergies or ''),
+            'dietary_preferences': (b.get('dietary_preferences') or u.dietary_preferences or '') if b else (u.dietary_preferences or ''),
+            'medical_conditions': (b.get('medical_conditions') or u.medical_conditions or '') if b else (u.medical_conditions or ''),
+        }
+        ingredients = b.get('available_ingredients', []) if b else []
+        plan = generate_meal_plan(preferences, ingredients)
+        if 'error' in plan: return plan, 500
+        return plan, 200
+    except Exception as e:
+        return {'error': str(e)}, 500
+
+def list_favs(a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    db = SessionLocal()
+    try:
+        favs = db.query(Favorite).filter(Favorite.user_id == u.id).order_by(Favorite.created_at.desc()).all()
+        return [{'id': f.id, 'recipe_name': f.recipe_name, 'recipe_data': json.loads(f.recipe_data) if f.recipe_data else None, 'created_at': str(f.created_at) if f.created_at else ''} for f in favs], 200
+    finally: db.close()
+
+def add_fav(b, a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    if not b or not b.get('recipe_name'): return {'error': 'recipe_name required'}, 400
+    db = SessionLocal()
+    try:
+        existing = db.query(Favorite).filter(Favorite.user_id == u.id, Favorite.recipe_name == b['recipe_name']).first()
+        if existing: return {'error': 'Already in favorites'}, 400
+        f = Favorite(user_id=u.id, recipe_name=b['recipe_name'], recipe_data=b.get('recipe_data',''))
+        db.add(f); db.commit(); db.refresh(f)
+        return {'id': f.id, 'recipe_name': f.recipe_name, 'message': 'Added to favorites'}, 200
+    finally: db.close()
+
+def del_fav(id, a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    db = SessionLocal()
+    try:
+        f = db.query(Favorite).filter(Favorite.id == id, Favorite.user_id == u.id).first()
+        if not f: return {'error': 'Favorite not found'}, 404
+        db.delete(f); db.commit()
+        return {'message': 'Removed from favorites'}, 200
+    finally: db.close()
+
+def nut_log(b, a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    if not b or not b.get('log_date'): return {'error': 'log_date required'}, 400
+    db = SessionLocal()
+    try:
+        nl = NutritionLog(user_id=u.id, log_date=date.fromisoformat(b['log_date']), meal_type=b.get('meal_type',''), food_name=b.get('food_name',''), calories_kcal=b.get('calories_kcal',0), protein_g=b.get('protein_g',0), carbohydrates_g=b.get('carbohydrates_g',0), fat_g=b.get('fat_g',0), fibre_g=b.get('fibre_g',0))
+        db.add(nl); db.commit(); db.refresh(nl)
+        return {'id': nl.id, 'message': 'Logged'}, 200
+    finally: db.close()
+
+def nut_history(a, qs):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    days = 7
+    if qs:
+        for part in qs.split('&'):
+            kv = part.split('=')
+            if len(kv) == 2 and kv[0] == 'days':
+                try: days = min(max(int(kv[1]), 1), 90)
+                except: pass
+    since = date.today() - timedelta(days=days-1)
+    db = SessionLocal()
+    try:
+        logs = db.query(NutritionLog).filter(NutritionLog.user_id == u.id, NutritionLog.log_date >= since).order_by(NutritionLog.log_date.desc(), NutritionLog.id.desc()).all()
+        daily = {}
+        for log in logs:
+            d = str(log.log_date)
+            if d not in daily: daily[d] = {'date': d, 'calories': 0, 'protein': 0, 'carbs': 0, 'fat': 0, 'fibre': 0, 'meals': []}
+            daily[d]['calories'] += log.calories_kcal or 0
+            daily[d]['protein'] += log.protein_g or 0
+            daily[d]['carbs'] += log.carbohydrates_g or 0
+            daily[d]['fat'] += log.fat_g or 0
+            daily[d]['fibre'] += log.fibre_g or 0
+            daily[d]['meals'].append({'meal_type': log.meal_type, 'food_name': log.food_name, 'calories': log.calories_kcal})
+        return sorted(daily.values(), key=lambda x: x['date'], reverse=True), 200
+    finally: db.close()
+
+def parse_path(p):
+    parts = p.strip('/').split('/')
+    return parts
 
 def application(environ, start_response):
     p = environ.get('PATH_INFO','').rstrip('/')
     m = environ.get('REQUEST_METHOD','GET')
+    qs = environ.get('QUERY_STRING','')
+    a = environ.get('HTTP_AUTHORIZATION','')
     if m == 'OPTIONS':
-        start_response('200 OK', [('Access-Control-Allow-Origin','*'),('Access-Control-Allow-Methods','GET, POST, OPTIONS'),('Access-Control-Allow-Headers','*')])
+        start_response('200 OK', [('Access-Control-Allow-Origin','*'),('Access-Control-Allow-Methods','GET, POST, DELETE, OPTIONS'),('Access-Control-Allow-Headers','*')])
         return [b'']
     if p == '/auth/register' and m == 'POST': return jr(start_response, reg(rb(environ)))
     if p == '/auth/login' and m == 'POST': return jr(start_response, log(rb(environ)))
     if p == '/auth/me' and m == 'GET':
-        d, s = me(environ.get('HTTP_AUTHORIZATION',''))
+        d, s = me(a)
         return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
     if p == '/scan' and m == 'POST':
         try:
@@ -78,7 +202,35 @@ def application(environ, start_response):
             else: d = {'error': 'No image'}
         except Exception as e: d = {'error': str(e)}
         return jr(start_response, d)
-    routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'RecipeX AI', 'status': 'running', 'version': '1.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
+    if p == '/scan/history' and m == 'GET':
+        d, s = scan_history(a)
+        return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
+    if p == '/meal-planner/generate' and m == 'POST':
+        d, s = meal_plan(rb(environ), a)
+        st = {200: '200 OK', 400: '400 Bad Request', 401: '401 Unauthorized', 500: '500 Internal Server Error'}.get(s, '200 OK')
+        return jr(start_response, d, st)
+    if p == '/favorites' and m == 'GET':
+        d, s = list_favs(a)
+        return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
+    if p == '/favorites' and m == 'POST':
+        d, s = add_fav(rb(environ), a)
+        st = {200: '200 OK', 400: '400 Bad Request', 401: '401 Unauthorized'}.get(s, '200 OK')
+        return jr(start_response, d, st)
+    parts = parse_path(p)
+    if len(parts) == 2 and parts[0] == 'favorites' and m == 'DELETE':
+        try:
+            d, s = del_fav(int(parts[1]), a)
+            st = {200: '200 OK', 401: '401 Unauthorized', 404: '404 Not Found'}.get(s, '200 OK')
+            return jr(start_response, d, st)
+        except: return jr(start_response, {'error': 'Invalid ID'}, '400 Bad Request')
+    if p == '/nutrition/log' and m == 'POST':
+        d, s = nut_log(rb(environ), a)
+        st = {200: '200 OK', 400: '400 Bad Request', 401: '401 Unauthorized'}.get(s, '200 OK')
+        return jr(start_response, d, st)
+    if p == '/nutrition/history' and m == 'GET':
+        d, s = nut_history(a, qs)
+        return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
+    routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'RecipeX AI', 'status': 'running', 'version': '2.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
     h = routes.get(p)
     if not h: return jr(start_response, {'error': 'Not found'}, '404 Not Found')
     return jr(start_response, h())

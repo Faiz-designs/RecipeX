@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import Scanner from '../components/Scanner'
 import RecipeCard from '../components/RecipeCard'
 import NutritionTable from '../components/NutritionTable'
@@ -13,24 +14,25 @@ import { addScanToHistory } from '../utils/scanHistory'
 import { addRecipeIngredientsToList } from '../utils/shoppingList'
 import { toggleFavorite, isFavorite } from '../utils/favorites'
 
-const sections = [
-  { label: 'Vegetables', id: 'section-veg', emoji: '🥬' },
-  { label: 'Recipes', id: 'section-recipes', emoji: '🍳' },
-  { label: 'Health Benefits', id: 'section-health', emoji: '💚' },
-  { label: 'Nutrition', id: 'section-nutrition', emoji: '🥦' },
-  { label: 'Storage', id: 'section-storage', emoji: '❄️' },
-  { label: 'Cooking Tips', id: 'section-cooking', emoji: '👨‍🍳' },
-  { label: 'Allergies', id: 'section-allergy', emoji: '🩺' },
-  { label: 'Substitutions', id: 'section-subs', emoji: '🔄' },
-  { label: 'Cost', id: 'section-cost', emoji: '💰' },
-  { label: 'Improvements', id: 'section-improve', emoji: '📊' },
-]
-
 export default function Scan() {
+  const { t } = useTranslation()
   const [result, setResult] = useState(null)
   const [showReport, setShowReport] = useState(false)
   const [showTop, setShowTop] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+
+  const sections = [
+    { label: t('scan.sections.vegetables'), id: 'section-veg', emoji: '🥬' },
+    { label: t('scan.sections.recipes'), id: 'section-recipes', emoji: '🍳' },
+    { label: t('scan.sections.healthBenefits'), id: 'section-health', emoji: '💚' },
+    { label: t('scan.sections.nutrition'), id: 'section-nutrition', emoji: '🥦' },
+    { label: t('scan.sections.storage'), id: 'section-storage', emoji: '❄️' },
+    { label: t('scan.sections.cookingTips'), id: 'section-cooking', emoji: '👨‍🍳' },
+    { label: t('scan.sections.allergies'), id: 'section-allergy', emoji: '🩺' },
+    { label: t('scan.sections.substitutions'), id: 'section-subs', emoji: '🔄' },
+    { label: t('scan.sections.cost'), id: 'section-cost', emoji: '💰' },
+    { label: t('scan.sections.improvements'), id: 'section-improve', emoji: '📊' },
+  ]
 
   const handleScanComplete = (data) => {
     setResult(data)
@@ -66,8 +68,8 @@ export default function Scan() {
       {!showReport && (
         <div className="animate-fadeIn">
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">Smart Vegetable Scanner</h1>
-            <p className="text-slate-500 dark:text-slate-400">Upload a photo, use your camera, or try the demo</p>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">{t('scan.title')}</h1>
+            <p className="text-slate-500 dark:text-slate-400">{t('scan.subtitle')}</p>
           </div>
           <Scanner onScanComplete={handleScanComplete} />
         </div>
@@ -80,11 +82,11 @@ export default function Scan() {
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-md"><span className="text-xl">📊</span></div>
                 <div>
-                  <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-slate-100">Scan Results</h1>
-                  <p className="text-slate-400 dark:text-slate-500 text-sm">{r.scan_summary?.total_vegetables_detected} vegetable{r.scan_summary?.total_vegetables_detected !== 1 ? 's' : ''} detected</p>
+                  <h1 className="text-2xl md:text-3xl font-extrabold text-slate-800 dark:text-slate-100">{t('scan.results')}</h1>
+                  <p className="text-slate-400 dark:text-slate-500 text-sm">{t('scan.vegetablesDetected', { count: r.scan_summary?.total_vegetables_detected })}</p>
                 </div>
               </div>
-              <button onClick={handleReset} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98] whitespace-nowrap">New Scan</button>
+              <button onClick={handleReset} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98] whitespace-nowrap">{t('scan.newScan')}</button>
             </div>
           </div>
 
@@ -99,7 +101,7 @@ export default function Scan() {
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center"><span className="text-lg font-extrabold text-slate-700 dark:text-slate-200">{r.improvements.meal_balance_score_out_of_10}</span></div>
                   </div>
-                  <div><span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Score</span><p className="text-lg font-bold text-slate-800 dark:text-slate-100">Meal Balance</p></div>
+                  <div><span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('scan.score')}</span><p className="text-lg font-bold text-slate-800 dark:text-slate-100">{t('scan.mealBalance')}</p></div>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{r.improvements.overall_verdict}</p>
               </div>
@@ -118,7 +120,7 @@ export default function Scan() {
             <div id="section-veg" className="mb-8 scroll-mt-20">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🥬</div>
-                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Detected Vegetables</h2>
+                <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.vegetables')}</h2>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                 {r.scan_summary.items.map((item) => (
@@ -147,7 +149,7 @@ export default function Scan() {
       )}
 
       {showTop && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center text-xl z-50" title="Back to top">↑</button>
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all flex items-center justify-center text-xl z-50" title={t('scan.backToTop')}>↑</button>
       )}
     </div>
   )

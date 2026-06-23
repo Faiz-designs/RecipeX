@@ -1,13 +1,5 @@
 import { Link } from 'react-router-dom'
-
-const features = [
-  { emoji: '📸', title: 'AI Scanner', desc: 'Real-time vegetable recognition with freshness detection and confidence scoring.' },
-  { emoji: '🍳', title: 'Smart Recipes', desc: 'Easy, Intermediate, and Advanced recipes tailored to ingredients you have.' },
-  { emoji: '🥦', title: 'Nutrition Data', desc: 'USDA-verified nutrition per 100g — calories, macros, fibre, vitamins, and glycemic index.' },
-  { emoji: '🩺', title: 'Allergy Reports', desc: '9-group medical risk assessment with severity flags — safe, caution, or avoid.' },
-  { emoji: '📊', title: 'Meal Planning', desc: 'Balance scores out of 10 with nutritional gap analysis and next-scan suggestions.' },
-  { emoji: '💰', title: 'Budget Cooking', desc: 'Cost estimation per serving with money-saving tips and seasonal produce picks.' },
-]
+import { useTranslation } from 'react-i18next'
 
 const techStack = [
   { name: 'React', color: 'text-sky-600 dark:text-sky-400' },
@@ -21,6 +13,17 @@ const techStack = [
 ]
 
 export default function About() {
+  const { t } = useTranslation()
+
+  const features = [
+    { emoji: '📸', title: t('about.features.aiScanner'), desc: t('about.features.aiScannerDesc') },
+    { emoji: '🍳', title: t('about.features.smartRecipes'), desc: t('about.features.smartRecipesDesc') },
+    { emoji: '🥦', title: t('about.features.nutritionData'), desc: t('about.features.nutritionDataDesc') },
+    { emoji: '🩺', title: t('about.features.allergyReports'), desc: t('about.features.allergyReportsDesc') },
+    { emoji: '📊', title: t('about.features.mealPlanning'), desc: t('about.features.mealPlanningDesc') },
+    { emoji: '💰', title: t('about.features.budgetCooking'), desc: t('about.features.budgetCookingDesc') },
+  ]
+
   return (
     <div className="animate-fadeIn">
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 animate-gradient py-20 md:py-28">
@@ -34,13 +37,13 @@ export default function About() {
         <div className="relative max-w-3xl mx-auto text-center px-4">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-1.5 mb-6 border border-white/20">
             <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
-            <span className="text-sm font-medium text-white/90">AI-Powered Smart Kitchen Assistant</span>
+            <span className="text-sm font-medium text-white/90">{t('about.tagline')}</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">
-            About NutriVision AI
+            {t('about.title')}
           </h1>
           <p className="text-lg text-emerald-100/90 mb-6 leading-relaxed max-w-xl mx-auto">
-            AI-Powered Smart Kitchen Assistant — reducing food waste and making healthy cooking accessible to everyone.
+            {t('about.tagline')} — {t('about.missionDesc')}
           </p>
         </div>
       </div>
@@ -49,22 +52,16 @@ export default function About() {
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700 p-8 md:p-10 mb-16">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center text-lg shadow-sm">🎯</div>
-            <h2 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">Our Mission</h2>
+            <h2 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{t('about.mission')}</h2>
           </div>
           <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-lg">
-            We believe a smarter kitchen starts with knowing what's in your fridge. NutriVision AI uses
-            advanced computer vision and nutritional science to help you identify vegetables, discover
-            delicious recipes, understand what you're eating, and cook within your budget. Our goal is to
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400"> reduce food waste </span>
-            and make
-            <span className="font-semibold text-emerald-600 dark:text-emerald-400"> healthy cooking accessible </span>
-            to everyone — one scan at a time.
+            {t('about.missionDesc')}
           </p>
         </div>
 
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">Everything You Need</h2>
-          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Six powerful features packed into one seamless experience.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">{t('home.featuresTitle')}</h2>
+          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">{t('home.featuresDesc')}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {features.map((item, i) => (
@@ -80,20 +77,20 @@ export default function About() {
 
         <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-lg dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700 p-8 md:p-10 text-center mb-16">
           <div className="text-5xl mb-4">❤️</div>
-          <h3 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">Built with Love by RecipeX Team</h3>
+          <h3 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">{t('about.team')}</h3>
           <p className="text-slate-500 dark:text-slate-400 max-w-md mx-auto">
-            A passionate team dedicated to making cooking smarter, healthier, and more fun.
+            {t('about.tagline')}
           </p>
         </div>
 
         <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">Powered By</h2>
-          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Modern tools and technologies that make it all possible.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">{t('about.techStack')}</h2>
+          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">{t('about.techStack')}</p>
         </div>
         <div className="flex flex-wrap justify-center gap-3">
-          {techStack.map((t, i) => (
-            <span key={i} className={`px-4 py-2 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-semibold shadow-sm ${t.color}`}>
-              {t.name}
+          {techStack.map((tech, i) => (
+            <span key={i} className={`px-4 py-2 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-sm font-semibold shadow-sm ${tech.color}`}>
+              {tech.name}
             </span>
           ))}
         </div>

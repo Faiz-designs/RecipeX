@@ -1,22 +1,25 @@
 import { Link } from 'react-router-dom'
-
-const features = [
-  { emoji: '📸', title: 'Smart Scan', desc: 'Upload a photo or use your camera. AI identifies vegetables instantly with freshness and confidence.' },
-  { emoji: '🍳', title: '3-Level Recipes', desc: 'Easy, intermediate, and advanced recipes tailored to exactly what you have in hand.' },
-  { emoji: '🥦', title: 'Nutrition per 100g', desc: 'USDA-verified nutrition data — calories, macros, fiber, vitamins, and glycemic index.' },
-  { emoji: '🩺', title: 'Allergy Risk Report', desc: '9-group health risk assessment with severity flags — safe, caution, or avoid.' },
-  { emoji: '🔄', title: 'Smart Substitutions', desc: 'When a vegetable is risky, get a safe alternative with nutritional equivalence info.' },
-  { emoji: '📊', title: 'Meal Balance Score', desc: 'Overall health score with nutritional gap analysis and next-scan suggestions.' },
-]
-
-const stats = [
-  { value: '5+', label: 'Vegetables' },
-  { value: '15+', label: 'Recipes' },
-  { value: '9', label: 'Allergy Groups' },
-  { value: '100%', label: 'Free' },
-]
+import { useTranslation } from 'react-i18next'
 
 export default function Home() {
+  const { t } = useTranslation()
+
+  const features = [
+    { emoji: '📸', title: t('home.features.smartScan'), desc: t('home.features.smartScanDesc') },
+    { emoji: '🍳', title: t('home.features.threeLevelRecipes'), desc: t('home.features.threeLevelRecipesDesc') },
+    { emoji: '🥦', title: t('home.features.nutritionPer100g'), desc: t('home.features.nutritionPer100gDesc') },
+    { emoji: '🩺', title: t('home.features.allergyReport'), desc: t('home.features.allergyReportDesc') },
+    { emoji: '🔄', title: t('home.features.smartSubstitutions'), desc: t('home.features.smartSubstitutionsDesc') },
+    { emoji: '📊', title: t('home.features.mealBalanceScore'), desc: t('home.features.mealBalanceScoreDesc') },
+  ]
+
+  const stats = [
+    { value: '5+', label: t('home.stats.vegetables') },
+    { value: '15+', label: t('home.stats.recipes') },
+    { value: '9', label: t('home.stats.allergyGroups') },
+    { value: '100%', label: t('home.stats.free') },
+  ]
+
   return (
     <div>
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 animate-gradient py-20 md:py-28">
@@ -31,23 +34,22 @@ export default function Home() {
         <div className="relative max-w-3xl mx-auto text-center px-4">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-1.5 mb-6 border border-white/20">
             <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
-            <span className="text-sm font-medium text-white/90">AI-Powered Kitchen Assistant</span>
+            <span className="text-sm font-medium text-white/90">{t('home.aiPowered')}</span>
           </div>
           <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">
-            Your Smart
-            <span className="block text-emerald-200">Kitchen Companion</span>
+            {t('home.heroTitle')}
+            <span className="block text-emerald-200">{t('home.heroTitleLine2')}</span>
           </h1>
           <p className="text-lg text-emerald-100/90 mb-10 leading-relaxed max-w-xl mx-auto">
-            Scan any vegetable, get instant recipes, nutrition facts, allergy alerts,
-            and smart swaps — all powered by AI.
+            {t('home.heroDesc')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/scan" className="group inline-flex items-center gap-2 bg-white text-emerald-700 px-8 py-3.5 rounded-xl text-lg font-bold hover:bg-emerald-50 transition-all shadow-xl hover:shadow-2xl active:scale-[0.97]">
-              Start Scanning
+              {t('home.startScanning')}
               <span className="group-hover:translate-x-1 transition-transform">→</span>
             </Link>
             <Link to="/scan" className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/25 px-8 py-3.5 rounded-xl text-lg font-semibold hover:bg-white/20 transition-all">
-              Try Demo <span>🎮</span>
+              {t('home.tryDemo')} <span>🎮</span>
             </Link>
           </div>
         </div>
@@ -66,8 +68,8 @@ export default function Home() {
 
       <div className="max-w-5xl mx-auto px-4 py-20">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">Everything You Need</h2>
-          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">From identification to the dinner table — one tool does it all.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">{t('home.featuresTitle')}</h2>
+          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">{t('home.featuresDesc')}</p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((item, i) => (
@@ -84,10 +86,10 @@ export default function Home() {
 
       <div className="bg-gradient-to-r from-emerald-600 to-teal-600 py-16">
         <div className="max-w-3xl mx-auto text-center px-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Ready to Transform Your Kitchen?</h2>
-          <p className="text-emerald-100/90 mb-8 max-w-lg mx-auto">Stop guessing what's for dinner. Scan what you have and let AI do the rest.</p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">{t('home.ctaTitle')}</h2>
+          <p className="text-emerald-100/90 mb-8 max-w-lg mx-auto">{t('home.ctaDesc')}</p>
           <Link to="/scan" className="inline-flex items-center gap-2 bg-white text-emerald-700 px-10 py-4 rounded-xl text-lg font-bold hover:bg-emerald-50 transition-all shadow-xl hover:shadow-2xl active:scale-[0.97]">
-            Get Started Free <span>→</span>
+            {t('home.getStarted')} <span>→</span>
           </Link>
         </div>
       </div>

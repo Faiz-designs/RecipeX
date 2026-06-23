@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next'
+
 export default function HealthBenefits({ health_benefits }) {
+  const { t } = useTranslation()
   if (!health_benefits || health_benefits.length === 0) return null
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">💚</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Health Benefits</h2>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.healthBenefits')}</h2>
       </div>
       <div className="space-y-4">
         {health_benefits.map((veg) => (

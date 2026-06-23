@@ -1,10 +1,5 @@
 import { useState, useEffect } from 'react'
-
-const difficultyConfig = {
-  easy: { label: 'Easy', badge: 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300', header: 'from-emerald-500 to-emerald-600' },
-  intermediate: { label: 'Intermediate', badge: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300', header: 'from-amber-500 to-amber-600' },
-  advanced: { label: 'Advanced', badge: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300', header: 'from-red-500 to-red-600' },
-}
+import { useTranslation } from 'react-i18next'
 
 function getFavorites() {
   try { return JSON.parse(localStorage.getItem('nutrivision_favorites') || '[]') } catch { return [] }
@@ -30,6 +25,7 @@ function flattenRecipes(data) {
 }
 
 export default function Recipes() {
+  const { t } = useTranslation()
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -37,6 +33,12 @@ export default function Recipes() {
   const [search, setSearch] = useState('')
   const [expanded, setExpanded] = useState(null)
   const [favorites, setFavorites] = useState(getFavorites)
+
+  const difficultyConfig = {
+    easy: { label: t('recipes.easy'), badge: 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300', header: 'from-emerald-500 to-emerald-600' },
+    intermediate: { label: t('recipes.intermediate'), badge: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300', header: 'from-amber-500 to-amber-600' },
+    advanced: { label: t('recipes.advanced'), badge: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300', header: 'from-red-500 to-red-600' },
+  }
 
   useEffect(() => {
     fetch('https://FaizBasha05.pythonanywhere.com/scan/demo')
@@ -58,7 +60,12 @@ export default function Recipes() {
     }
     return true
   })
-  const levels = ['All', 'Easy', 'Intermediate', 'Advanced']
+  const levels = [
+    { key: 'All', label: t('recipes.all') },
+    { key: 'Easy', label: t('recipes.easy') },
+    { key: 'Intermediate', label: t('recipes.intermediate') },
+    { key: 'Advanced', label: t('recipes.advanced') },
+  ]
 
   const handleSave = (name) => {
     const updated = toggleFavorite(name)
@@ -71,7 +78,7 @@ export default function Recipes() {
         <div className="animate-gradient bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center">
           <div className="flex items-center gap-3 text-white">
             <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
-            <span className="text-lg font-semibold">Loading recipes...</span>
+            <span className="text-lg font-semibold">{t('recipes.loading')}</span>
           </div>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -95,13 +102,13 @@ export default function Recipes() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center">
-          <h1 className="text-4xl font-extrabold text-white">Explore Recipes</h1>
+          <h1 className="text-4xl font-extrabold text-white">{t('recipes.title')}</h1>
         </div>
         <div className="bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800 rounded-2xl p-6 text-center">
           <div className="text-4xl mb-3">⚠️</div>
-          <p className="text-red-700 dark:text-red-300 font-semibold text-lg mb-1">Failed to load recipes</p>
+          <p className="text-red-700 dark:text-red-300 font-semibold text-lg mb-1">{t('recipes.failedToLoad')}</p>
           <p className="text-red-500 dark:text-red-400 text-sm mb-4">{error}</p>
-          <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition shadow-md">Try Again</button>
+          <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition shadow-md">{t('recipes.tryAgain')}</button>
         </div>
       </div>
     )
@@ -117,9 +124,9 @@ export default function Recipes() {
           <div className="absolute top-1/3 right-1/4 text-5xl animate-float stagger-4">🍝</div>
         </div>
         <div className="relative max-w-3xl mx-auto text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">Explore Recipes</h1>
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">{t('recipes.title')}</h1>
           <p className="text-lg text-emerald-100/90 leading-relaxed max-w-xl mx-auto">
-            Discover delicious recipes generated from scanned vegetables.
+            {t('recipes.subtitle')}
           </p>
         </div>
       </div>
@@ -127,12 +134,12 @@ export default function Recipes() {
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
-            <span className="font-bold text-slate-700 dark:text-slate-200">{recipes.length}</span> recipe{recipes.length !== 1 ? 's' : ''} available
+            <span className="font-bold text-slate-700 dark:text-slate-200">{recipes.length}</span> {t('recipes.recipeAvailable', { count: recipes.length })}
           </p>
           <div className="flex flex-wrap gap-2">
             {levels.map(level => (
-              <button key={level} onClick={() => setFilter(level)} className={`px-4 py-1.5 rounded-xl text-sm font-semibold border transition-all duration-200 ${filter === level ? 'bg-emerald-500 text-white border-emerald-500 shadow-md' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-600 hover:text-emerald-600 dark:hover:text-emerald-400'}`}>
-                {level}
+              <button key={level.key} onClick={() => setFilter(level.key)} className={`px-4 py-1.5 rounded-xl text-sm font-semibold border transition-all duration-200 ${filter === level.key ? 'bg-emerald-500 text-white border-emerald-500 shadow-md' : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-600 hover:text-emerald-600 dark:hover:text-emerald-400'}`}>
+                {level.label}
               </button>
             ))}
           </div>
@@ -141,7 +148,7 @@ export default function Recipes() {
         {filtered.length === 0 ? (
           <div className="text-center py-16">
             <div className="text-5xl mb-4">🍳</div>
-            <p className="text-slate-500 dark:text-slate-400 text-lg">No recipes found for this difficulty.</p>
+            <p className="text-slate-500 dark:text-slate-400 text-lg">{t('recipes.noRecipes')}</p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -159,16 +166,16 @@ export default function Recipes() {
                       <span className="text-white/80 text-xs">{r.total_time_minutes} min</span>
                     </div>
                     <h3 className="text-lg font-bold text-white mt-1 pr-8">{r.name}</h3>
-                    <button onClick={() => handleSave(r.name)} className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-all" title={isFav ? 'Remove from favorites' : 'Save to favorites'}>
+                    <button onClick={() => handleSave(r.name)} className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/40 transition-all" title={isFav ? t('recipes.saved') : t('recipes.save')}>
                       <span className={`text-sm ${isFav ? 'text-red-400' : 'text-white/80'}`}>{isFav ? '❤️' : '🤍'}</span>
                     </button>
                   </div>
                   <div className="p-5">
-                    {r.servings && <p className="text-xs text-slate-400 dark:text-slate-500 mb-2">🍽 {r.servings} servings</p>}
+                    {r.servings && <p className="text-xs text-slate-400 dark:text-slate-500 mb-2">🍽 {r.servings} {t('recipes.servings')}</p>}
 
                     {r.additional_ingredients_required?.length > 0 && (
                       <div className="mb-3">
-                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5">Ingredients</p>
+                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5">{t('recipes.youWillNeed')}</p>
                         <div className="flex flex-wrap gap-1.5">
                           {r.additional_ingredients_required.map((ing, j) => (
                             <span key={j} className="text-xs bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700 px-2.5 py-0.5 rounded-full font-medium">{ing}</span>
@@ -188,7 +195,7 @@ export default function Recipes() {
 
                     {r.steps?.length > 3 && (
                       <button onClick={() => setExpanded(isExpanded ? null : i)} className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 mt-3 transition-colors">
-                        {isExpanded ? 'Show less ↑' : `+${r.steps.length - 3} more steps ↓`}
+                        {isExpanded ? `${t('recipes.showLess')} ↑` : `+${r.steps.length - 3} ${t('recipes.moreSteps')} ↓`}
                       </button>
                     )}
 

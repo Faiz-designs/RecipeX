@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { getScanHistory } from '../utils/scanHistory'
-
-const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-const MEALS = ['Breakfast', 'Lunch', 'Dinner']
 
 const STORAGE_KEY = 'nutrivision_meal_plan'
 
@@ -15,9 +13,22 @@ function savePlan(plan) {
 }
 
 export default function MealPlanner() {
+  const { t } = useTranslation()
   const [plan, setPlan] = useState(getPlan)
   const [history, setHistory] = useState([])
   const [selecting, setSelecting] = useState(null)
+
+  const DAYS = [
+    t('mealPlanner.monday'),
+    t('mealPlanner.tuesday'),
+    t('mealPlanner.wednesday'),
+    t('mealPlanner.thursday'),
+    t('mealPlanner.friday'),
+    t('mealPlanner.saturday'),
+    t('mealPlanner.sunday'),
+  ]
+
+  const MEALS = [t('mealPlanner.breakfast'), t('mealPlanner.lunch'), t('mealPlanner.dinner')]
 
   useEffect(() => { setHistory(getScanHistory()) }, [])
 
@@ -49,8 +60,8 @@ export default function MealPlanner() {
         <div className="flex items-center gap-3 mb-2">
           <div className="text-3xl">📅</div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold">Meal Planner</h1>
-            <p className="text-emerald-100/80 text-sm">Plan your week with scanned recipes</p>
+            <h1 className="text-2xl md:text-3xl font-extrabold">{t('mealPlanner.title')}</h1>
+            <p className="text-emerald-100/80 text-sm">{t('mealPlanner.subtitle')}</p>
           </div>
         </div>
       </div>
@@ -58,8 +69,8 @@ export default function MealPlanner() {
       {allRecipes.length === 0 && (
         <div className="text-center py-16">
           <div className="text-5xl mb-4">📅</div>
-          <p className="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2">No recipes yet</p>
-          <p className="text-sm text-slate-400 dark:text-slate-500 mb-6">Scan vegetables to generate recipes, then plan your meals here</p>
+          <p className="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2">{t('mealPlanner.noRecipes')}</p>
+          <p className="text-sm text-slate-400 dark:text-slate-500 mb-6">{t('mealPlanner.noRecipesDesc')}</p>
         </div>
       )}
 
@@ -68,7 +79,7 @@ export default function MealPlanner() {
           <thead>
             <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30">
               <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 w-24"></th>
-              {DAYS.map(d => <th key={d} className="p-3 text-center text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 min-w-[130px]">{d.slice(0, 3)}</th>)}
+              {DAYS.map(d => <th key={d} className="p-3 text-center text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 min-w-[130px]">{d}</th>)}
             </tr>
           </thead>
           <tbody>
@@ -88,7 +99,7 @@ export default function MealPlanner() {
                         </div>
                       ) : (
                         <button onClick={() => setSelecting(key)} className="w-full text-xs text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 border border-dashed border-slate-200 dark:border-slate-600 rounded-xl py-2 hover:border-emerald-300 dark:hover:border-emerald-600 transition-all">
-                          + Add
+                          + {t('mealPlanner.add')}
                         </button>
                       )}
                       {isSelecting && allRecipes.length > 0 && (
@@ -110,9 +121,9 @@ export default function MealPlanner() {
       </div>
 
       <div className="mt-8 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 p-5">
-        <h2 className="font-bold text-slate-800 dark:text-slate-100 mb-3">Available Recipes</h2>
+        <h2 className="font-bold text-slate-800 dark:text-slate-100 mb-3">{t('mealPlanner.availableRecipes')}</h2>
         {allRecipes.length === 0 ? (
-          <p className="text-sm text-slate-400 dark:text-slate-500">No scanned recipes yet. Use the scanner to generate recipes first.</p>
+          <p className="text-sm text-slate-400 dark:text-slate-500">{t('mealPlanner.noRecipesDesc')}</p>
         ) : (
           <div className="flex flex-wrap gap-2">
             {allRecipes.map((r, i) => (

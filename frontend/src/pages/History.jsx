@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import RecipeCard from '../components/RecipeCard'
 import NutritionTable from '../components/NutritionTable'
 import AllergyReport from '../components/AllergyReport'
@@ -8,6 +9,7 @@ import Improvements from '../components/Improvements'
 import { getScanHistory, clearScanHistory, getScanPreview } from '../utils/scanHistory'
 
 export default function History() {
+  const { t } = useTranslation()
   const [history, setHistory] = useState([])
   const [selected, setSelected] = useState(null)
 
@@ -23,29 +25,29 @@ export default function History() {
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md text-lg">📋</div>
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">Scan History</h1>
-            <p className="text-sm text-slate-400 dark:text-slate-500">{history.length} scan{history.length !== 1 ? 's' : ''} saved</p>
+            <h1 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{t('history.title')}</h1>
+            <p className="text-sm text-slate-400 dark:text-slate-500">{t('history.scansSaved', { count: history.length })}</p>
           </div>
         </div>
-        {history.length > 0 && <button onClick={handleClear} className="px-4 py-2 bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-xl text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/60 transition">Clear All</button>}
+        {history.length > 0 && <button onClick={handleClear} className="px-4 py-2 bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-xl text-sm font-medium hover:bg-red-100 dark:hover:bg-red-900/60 transition">{t('history.clearAll')}</button>}
       </div>
 
       {history.length === 0 && !selected && (
         <div className="text-center py-20">
           <div className="text-5xl mb-4">📋</div>
-          <p className="text-slate-500 dark:text-slate-400 text-lg mb-2">No scans yet</p>
-          <p className="text-slate-400 dark:text-slate-500 text-sm mb-6">Scan a vegetable to see it here</p>
-          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition">Scan Now →</Link>
+          <p className="text-slate-500 dark:text-slate-400 text-lg mb-2">{t('history.noScans')}</p>
+          <p className="text-slate-400 dark:text-slate-500 text-sm mb-6">{t('history.noScansDesc')}</p>
+          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition">{t('history.scanNow')} →</Link>
         </div>
       )}
 
       {selected && r ? (
         <div>
-          <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-4 hover:text-emerald-700 dark:hover:text-emerald-300 transition">← Back to History</button>
+          <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-4 hover:text-emerald-700 dark:hover:text-emerald-300 transition">← {t('history.back')}</button>
           <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-4 md:p-6 mb-6">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md text-lg">📊</div>
-              <div><h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">Scan Results</h2><p className="text-sm text-slate-400 dark:text-slate-500">{new Date(selected.timestamp).toLocaleString()}</p></div>
+              <div><h2 className="text-xl font-extrabold text-slate-800 dark:text-slate-100">{t('scan.results')}</h2><p className="text-sm text-slate-400 dark:text-slate-500">{new Date(selected.timestamp).toLocaleString()}</p></div>
             </div>
           </div>
           {r.improvements?.overall_verdict && (
@@ -59,7 +61,7 @@ export default function History() {
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center"><span className="text-lg font-extrabold text-slate-700 dark:text-slate-200">{r.improvements.meal_balance_score_out_of_10}</span></div>
                   </div>
-                  <div><span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Score</span><p className="text-lg font-bold text-slate-800 dark:text-slate-100">Meal Balance</p></div>
+                  <div><span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('scan.score')}</span><p className="text-lg font-bold text-slate-800 dark:text-slate-100">{t('scan.mealBalance')}</p></div>
                 </div>
                 <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{r.improvements.overall_verdict}</p>
               </div>
@@ -67,7 +69,7 @@ export default function History() {
           )}
           {r.scan_summary?.items && (
             <div className="mb-6">
-              <div className="flex items-center gap-2 mb-3"><div className="w-7 h-7 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-xs shadow-sm">🥬</div><h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">Detected Vegetables</h2></div>
+              <div className="flex items-center gap-2 mb-3"><div className="w-7 h-7 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-xs shadow-sm">🥬</div><h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.vegetables')}</h2></div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                 {r.scan_summary.items.map(item => (
                   <div key={item.id} className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 p-3">
@@ -93,7 +95,7 @@ export default function History() {
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
                     <p className="font-bold text-slate-800 dark:text-slate-100 truncate">{preview.veggies}</p>
-                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{preview.count} vegetable{preview.count !== 1 ? 's' : ''} · {new Date(entry.timestamp).toLocaleString()}</p>
+                    <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{t('scan.vegetablesDetected', { count: preview.count })} · {new Date(entry.timestamp).toLocaleString()}</p>
                   </div>
                   {preview.score != null && (
                     <div className="shrink-0 w-10 h-10 rounded-xl flex items-center justify-center font-bold text-sm shadow-sm" style={{ backgroundColor: preview.score >= 8 ? '#d1fae5' : preview.score >= 5 ? '#fef3c7' : '#fee2e2', color: preview.score >= 8 ? '#059669' : preview.score >= 5 ? '#d97706' : '#dc2626' }}>

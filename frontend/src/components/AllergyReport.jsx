@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next'
+
 export default function AllergyReport({ allergy_report }) {
+  const { t } = useTranslation()
   if (!allergy_report || allergy_report.length === 0) return null
 
   const severityConfig = {
@@ -11,7 +14,7 @@ export default function AllergyReport({ allergy_report }) {
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🩺</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Allergy & Medical Risk Report</h2>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('allergy.title')}</h2>
       </div>
       <div className="space-y-4">
         {allergy_report.map(veg => (
@@ -23,9 +26,9 @@ export default function AllergyReport({ allergy_report }) {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="bg-slate-50/50 dark:bg-slate-700/30">
-                    <th className="p-3 text-left font-semibold text-slate-600 dark:text-slate-300">Group</th>
-                    <th className="p-3 text-left font-semibold text-slate-600 dark:text-slate-300">Status</th>
-                    <th className="p-3 text-left font-semibold text-slate-600 dark:text-slate-300">Recommendation</th>
+                    <th className="p-3 text-left font-semibold text-slate-600 dark:text-slate-300">{t('allergy.group')}</th>
+                    <th className="p-3 text-left font-semibold text-slate-600 dark:text-slate-300">{t('allergy.status')}</th>
+                    <th className="p-3 text-left font-semibold text-slate-600 dark:text-slate-300">{t('allergy.recommendation')}</th>
                   </tr>
                 </thead>
                 <tbody>

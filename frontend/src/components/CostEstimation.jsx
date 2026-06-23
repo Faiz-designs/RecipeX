@@ -1,17 +1,20 @@
+import { useTranslation } from 'react-i18next'
+
 export default function CostEstimation({ cost_estimation, improvements }) {
+  const { t } = useTranslation()
   if (!cost_estimation || cost_estimation.length === 0) return null
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">💰</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Cost Estimation</h2>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.cost')}</h2>
       </div>
       {improvements?.estimated_total_cost && (
         <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 border border-amber-200 dark:border-amber-700/40 rounded-2xl p-4 mb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-lg shadow-sm">💰</div>
             <div>
-              <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wide">Estimated Total</p>
+              <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wide">{t('improvements.estimatedTotalCost')}</p>
               <p className="text-xl font-extrabold text-slate-800 dark:text-slate-100">{improvements.estimated_total_cost}</p>
             </div>
           </div>
@@ -28,11 +31,11 @@ export default function CostEstimation({ cost_estimation, improvements }) {
             <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm mb-2">{veg.vegetable_name}</h3>
             <div className="space-y-1.5">
               <div className="flex justify-between text-xs">
-                <span className="text-slate-400 dark:text-slate-500">Price/kg</span>
+                <span className="text-slate-400 dark:text-slate-500">{t('costEstimation.pricePerKg')}</span>
                 <span className="font-semibold text-slate-700 dark:text-slate-200">{veg.estimated_price_per_kg}</span>
               </div>
               <div className="flex justify-between text-xs">
-                <span className="text-slate-400 dark:text-slate-500">This scan</span>
+                <span className="text-slate-400 dark:text-slate-500">{t('costEstimation.thisScan')}</span>
                 <span className="font-semibold text-emerald-600 dark:text-emerald-400">{veg.estimated_cost_for_this_scan}</span>
               </div>
               {veg.price_seasonality && (

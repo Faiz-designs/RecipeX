@@ -1,9 +1,11 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import axios from 'axios'
+import { useTranslation } from 'react-i18next'
 
 const API = 'https://FaizBasha05.pythonanywhere.com'
 
 export default function Scanner({ onScanComplete }) {
+  const { t } = useTranslation()
   const [image, setImage] = useState(null)
   const [preview, setPreview] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -25,8 +27,8 @@ export default function Scanner({ onScanComplete }) {
     e.preventDefault(); setDragOver(false)
     const file = e.dataTransfer.files[0]
     if (file && file.type.startsWith('image/')) { setImage(file); setPreview(URL.createObjectURL(file)); setError('') }
-    else { setError('Please drop an image file') }
-  }, [])
+    else { setError(t('scanner.dropImage')) }
+  }, [t])
 
   const handleDragOver = useCallback((e) => { e.preventDefault(); setDragOver(true) }, [])
   const handleDragLeave = useCallback((e) => { e.preventDefault(); setDragOver(false) }, [])
@@ -35,8 +37,8 @@ export default function Scanner({ onScanComplete }) {
     try {
       const s = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment', width: { ideal: 1280 }, height: { ideal: 720 } } })
       setStream(s)
-    } catch { setError('Camera access denied. Use upload mode instead.') }
-  }, [])
+    } catch { setError(t('scanner.cameraDenied')) }
+  }, [t])
 
   useEffect(() => {
     if (videoRef.current && stream) {
@@ -63,12 +65,12 @@ export default function Scanner({ onScanComplete }) {
     try {
       const res = await axios.get(`${API}/scan/demo`)
       if (onScanComplete) onScanComplete(res.data)
-    } catch { setError('Demo failed. Is the backend running?') }
+    } catch { setError(t('scanner.scanFailed')) }
     finally { setLoading(false) }
   }
 
   const handleScan = async () => {
-    if (!image) { setError('Please select or capture an image'); return }
+    if (!image) { setError(t('scanner.selectImage')); return }
     setLoading(true); setError('')
     try {
       const toBase64 = (file) => new Promise((resolve, reject) => {
@@ -81,7 +83,7 @@ export default function Scanner({ onScanComplete }) {
       const res = await axios.post(`${API}/scan/`, { image: base64 })
       if (onScanComplete) onScanComplete(res.data)
     } catch (err) {
-      setError(err.response?.data?.message || 'Scan failed. Is the backend running?')
+      setError(err.response?.data?.message || t('scanner.scanFailed'))
     } finally { setLoading(false) }
   }
 
@@ -90,13 +92,13 @@ export default function Scanner({ onScanComplete }) {
       <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-6 md:p-8">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md"><span className="text-lg">📸</span></div>
-          <div><h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Scan Vegetables</h2><p className="text-sm text-slate-400 dark:text-slate-500">Upload a photo or use demo mode</p></div>
+          <div><h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scanner.title')}</h2><p className="text-sm text-slate-400 dark:text-slate-500">{t('scanner.subtitle')}</p></div>
         </div>
 
         <div className="flex gap-2 mb-6 bg-slate-100/80 dark:bg-slate-700/50 rounded-xl p-1">
           {['upload', 'camera'].map(m => (
             <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${mode === m ? 'bg-white dark:bg-slate-600 text-emerald-700 dark:text-emerald-300 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
-              {m === 'upload' ? '📁 Upload' : '📷 Camera'}
+              {m === 'upload' ? `📁 ${t('scanner.upload')}` : `📷 ${t('scanner.camera')}`}
             </button>
           ))}
         </div>
@@ -107,8 +109,8 @@ export default function Scanner({ onScanComplete }) {
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
                 <div className="relative w-14 h-14"><div className="absolute inset-0 border-4 border-emerald-200 dark:border-emerald-800 rounded-full" /><div className="absolute inset-0 border-4 border-transparent border-t-emerald-500 rounded-full animate-spin" /></div>
-                <p className="text-emerald-600 dark:text-emerald-400 font-semibold text-lg">Analyzing with AI...</p>
-                <p className="text-slate-400 dark:text-slate-500 text-sm">Identifying vegetables and generating insights</p>
+                <p className="text-emerald-600 dark:text-emerald-400 font-semibold text-lg">{t('scanner.analyzing')}</p>
+                <p className="text-slate-400 dark:text-slate-500 text-sm">{t('scanner.identifying')}</p>
               </div>
             ) : preview ? (
               <div className="relative">
@@ -118,8 +120,8 @@ export default function Scanner({ onScanComplete }) {
             ) : (
               <div className="flex flex-col items-center justify-center py-16">
                 <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/50 rounded-2xl flex items-center justify-center text-3xl mb-4">📸</div>
-                <p className="text-slate-500 dark:text-slate-400 text-lg font-medium">Click or drag & drop an image</p>
-                <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">Supports JPG, PNG, WEBP</p>
+                <p className="text-slate-500 dark:text-slate-400 text-lg font-medium">{t('scanner.clickOrDrag')}</p>
+                <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{t('scanner.supports')}</p>
               </div>
             )}
           </div>
@@ -130,15 +132,15 @@ export default function Scanner({ onScanComplete }) {
             {!stream ? (
               <div className="flex flex-col items-center py-12">
                 <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-2xl flex items-center justify-center text-3xl mb-4">📷</div>
-                <p className="text-slate-500 dark:text-slate-400 mb-4">Click to start your camera</p>
-                <button onClick={startCamera} className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg">Start Camera</button>
+                <p className="text-slate-500 dark:text-slate-400 mb-4">{t('scanner.clickToStartCamera')}</p>
+                <button onClick={startCamera} className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg">{t('scanner.startCamera')}</button>
               </div>
             ) : (
               <div>
                 <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5 dark:bg-black/20" />
                 <div className="flex gap-2 p-3 bg-slate-100/50 dark:bg-slate-700/50">
-                  <button onClick={captureFromCamera} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md">Capture Photo</button>
-                  <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all">Cancel</button>
+                  <button onClick={captureFromCamera} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md">{t('scanner.capturePhoto')}</button>
+                  <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all">{t('scanner.cancel')}</button>
                 </div>
               </div>
             )}
@@ -152,10 +154,10 @@ export default function Scanner({ onScanComplete }) {
 
         <div className="flex gap-3 mt-6">
           <button onClick={handleScan} disabled={loading || !image} className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-3 rounded-xl text-base font-bold hover:from-emerald-600 hover:to-teal-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
-            {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Analyzing...</> : 'Scan & Analyze'}
+            {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('scanner.analyzing')}</> : t('scanner.scanAndAnalyze')}
           </button>
           <button onClick={handleDemo} disabled={loading} className="px-6 py-3 rounded-xl text-base font-bold bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
-            {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Loading...</> : 'Demo Mode'}
+            {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('common.loading')}</> : t('scanner.demoMode')}
           </button>
         </div>
       </div>

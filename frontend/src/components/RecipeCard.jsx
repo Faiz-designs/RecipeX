@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { addRecipeIngredientsToList } from '../utils/shoppingList'
 import { toggleFavorite, isFavorite } from '../utils/favorites'
+import { useTranslation } from 'react-i18next'
 
 export default function RecipeCard({ recipes, showActions }) {
+  const { t } = useTranslation()
   if (!recipes) return null
   const levels = ['easy', 'intermediate', 'advanced']
   const levelConfig = {
@@ -15,7 +17,7 @@ export default function RecipeCard({ recipes, showActions }) {
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍳</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Recipes</h2>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.recipes')}</h2>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {levels.map(level => { const r = recipes[level]; if (!r) return null; return <RecipeCardItem key={level} level={level} r={r} config={levelConfig[level]} showActions={showActions} /> })}
@@ -25,6 +27,7 @@ export default function RecipeCard({ recipes, showActions }) {
 }
 
 function RecipeCardItem({ level, r, config, showActions }) {
+  const { t } = useTranslation()
   const [showAll, setShowAll] = useState(false)
   const [fav, setFav] = useState(isFavorite(r.name))
   const [addedMsg, setAddedMsg] = useState('')
@@ -34,7 +37,7 @@ function RecipeCardItem({ level, r, config, showActions }) {
   const handleAddToList = () => {
     if (r.additional_ingredients_required && r.additional_ingredients_required.length) {
       addRecipeIngredientsToList(r.additional_ingredients_required)
-      setAddedMsg('Added to shopping list!')
+      setAddedMsg(t('recipes.addedToList'))
       setTimeout(() => setAddedMsg(''), 2000)
     }
   }
@@ -51,7 +54,7 @@ function RecipeCardItem({ level, r, config, showActions }) {
       <div className="p-5">
         {r.additional_ingredients_required?.length > 0 && (
           <div className="mb-3">
-            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5">You'll need</p>
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1.5">{t('recipes.youWillNeed')}</p>
             <div className="flex flex-wrap gap-1.5">
               {r.additional_ingredients_required.map((ing, i) => (
                 <span key={i} className="text-xs bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700 px-2.5 py-0.5 rounded-full font-medium">{ing}</span>
@@ -69,22 +72,22 @@ function RecipeCardItem({ level, r, config, showActions }) {
         </ol>
         {r.steps?.length > 3 && (
           <button onClick={() => setShowAll(!showAll)} className="text-sm font-medium text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 mt-3 transition-colors">
-            {showAll ? 'Show less ↑' : `+${r.steps.length - 3} more steps ↓`}
+            {showAll ? `${t('recipes.showLess')} ↑` : `+${r.steps.length - 3} ${t('recipes.moreSteps')} ↓`}
           </button>
         )}
         {r.plating_suggestion && <p className="text-xs text-slate-400 dark:text-slate-500 italic mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">💡 {r.plating_suggestion}</p>}
         <div className="flex items-center gap-3 mt-2">
-          {r.servings && <span className="text-xs text-slate-400 dark:text-slate-500">🍽 {r.servings} servings</span>}
+          {r.servings && <span className="text-xs text-slate-400 dark:text-slate-500">🍽 {r.servings} {t('recipes.servings')}</span>}
           {r.estimated_cost && <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">💰 ~{r.estimated_cost}</span>}
-          {r.budget_friendly && <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">Budget 👍</span>}
+          {r.budget_friendly && <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">{t('recipes.budget')} 👍</span>}
         </div>
         {showActions && (
           <div className="flex gap-2 mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">
             <button onClick={handleAddToList} className="flex-1 text-xs font-medium bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50 rounded-lg px-3 py-2 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors">
-              {addedMsg || '🛒 Add to List'}
+              {addedMsg || `🛒 ${t('recipes.addToList')}`}
             </button>
             <button onClick={handleToggleFav} className={`px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${fav ? 'bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 border-red-200 dark:border-red-700/50' : 'bg-slate-50 dark:bg-slate-700/50 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-600 hover:border-red-200 dark:hover:border-red-700/50'}`}>
-              {fav ? '❤️ Saved' : '🤍 Save'}
+              {fav ? `❤️ ${t('recipes.saved')}` : `🤍 ${t('recipes.save')}`}
             </button>
           </div>
         )}

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const nutrientRows = [
   { key: 'calories_kcal', label: 'Calories (kcal)', max: 100, color: 'bg-gradient-to-r from-orange-400 to-orange-500' },
@@ -37,6 +38,7 @@ function Bar({ value, max, color }) {
 }
 
 export default function Nutrition() {
+  const { t } = useTranslation()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -57,7 +59,7 @@ export default function Nutrition() {
         <div className="animate-gradient bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center">
           <div className="flex items-center gap-3 text-white">
             <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
-            <span className="text-lg font-semibold">Loading nutrition data...</span>
+            <span className="text-lg font-semibold">{t('common.loading')}</span>
           </div>
         </div>
         <div className="space-y-4">
@@ -73,13 +75,13 @@ export default function Nutrition() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center">
-          <h1 className="text-4xl font-extrabold text-white">Nutrition Tracker</h1>
+          <h1 className="text-4xl font-extrabold text-white">{t('nutrition.title')}</h1>
         </div>
         <div className="bg-red-50 dark:bg-red-900/40 border border-red-200 dark:border-red-800 rounded-2xl p-6 text-center">
           <div className="text-4xl mb-3">⚠️</div>
-          <p className="text-red-700 dark:text-red-300 font-semibold text-lg mb-1">Failed to load nutrition data</p>
+          <p className="text-red-700 dark:text-red-300 font-semibold text-lg mb-1">{t('common.error')}</p>
           <p className="text-red-500 dark:text-red-400 text-sm mb-4">{error}</p>
-          <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition shadow-md">Try Again</button>
+          <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition shadow-md">{t('common.retry')}</button>
         </div>
       </div>
     )
@@ -92,11 +94,11 @@ export default function Nutrition() {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
         <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center">
-          <h1 className="text-4xl font-extrabold text-white">Nutrition Tracker</h1>
+          <h1 className="text-4xl font-extrabold text-white">{t('nutrition.title')}</h1>
         </div>
         <div className="text-center py-16">
           <div className="text-5xl mb-4">🥦</div>
-          <p className="text-slate-500 dark:text-slate-400 text-lg">No nutrition data available. Scan some vegetables first!</p>
+          <p className="text-slate-500 dark:text-slate-400 text-lg">{t('common.noData')}</p>
         </div>
       </div>
     )
@@ -122,9 +124,9 @@ export default function Nutrition() {
           <div className="absolute top-1/3 right-1/4 text-5xl animate-float stagger-4">🥕</div>
         </div>
         <div className="relative max-w-3xl mx-auto text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">Nutrition Tracker</h1>
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">{t('nutrition.title')}</h1>
           <p className="text-lg text-emerald-100/90 leading-relaxed max-w-xl mx-auto">
-            Track nutrients across all scanned vegetables and monitor your daily progress.
+            {t('nutrition.title')}
           </p>
         </div>
       </div>
@@ -133,23 +135,23 @@ export default function Nutrition() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700 p-4 text-center">
             <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-500">{totals.calories_kcal?.toFixed(0) || 0}</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Total Calories</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{t('nutrition.totalCalories')}</div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700 p-4 text-center">
             <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-500">{totals.protein_g?.toFixed(1) || 0}g</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Total Protein</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{t('nutrition.totalProtein')}</div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700 p-4 text-center">
             <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-amber-500">{totals.carbohydrates_g?.toFixed(1) || 0}g</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Total Carbs</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{t('nutrition.totalCarbs')}</div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700 p-4 text-center">
             <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-red-500">{totals.fat_g?.toFixed(1) || 0}g</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Total Fat</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{t('nutrition.totalFat')}</div>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700 p-4 text-center">
             <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-500">{totals.dietary_fibre_g?.toFixed(1) || 0}g</div>
-            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">Total Fibre</div>
+            <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{t('nutrition.totalFibre')}</div>
           </div>
         </div>
 
@@ -157,13 +159,13 @@ export default function Nutrition() {
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Per-Vegetable Nutrition</h2>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.title')}</h2>
             </div>
             <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
               <table className="w-full bg-white dark:bg-slate-800">
                 <thead>
                   <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40">
-                    <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 whitespace-nowrap">Nutrient (per 100g)</th>
+                    <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 whitespace-nowrap">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
                     {nutrition.map(n => <th key={n.vegetable_id} className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 whitespace-nowrap">{n.vegetable_name}</th>)}
                   </tr>
                 </thead>
@@ -192,7 +194,7 @@ export default function Nutrition() {
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">💚</div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Health Scores</h2>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.healthScore')}</h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {nutrition.map(n => {
@@ -219,7 +221,7 @@ export default function Nutrition() {
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-4">
               <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🌟</div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Key Vitamin Sources</h2>
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.vitaminSources')}</h2>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               {topSources.map(v => (
@@ -245,25 +247,25 @@ export default function Nutrition() {
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-4">
             <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">📈</div>
-            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Daily Progress</h2>
+            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.dailyProgress')}</h2>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700 p-6">
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-5">What these vegetables cover toward your daily needs:</p>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-5">{t('nutrition.dailyProgress')}</p>
             <div className="space-y-4">
-              {Object.entries(dailyTargets).map(([key, t]) => {
+              {Object.entries(dailyTargets).map(([key, target]) => {
                 const value = totals[key] || 0
-                const pct = Math.min((value / t.target) * 100, 100)
+                const pct = Math.min((value / target.target) * 100, 100)
                 const barColor = pct >= 80 ? 'from-emerald-400 to-emerald-500' : pct >= 40 ? 'from-amber-400 to-amber-500' : 'from-blue-400 to-blue-500'
                 return (
                   <div key={key}>
                     <div className="flex items-center justify-between mb-1">
-                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{t.label}</span>
-                      <span className="text-sm text-slate-500 dark:text-slate-400">{value.toFixed(1)}{t.unit} / {t.target}{t.unit}</span>
+                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{target.label}</span>
+                      <span className="text-sm text-slate-500 dark:text-slate-400">{value.toFixed(1)}{target.unit} / {target.target}{target.unit}</span>
                     </div>
                     <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-3 overflow-hidden">
                       <div className={`h-3 rounded-full bg-gradient-to-r ${barColor} transition-all duration-700`} style={{ width: `${pct}%` }} />
                     </div>
-                    <span className="text-xs text-slate-400 dark:text-slate-500">{pct.toFixed(0)}% of daily target</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500">{pct.toFixed(0)}% {t('nutrition.dailyTarget')}</span>
                   </div>
                 )
               })}

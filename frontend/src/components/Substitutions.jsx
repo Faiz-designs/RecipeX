@@ -1,4 +1,7 @@
+import { useTranslation } from 'react-i18next'
+
 export default function Substitutions({ substitutions }) {
+  const { t } = useTranslation()
   if (!substitutions || substitutions.length === 0) return null
 
   const matchStyles = {
@@ -11,7 +14,7 @@ export default function Substitutions({ substitutions }) {
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🔄</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Smart Substitutions</h2>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('substitutions.title')}</h2>
       </div>
       <div className="space-y-4">
         {substitutions.map((s, i) => (
@@ -24,16 +27,16 @@ export default function Substitutions({ substitutions }) {
                   <span className="text-lg font-bold text-emerald-600 dark:text-emerald-400">{s.substitute_vegetable}</span>
                 </div>
                 <span className={`text-xs font-bold px-3 py-1 rounded-full border self-start whitespace-nowrap ${matchStyles[s.nutritional_equivalence] || 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
-                  {s.nutritional_equivalence} match
+                  {s.nutritional_equivalence} {t('substitutions.match')}
                 </span>
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
                 <div className="bg-red-50/50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/50 rounded-xl p-3">
-                  <p className="text-xs font-semibold text-red-600 dark:text-red-400 uppercase tracking-wide mb-1">Risk</p>
+                  <p className="text-xs font-semibold text-red-600 dark:text-red-400 uppercase tracking-wide mb-1">{t('substitutions.risk')}</p>
                   <p className="text-sm text-slate-600 dark:text-slate-300">{s.risk_reason}</p>
                 </div>
                 <div className="bg-emerald-50/50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/50 rounded-xl p-3">
-                  <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-1">Why Safer</p>
+                  <p className="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide mb-1">{t('substitutions.whySafer')}</p>
                   <p className="text-sm text-slate-600 dark:text-slate-300">{s.why_safer}</p>
                 </div>
               </div>

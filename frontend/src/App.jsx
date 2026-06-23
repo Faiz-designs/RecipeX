@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './utils/AuthContext'
+import { useTranslation } from 'react-i18next'
 import Home from './pages/Home'
 import Scan from './pages/Scan'
 import History from './pages/History'
@@ -16,15 +17,16 @@ import useDarkMode from './utils/useDarkMode'
 
 function Nav() {
   const { pathname } = useLocation()
+  const { t } = useTranslation()
   const links = [
-    { to: '/', label: 'Home' },
-    { to: '/scan', label: 'Scan' },
-    { to: '/recipes', label: 'Recipes' },
-    { to: '/nutrition', label: 'Nutrition' },
-    { to: '/shopping-list', label: 'List' },
-    { to: '/meal-planner', label: 'Plan' },
-    { to: '/history', label: 'History' },
-    { to: '/about', label: 'About' },
+    { to: '/', label: t('nav.home') },
+    { to: '/scan', label: t('nav.scan') },
+    { to: '/recipes', label: t('nav.recipes') },
+    { to: '/nutrition', label: t('nav.nutrition') },
+    { to: '/shopping-list', label: t('nav.shoppingList') },
+    { to: '/meal-planner', label: t('nav.mealPlanner') },
+    { to: '/history', label: t('nav.history') },
+    { to: '/about', label: t('nav.about') },
   ]
   return (
     <div className="flex gap-0.5 items-center flex-wrap">
@@ -40,6 +42,9 @@ function Nav() {
 function AppContent() {
   const { user, loading } = useAuth()
   const [dark, toggleDark] = useDarkMode()
+  const { t, i18n } = useTranslation()
+  const changeLanguage = (lng) => { i18n.changeLanguage(lng); localStorage.setItem('nutrivision_lang', lng) }
+  const currentLang = i18n.language || 'en'
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/30 to-teal-50/30 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col transition-colors duration-300">
@@ -61,11 +66,20 @@ function AppContent() {
               </Link>
             ) : (
               <>
-                <Link to="/login" className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30">Sign In</Link>
-                <Link to="/signup" className="px-4 py-1.5 text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:from-emerald-600 hover:to-teal-700 shadow-sm transition-all">Sign Up</Link>
+                <Link to="/login" className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30">{t('nav.signIn')}</Link>
+                <Link to="/signup" className="px-4 py-1.5 text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:from-emerald-600 hover:to-teal-700 shadow-sm transition-all">{t('nav.signUp')}</Link>
               </>
             )}
-            <Link to="/contact" className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 hidden sm:inline">Contact</Link>
+            <Link to="/contact" className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 hidden sm:inline">{t('nav.contact')}</Link>
+            <select
+              value={currentLang}
+              onChange={(e) => changeLanguage(e.target.value)}
+              className="text-xs bg-slate-100 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-lg px-2 py-1.5 text-slate-600 dark:text-slate-300 focus:outline-none cursor-pointer"
+            >
+              <option value="en">EN</option>
+              <option value="hi">हि</option>
+              <option value="es">ES</option>
+            </select>
             <button onClick={toggleDark} className="w-8 h-8 rounded-xl flex items-center justify-center text-base bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all" title={dark ? 'Light mode' : 'Dark mode'}>
               {dark ? '☀️' : '🌙'}
             </button>
@@ -97,7 +111,7 @@ function AppContent() {
               </div>
               <span className="text-sm font-semibold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">NutriVision AI</span>
             </div>
-            <p className="text-sm text-slate-400 dark:text-slate-500">AI-powered smart kitchen assistant</p>
+            <p className="text-sm text-slate-400 dark:text-slate-500">{t('footer.tagline')}</p>
           </div>
         </div>
       </footer>

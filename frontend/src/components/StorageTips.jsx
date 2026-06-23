@@ -1,10 +1,13 @@
+import { useTranslation } from 'react-i18next'
+
 export default function StorageTips({ storage_tips }) {
+  const { t } = useTranslation()
   if (!storage_tips || storage_tips.length === 0) return null
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">❄️</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">Storage Tips</h2>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.storage')}</h2>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {storage_tips.map((veg) => (
@@ -14,20 +17,20 @@ export default function StorageTips({ storage_tips }) {
             </div>
             <div className="p-4 space-y-3">
               <div>
-                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Method</p>
+                <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('storage.method')}</p>
                 <p className="text-sm text-slate-600 dark:text-slate-300 mt-0.5">{veg.method}</p>
               </div>
               <div className="flex items-center gap-3 text-sm">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">⏱ {veg.shelf_life_days} days</span>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300">⏱ {veg.shelf_life_days} {t('storage.days')}</span>
                 {veg.refrigerate
-                  ? <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">❄️ Refrigerate</span>
-                  : <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">🌡️ Countertop</span>
+                  ? <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">❄️ {t('storage.refrigerate')}</span>
+                  : <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">🌡️ {t('storage.countertop')}</span>
                 }
               </div>
               {veg.refrigerate_note && <p className="text-xs text-slate-400 dark:text-slate-500">{veg.refrigerate_note}</p>}
               {veg.freeze_instructions && (
                 <div>
-                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">Freezing</p>
+                  <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('storage.freezing')}</p>
                   <p className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{veg.freeze_instructions}</p>
                 </div>
               )}

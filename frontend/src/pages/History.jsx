@@ -49,7 +49,6 @@ export default function History() {
       const data = await res.json()
       setSelected({ id, timestamp: data.created_at, result: data.full_response })
     } catch (err) {
-      console.error('Failed to fetch scan details', err)
     }
   }
 

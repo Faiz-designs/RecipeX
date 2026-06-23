@@ -113,7 +113,12 @@
     "budget": "Budget",
     "loading": "Loading recipes...",
     "recipeAvailable": "recipe available",
-    "recipeAvailable_plural": "recipes available"
+    "recipeAvailable_plural": "recipes available",
+    "searchHint": "Search recipes by name or ingredient...",
+    "myPantry": "My Pantry",
+    "addPantryHint": "Add a pantry item...",
+    "pantryEmpty": "Your pantry is empty. Add items to see match scores.",
+    "pantryMatch": "Pantry Match"
   },
   "nutrition": {
     "title": "Nutrition Tracker",
@@ -345,7 +350,8 @@
     "of": "of",
     "prev": "Previous",
     "next": "Next",
-    "done": "Done"
+    "done": "Done",
+    "cancel": "Cancel Timer"
   },
   "recipeCard": {
     "scale": "Scale",
@@ -462,6 +468,7 @@
     "search": "Search",
     "noData": "No data available",
     "comingSoon": "Coming Soon",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "na": "N/A"
   }
 }

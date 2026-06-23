@@ -47,7 +47,6 @@ export default function FridgeScanner() {
       setRecipes(matched)
       setShowResults(true)
     } catch (err) {
-      console.error('Failed to fetch recipes', err)
     }
     setLoading(false)
   }

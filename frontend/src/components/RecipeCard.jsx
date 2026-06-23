@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { addRecipeIngredientsToList } from '../utils/shoppingList'
 import { toggleFavorite, isFavorite } from '../utils/favorites'
 import { useTranslation } from 'react-i18next'
+import VideoSection from './VideoSection'
+import PersonalizationBar, { getAgeGroup } from './PersonalizationBar'
 
 function scaleIngredient(text, factor) {
   if (factor === 1) return text
@@ -37,6 +39,7 @@ function stepGroups(steps) {
 
 export default function RecipeCard({ recipes, showActions }) {
   const { t } = useTranslation()
+  const [ageGroup, setAgeGroupState] = useState(getAgeGroup)
   if (!recipes) return null
   const levels = ['easy', 'intermediate', 'advanced']
   const levelConfig = {
@@ -45,14 +48,27 @@ export default function RecipeCard({ recipes, showActions }) {
     advanced: { color: 'from-red-500 to-red-600', badge: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300', step: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300' }
   }
 
+  const filteredLevels = levels.filter(level => {
+    if (ageGroup === 'child') return level === 'easy'
+    if (ageGroup === 'elderly') return level === 'easy' || level === 'intermediate'
+    return true
+  })
+
+  const handleAgeGroupChange = (group) => {
+    setAgeGroupState(group)
+  }
+
   return (
     <div className="mb-8">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍳</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.recipes')}</h2>
+      <div className="flex items-center justify-between gap-4 mb-4">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍳</div>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.recipes')}</h2>
+        </div>
+        <PersonalizationBar onAgeGroupChange={handleAgeGroupChange} />
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {levels.map(level => { const r = recipes[level]; if (!r) return null; return <RecipeCardItem key={level} level={level} r={r} config={levelConfig[level]} showActions={showActions} /> })}
+        {filteredLevels.map(level => { const r = recipes[level]; if (!r) return null; return <RecipeCardItem key={level} level={level} r={r} config={levelConfig[level]} showActions={showActions} /> })}
       </div>
     </div>
   )
@@ -188,6 +204,8 @@ function RecipeCardItem({ level, r, config, showActions }) {
         )}
 
         {r.plating_suggestion && <p className="text-xs text-slate-400 dark:text-slate-500 italic mt-3 pt-3 border-t border-slate-100 dark:border-slate-700">💡 {r.plating_suggestion}</p>}
+
+        {r.name && <VideoSection recipeName={r.name} difficulty={level} />}
 
         <div className="flex items-center gap-3 mt-2">
           {r.servings && <span className="text-xs text-slate-400 dark:text-slate-500">🍽 {servings} {t('recipes.servings')}</span>}

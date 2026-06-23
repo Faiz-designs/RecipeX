@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next'
+import FridgeScanner from './FridgeScanner'
 
 const API = 'https://FaizBasha05.pythonanywhere.com'
 
@@ -96,9 +97,9 @@ export default function Scanner({ onScanComplete }) {
         </div>
 
         <div className="flex gap-2 mb-6 bg-slate-100/80 dark:bg-slate-700/50 rounded-xl p-1">
-          {['upload', 'camera'].map(m => (
+          {['upload', 'camera', 'fridge'].map(m => (
             <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${mode === m ? 'bg-white dark:bg-slate-600 text-emerald-700 dark:text-emerald-300 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
-              {m === 'upload' ? `📁 ${t('scanner.upload')}` : `📷 ${t('scanner.camera')}`}
+              {m === 'upload' ? `📁 ${t('scanner.upload')}` : m === 'camera' ? `📷 ${t('scanner.camera')}` : `🧊 ${t('fridgeMode.title')}`}
             </button>
           ))}
         </div>
@@ -147,6 +148,8 @@ export default function Scanner({ onScanComplete }) {
             {preview && <div className="relative border-t border-slate-200 dark:border-slate-600"><img src={preview} alt="Captured" className="w-full max-h-48 object-contain p-3" /></div>}
           </div>
         )}
+
+        {mode === 'fridge' && <FridgeScanner />}
 
         <canvas ref={canvasRef} hidden />
 

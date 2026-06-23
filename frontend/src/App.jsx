@@ -80,6 +80,11 @@ function AppContent() {
               <option value="en">EN</option>
               <option value="hi">हि</option>
               <option value="te">తె</option>
+              <option value="ta">த</option>
+              <option value="kn">ಕ</option>
+              <option value="ml">മ</option>
+              <option value="bn">বা</option>
+              <option value="mr">मरा</option>
             </select>
             <button onClick={toggleDark} className="w-8 h-8 rounded-xl flex items-center justify-center text-base bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition-all" title={dark ? 'Light mode' : 'Dark mode'}>
               {dark ? '☀️' : '🌙'}

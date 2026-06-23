@@ -1,0 +1,40 @@
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
+
+const STORAGE_KEY = 'nutrivision_age_group'
+
+export function getAgeGroup() {
+  return localStorage.getItem(STORAGE_KEY) || 'adult'
+}
+
+export function setAgeGroup(group) {
+  localStorage.setItem(STORAGE_KEY, group)
+}
+
+export default function PersonalizationBar({ onAgeGroupChange }) {
+  const { t } = useTranslation()
+  const [ageGroup, setAgeGroupState] = useState(getAgeGroup)
+
+  const groups = [
+    { key: 'child', emoji: '👶', label: t('personalization.child') },
+    { key: 'adult', emoji: '🧑', label: t('personalization.adult') },
+    { key: 'elderly', emoji: '👴', label: t('personalization.elderly') },
+  ]
+
+  const handleChange = (key) => {
+    setAgeGroupState(key)
+    setAgeGroup(key)
+    if (onAgeGroupChange) onAgeGroupChange(key)
+  }
+
+  return (
+    <div className="flex items-center gap-3 bg-white/80 dark:bg-slate-800/80 rounded-xl px-4 py-2 border border-slate-100 dark:border-slate-700 shadow-sm">
+      <span className="text-sm font-medium text-slate-500 dark:text-slate-400">{t('personalization.cookFor')}:</span>
+      {groups.map(g => (
+        <button key={g.key} onClick={() => handleChange(g.key)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${ageGroup === g.key ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700/50'}`}>
+          <span>{g.emoji}</span> {g.label}
+        </button>
+      ))}
+    </div>
+  )
+}

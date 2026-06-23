@@ -1,0 +1,131 @@
+import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { getFridgeItems, addFridgeItem, removeFridgeItem, clearFridge, findMatchingRecipes } from '../utils/fridgeMode'
+import { Link } from 'react-router-dom'
+
+const quickAdds = [
+  { name: 'Milk', emoji: '🥛' }, { name: 'Eggs', emoji: '🥚' }, { name: 'Cheese', emoji: '🧀' },
+  { name: 'Spinach', emoji: '🥬' }, { name: 'Tomato', emoji: '🍅' }, { name: 'Carrot', emoji: '🥕' },
+  { name: 'Onion', emoji: '🧅' }, { name: 'Bell Pepper', emoji: '🫑' }, { name: 'Broccoli', emoji: '🥦' },
+  { name: 'Chicken', emoji: '🍗' },
+]
+
+export default function FridgeScanner() {
+  const { t } = useTranslation()
+  const [items, setItems] = useState(getFridgeItems)
+  const [newItem, setNewItem] = useState('')
+  const [recipes, setRecipes] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [showResults, setShowResults] = useState(false)
+
+  const handleAdd = (name) => {
+    addFridgeItem({ name })
+    setItems(getFridgeItems())
+    setNewItem('')
+  }
+
+  const handleRemove = (id) => {
+    removeFridgeItem(id)
+    setItems(getFridgeItems())
+  }
+
+  const handleScanFridge = async () => {
+    setLoading(true)
+    try {
+      const res = await fetch('https://FaizBasha05.pythonanywhere.com/scan/demo')
+      const data = await res.json()
+      const allRecipes = []
+      if (data?.result?.recipes) {
+        if (data.result.recipes.easy) allRecipes.push({ ...data.result.recipes.easy, difficulty: 'easy' })
+        if (data.result.recipes.intermediate) allRecipes.push({ ...data.result.recipes.intermediate, difficulty: 'intermediate' })
+        if (data.result.recipes.advanced) allRecipes.push({ ...data.result.recipes.advanced, difficulty: 'advanced' })
+      }
+      const matched = findMatchingRecipes(items, allRecipes)
+      setRecipes(matched)
+      setShowResults(true)
+    } catch (err) {
+      console.error('Failed to fetch recipes', err)
+    }
+    setLoading(false)
+  }
+
+  return (
+    <div>
+      <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 border border-blue-200/60 dark:border-blue-800/40 rounded-2xl p-5 shadow-sm">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🧊</div>
+          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('fridgeMode.title')}</h2>
+        </div>
+
+        <div className="flex gap-2 mb-4">
+          <input value={newItem} onChange={e => setNewItem(e.target.value)} onKeyDown={e => e.key === 'Enter' && newItem.trim() && handleAdd(newItem.trim())} placeholder={t('fridgeMode.addItem')} className="flex-1 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <button onClick={() => newItem.trim() && handleAdd(newItem.trim())} className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-semibold text-sm hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md">{t('fridgeMode.add')}</button>
+        </div>
+
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {quickAdds.map(q => (
+            <button key={q.name} onClick={() => handleAdd(q.name)} className="text-xs px-2.5 py-1.5 bg-white/60 dark:bg-slate-700/60 border border-blue-200 dark:border-blue-800/40 rounded-full text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+              {q.emoji} {q.name}
+            </button>
+          ))}
+        </div>
+
+        <div className="space-y-1.5 mb-4">
+          {items.map(item => (
+            <div key={item.id} className="flex items-center gap-2 bg-white/60 dark:bg-slate-800/60 rounded-xl px-3 py-2 border border-blue-100 dark:border-blue-800/40">
+              <span className="flex-1 text-sm font-medium text-slate-700 dark:text-slate-200">{item.name}</span>
+              <button onClick={() => handleRemove(item.id)} className="text-xs text-slate-400 hover:text-red-500 transition-colors">✕</button>
+            </div>
+          ))}
+        </div>
+
+        {items.length > 0 && (
+          <div className="flex gap-2">
+            <button onClick={handleScanFridge} disabled={loading} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-semibold text-sm hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md disabled:opacity-50 flex items-center justify-center gap-2">
+              {loading ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('common.loading')}</> : `🔍 ${t('fridgeMode.scanAndRecommend')}`}
+            </button>
+            <button onClick={() => { clearFridge(); setItems([]); setShowResults(false) }} className="px-4 py-2.5 text-xs text-red-500 dark:text-red-400 hover:text-red-600 border border-red-200 dark:border-red-800/40 rounded-xl font-medium transition-colors">{t('fridgeMode.clearAll')}</button>
+          </div>
+        )}
+
+        {items.length === 0 && (
+          <div className="text-center py-6">
+            <div className="text-4xl mb-2">🧊</div>
+            <p className="text-sm text-slate-500 dark:text-slate-400">{t('fridgeMode.emptyDesc')}</p>
+          </div>
+        )}
+      </div>
+
+      {showResults && recipes.length > 0 && (
+        <div className="mt-6">
+          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-4">{t('fridgeMode.matchingRecipes')}</h3>
+          <div className="grid sm:grid-cols-2 gap-3">
+            {recipes.map((r, i) => (
+              <div key={i} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 hover:shadow-lg transition-all">
+                <div className="flex items-center justify-between mb-2">
+                  <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">{r.name}</h4>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
+                    {r.matchPercent}% match
+                  </span>
+                </div>
+                <div className="flex gap-1.5 flex-wrap mb-2">
+                  {r.matchedIngredients?.map((ing, j) => <span key={j} className="text-xs bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full">✓ {ing}</span>)}
+                </div>
+                <Link to="/cooking-mode" state={{ recipe: r }} className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700">
+                  👨‍🍳 {t('cookingMode.start')} →
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {showResults && recipes.length === 0 && items.length > 0 && (
+        <div className="mt-6 text-center py-8 bg-white/60 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700">
+          <div className="text-4xl mb-2">🤷</div>
+          <p className="text-slate-500 dark:text-slate-400">{t('fridgeMode.noMatches')}</p>
+        </div>
+      )}
+    </div>
+  )
+}

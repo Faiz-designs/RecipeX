@@ -11,9 +11,12 @@ import HealthBenefits from '../components/HealthBenefits'
 import StorageTips from '../components/StorageTips'
 import CookingTips from '../components/CookingTips'
 import CostEstimation from '../components/CostEstimation'
+import SustainabilityScore from '../components/SustainabilityScore'
+import ExpiryTracker from '../components/ExpiryTracker'
 import { addScanToHistory } from '../utils/scanHistory'
 import { addRecipeIngredientsToList } from '../utils/shoppingList'
 import { toggleFavorite, isFavorite } from '../utils/favorites'
+import VideoSection from '../components/VideoSection'
 
 export default function Scan() {
   const { t } = useTranslation()
@@ -139,7 +142,12 @@ export default function Scan() {
             </div>
           )}
 
-          <div id="section-recipes" className="scroll-mt-20"><RecipeCard recipes={r.recipes} /></div>
+          <div id="section-recipes" className="scroll-mt-20">
+            <RecipeCard recipes={r.recipes} />
+            {r.recipes?.easy?.name && <VideoSection recipeName={r.recipes.easy.name} difficulty="easy" />}
+            {r.recipes?.intermediate?.name && <VideoSection recipeName={r.recipes.intermediate.name} difficulty="intermediate" />}
+            {r.recipes?.advanced?.name && <VideoSection recipeName={r.recipes.advanced.name} difficulty="advanced" />}
+          </div>
           <div id="section-health" className="scroll-mt-20"><HealthBenefits health_benefits={r.health_benefits} /></div>
           <div id="section-nutrition" className="scroll-mt-20"><NutritionTable nutrition={r.nutrition} /></div>
           <div id="section-storage" className="scroll-mt-20"><StorageTips storage_tips={r.storage_tips} /></div>
@@ -148,6 +156,8 @@ export default function Scan() {
           <div id="section-subs" className="scroll-mt-20"><Substitutions substitutions={r.substitutions} /></div>
           <div id="section-cost" className="scroll-mt-20"><CostEstimation cost_estimation={r.cost_estimation} improvements={r.improvements} /></div>
           <div id="section-improve" className="scroll-mt-20"><Improvements improvements={r.improvements} /></div>
+          <SustainabilityScore vegetables={r.scan_summary?.items?.map(i => i.common_name)} freshnessStatuses={r.scan_summary?.items?.map(i => i.freshness_status)} />
+          <ExpiryTracker scanResult={r} />
         </div>
       )}
 

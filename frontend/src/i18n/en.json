@@ -342,6 +342,54 @@
     "checked": "checked",
     "gatherAll": "Gather all ingredients"
   },
+  "videoSection": {
+    "title": "Cooking Videos",
+    "watch": "Watch how to make",
+    "learnWithVideo": "Learn with step-by-step video tutorials",
+    "watchOnYoutube": "Watch on YouTube",
+    "suggested": "Suggested"
+  },
+  "fridgeMode": {
+    "title": "Fridge Mode",
+    "addItem": "Add an ingredient...",
+    "add": "Add",
+    "scanAndRecommend": "Scan Fridge & Recommend",
+    "matchingRecipes": "Matching Recipes from Your Fridge",
+    "noMatches": "No recipes found for your current fridge items. Try adding more ingredients.",
+    "clearAll": "Clear All",
+    "emptyDesc": "Add ingredients you have in your fridge and get recipe recommendations"
+  },
+  "voiceAssistant": {
+    "readAloud": "Read Aloud",
+    "stopReading": "Stop",
+    "voiceCommands": "Voice Commands",
+    "listening": "Listening...",
+    "sayNext": "Say 'next' or 'back' to navigate",
+    "microphone": "Microphone"
+  },
+  "sustainability": {
+    "title": "🌱 Sustainability Score",
+    "co2Saved": "CO₂ Saved",
+    "buySeasonal": "Choose seasonal produce to reduce carbon footprint",
+    "shopLocal": "Support local farmers — shorter transport = less emissions",
+    "reduceWaste": "Store vegetables properly to extend freshness and reduce waste"
+  },
+  "expiry": {
+    "title": "⏰ Freshness Tracker",
+    "itemName": "Item name",
+    "expired": "Expired!",
+    "expiringSoon": "Items expiring soon!",
+    "clearAll": "Clear all"
+  },
+  "personalization": {
+    "cookFor": "Cooking for",
+    "child": "Child",
+    "adult": "Adult",
+    "elderly": "Elderly",
+    "childDesc": "Simple, safe, and fun recipes for children",
+    "adultDesc": "Full recipe collection for adults",
+    "elderlyDesc": "Nutrient-rich, easy-to-chew recipes for seniors"
+  },
   "footer": {
     "tagline": "AI-Powered Kitchen Assistant — Scan, Cook, and Eat Better."
   },

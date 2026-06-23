@@ -9,37 +9,108 @@ const features = [
   { emoji: '📊', title: 'Meal Balance Score', desc: 'Overall health score with nutritional gap analysis and next-scan suggestions.' },
 ]
 
+const stats = [
+  { value: '5+', label: 'Vegetables' },
+  { value: '15+', label: 'Recipes' },
+  { value: '9', label: 'Allergy Groups' },
+  { value: '100%', label: 'Free' },
+]
+
 export default function Home() {
   return (
-    <div className="min-h-[80vh]">
-      <div className="bg-gradient-to-br from-green-50 via-white to-green-50 py-16 md:py-24">
-        <div className="max-w-3xl mx-auto text-center px-4">
-          <div className="text-6xl mb-4">🥗</div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
-            NutriVision AI
+    <div>
+      <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 animate-gradient py-20 md:py-28">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-10 left-10 text-6xl animate-float">🥦</div>
+          <div className="absolute top-20 right-20 text-5xl animate-float stagger-2">🍅</div>
+          <div className="absolute bottom-16 left-1/4 text-4xl animate-float stagger-3">🥕</div>
+          <div className="absolute top-1/3 right-1/4 text-5xl animate-float stagger-4">🥬</div>
+          <div className="absolute bottom-20 right-10 text-4xl animate-float stagger-5">🌶️</div>
+          <div className="absolute top-40 left-1/2 text-3xl animate-float stagger-6">🧄</div>
+        </div>
+        <div className="relative max-w-3xl mx-auto text-center px-4">
+          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-1.5 mb-6 border border-white/20">
+            <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+            <span className="text-sm font-medium text-white/90">AI-Powered Kitchen Assistant</span>
+          </div>
+          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight">
+            Your Smart
+            <span className="block text-emerald-200">Kitchen Companion</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-8 leading-relaxed max-w-xl mx-auto">
-            AI-powered smart kitchen assistant. Scan vegetables, get recipes, nutrition, allergy info, and smart substitutions — all in seconds.
+          <p className="text-lg text-emerald-100/90 mb-10 leading-relaxed max-w-xl mx-auto">
+            Scan any vegetable, get instant recipes, nutrition facts, allergy alerts,
+            and smart swaps — all powered by AI.
           </p>
-          <Link
-            to="/scan"
-            className="inline-block bg-green-600 text-white px-10 py-4 rounded-xl text-lg font-semibold hover:bg-green-700 transition shadow-lg hover:shadow-xl active:scale-[0.98]"
-          >
-            Start Scanning →
-          </Link>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              to="/scan"
+              className="group inline-flex items-center gap-2 bg-white text-emerald-700 px-8 py-3.5 rounded-xl text-lg font-bold hover:bg-emerald-50 transition-all shadow-xl hover:shadow-2xl active:scale-[0.97]"
+            >
+              Start Scanning
+              <span className="group-hover:translate-x-1 transition-transform">→</span>
+            </Link>
+            <Link
+              to="/scan"
+              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/25 px-8 py-3.5 rounded-xl text-lg font-semibold hover:bg-white/20 transition-all"
+            >
+              Try Demo
+              <span>🎮</span>
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-12">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-8">How It Works</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {features.map((item, i) => (
-            <div key={i} className="bg-white rounded-xl shadow-sm border border-gray-100 p-5 hover:shadow-md hover:border-green-200 transition">
-              <div className="text-3xl mb-3">{item.emoji}</div>
-              <h3 className="font-semibold text-gray-800 mb-1">{item.title}</h3>
-              <p className="text-sm text-gray-500 leading-relaxed">{item.desc}</p>
+      <div className="max-w-5xl mx-auto px-4 -mt-10 relative z-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {stats.map((s, i) => (
+            <div key={i} className="bg-white/90 backdrop-blur-sm rounded-2xl shadow-lg border border-white/50 p-5 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600">{s.value}</div>
+              <div className="text-sm text-slate-500 font-medium mt-1">{s.label}</div>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 py-20">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 mb-3">
+            Everything You Need
+          </h2>
+          <p className="text-slate-500 max-w-lg mx-auto">
+            From identification to the dinner table — one tool does it all.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {features.map((item, i) => (
+            <div
+              key={i}
+              className="group bg-white rounded-2xl shadow-sm border border-slate-100 p-6 hover:shadow-xl hover:border-emerald-200 hover:-translate-y-1 transition-all duration-300"
+            >
+              <div className="w-12 h-12 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                {item.emoji}
+              </div>
+              <h3 className="font-bold text-slate-800 mb-1.5 text-lg">{item.title}</h3>
+              <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 py-16">
+        <div className="max-w-3xl mx-auto text-center px-4">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">
+            Ready to Transform Your Kitchen?
+          </h2>
+          <p className="text-emerald-100/90 mb-8 max-w-lg mx-auto">
+            Stop guessing what's for dinner. Scan what you have and let AI do the rest.
+          </p>
+          <Link
+            to="/scan"
+            className="inline-flex items-center gap-2 bg-white text-emerald-700 px-10 py-4 rounded-xl text-lg font-bold hover:bg-emerald-50 transition-all shadow-xl hover:shadow-2xl active:scale-[0.97]"
+          >
+            Get Started Free
+            <span>→</span>
+          </Link>
         </div>
       </div>
     </div>

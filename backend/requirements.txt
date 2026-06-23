@@ -6,6 +6,6 @@ passlib
 python-jose
 python-multipart
 pillow
-anthropic
+groq
 python-dotenv
 bcrypt

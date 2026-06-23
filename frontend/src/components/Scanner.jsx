@@ -88,110 +88,156 @@ export default function Scanner({ onScanComplete }) {
     if (!image) { setError('Please select or capture an image'); return }
     setLoading(true)
     setError('')
-    const form = new FormData()
-    form.append('file', image)
     try {
-      const res = await axios.post(`${API}/scan/`, form)
+      const toBase64 = (file) => new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onload = () => resolve(reader.result.split(',')[1])
+        reader.onerror = reject
+      })
+      const base64 = await toBase64(image)
+      const res = await axios.post(`${API}/scan/`, { image: base64 })
       if (onScanComplete) onScanComplete(res.data)
     } catch (err) {
-      setError(err.response?.data?.detail || 'Scan failed. Is the backend running?')
+      setError(err.response?.data?.error || err.response?.data?.detail || 'Scan failed. Is the backend running?')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4 text-gray-800">Capture Vegetables</h2>
-
-      <div className="flex gap-2 mb-4">
-        <button
-          onClick={() => { setMode('upload'); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }}
-          className={`px-4 py-2 rounded ${mode === 'upload' ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
-        >Upload</button>
-        <button
-          onClick={() => { setMode('camera'); setError(''); startCamera() }}
-          className={`px-4 py-2 rounded ${mode === 'camera' ? 'bg-green-600 text-white' : 'bg-gray-200'}`}
-        >Camera</button>
-      </div>
-
-      {mode === 'upload' && (
-        <div
-          onClick={() => fileRef.current?.click()}
-          onDrop={handleDrop}
-          onDragOver={handleDragOver}
-          onDragLeave={handleDragLeave}
-          className={`border-2 border-dashed rounded-lg p-12 text-center cursor-pointer mb-4 transition-colors ${
-            dragOver ? 'border-green-400 bg-green-50' : 'border-gray-300 hover:border-green-400'
-          }`}
-        >
-          <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
-          {loading ? (
-            <div className="flex flex-col items-center gap-3">
-              <div className="w-10 h-10 border-4 border-green-200 border-t-green-600 rounded-full animate-spin" />
-              <p className="text-green-600 font-medium">Analyzing with AI...</p>
-            </div>
-          ) : preview ? (
-            <img src={preview} alt="Preview" className="max-h-64 mx-auto rounded" />
-          ) : (
-            <div>
-              <p className="text-4xl mb-2">📸</p>
-              <p className="text-gray-400 text-lg">Click or drag & drop an image</p>
-              <p className="text-gray-300 text-sm mt-1">Supports JPG, PNG, WEBP</p>
-            </div>
-          )}
+    <div className="max-w-2xl mx-auto">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100 p-6 md:p-8">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md">
+            <span className="text-lg">📸</span>
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-slate-800">Scan Vegetables</h2>
+            <p className="text-sm text-slate-400">Upload a photo or use demo mode</p>
+          </div>
         </div>
-      )}
 
-      {mode === 'camera' && (
-        <div className="mb-4">
-          {!stream && (
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center">
-              <p className="text-gray-400 text-lg mb-4">Click Start Camera</p>
-              <button
-                onClick={startCamera}
-                className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-              >Start Camera</button>
-            </div>
-          )}
-          {stream && (
-            <div className="text-center">
-              <video ref={videoRef} autoPlay className="max-h-64 mx-auto rounded border" />
-              <button
-                onClick={captureFromCamera}
-                className="mt-3 bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
-              >Capture</button>
-            </div>
-          )}
-          {preview && (
-            <img src={preview} alt="Captured" className="max-h-64 mx-auto rounded mt-3" />
-          )}
+        <div className="flex gap-2 mb-6 bg-slate-100/80 rounded-xl p-1">
+          {['upload', 'camera'].map(m => (
+            <button
+              key={m}
+              onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }}
+              className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${
+                mode === m
+                  ? 'bg-white text-emerald-700 shadow-sm'
+                  : 'text-slate-500 hover:text-slate-700'
+              }`}
+            >
+              {m === 'upload' ? '📁 Upload' : '📷 Camera'}
+            </button>
+          ))}
         </div>
-      )}
 
-      <canvas ref={canvasRef} hidden />
+        {mode === 'upload' && (
+          <div
+            onClick={() => !loading && fileRef.current?.click()}
+            onDrop={handleDrop}
+            onDragOver={handleDragOver}
+            onDragLeave={handleDragLeave}
+            className={`relative rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer overflow-hidden ${
+              dragOver
+                ? 'border-emerald-400 bg-emerald-50/80 scale-[1.01]'
+                : 'border-slate-200 hover:border-emerald-300 bg-slate-50/50 hover:bg-emerald-50/30'
+            }`}
+          >
+            <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
+            {loading ? (
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="relative w-14 h-14">
+                  <div className="absolute inset-0 border-4 border-emerald-200 rounded-full" />
+                  <div className="absolute inset-0 border-4 border-transparent border-t-emerald-500 rounded-full animate-spin" />
+                </div>
+                <p className="text-emerald-600 font-semibold text-lg">Analyzing with AI...</p>
+                <p className="text-slate-400 text-sm">Identifying vegetables and generating insights</p>
+              </div>
+            ) : preview ? (
+              <div className="relative">
+                <img src={preview} alt="Preview" className="w-full max-h-72 object-contain p-4" />
+                <button
+                  onClick={(e) => { e.stopPropagation(); setImage(null); setPreview(null) }}
+                  className="absolute top-2 right-2 w-8 h-8 bg-slate-800/60 hover:bg-slate-800/80 text-white rounded-full flex items-center justify-center text-sm backdrop-blur-sm transition-all"
+                >✕</button>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-16">
+                <div className="w-16 h-16 bg-emerald-100 rounded-2xl flex items-center justify-center text-3xl mb-4">
+                  📸
+                </div>
+                <p className="text-slate-500 text-lg font-medium">Click or drag & drop an image</p>
+                <p className="text-slate-400 text-sm mt-1">Supports JPG, PNG, WEBP</p>
+              </div>
+            )}
+          </div>
+        )}
 
-      {error && <p className="text-red-500 mb-3">{error}</p>}
+        {mode === 'camera' && (
+          <div className="rounded-xl border border-slate-200 overflow-hidden bg-slate-50/50">
+            {!stream ? (
+              <div className="flex flex-col items-center py-12">
+                <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center text-3xl mb-4">📷</div>
+                <p className="text-slate-500 mb-4">Click to start your camera</p>
+                <button
+                  onClick={startCamera}
+                  className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg"
+                >Start Camera</button>
+              </div>
+            ) : (
+              <div>
+                <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5" />
+                <div className="flex gap-2 p-3 bg-slate-100/50">
+                  <button
+                    onClick={captureFromCamera}
+                    className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md"
+                  >Capture Photo</button>
+                  <button
+                    onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }}
+                    className="px-4 py-2.5 bg-slate-200 text-slate-600 rounded-xl font-medium hover:bg-slate-300 transition-all"
+                  >Cancel</button>
+                </div>
+              </div>
+            )}
+            {preview && (
+              <div className="relative border-t border-slate-200">
+                <img src={preview} alt="Captured" className="w-full max-h-48 object-contain p-3" />
+              </div>
+            )}
+          </div>
+        )}
 
-      <div className="flex gap-3">
-        <button
-          onClick={handleScan}
-          disabled={loading || !image}
-          className="flex-1 bg-green-600 text-white py-3 rounded-lg text-lg font-semibold hover:bg-green-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        >
-          {loading ? (
-            <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Analyzing...</>
-          ) : 'Scan & Analyze'}
-        </button>
-        <button
-          onClick={handleDemo}
-          disabled={loading}
-          className="bg-purple-600 text-white px-6 py-3 rounded-lg text-lg font-semibold hover:bg-purple-700 disabled:bg-gray-300 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-        >
-          {loading ? (
-            <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Loading...</>
-          ) : 'Demo Mode'}
-        </button>
+        <canvas ref={canvasRef} hidden />
+
+        {error && (
+          <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-600 flex items-center gap-2">
+            <span>⚠</span> {error}
+          </div>
+        )}
+
+        <div className="flex gap-3 mt-6">
+          <button
+            onClick={handleScan}
+            disabled={loading || !image}
+            className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-3 rounded-xl text-base font-bold hover:from-emerald-600 hover:to-teal-700 disabled:from-slate-300 disabled:to-slate-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
+          >
+            {loading ? (
+              <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Analyzing...</>
+            ) : 'Scan & Analyze'}
+          </button>
+          <button
+            onClick={handleDemo}
+            disabled={loading}
+            className="px-6 py-3 rounded-xl text-base font-bold bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700 disabled:from-slate-300 disabled:to-slate-300 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
+          >
+            {loading ? (
+              <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> Loading...</>
+            ) : 'Demo Mode'}
+          </button>
+        </div>
       </div>
     </div>
   )

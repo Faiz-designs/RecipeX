@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models.scan import Scan
 from models.vegetable import Vegetable, Nutrition, Recipe, Substitution
-from services.claude_service import analyze_image
+from services.groq_service import analyze_image
 from services.demo_data import DEMO_DATA
 import json
 

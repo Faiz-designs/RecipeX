@@ -89,13 +89,36 @@ Per 100g values aligned with USDA FoodData Central.
 }
 
 STEP 4 — ALLERGY & MEDICAL RISK REPORT — Output key: "allergy_report"
-Severity: "SAFE" | "CAUTION" | "AVOID"
+MUST include EVERY detected vegetable. Severity: "SAFE" | "CAUTION" | "AVOID"
 Groups: Diabetics, Thyroid (Hypo), Thyroid (Hyper), IBS, Pregnant Women, Infants & Children Under 5, Elderly (65+), Kidney Disease, Blood Thinner Users
-For each vegetable: {"vegetable_id": "", "vegetable_name": "", "risk_groups": [{"group": "", "severity": "", "reason": "", "recommendation": ""}]}
+Use this exact structure for each vegetable:
+{
+  "vegetable_id": "veg_01",
+  "vegetable_name": "Tomato",
+  "risk_groups": [
+    {"group": "Diabetics", "severity": "SAFE", "reason": "Low glycemic index of 38; natural sugars are well-tolerated.", "recommendation": "Can be consumed freely in moderation."},
+    {"group": "Thyroid (Hypo)", "severity": "SAFE", "reason": "No goitrogenic compounds present.", "recommendation": "No restrictions."},
+    {"group": "Thyroid (Hyper)", "severity": "SAFE", "reason": "No iodine interference.", "recommendation": "No restrictions."},
+    {"group": "IBS", "severity": "CAUTION", "reason": "Acidic nature may trigger reflux in sensitive individuals; skin and seeds can be difficult to digest.", "recommendation": "Peel and deseed before consumption; limit to 1 medium tomato per meal."},
+    {"group": "Pregnant Women", "severity": "SAFE", "reason": "Good source of folate and vitamin C.", "recommendation": "Wash thoroughly before consumption."},
+    {"group": "Infants & Children Under 5", "severity": "SAFE", "reason": "Soft texture when cooked; easily digestible.", "recommendation": "Introduce as puree after 6 months of age; ensure seeds are removed."},
+    {"group": "Elderly (65+)", "severity": "SAFE", "reason": "Easily digestible; provides lycopene for heart health.", "recommendation": "Cooked tomatoes recommended for better lycopene absorption."},
+    {"group": "Kidney Disease", "severity": "CAUTION", "reason": "Moderate potassium content (292mg per 100g) may require monitoring.", "recommendation": "Consult nephrologist; limit to small portions if potassium levels are high."},
+    {"group": "Blood Thinner Users", "severity": "SAFE", "reason": "Low vitamin K content (7.9 mcg per 100g); does not interfere significantly.", "recommendation": "No restrictions; maintain consistent intake."}
+  ]
+}
 
 STEP 5 — SUBSTITUTIONS — Output key: "substitutions"
-For every vegetable with CAUTION or AVOID groups.
-{"original_vegetable_name": "", "risk_reason": "", "affected_groups": [], "substitute_vegetable": "", "why_safer": "", "nutritional_equivalence": "High | Moderate | Low"}
+MUST include at least one substitution for EVERY detected vegetable. If all groups are SAFE, provide a texture/flavor alternative.
+Use this exact structure for each vegetable:
+{
+  "original_vegetable_name": "Tomato",
+  "risk_reason": "Acidic nature may trigger IBS symptoms; moderate potassium concerns for kidney patients.",
+  "affected_groups": ["IBS", "Kidney Disease"],
+  "substitute_vegetable": "Roasted Red Bell Pepper",
+  "why_safer": "Lower acidity reduces IBS triggers; comparable vitamin C content with lower potassium (211mg vs 292mg per 100g).",
+  "nutritional_equivalence": "High"
+}
 
 STEP 6 — IMPROVEMENTS — Output key: "improvements"
 {

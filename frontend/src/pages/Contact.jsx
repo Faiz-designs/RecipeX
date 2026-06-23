@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 
 export default function Contact() {
   const { t } = useTranslation()
@@ -22,7 +23,9 @@ export default function Contact() {
   }
 
   return (
-    <div className="animate-fadeIn">
+    <>
+      <SEO title="Contact" description="Get in touch with the RecipeX AI team." />
+      <div className="animate-fadeIn">
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 py-20 md:py-28">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 text-6xl animate-float">📬</div>
@@ -116,5 +119,6 @@ export default function Contact() {
         </div>
       </div>
     </div>
+    </>
   )
 }

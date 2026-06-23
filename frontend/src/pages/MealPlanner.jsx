@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 import { getScanHistory } from '../utils/scanHistory'
 
 const STORAGE_KEY = 'nutrivision_meal_plan'
@@ -55,7 +56,9 @@ export default function MealPlanner() {
   const allRecipes = [...new Map(savedRecipes.map(r => [r.name, r])).values()]
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <>
+      <SEO title="Meal Planner" description="Plan your weekly meals with AI-generated recipes from scanned vegetables." />
+      <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">📅</div>
@@ -138,5 +141,6 @@ export default function MealPlanner() {
         )}
       </div>
     </div>
+    </>
   )
 }

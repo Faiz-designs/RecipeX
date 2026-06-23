@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../utils/AuthContext'
 import { Link, useNavigate } from 'react-router-dom'
+import SEO from '../components/SEO'
 
 export default function Profile() {
   const { t } = useTranslation()
@@ -12,7 +13,9 @@ export default function Profile() {
   const handleLogout = () => { logout(); navigate('/') }
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <>
+      <SEO title="Profile" description="Your RecipeX AI account profile." />
+      <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
         <div className="flex items-center gap-4">
           <div className="relative">
@@ -64,5 +67,6 @@ export default function Profile() {
         </Link>
       </div>
     </div>
+    </>
   )
 }

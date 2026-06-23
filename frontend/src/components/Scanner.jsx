@@ -125,7 +125,7 @@ export default function Scanner({ onScanComplete }) {
               </div>
             ) : preview ? (
               <div className="relative group">
-                <img src={preview} alt="Preview" className="w-full max-h-72 object-contain p-4" />
+                <img src={preview} alt="Preview" loading="lazy" className="w-full max-h-72 object-contain p-4" />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-black/20 transition-all duration-300" />
                 <button onClick={(e) => { e.stopPropagation(); setImage(null); setPreview(null) }} className="absolute top-3 right-3 w-8 h-8 bg-slate-800/60 hover:bg-slate-800/80 text-white rounded-full flex items-center justify-center text-sm backdrop-blur-sm transition-all hover:scale-110 active:scale-95">✕</button>
               </div>
@@ -160,7 +160,7 @@ export default function Scanner({ onScanComplete }) {
                 </div>
               </div>
             )}
-            {preview && <div className="relative border-t border-slate-200 dark:border-slate-600"><img src={preview} alt="Captured" className="w-full max-h-48 object-contain p-3" /></div>}
+            {preview && <div className="relative border-t border-slate-200 dark:border-slate-600"><img src={preview} alt="Captured" loading="lazy" className="w-full max-h-48 object-contain p-3" /></div>}
           </div>
         )}
 

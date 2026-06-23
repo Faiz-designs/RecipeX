@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 
 const nutrientRows = [
   { key: 'calories_kcal', label: 'Calories (kcal)', max: 100, color: 'from-orange-400 to-orange-500' },
@@ -115,7 +116,9 @@ export default function Nutrition() {
   })
 
   return (
-    <div className="animate-fadeIn">
+    <>
+      <SEO title="Nutrition Tracker" description="Track daily nutrition, vitamins, and health scores from your scanned vegetables." />
+      <div className="animate-fadeIn">
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 py-20 md:py-28">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 text-6xl animate-float">🥦</div>
@@ -267,5 +270,6 @@ export default function Nutrition() {
         </div>
       </div>
     </div>
+    </>
   )
 }

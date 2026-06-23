@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 import RecipeCard from '../components/RecipeCard'
 import NutritionTable from '../components/NutritionTable'
 import AllergyReport from '../components/AllergyReport'
@@ -20,7 +21,9 @@ export default function History() {
   const r = selected?.result
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <>
+      <SEO title="Scan History" description="View your past vegetable scans and recipe results." />
+      <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -129,5 +132,6 @@ export default function History() {
         </div>
       )}
     </div>
+    </>
   )
 }

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 import Scanner from '../components/Scanner'
 import RecipeCard from '../components/RecipeCard'
 import NutritionTable from '../components/NutritionTable'
@@ -68,7 +69,9 @@ export default function Scan() {
   const r = result?.result
 
   return (
-    <div className="max-w-5xl mx-auto px-4 py-8">
+    <>
+      <SEO title="Scan Vegetables" description="Upload a photo or use your camera to identify vegetables and get instant AI analysis." />
+      <div className="max-w-5xl mx-auto px-4 py-8">
       {!showReport && (
         <div className="animate-fadeIn">
           <div className="text-center mb-8">
@@ -178,5 +181,6 @@ export default function Scan() {
         </button>
       )}
     </div>
+    </>
   )
 }

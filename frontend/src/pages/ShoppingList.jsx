@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 import { getShoppingList, addToShoppingList, removeFromShoppingList, toggleShoppingItem, clearShoppingList } from '../utils/shoppingList'
 
 const CATEGORIES = {
@@ -94,7 +95,9 @@ export default function ShoppingList() {
   const progress = items.length ? Math.round((checkedCount / items.length) * 100) : 0
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
+    <>
+      <SEO title="Shopping List" description="Auto-categorized shopping list with progress tracking for your recipe ingredients." />
+      <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">🛒</div>
@@ -193,5 +196,6 @@ export default function ShoppingList() {
         </div>
       )}
     </div>
+    </>
   )
 }

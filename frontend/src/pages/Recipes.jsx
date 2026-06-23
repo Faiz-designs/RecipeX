@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 import { getPantry, addToPantry, removeFromPantry, clearPantry } from '../utils/pantry'
 import { addRecipeIngredientsToList } from '../utils/shoppingList'
 
@@ -423,7 +424,9 @@ export default function Recipes() {
   }
 
   return (
-    <div className="animate-fadeIn">
+    <>
+      <SEO title="Explore Recipes" description="Browse AI-generated recipes from scanned vegetables. Filter by difficulty, diet, prep time, and season." />
+      <div className="animate-fadeIn">
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-emerald-400 animate-gradient py-20 md:py-28">
         <div className="absolute inset-0 bg-white/5" />
         <div className="absolute inset-0 opacity-15">
@@ -582,5 +585,6 @@ export default function Recipes() {
         )}
       </div>
     </div>
+    </>
   )
 }

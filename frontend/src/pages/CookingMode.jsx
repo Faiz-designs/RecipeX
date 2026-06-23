@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 
 export default function CookingMode() {
   const { t, i18n } = useTranslation()
@@ -104,7 +105,9 @@ export default function CookingMode() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col">
+    <>
+      <SEO title="Cooking Mode" description="Step-by-step hands-free cooking mode with voice assistant and timer." />
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col">
       <header className="bg-slate-800/80 backdrop-blur-sm border-b border-slate-700/60 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center text-sm shadow-lg shadow-emerald-500/20">👨‍🍳</div>
@@ -223,5 +226,6 @@ export default function CookingMode() {
         </main>
       </div>
     </div>
+    </>
   )
 }

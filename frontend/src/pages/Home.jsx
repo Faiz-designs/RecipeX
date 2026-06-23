@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import SEO from '../components/SEO'
 
 export default function Home() {
   const { t } = useTranslation()
@@ -88,7 +89,9 @@ export default function Home() {
   ]
 
   return (
-    <div ref={sectionRef}>
+    <>
+      <SEO title="Home" description="Your smart kitchen companion. Scan vegetables, get AI-powered recipes, nutrition, and allergy insights." />
+      <div ref={sectionRef}>
       <div className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-600 animate-gradient py-20 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15)_0%,_transparent_60%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-15">
@@ -185,5 +188,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    </>
   )
 }

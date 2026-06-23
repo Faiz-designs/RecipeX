@@ -1,20 +1,24 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './utils/AuthContext'
 import { useTranslation } from 'react-i18next'
-import Home from './pages/Home'
-import Scan from './pages/Scan'
-import History from './pages/History'
-import About from './pages/About'
-import Contact from './pages/Contact'
-import Recipes from './pages/Recipes'
-import Nutrition from './pages/Nutrition'
-import ShoppingList from './pages/ShoppingList'
-import CookingMode from './pages/CookingMode'
-import MealPlanner from './pages/MealPlanner'
-import Login from './pages/Login'
-import Signup from './pages/Signup'
-import Profile from './pages/Profile'
+import { lazy, Suspense } from 'react'
+import { HelmetProvider } from 'react-helmet-async'
 import useDarkMode from './utils/useDarkMode'
+
+const Home = lazy(() => import('./pages/Home'))
+const Scan = lazy(() => import('./pages/Scan'))
+const History = lazy(() => import('./pages/History'))
+const About = lazy(() => import('./pages/About'))
+const Contact = lazy(() => import('./pages/Contact'))
+const Recipes = lazy(() => import('./pages/Recipes'))
+const Nutrition = lazy(() => import('./pages/Nutrition'))
+const ShoppingList = lazy(() => import('./pages/ShoppingList'))
+const CookingMode = lazy(() => import('./pages/CookingMode'))
+const MealPlanner = lazy(() => import('./pages/MealPlanner'))
+const Login = lazy(() => import('./pages/Login'))
+const Signup = lazy(() => import('./pages/Signup'))
+const Profile = lazy(() => import('./pages/Profile'))
+import { ToastProvider } from './utils/ToastContext'
 
 function Nav() {
   const { pathname } = useLocation()
@@ -94,21 +98,30 @@ function AppContent() {
         </div>
       </nav>
       <main className="flex-1">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/scan" element={<Scan />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/nutrition" element={<Nutrition />} />
-          <Route path="/shopping-list" element={<ShoppingList />} />
-          <Route path="/cooking-mode" element={<CookingMode />} />
-          <Route path="/meal-planner" element={<MealPlanner />} />
-          <Route path="/history" element={<History />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/profile" element={user ? <Profile /> : <Login />} />
-        </Routes>
+        <Suspense fallback={
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="flex flex-col items-center gap-3">
+              <div className="w-10 h-10 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin" />
+              <p className="text-sm text-slate-400">Loading...</p>
+            </div>
+          </div>
+        }>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/scan" element={<Scan />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="/nutrition" element={<Nutrition />} />
+            <Route path="/shopping-list" element={<ShoppingList />} />
+            <Route path="/cooking-mode" element={<CookingMode />} />
+            <Route path="/meal-planner" element={<MealPlanner />} />
+            <Route path="/history" element={<History />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={user ? <Profile /> : <Login />} />
+          </Routes>
+        </Suspense>
       </main>
       <footer className="mt-auto">
         <div className="relative">
@@ -141,10 +154,14 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <AppContent />
-      </AuthProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <ToastProvider>
+            <AppContent />
+          </ToastProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   )
 }

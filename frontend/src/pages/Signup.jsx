@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../utils/AuthContext'
+import SEO from '../components/SEO'
 
 export default function Signup() {
   const { t } = useTranslation()
@@ -31,7 +32,9 @@ export default function Signup() {
   }
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
+    <>
+      <SEO title="Create Account" description="Create your free RecipeX AI account." />
+      <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="relative bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/60 p-8">
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none" />
@@ -91,5 +94,6 @@ export default function Signup() {
         </div>
       </div>
     </div>
+    </>
   )
 }

@@ -225,17 +225,6 @@ def _parse_response(response) -> dict:
     return json.loads(cleaned)
 
 
-def analyze_text(vegetable_name: str) -> dict:
-    prompt = SYSTEM_PROMPT + f"\n\nThe user said they have: {vegetable_name}. Analyze this/these vegetable(s) following the pipeline exactly. Assume the vegetables are fresh and of average quality. Return only JSON."
-    response = client.chat.completions.create(
-        model=MODEL,
-        temperature=0.3,
-        max_tokens=8192,
-        messages=[{"role": "user", "content": prompt}]
-    )
-    return _parse_response(response)
-
-
 def analyze_image(image_bytes: bytes) -> dict:
     processed = preprocess_image(image_bytes)
     base64_image = image_to_base64(processed)

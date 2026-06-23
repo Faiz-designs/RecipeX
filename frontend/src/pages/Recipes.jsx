@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import VoiceInput from '../components/VoiceInput'
 
 const difficultyConfig = {
   easy: { label: 'Easy', badge: 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300', header: 'from-emerald-500 to-emerald-600' },
@@ -126,18 +125,6 @@ export default function Recipes() {
       </div>
 
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="flex items-center gap-2 mb-4">
-          <div className="flex-1 relative">
-            <input
-              value={search} onChange={e => setSearch(e.target.value)}
-              placeholder="Search recipes by name or ingredient..."
-              className="w-full px-4 py-2.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all pl-10"
-            />
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
-            {search && <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-xs">✕</button>}
-          </div>
-          <VoiceInput onResult={(text) => setSearch(text)} />
-        </div>
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
           <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">
             <span className="font-bold text-slate-700 dark:text-slate-200">{recipes.length}</span> recipe{recipes.length !== 1 ? 's' : ''} available

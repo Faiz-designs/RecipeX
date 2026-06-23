@@ -1,6 +1,6 @@
 {
-  "name": "Recipe_x AI",
-  "short_name": "Recipe_x",
+  "name": "RecipeX AI",
+  "short_name": "RecipeX",
   "description": "AI-powered smart kitchen assistant — scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.",
   "start_url": "/",
   "display": "standalone",

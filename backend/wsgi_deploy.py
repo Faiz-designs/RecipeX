@@ -78,7 +78,7 @@ def application(environ, start_response):
             else: d = {'error': 'No image'}
         except Exception as e: d = {'error': str(e)}
         return jr(start_response, d)
-    routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'Recipe_x AI', 'status': 'running', 'version': '1.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
+    routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'RecipeX AI', 'status': 'running', 'version': '1.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
     h = routes.get(p)
     if not h: return jr(start_response, {'error': 'Not found'}, '404 Not Found')
     return jr(start_response, h())

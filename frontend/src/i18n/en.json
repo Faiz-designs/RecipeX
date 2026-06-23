@@ -185,7 +185,7 @@
     "dinner": "Dinner"
   },
   "about": {
-    "title": "About Recipe_x AI",
+    "title": "About RecipeX AI",
     "tagline": "AI-Powered Smart Kitchen Assistant",
     "mission": "Our Mission",
     "missionDesc": "To reduce food waste and make healthy cooking accessible to everyone by leveraging the power of AI. We believe that knowing what's in your kitchen should be simple, fast, and free.",
@@ -234,9 +234,9 @@
   },
   "auth": {
     "welcomeBack": "Welcome Back",
-    "signInDesc": "Sign in to your Recipe_x account",
+    "signInDesc": "Sign in to your RecipeX account",
     "createAccount": "Create Account",
-    "signUpDesc": "Join Recipe_x AI for free",
+    "signUpDesc": "Join RecipeX AI for free",
     "username": "Username",
     "password": "Password",
     "confirmPassword": "Confirm",

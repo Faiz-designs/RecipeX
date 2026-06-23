@@ -86,7 +86,7 @@ DEMO_DATA = {
       ],
       "plating_suggestion": "Serve in a wide wooden bowl with dressing drizzled in a spiral pattern.",
       "estimated_cost": "$5.00",
-      "budget_friendly": true
+      "budget_friendly": True
     },
     "intermediate": {
       "name": "Roasted Vegetable Medley with Garlic Herb Sauce",
@@ -104,7 +104,7 @@ DEMO_DATA = {
       ],
       "plating_suggestion": "Arrange roasted vegetables on a large white platter with sauce drizzled artistically.",
       "estimated_cost": "$8.50",
-      "budget_friendly": true
+      "budget_friendly": True
     },
     "advanced": {
       "name": "Stuffed Bell Peppers with Broccoli-Carrot Rice",
@@ -125,7 +125,7 @@ DEMO_DATA = {
       ],
       "plating_suggestion": "Place stuffed bell pepper in the center of a plate surrounded by a ring of fresh tomato salad and microgreens.",
       "estimated_cost": "$12.00",
-      "budget_friendly": false
+      "budget_friendly": False
     }
   },
   "nutrition": [
@@ -506,11 +506,11 @@ DEMO_DATA = {
       "vegetable_name": "Tomato",
       "method": "Countertop stem-end up, away from direct sunlight",
       "shelf_life_days": 5,
-      "refrigerate": false,
+      "refrigerate": False,
       "refrigerate_note": "Refrigeration destroys texture and flavor — only refrigerate if fully ripe and need 2-3 more days.",
       "freeze_instructions": "Blanch whole tomatoes for 2 minutes, peel, then freeze in zip-top bags for up to 8 months.",
-      "ripen_at_home": true,
-      "ethylene_producer": true,
+      "ripen_at_home": True,
+      "ethylene_producer": True,
       "tip": "Never store tomatoes in the fridge if you plan to eat them within 3 days — cold kills the flavor enzymes."
     },
     {
@@ -518,11 +518,11 @@ DEMO_DATA = {
       "vegetable_name": "Spinach",
       "method": "Refrigerate in a perforated bag with a paper towel to absorb moisture",
       "shelf_life_days": 5,
-      "refrigerate": true,
+      "refrigerate": True,
       "refrigerate_note": "Keep at 1-4°C in the crisper drawer. Do not wash before storing — moisture accelerates spoilage.",
       "freeze_instructions": "Blanch for 30 seconds, squeeze dry, portion into bags and freeze for up to 12 months.",
-      "ripen_at_home": false,
-      "ethylene_producer": false,
+      "ripen_at_home": False,
+      "ethylene_producer": False,
       "tip": "Place a dry paper towel inside the bag — it absorbs condensation and doubles shelf life."
     },
     {
@@ -530,11 +530,11 @@ DEMO_DATA = {
       "vegetable_name": "Carrot",
       "method": "Refrigerate in a sealed container submerged in water or wrapped in a damp cloth",
       "shelf_life_days": 21,
-      "refrigerate": true,
+      "refrigerate": True,
       "refrigerate_note": "Remove leafy tops before storing — they draw moisture from the root and cause limpness.",
       "freeze_instructions": "Blanch sliced carrots for 3 minutes, cool, and freeze in bags for up to 10 months.",
-      "ripen_at_home": false,
-      "ethylene_producer": true,
+      "ripen_at_home": False,
+      "ethylene_producer": True,
       "tip": "Store carrots away from apples and pears — ethylene from those fruits makes carrots bitter."
     },
     {
@@ -542,11 +542,11 @@ DEMO_DATA = {
       "vegetable_name": "Broccoli",
       "method": "Refrigerate in a loose bag with slight moisture — place stem-end in water like a bouquet",
       "shelf_life_days": 10,
-      "refrigerate": true,
+      "refrigerate": True,
       "refrigerate_note": "Best kept at 0-1°C. Wrap in a damp paper towel to maintain crispness and prevent wilting.",
       "freeze_instructions": "Blanch florets for 2 minutes, shock in ice water, drain well, and freeze for up to 12 months.",
-      "ripen_at_home": false,
-      "ethylene_producer": false,
+      "ripen_at_home": False,
+      "ethylene_producer": False,
       "tip": "Wrap broccoli in a damp paper towel inside a perforated bag to keep it crisp for over a week."
     },
     {
@@ -554,11 +554,11 @@ DEMO_DATA = {
       "vegetable_name": "Bell Pepper",
       "method": "Refrigerate whole and dry in the crisper drawer, unwashed",
       "shelf_life_days": 10,
-      "refrigerate": true,
+      "refrigerate": True,
       "refrigerate_note": "Keep dry — any moisture on the skin encourages mold. Use within 10 days for best texture.",
       "freeze_instructions": "Slice or dice, spread on a baking sheet to flash freeze, then transfer to bags for up to 8 months.",
-      "ripen_at_home": true,
-      "ethylene_producer": true,
+      "ripen_at_home": True,
+      "ethylene_producer": True,
       "tip": "Bell peppers continue ripening at room temperature — leave on the counter if you want sweeter peppers."
     }
   ],

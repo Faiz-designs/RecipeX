@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '../utils/AuthContext'
 import SEO from '../components/SEO'
 
 const nutrientRows = [
@@ -38,11 +39,40 @@ function Bar({ value, max, color }) {
   )
 }
 
+function DailyChart({ data, color, label, max }) {
+  if (!data?.length) return null
+  const vals = data.map(d => d.value)
+  const chartMax = Math.max(...vals, max || 1) * 1.2
+  return (
+    <div className="flex items-end gap-1 h-24">
+      {data.map((d, i) => {
+        const h = (d.value / chartMax) * 100
+        return (
+          <div key={i} className="flex-1 flex flex-col items-center gap-0.5 group relative">
+            <div className={`w-full rounded-t-md bg-gradient-to-t ${color} transition-all duration-500 hover:opacity-80`} style={{ height: `${Math.max(h, 2)}%` }} />
+            <span className="text-[10px] text-slate-400 dark:text-slate-500 truncate w-full text-center">{d.label}</span>
+            <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-slate-800 dark:bg-slate-200 text-white dark:text-slate-800 text-[10px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+              {d.value?.toFixed(d.value % 1 === 0 ? 0 : 1)}
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 export default function Nutrition() {
   const { t } = useTranslation()
+  const { user, token } = useAuth()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  const [showLogForm, setShowLogForm] = useState(false)
+  const [log, setLog] = useState({ food_name: '', meal_type: 'breakfast', calories_kcal: 0, protein_g: 0, carbohydrates_g: 0, fat_g: 0, fibre_g: 0 })
+  const [saving, setSaving] = useState(false)
+  const [logSaved, setLogSaved] = useState(false)
+  const [dailyHistory, setDailyHistory] = useState([])
 
   useEffect(() => {
     fetch('https://FaizBasha05.pythonanywhere.com/scan/demo')
@@ -54,56 +84,61 @@ export default function Nutrition() {
       .catch(err => { setError(err.message); setLoading(false) })
   }, [])
 
+  useEffect(() => {
+    if (user && token) {
+      fetch('https://FaizBasha05.pythonanywhere.com/nutrition/history?days=7', {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
+        .then(res => res.json())
+        .then(setDailyHistory)
+        .catch(() => {})
+    }
+  }, [user, token])
+
+  const handleLog = async () => {
+    if (!user || !token) return
+    setSaving(true)
+    try {
+      const today = new Date().toISOString().split('T')[0]
+      const res = await fetch('https://FaizBasha05.pythonanywhere.com/nutrition/log', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+        body: JSON.stringify({ ...log, log_date: today }),
+      })
+      if (!res.ok) throw new Error()
+      setLogSaved(true)
+      setLog({ food_name: '', meal_type: 'breakfast', calories_kcal: 0, protein_g: 0, carbohydrates_g: 0, fat_g: 0, fibre_g: 0 })
+      setTimeout(() => setLogSaved(false), 2000)
+      const hist = await fetch('https://FaizBasha05.pythonanywhere.com/nutrition/history?days=7', {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
+      setDailyHistory(await hist.json())
+    } catch (err) {}
+    setSaving(false)
+  }
+
   if (loading) {
     return (
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center shadow-xl shadow-emerald-500/10">
-          <div className="flex items-center gap-3 text-white">
-            <div className="w-8 h-8 border-4 border-white/30 border-t-white rounded-full animate-spin" />
-            <span className="text-lg font-semibold">{t('common.loading')}</span>
-          </div>
-        </div>
-        <div className="space-y-4">
-          {[1, 2, 3, 4, 5].map(i => (
-            <div key={i} className="h-16 bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 animate-shimmer" />
-          ))}
-        </div>
+      <div className="max-w-5xl mx-auto px-4 py-8 animate-fadeIn">
+        <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white"><div className="h-8 w-48 bg-white/20 rounded-lg animate-pulse" /><div className="h-4 w-72 bg-white/20 rounded-lg mt-3 animate-pulse" /></div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-28 bg-slate-100 dark:bg-slate-800 rounded-2xl animate-pulse" />)}</div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center shadow-xl shadow-emerald-500/10">
-          <h1 className="text-4xl font-extrabold text-white">{t('nutrition.title')}</h1>
-        </div>
-        <div className="bg-red-50/80 dark:bg-red-900/40 backdrop-blur-sm border border-red-200/60 dark:border-red-800/60 rounded-2xl p-8 text-center shadow-sm">
-          <div className="text-4xl mb-3">⚠️</div>
-          <p className="text-red-700 dark:text-red-300 font-semibold text-lg mb-1">{t('common.error')}</p>
-          <p className="text-red-500 dark:text-red-400 text-sm mb-5">{error}</p>
-          <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">{t('common.retry')}</button>
-        </div>
+      <div className="max-w-3xl mx-auto px-4 py-20 text-center">
+        <div className="text-4xl mb-4">⚠️</div>
+        <p className="text-lg text-red-500 font-bold mb-2">{t('common.error')}</p>
+        <p className="text-sm text-slate-500 mb-6">{error}</p>
+        <button onClick={() => window.location.reload()} className="px-6 py-3 bg-emerald-500 text-white rounded-xl font-bold hover:bg-emerald-600 transition-all">{t('common.retry')}</button>
       </div>
     )
   }
 
   const nutrition = data?.result?.nutrition || []
   const vegetables = data?.result?.scan_summary?.items || []
-
-  if (nutrition.length === 0 && vegetables.length === 0) {
-    return (
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl h-48 mb-8 flex items-center justify-center shadow-xl shadow-emerald-500/10">
-          <h1 className="text-4xl font-extrabold text-white">{t('nutrition.title')}</h1>
-        </div>
-        <div className="text-center py-16 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40">
-          <div className="text-5xl mb-4">🥦</div>
-          <p className="text-slate-500 dark:text-slate-400 text-lg">{t('common.noData')}</p>
-        </div>
-      </div>
-    )
-  }
 
   const totals = {}
   nutrientRows.forEach(({ key }) => {
@@ -115,161 +150,214 @@ export default function Nutrition() {
     return { ...v, sources: sorted }
   })
 
+  const todayLog = dailyHistory[0]
+  const chartData = [...dailyHistory].reverse()
+
   return (
     <>
       <SEO title="Nutrition Tracker" description="Track daily nutrition, vitamins, and health scores from your scanned vegetables." />
       <div className="animate-fadeIn">
-      <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 py-20 md:py-28">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-10 text-6xl animate-float">🥦</div>
-          <div className="absolute top-20 right-20 text-5xl animate-float stagger-2">📊</div>
-          <div className="absolute bottom-16 left-1/4 text-4xl animate-float stagger-3">🥬</div>
-          <div className="absolute top-1/3 right-1/4 text-5xl animate-float stagger-4">🥕</div>
-        </div>
-        <div className="relative max-w-3xl mx-auto text-center px-4">
-          <h1 className="text-5xl md:text-6xl font-extrabold text-white mb-5 leading-tight drop-shadow-md">{t('nutrition.title')}</h1>
-          <p className="text-lg text-emerald-100/90 leading-relaxed max-w-xl mx-auto">
-            {t('nutrition.title')}
-          </p>
-        </div>
-      </div>
-
-      <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">
-          {[
-            { key: 'calories_kcal', label: t('nutrition.totalCalories'), grad: 'from-orange-400 to-orange-500', suffix: '', decimals: 0 },
-            { key: 'protein_g', label: t('nutrition.totalProtein'), grad: 'from-blue-400 to-blue-500', suffix: 'g', decimals: 1 },
-            { key: 'carbohydrates_g', label: t('nutrition.totalCarbs'), grad: 'from-yellow-400 to-amber-500', suffix: 'g', decimals: 1 },
-            { key: 'fat_g', label: t('nutrition.totalFat'), grad: 'from-red-400 to-red-500', suffix: 'g', decimals: 1 },
-            { key: 'dietary_fibre_g', label: t('nutrition.totalFibre'), grad: 'from-emerald-400 to-emerald-500', suffix: 'g', decimals: 1 },
-          ].map((item, i) => (
-            <div key={i} className="group bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <div className={`text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r ${item.grad}`}>{totals[item.key]?.toFixed(item.decimals) || 0}{item.suffix}</div>
-              <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1.5">{item.label}</div>
-            </div>
-          ))}
-        </div>
-
-        {nutrition.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.title')}</h2>
-            </div>
-            <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60">
-              <table className="w-full bg-white dark:bg-slate-800/90">
-                <thead>
-                  <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40">
-                    <th className="p-3.5 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50 whitespace-nowrap">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
-                    {nutrition.map(n => <th key={n.vegetable_id} className="p-3.5 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50 whitespace-nowrap">{n.vegetable_name}</th>)}
-                  </tr>
-                </thead>
-                <tbody>
-                  {nutrientRows.map(({ key, label, max, color }) => (
-                    <tr key={key} className="hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-colors">
-                      <td className="p-3.5 text-sm text-slate-600 dark:text-slate-300 border-b border-slate-200/40 dark:border-slate-700/40 font-medium whitespace-nowrap">{label}</td>
-                      {nutrition.map(n => {
-                        const val = n.per_100g?.[key]
-                        return (
-                          <td key={n.vegetable_id} className="p-3.5 text-sm text-slate-700 dark:text-slate-200 border-b border-slate-200/40 dark:border-slate-700/40 min-w-[120px]">
-                            <span className="font-bold text-slate-800 dark:text-slate-100">{val ?? '-'}</span>
-                            {val != null && <Bar value={val} max={max} color={color} />}
-                          </td>
-                        )
-                      })}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+        <div className="relative overflow-hidden bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 py-16 md:py-20">
+          <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none">
+            <span className="absolute top-4 left-[15%] text-6xl animate-float" style={{ animationDelay: '0s' }}>🥦</span>
+            <span className="absolute top-8 right-[20%] text-5xl animate-float" style={{ animationDelay: '1s' }}>🥕</span>
+            <span className="absolute bottom-8 left-[30%] text-7xl animate-float" style={{ animationDelay: '2s' }}>🍅</span>
+            <span className="absolute bottom-4 right-[25%] text-5xl animate-float" style={{ animationDelay: '0.5s' }}>🥬</span>
           </div>
-        )}
-
-        {nutrition.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">💚</div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.healthScore')}</h2>
-            </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {nutrition.map(n => {
-                const score = n.health_score_out_of_10 || 0
-                const pct = (score / 10) * 100
-                const barColor = score >= 8 ? 'from-emerald-400 to-emerald-500' : score >= 5 ? 'from-amber-400 to-amber-500' : 'from-red-400 to-red-500'
-                const badgeColor = score >= 8 ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700/50' : score >= 5 ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700/50' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700/50'
-                return (
-                  <div key={n.vegetable_id} className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-bold text-slate-800 dark:text-slate-100">{n.vegetable_name}</span>
-                      <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${badgeColor}`}>{score}/10</span>
-                    </div>
-                    <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-3 overflow-hidden shadow-inner">
-                      <div className={`h-3 rounded-full bg-gradient-to-r ${barColor} transition-all duration-700 ease-out`} style={{ width: `${pct}%` }} />
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
+          <div className="relative max-w-5xl mx-auto text-center px-4">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-sm">{t('nutrition.title')}</h1>
+            <p className="text-emerald-100/80 text-sm max-w-xl mx-auto">{t('nutrition.dailyProgress')}</p>
           </div>
-        )}
+        </div>
 
-        {nutrition.length > 0 && (
-          <div className="mb-10">
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🌟</div>
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.vitaminSources')}</h2>
+        <div className="max-w-5xl mx-auto px-4 py-8">
+          {/* Summary Cards */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
+            {[
+              { key: 'calories_kcal', label: t('nutrition.totalCalories'), suffix: '', decimals: 0, emoji: '🔥' },
+              { key: 'protein_g', label: t('nutrition.totalProtein'), suffix: 'g', decimals: 1, emoji: '🥩' },
+              { key: 'carbohydrates_g', label: t('nutrition.totalCarbs'), suffix: 'g', decimals: 1, emoji: '🌾' },
+              { key: 'fat_g', label: t('nutrition.totalFat'), suffix: 'g', decimals: 1, emoji: '🧈' },
+              { key: 'dietary_fibre_g', label: t('nutrition.totalFibre'), suffix: 'g', decimals: 1, emoji: '🌿' },
+            ].map((item, i) => (
+              <div key={i} className="group bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+                <div className="text-2xl mb-1">{item.emoji}</div>
+                <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">
+                  {totals[item.key]?.toFixed(item.decimals) || 0}{item.suffix}
+                </div>
+                <div className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1">{item.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Daily Nutrition Tracker */}
+          <div className="mb-10 bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6">
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center text-sm shadow-sm">📊</div>
+                <h2 className="text-lg font-bold text-slate-800 dark:text-slate-100">{t('nutritionTracker.trackerTitle')}</h2>
+              </div>
+              <button
+                onClick={() => setShowLogForm(!showLogForm)}
+                className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md"
+              >
+                {showLogForm ? t('common.close') : `+ ${t('nutritionTracker.logMeal')}`}
+              </button>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {topSources.map(v => (
-                <div key={v.key} className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 hover:shadow-md transition-shadow">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className={`w-8 h-8 rounded-lg bg-gradient-to-r ${v.color} flex items-center justify-center text-white text-xs font-bold shadow-sm`}>{v.name.charAt(0)}</div>
-                    <h3 className="font-bold text-slate-800 dark:text-slate-100">{v.name}</h3>
+
+            {showLogForm && user && token && (
+              <div className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 mb-5 border border-slate-200/60 dark:border-slate-700/50">
+                <div className="grid sm:grid-cols-2 gap-3 mb-3">
+                  <input value={log.food_name} onChange={e => setLog({ ...log, food_name: e.target.value })} placeholder={t('nutritionTracker.foodName')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
+                  <select value={log.meal_type} onChange={e => setLog({ ...log, meal_type: e.target.value })} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm">
+                    {['breakfast', 'lunch', 'dinner', 'snack'].map(mt => (
+                      <option key={mt} value={mt}>{t(`nutritionTracker.mealTypes.${mt}`)}</option>
+                    ))}
+                  </select>
+                  <input type="number" value={log.calories_kcal || ''} onChange={e => setLog({ ...log, calories_kcal: +e.target.value || 0 })} placeholder={t('nutritionTracker.calories')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
+                  <input type="number" value={log.protein_g || ''} onChange={e => setLog({ ...log, protein_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.protein')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
+                  <input type="number" value={log.carbohydrates_g || ''} onChange={e => setLog({ ...log, carbohydrates_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.carbs')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
+                  <input type="number" value={log.fat_g || ''} onChange={e => setLog({ ...log, fat_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.fat')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
+                </div>
+                <button onClick={handleLog} disabled={saving} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all disabled:opacity-50 shadow-md">
+                  {saving ? t('common.loading') : logSaved ? `✓ ${t('nutritionTracker.saved')}` : t('nutritionTracker.save')}
+                </button>
+              </div>
+            )}
+
+            {showLogForm && (!user || !token) && (
+              <div className="text-center py-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200/60 dark:border-amber-700/40 mb-5">
+                <p className="text-sm text-amber-600 dark:text-amber-400 font-medium">{t('nutritionTracker.signInRequired')}</p>
+              </div>
+            )}
+
+            {dailyHistory.length > 0 ? (
+              <div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+                  {[
+                    { key: 'calories', label: t('nutritionTracker.dailyCalories'), target: 2000, color: 'from-orange-400 to-red-500', emoji: '🔥' },
+                    { key: 'protein', label: t('nutritionTracker.dailyProtein'), target: 50, color: 'from-blue-400 to-blue-500', emoji: '🥩' },
+                    { key: 'carbs', label: t('nutritionTracker.dailyCarbs'), target: 300, color: 'from-yellow-400 to-amber-500', emoji: '🌾' },
+                    { key: 'fat', label: t('nutritionTracker.dailyFat'), target: 65, color: 'from-red-400 to-red-500', emoji: '🧈' },
+                  ].map((item, i) => {
+                    const val = chartData.length > 0 ? chartData[chartData.length - 1][item.key] || 0 : 0
+                    const pct = Math.min((val / item.target) * 100, 100)
+                    return (
+                      <div key={i} className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 border border-slate-200/60 dark:border-slate-700/50">
+                        <div className="flex items-center justify-between mb-1.5">
+                          <div className="flex items-center gap-1.5">
+                            <span>{item.emoji}</span>
+                            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">{item.label}</span>
+                          </div>
+                          <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{val?.toFixed(0) || 0} / {item.target}</span>
+                        </div>
+                        <div className="w-full bg-slate-200 dark:bg-slate-600 rounded-full h-2.5 overflow-hidden">
+                          <div className={`h-2.5 rounded-full bg-gradient-to-r ${item.color} transition-all duration-700`} style={{ width: `${pct}%` }} />
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-6">
+                  <div className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 border border-slate-200/60 dark:border-slate-700/50">
+                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{t('nutritionTracker.dailyCalories')}</p>
+                    <DailyChart data={chartData.map(d => ({ label: d.date?.slice(5), value: d.calories }))} color="from-orange-400 to-red-500" max={2500} />
                   </div>
-                  <div className="space-y-2.5">
-                    {v.sources.map((n, i) => (
-                      <div key={i} className="flex items-center justify-between py-1.5 px-2 -mx-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/40 transition-colors">
-                        <span className="text-sm text-slate-600 dark:text-slate-300">{n.vegetable_name}</span>
-                        <span className="text-sm font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-700/60 px-2 py-0.5 rounded-md">{n.per_100g?.[v.key]?.toFixed(1) || 0} {v.unit}</span>
+                  <div className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 border border-slate-200/60 dark:border-slate-700/50">
+                    <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{t('nutritionTracker.dailyProtein')}</p>
+                    <DailyChart data={chartData.map(d => ({ label: d.date?.slice(5), value: d.protein }))} color="from-blue-400 to-blue-500" max={80} />
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">{t('nutritionTracker.history')}</p>
+                  <div className="space-y-1.5 max-h-48 overflow-y-auto">
+                    {dailyHistory.map((d, i) => (
+                      <div key={i} className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-700/40 rounded-lg text-xs">
+                        <span className="font-medium text-slate-600 dark:text-slate-300">{d.date}</span>
+                        <span className="text-slate-400 dark:text-slate-500">{d.calories?.toFixed(0)} cal · {d.protein?.toFixed(0)}g P · {d.carbs?.toFixed(0)}g C · {d.fat?.toFixed(0)}g F</span>
                       </div>
                     ))}
                   </div>
                 </div>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <div className="text-3xl mb-2">📊</div>
+                <p className="text-sm text-slate-400 dark:text-slate-500">{t('nutritionTracker.noData')}</p>
+              </div>
+            )}
           </div>
-        )}
 
-        <div className="mb-10">
-          <div className="flex items-center gap-2.5 mb-4">
-            <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">📈</div>
-            <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.dailyProgress')}</h2>
-          </div>
-          <div className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6 md:p-8">
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{t('nutrition.dailyProgress')}</p>
-            <div className="space-y-5">
-              {Object.entries(dailyTargets).map(([key, target]) => {
-                const value = totals[key] || 0
-                const pct = Math.min((value / target.target) * 100, 100)
-                const barColor = pct >= 80 ? 'from-emerald-400 to-emerald-500' : pct >= 40 ? 'from-amber-400 to-amber-500' : 'from-blue-400 to-blue-500'
-                return (
-                  <div key={key}>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-sm font-medium text-slate-700 dark:text-slate-300">{target.label}</span>
-                      <span className="text-sm text-slate-500 dark:text-slate-400 font-medium">{value.toFixed(1)}{target.unit} / {target.target}{target.unit}</span>
-                    </div>
-                    <div className="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-3.5 overflow-hidden shadow-inner">
-                      <div className={`h-3.5 rounded-full bg-gradient-to-r ${barColor} transition-all duration-700 ease-out shadow-sm`} style={{ width: `${pct}%` }} />
-                    </div>
-                    <span className="text-xs text-slate-400 dark:text-slate-500 mt-1 inline-block">{pct.toFixed(0)}% {t('nutrition.dailyTarget')}</span>
-                  </div>
-                )
-              })}
+          {/* Per-vegetable nutrition table */}
+          {nutrition.length > 0 && (
+            <div className="mb-10">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">{t('nutrition.title')}</h2>
+              <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60">
+                <table className="w-full bg-white dark:bg-slate-800/90">
+                  <thead>
+                    <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40">
+                      <th className="p-3.5 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
+                      {nutrition.map(n => <th key={n.vegetable_id} className="p-3.5 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50">{n.vegetable_name}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {nutrientRows.map(({ key, label, max, color }) => (
+                      <tr key={key} className="hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-colors">
+                        <td className="p-3.5 text-sm font-medium text-slate-600 dark:text-slate-300 border-b border-slate-200/40 dark:border-slate-700/40">{label}</td>
+                        {nutrition.map(n => {
+                          const val = n.per_100g?.[key]
+                          return (
+                            <td key={n.vegetable_id} className="p-3.5 border-b border-slate-200/40 dark:border-slate-700/40">
+                              {val != null ? (
+                                <div>
+                                  <span className="font-bold text-sm text-slate-700 dark:text-slate-200">{typeof val === 'number' ? val.toFixed(val % 1 === 0 ? 0 : 1) : val}</span>
+                                  <Bar value={val} max={max} color={color} />
+                                </div>
+                              ) : <span className="text-slate-300 dark:text-slate-600">—</span>}
+                            </td>
+                          )
+                        })}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
-          </div>
+          )}
+
+          {/* Vitamin Sources */}
+          {nutrition.length > 0 && (
+            <div className="mb-10">
+              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">💊 {t('nutrition.vitaminSources')}</h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {topSources.map((v) => (
+                  <div key={v.key} className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5">
+                    <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${v.color} flex items-center justify-center text-white font-bold text-sm mb-3 shadow-sm`}>💊</div>
+                    <p className="font-bold text-slate-800 dark:text-slate-100 text-sm mb-2">{v.name}</p>
+                    {v.sources.length > 0 ? v.sources.map((s, i) => (
+                      <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-slate-100 dark:border-slate-700/50 last:border-0">
+                        <span className="text-slate-600 dark:text-slate-300">{s.vegetable_name}</span>
+                        <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-emerald-600">{s.per_100g?.[v.key]?.toFixed(1) || '—'} {v.unit}</span>
+                      </div>
+                    )) : <p className="text-xs text-slate-400 dark:text-slate-500">{t('common.noData')}</p>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {nutrition.length === 0 && (
+            <div className="text-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+              <div className="text-4xl mb-4">🥗</div>
+              <p className="text-lg text-slate-500 dark:text-slate-400">{t('common.noData')}</p>
+            </div>
+          )}
+
+          <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-8">{t('nutrition.someValuesEstimated')}</p>
         </div>
       </div>
-    </div>
     </>
   )
 }

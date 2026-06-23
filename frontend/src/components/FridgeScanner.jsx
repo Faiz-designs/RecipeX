@@ -4,10 +4,13 @@ import { getFridgeItems, addFridgeItem, removeFridgeItem, clearFridge, findMatch
 import { Link } from 'react-router-dom'
 
 const quickAdds = [
-  { name: 'Milk', emoji: '🥛' }, { name: 'Eggs', emoji: '🥚' }, { name: 'Cheese', emoji: '🧀' },
-  { name: 'Spinach', emoji: '🥬' }, { name: 'Tomato', emoji: '🍅' }, { name: 'Carrot', emoji: '🥕' },
+  { name: 'Tomato', emoji: '🍅' }, { name: 'Spinach', emoji: '🥬' }, { name: 'Carrot', emoji: '🥕' },
   { name: 'Onion', emoji: '🧅' }, { name: 'Bell Pepper', emoji: '🫑' }, { name: 'Broccoli', emoji: '🥦' },
-  { name: 'Chicken', emoji: '🍗' },
+  { name: 'Potato', emoji: '🥔' }, { name: 'Cucumber', emoji: '🥒' }, { name: 'Garlic', emoji: '🧄' },
+  { name: 'Corn', emoji: '🌽' }, { name: 'Cabbage', emoji: '🥬' }, { name: 'Cauliflower', emoji: '🥦' },
+  { name: 'Eggplant', emoji: '🍆' }, { name: 'Mushroom', emoji: '🍄' }, { name: 'Lettuce', emoji: '🥬' },
+  { name: 'Green Beans', emoji: '🫘' }, { name: 'Peas', emoji: '🫛' }, { name: 'Zucchini', emoji: '🥒' },
+  { name: 'Sweet Potato', emoji: '🍠' }, { name: 'Ginger', emoji: '🫚' },
 ]
 
 export default function FridgeScanner() {

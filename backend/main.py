@@ -3,11 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import init_db
 from routes.auth import router as auth_router
 from routes.scan import router as scan_router
+from routes.favorites import router as favorites_router
+from routes.meal_planner import router as meal_planner_router
+from routes.nutrition import router as nutrition_router
 
 app = FastAPI(
     title="RecipeX AI — Food Management System",
     description="AI-powered smart kitchen assistant. Scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.",
-    version="1.0.0",
+    version="2.0.0",
 )
 
 app.add_middleware(
@@ -20,6 +23,9 @@ app.add_middleware(
 
 app.include_router(auth_router)
 app.include_router(scan_router)
+app.include_router(favorites_router)
+app.include_router(meal_planner_router)
+app.include_router(nutrition_router)
 
 
 @app.on_event("startup")

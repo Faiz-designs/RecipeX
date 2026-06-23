@@ -8,6 +8,7 @@ import AllergyReport from '../components/AllergyReport'
 import Substitutions from '../components/Substitutions'
 import Improvements from '../components/Improvements'
 import SchemaMarkup from '../components/SchemaMarkup'
+import ShareButton from '../components/ShareButton'
 import HealthBenefits from '../components/HealthBenefits'
 import StorageTips from '../components/StorageTips'
 import CookingTips from '../components/CookingTips'
@@ -93,7 +94,10 @@ export default function Scan() {
                   <p className="text-slate-400 dark:text-slate-500 text-sm">{t('scan.vegetablesDetected', { count: r.scan_summary?.total_vegetables_detected })}</p>
                 </div>
               </div>
-              <button onClick={handleReset} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] ring-1 ring-emerald-500/20 whitespace-nowrap">{t('scan.newScan')}</button>
+              <div className="flex gap-2">
+                <ShareButton title="RecipeX Scan Results" text={`Check out this vegetable scan on RecipeX AI!`} />
+                <button onClick={handleReset} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] ring-1 ring-emerald-500/20 whitespace-nowrap">{t('scan.newScan')}</button>
+              </div>
             </div>
           </div>
 

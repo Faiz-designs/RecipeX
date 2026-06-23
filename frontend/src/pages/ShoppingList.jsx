@@ -133,11 +133,16 @@ export default function ShoppingList() {
       </div>
 
       {items.length === 0 ? (
-        <div className="text-center py-16 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40">
-          <div className="text-5xl mb-4">🛒</div>
-          <p className="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2">{t('shoppingList.emptyTitle')}</p>
-          <p className="text-sm text-slate-400 dark:text-slate-500 mb-6">{t('shoppingList.emptyDesc')}</p>
-          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-[0.98]">{t('shoppingList.scanVeggies')} →</Link>
+        <div className="text-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+          <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">
+            🛒
+          </div>
+          <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('shoppingList.emptyTitle')}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('shoppingList.emptyDesc')}</p>
+          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-7 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-[0.98] text-sm">
+            📸 {t('shoppingList.scanVeggies')} →
+          </Link>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-6">💡 Tip: Scan vegetables to auto-generate shopping lists from recipes</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -193,6 +198,33 @@ export default function ShoppingList() {
         <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-700/40">
           <span className="text-xs text-slate-400 dark:text-slate-500">{items.length - checkedCount} {t('shoppingList.remaining')}</span>
           <button onClick={handleClear} className="text-xs text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 font-medium transition-colors px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30">{t('shoppingList.clearAll')}</button>
+        </div>
+      )}
+
+      {items.length > 0 && (
+        <div className="mt-6 bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🚚</div>
+            <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm">{t('groceryDelivery.orderFrom')}</h3>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { name: 'Instacart', url: `https://www.instacart.com/store/s?k=${encodeURIComponent(items.filter(i => !i.checked).map(i => i.name).join(','))}`, emoji: '🛒' },
+              { name: 'Amazon Fresh', url: `https://www.amazon.com/s?k=${encodeURIComponent(items.filter(i => !i.checked).slice(0, 5).map(i => i.name).join('+'))}`, emoji: '📦' },
+              { name: 'Walmart', url: `https://www.walmart.com/search?q=${encodeURIComponent(items.filter(i => !i.checked).slice(0, 3).map(i => i.name).join(' '))}`, emoji: '🏪' },
+            ].map(platform => (
+              <a
+                key={platform.name}
+                href={platform.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-900/30 border border-blue-200/60 dark:border-blue-800/40 rounded-xl text-xs font-medium text-slate-700 dark:text-slate-200 hover:shadow-md hover:-translate-y-0.5 transition-all"
+              >
+                {platform.emoji} {platform.name}
+              </a>
+            ))}
+          </div>
+          <p className="text-xs text-slate-400 dark:text-slate-500 mt-2">{t('groceryDelivery.deliveryPlatforms')}</p>
         </div>
       )}
     </div>

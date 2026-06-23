@@ -182,7 +182,23 @@
     "sunday": "Sun",
     "breakfast": "Breakfast",
     "lunch": "Lunch",
-    "dinner": "Dinner"
+    "dinner": "Dinner",
+    "aiGenerate": "Generate AI Meal Plan",
+    "aiGenerating": "Generating with AI...",
+    "aiPlanTitle": "AI-Generated Weekly Plan",
+    "dailyTotals": "Daily Totals",
+    "calories": "cal",
+    "protein": "protein",
+    "groceryList": "Weekly Grocery List",
+    "prepTime": "prep",
+    "snacks": "Snacks",
+    "nutritionSummary": "Nutrition Summary",
+    "avgDaily": "Avg Daily",
+    "dietaryNotes": "Dietary Notes",
+    "removeDay": "Remove",
+    "planSaved": "Meal plan saved!",
+    "aiError": "Failed to generate meal plan. Please try again.",
+    "signInRequired": "Sign in to generate AI meal plans"
   },
   "about": {
     "title": "About RecipeX AI",
@@ -392,6 +408,47 @@
   },
   "footer": {
     "tagline": "AI-Powered Kitchen Assistant — Scan, Cook, and Eat Better."
+  },
+  "share": {
+    "title": "Share Recipe",
+    "copied": "Link copied!",
+    "shareVia": "Share via",
+    "copyLink": "Copy Link",
+    "downloadCard": "Download Recipe Card"
+  },
+  "groceryDelivery": {
+    "title": "Order Ingredients",
+    "orderFrom": "Order from",
+    "deliveryPlatforms": "Available on",
+    "orderTogether": "Order all ingredients"
+  },
+  "nutritionTracker": {
+    "logMeal": "Log a Meal",
+    "foodName": "Food name",
+    "mealType": "Meal type",
+    "mealTypes": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack"
+    },
+    "calories": "Calories",
+    "protein": "Protein (g)",
+    "carbs": "Carbs (g)",
+    "fat": "Fat (g)",
+    "fibre": "Fibre (g)",
+    "save": "Save Entry",
+    "saving": "Saving...",
+    "saved": "Entry saved!",
+    "history": "Daily History",
+    "dailyCalories": "Daily Calories",
+    "dailyProtein": "Daily Protein",
+    "dailyCarbs": "Daily Carbs",
+    "dailyFat": "Daily Fat",
+    "noData": "No entries yet. Start tracking your meals!",
+    "trackerTitle": "Daily Nutrition Tracker",
+    "trackerDesc": "Track your daily calorie and macronutrient intake",
+    "signInRequired": "Sign in to track nutrition"
   },
   "common": {
     "loading": "Loading...",

@@ -80,6 +80,19 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     return TokenResponse(access_token=token, user_id=db_user.id)
 
 
+def get_current_user_optional(authorization: str = Header(None), db: Session = Depends(get_db)):
+    if not authorization or not authorization.startswith("Bearer "):
+        return None
+    token = authorization.split(" ")[1]
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        user_id = int(payload.get("sub"))
+    except (JWTError, ValueError, TypeError):
+        return None
+    user = db.query(User).filter(User.id == user_id).first()
+    return user
+
+
 def get_current_user(authorization: str = Header(None), db: Session = Depends(get_db)):
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Not authenticated")

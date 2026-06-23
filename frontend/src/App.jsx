@@ -18,6 +18,7 @@ const MealPlanner = lazy(() => import('./pages/MealPlanner'))
 const Login = lazy(() => import('./pages/Login'))
 const Signup = lazy(() => import('./pages/Signup'))
 const Profile = lazy(() => import('./pages/Profile'))
+import OnboardingTour from './components/OnboardingTour'
 import { ToastProvider } from './utils/ToastContext'
 
 function Nav() {
@@ -98,6 +99,7 @@ function AppContent() {
         </div>
       </nav>
       <main className="flex-1">
+        <OnboardingTour />
         <Suspense fallback={
           <div className="flex items-center justify-center min-h-[60vh]">
             <div className="flex flex-col items-center gap-3">

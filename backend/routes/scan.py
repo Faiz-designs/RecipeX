@@ -5,6 +5,8 @@ from models.scan import Scan
 from models.vegetable import Vegetable, Nutrition, Recipe, Substitution
 from services.groq_service import analyze_image
 from services.demo_data import DEMO_DATA
+from routes.auth import get_current_user, get_current_user_optional
+from models.user import User
 import json
 
 router = APIRouter(prefix="/scan", tags=["Scan"])
@@ -94,7 +96,7 @@ def demo_scan(db: Session = Depends(get_db)):
 
 
 @router.post("/")
-async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(get_db)):
+async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user_optional)):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File must be an image")
 
@@ -106,6 +108,7 @@ async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(ge
     result = analyze_image(image_bytes)
 
     scan = Scan(
+        user_id=current_user.id if current_user else None,
         image_path=file.filename or "capture.jpg",
         total_vegetables=result.get("scan_summary", {}).get("total_vegetables_detected", 0),
         raw_response=json.dumps(result),
@@ -187,6 +190,30 @@ async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(ge
         "scan_id": scan.id,
         "result": result
     }
+
+
+@router.get("/history")
+def get_scan_history(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+    scans = db.query(Scan).filter(Scan.user_id == current_user.id).order_by(Scan.created_at.desc()).limit(50).all()
+    result = []
+    for scan in scans:
+        veg_count = db.query(Vegetable).filter(Vegetable.scan_id == scan.id).count()
+        raw = json.loads(scan.raw_response) if scan.raw_response else {}
+        preview = {}
+        if raw.get("scan_summary", {}).get("items"):
+            names = [i.get("common_name", "") for i in raw["scan_summary"]["items"]]
+            preview["veggies"] = ", ".join(names[:3])
+            if len(names) > 3:
+                preview["veggies"] += f" +{len(names)-3} more"
+        if raw.get("improvements", {}).get("meal_balance_score_out_of_10"):
+            preview["score"] = raw["improvements"]["meal_balance_score_out_of_10"]
+        result.append({
+            "id": scan.id,
+            "created_at": str(scan.created_at) if scan.created_at else "",
+            "total_vegetables": scan.total_vegetables,
+            "preview": preview,
+        })
+    return result
 
 
 @router.get("/{scan_id}")

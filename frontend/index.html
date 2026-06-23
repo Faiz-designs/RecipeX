@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <meta name="description" content="AI-powered smart kitchen assistant. Scan vegetables, get recipes, nutrition, allergy info, and smart substitutions." />
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#059669" />
@@ -16,7 +18,7 @@
     <meta property="og:url" content="https://recipe-x.vercel.app" />
     <title>RecipeX AI</title>
   </head>
-  <body>
+  <body class="font-sans antialiased">
     <div id="root"></div>
     <script>
       if ('serviceWorker' in navigator) {
@@ -24,9 +26,7 @@
           reg.addEventListener('updatefound', () => {
             const newSW = reg.installing
             newSW.addEventListener('statechange', () => {
-              if (newSW.state === 'installed' && navigator.serviceWorker.controller) {
-                window.location.reload()
-              }
+              if (newSW.state === 'installed' && navigator.serviceWorker.controller) window.location.reload()
             })
           })
           if (reg.active) reg.update()

@@ -13,33 +13,55 @@ export default function Profile() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white">
+      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-3xl shadow-md">👤</div>
+          <div className="relative">
+            <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-4xl shadow-inner border border-white/20">👤</div>
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-400 rounded-full border-2 border-emerald-600 flex items-center justify-center shadow-sm">
+              <span className="text-white text-xs">✓</span>
+            </div>
+          </div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold">{user.full_name || user.username}</h1>
-            <p className="text-emerald-100/80 text-sm">@{user.username}</p>
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">{user.full_name || user.username}</h1>
+            <p className="text-emerald-100/80 text-sm flex items-center gap-1.5">@{user.username}</p>
           </div>
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden">
-        <div className="px-6 py-4 border-b border-slate-100 dark:border-slate-700">
+      <div className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 overflow-hidden hover:shadow-md transition-shadow">
+        <div className="px-6 py-4 border-b border-slate-200/60 dark:border-slate-700/40 flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-emerald-400" />
           <h2 className="font-bold text-slate-800 dark:text-slate-100">{t('auth.accountDetails')}</h2>
         </div>
-        <div className="p-6 space-y-4">
-          <div className="grid sm:grid-cols-2 gap-4">
-            <div><p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('auth.email')}</p><p className="text-sm text-slate-700 dark:text-slate-200 mt-0.5">{user.email}</p></div>
-            <div><p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('auth.age')}</p><p className="text-sm text-slate-700 dark:text-slate-200 mt-0.5">{user.age || t('auth.notSet')}</p></div>
-            <div><p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('auth.allergies')}</p><p className="text-sm text-slate-700 dark:text-slate-200 mt-0.5">{user.allergies || t('auth.noneListed')}</p></div>
-            <div><p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('auth.dietaryPreferences')}</p><p className="text-sm text-slate-700 dark:text-slate-200 mt-0.5">{user.dietary_preferences || t('auth.noneListed')}</p></div>
+        <div className="p-6">
+          <div className="grid sm:grid-cols-2 gap-5">
+            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.email')}</p>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.email}</p>
+            </div>
+            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.age')}</p>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.age || t('auth.notSet')}</p>
+            </div>
+            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.allergies')}</p>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.allergies || t('auth.noneListed')}</p>
+            </div>
+            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.dietaryPreferences')}</p>
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.dietary_preferences || t('auth.noneListed')}</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div className="flex gap-3 mt-6">
-        <button onClick={handleLogout} className="px-6 py-2.5 bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 rounded-xl font-medium hover:bg-red-100 dark:hover:bg-red-900/60 transition">{t('nav.signOut')}</button>
-        <Link to="/scan" className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-teal-700 transition">{t('nav.scan')}</Link>
+        <button onClick={handleLogout} className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl font-bold hover:from-red-600 hover:to-rose-700 transition-all shadow-md hover:shadow-lg hover:shadow-red-500/20 active:scale-[0.98] flex items-center gap-2">
+          {t('nav.signOut')}
+        </button>
+        <Link to="/scan" className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] flex items-center gap-2">
+          {t('nav.scan')}
+        </Link>
       </div>
     </div>
   )

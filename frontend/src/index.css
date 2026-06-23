@@ -1,19 +1,138 @@
+/* ===== 1. Font Import ===== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
-:root {
-  --color-orange-50: #fff7ed;
-  --color-orange-100: #ffedd5;
-  --color-orange-200: #fed7aa;
-  --color-orange-300: #fdba74;
-  --color-orange-400: #fb923c;
-  --color-orange-500: #f97316;
-  --color-orange-600: #ea580c;
-  --color-orange-700: #c2410c;
+html {
+  font-family: 'Inter', sans-serif;
+  scroll-behavior: smooth;
 }
 
+/* ===== 2. Design Tokens — Light Theme ===== */
+:root {
+  /* Brand — Emerald */
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-200: #a7f3d0;
+  --color-brand-300: #6ee7b7;
+  --color-brand-400: #34d399;
+  --color-brand-500: #10b981;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
+  --color-brand-900: #064e3b;
+
+  /* Accent — Amber/Coral */
+  --color-accent-50: #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+  --color-accent-800: #92400e;
+  --color-accent-900: #78350f;
+
+  /* Surface — Slate */
+  --color-surface-50: #f8fafc;
+  --color-surface-100: #f1f5f9;
+  --color-surface-200: #e2e8f0;
+  --color-surface-300: #cbd5e1;
+  --color-surface-400: #94a3b8;
+  --color-surface-500: #64748b;
+  --color-surface-600: #475569;
+  --color-surface-700: #334155;
+  --color-surface-800: #1e293b;
+  --color-surface-900: #0f172a;
+}
+
+/* ===== 3. Dark Theme Variables ===== */
+.dark {
+  --color-brand-50: #022c22;
+  --color-brand-100: #043c2c;
+  --color-brand-200: #065f46;
+  --color-brand-300: #047857;
+  --color-brand-400: #059669;
+  --color-brand-500: #10b981;
+  --color-brand-600: #34d399;
+  --color-brand-700: #6ee7b7;
+  --color-brand-800: #a7f3d0;
+  --color-brand-900: #d1fae5;
+
+  --color-accent-50: #451a03;
+  --color-accent-100: #78350f;
+  --color-accent-200: #92400e;
+  --color-accent-300: #b45309;
+  --color-accent-400: #d97706;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #fbbf24;
+  --color-accent-700: #fcd34d;
+  --color-accent-800: #fde68a;
+  --color-accent-900: #fef3c7;
+
+  --color-surface-50: #0f172a;
+  --color-surface-100: #1e293b;
+  --color-surface-200: #334155;
+  --color-surface-300: #475569;
+  --color-surface-400: #64748b;
+  --color-surface-500: #94a3b8;
+  --color-surface-600: #cbd5e1;
+  --color-surface-700: #e2e8f0;
+  --color-surface-800: #f1f5f9;
+  --color-surface-900: #f8fafc;
+}
+
+/* ===== 4. Base Styles ===== */
+::selection {
+  background-color: var(--color-brand-500);
+  color: white;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-300);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-500);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: var(--color-surface-100);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: var(--color-brand-700);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-500);
+}
+
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-brand-500), 0 0 0 4px rgba(255, 255, 255, 0.8);
+  border-radius: 4px;
+}
+
+.dark *:focus-visible {
+  box-shadow: 0 0 0 2px var(--color-brand-400), 0 0 0 4px rgba(0, 0, 0, 0.8);
+}
+
+/* ===== 5. Keyframes ===== */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -22,9 +141,14 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes shimmer {
@@ -44,12 +168,31 @@
   100% { background-position: 0% 50%; }
 }
 
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(16, 185, 129, 0.2); }
+  50% { box-shadow: 0 0 24px rgba(16, 185, 129, 0.5); }
+}
+
+/* ===== 6. Animation Utility Classes ===== */
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }
 
 .animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-float {
@@ -67,24 +210,46 @@
   animation: shimmer 1.5s infinite;
 }
 
+.animate-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+
 .shimmer-card {
-  background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+  background: linear-gradient(90deg, var(--color-surface-200) 25%, var(--color-surface-100) 50%, var(--color-surface-200) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
-body {
-  scroll-behavior: smooth;
-}
-
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
+/* ===== 7. Staggered Delay Utilities ===== */
 .stagger-1 { animation-delay: 0.1s; }
 .stagger-2 { animation-delay: 0.2s; }
 .stagger-3 { animation-delay: 0.3s; }
 .stagger-4 { animation-delay: 0.4s; }
 .stagger-5 { animation-delay: 0.5s; }
 .stagger-6 { animation-delay: 0.6s; }
+
+/* ===== 8. Custom Utility Classes ===== */
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.dark .glass {
+  background: rgba(15, 23, 42, 0.7);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(16, 185, 129, 0.3);
+}
+
+.dark .card-hover:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(16, 185, 129, 0.4);
+}

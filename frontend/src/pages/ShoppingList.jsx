@@ -95,43 +95,46 @@ export default function ShoppingList() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white">
+      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
         <div className="flex items-center gap-3 mb-2">
-          <div className="text-3xl">🛒</div>
+          <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">🛒</div>
           <div>
-            <h1 className="text-2xl md:text-3xl font-extrabold">{t('shoppingList.title')}</h1>
+            <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight">{t('shoppingList.title')}</h1>
             <p className="text-emerald-100/80 text-sm">{t('shoppingList.items', { count: items.length })}</p>
           </div>
         </div>
         {items.length > 0 && (
-          <div className="mt-4 bg-white/10 rounded-xl p-3">
-            <div className="flex justify-between text-sm mb-1">
+          <div className="mt-4 bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/10">
+            <div className="flex justify-between text-sm mb-1.5">
               <span className="font-medium">{checkedCount}/{items.length} {t('shoppingList.checked')}</span>
               <span className="font-bold">{progress}%</span>
             </div>
-            <div className="w-full bg-white/20 rounded-full h-2 overflow-hidden">
-              <div className="bg-white h-2 rounded-full transition-all duration-500" style={{ width: `${progress}%` }} />
+            <div className="w-full bg-white/20 rounded-full h-2.5 overflow-hidden shadow-inner">
+              <div className="bg-white h-2.5 rounded-full transition-all duration-700 ease-out shadow-sm" style={{ width: `${progress}%` }} />
             </div>
           </div>
         )}
       </div>
 
       <div className="flex gap-2 mb-6">
-        <input
-          value={newItem} onChange={e => setNewItem(e.target.value)}
-          onKeyDown={e => e.key === 'Enter' && handleAdd()}
-          placeholder={t('shoppingList.placeholder')}
-          className="flex-1 px-4 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all"
-        />
-        <button onClick={handleAdd} className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">{t('shoppingList.addItem')}</button>
+        <div className="relative flex-1">
+          <input
+            value={newItem} onChange={e => setNewItem(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && handleAdd()}
+            placeholder={t('shoppingList.placeholder')}
+            className="w-full px-4 py-3 pl-10 bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition-all shadow-sm"
+          />
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
+        </div>
+        <button onClick={handleAdd} className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">{t('shoppingList.addItem')}</button>
       </div>
 
       {items.length === 0 ? (
-        <div className="text-center py-16">
+        <div className="text-center py-16 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40">
           <div className="text-5xl mb-4">🛒</div>
           <p className="text-lg font-medium text-slate-500 dark:text-slate-400 mb-2">{t('shoppingList.emptyTitle')}</p>
           <p className="text-sm text-slate-400 dark:text-slate-500 mb-6">{t('shoppingList.emptyDesc')}</p>
-          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg transition-all">{t('shoppingList.scanVeggies')} →</Link>
+          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-[0.98]">{t('shoppingList.scanVeggies')} →</Link>
         </div>
       ) : (
         <div className="space-y-3">
@@ -142,30 +145,37 @@ export default function ShoppingList() {
             const isExpanded = expandedCats[cat]
             const catConfig = CATEGORIES[cat] || { icon: '📦' }
             return (
-              <div key={cat} className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm">
+              <div key={cat} className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <button
                   onClick={() => toggleCategory(cat)}
-                  className="w-full flex items-center justify-between px-4 py-3 hover:bg-slate-50 dark:hover:bg-slate-750 transition-colors"
+                  className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-slate-50/80 dark:hover:bg-slate-700/40 transition-colors"
                 >
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2.5">
                     <span className="text-lg">{catConfig.icon}</span>
                     <span className="text-sm font-bold text-slate-700 dark:text-slate-200">{cat}</span>
-                    <span className="text-xs text-slate-400 dark:text-slate-500 font-medium bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">{catItems.length}</span>
+                    <span className="text-xs text-slate-400 dark:text-slate-500 font-medium bg-slate-100 dark:bg-slate-700/80 px-2 py-0.5 rounded-full">{catItems.length}</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-emerald-500 dark:text-emerald-400 font-medium">{catChecked}/{catItems.length}</span>
-                    <span className="text-slate-400 dark:text-slate-500 text-sm transition-transform duration-200" style={{ transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+                  <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-16 h-1.5 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div className="h-full bg-gradient-to-r from-emerald-400 to-emerald-500 rounded-full transition-all duration-500" style={{ width: `${catItems.length ? (catChecked / catItems.length) * 100 : 0}%` }} />
+                      </div>
+                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-semibold min-w-[2rem] text-right">{catChecked}/{catItems.length}</span>
+                    </div>
+                    <svg className={`w-4 h-4 text-slate-400 dark:text-slate-500 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
                   </div>
                 </button>
                 {isExpanded && (
-                  <div className="px-2 pb-2 space-y-0.5">
+                  <div className="px-3 pb-3 space-y-0.5">
                     {catItems.map(item => (
-                      <div key={item.id} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all ${item.checked ? 'opacity-60' : ''}`}>
-                        <button onClick={() => handleToggle(item.id)} role="checkbox" aria-checked={item.checked} className={`w-5 h-5 rounded-md border-2 flex items-center justify-center text-xs transition-all shrink-0 ${item.checked ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-300 dark:border-slate-500'}`}>
+                      <div key={item.id} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-slate-50/50 dark:hover:bg-slate-700/30 ${item.checked ? 'opacity-60' : ''}`}>
+                        <button onClick={() => handleToggle(item.id)} role="checkbox" aria-checked={item.checked} className={`w-5 h-5 rounded-md border-2 flex items-center justify-center text-xs transition-all shrink-0 ${item.checked ? 'bg-emerald-500 border-emerald-500 text-white shadow-sm' : 'border-slate-300 dark:border-slate-500 hover:border-emerald-400'}`}>
                           {item.checked ? '✓' : ''}
                         </button>
                         <span className={`flex-1 text-sm font-medium ${item.checked ? 'text-slate-400 dark:text-slate-500 line-through' : 'text-slate-700 dark:text-slate-200'}`}>{item.name}</span>
-                        <button onClick={() => handleRemove(item.id)} className="text-xs text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors px-2 py-1 shrink-0">✕</button>
+                        <button onClick={() => handleRemove(item.id)} className="text-xs text-slate-400 hover:text-red-500 dark:hover:text-red-400 transition-colors px-2 py-1 shrink-0 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg">✕</button>
                       </div>
                     ))}
                   </div>
@@ -177,9 +187,9 @@ export default function ShoppingList() {
       )}
 
       {items.length > 0 && (
-        <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
+        <div className="flex justify-between items-center mt-6 pt-4 border-t border-slate-200/60 dark:border-slate-700/40">
           <span className="text-xs text-slate-400 dark:text-slate-500">{items.length - checkedCount} {t('shoppingList.remaining')}</span>
-          <button onClick={handleClear} className="text-xs text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 font-medium transition-colors">{t('shoppingList.clearAll')}</button>
+          <button onClick={handleClear} className="text-xs text-red-500 dark:text-red-400 hover:text-red-600 dark:hover:text-red-300 font-medium transition-colors px-3 py-1.5 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/30">{t('shoppingList.clearAll')}</button>
         </div>
       )}
     </div>

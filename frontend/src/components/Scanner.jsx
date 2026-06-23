@@ -90,58 +90,73 @@ export default function Scanner({ onScanComplete }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700 p-6 md:p-8">
+      <div className="bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6 md:p-8 hover:shadow-lg transition-all duration-300">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md"><span className="text-lg">📸</span></div>
+          <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-md ring-1 ring-emerald-500/20"><span className="text-lg">📸</span></div>
           <div><h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scanner.title')}</h2><p className="text-sm text-slate-400 dark:text-slate-500">{t('scanner.subtitle')}</p></div>
         </div>
 
-        <div className="flex gap-2 mb-6 bg-slate-100/80 dark:bg-slate-700/50 rounded-xl p-1">
-          {['upload', 'camera', 'fridge'].map(m => (
-            <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`flex-1 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 ${mode === m ? 'bg-white dark:bg-slate-600 text-emerald-700 dark:text-emerald-300 shadow-sm' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200'}`}>
-              {m === 'upload' ? `📁 ${t('scanner.upload')}` : m === 'camera' ? `📷 ${t('scanner.camera')}` : `🧊 ${t('fridgeMode.title')}`}
-            </button>
-          ))}
+        <div className="relative bg-slate-100/80 dark:bg-slate-700/50 rounded-2xl p-1.5 mb-6">
+          <div className="flex gap-1">
+            {['upload', 'camera', 'fridge'].map(m => (
+              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-slate-600 text-emerald-600 dark:text-emerald-300 shadow-sm ring-1 ring-slate-200/50 dark:ring-slate-500/50' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
+                <span className="flex items-center justify-center gap-2">
+                  <span className={`text-base ${mode === m ? 'scale-110' : 'opacity-70'} transition-all duration-200`}>{m === 'upload' ? '📁' : m === 'camera' ? '📷' : '🧊'}</span>
+                  <span>{m === 'upload' ? t('scanner.upload') : m === 'camera' ? t('scanner.camera') : t('fridgeMode.title')}</span>
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
 
         {mode === 'upload' && (
-          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer overflow-hidden ${dragOver ? 'border-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 scale-[1.01]' : 'border-slate-200 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20'}`}>
+          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-2xl border-2 transition-all duration-300 cursor-pointer overflow-hidden ${dragOver ? 'border-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 scale-[1.01] shadow-lg shadow-emerald-500/10' : 'border-dashed border-slate-200 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20'}`}>
             <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
             {loading ? (
-              <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="relative w-14 h-14"><div className="absolute inset-0 border-4 border-emerald-200 dark:border-emerald-800 rounded-full" /><div className="absolute inset-0 border-4 border-transparent border-t-emerald-500 rounded-full animate-spin" /></div>
-                <p className="text-emerald-600 dark:text-emerald-400 font-semibold text-lg">{t('scanner.analyzing')}</p>
+              <div className="flex flex-col items-center justify-center py-16 gap-4">
+                <div className="relative w-16 h-16">
+                  <div className="absolute inset-0 rounded-full bg-emerald-100 dark:bg-emerald-900/40 animate-ping opacity-25" />
+                  <div className="absolute inset-0 border-[3px] border-emerald-200/60 dark:border-emerald-800/60 rounded-full" />
+                  <div className="absolute inset-0 border-[3px] border-transparent border-t-emerald-500 rounded-full animate-spin" />
+                  <div className="absolute inset-0 flex items-center justify-center"><span className="text-xl">🔍</span></div>
+                </div>
+                <p className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">{t('scanner.analyzing')}</p>
                 <p className="text-slate-400 dark:text-slate-500 text-sm">{t('scanner.identifying')}</p>
               </div>
             ) : preview ? (
-              <div className="relative">
+              <div className="relative group">
                 <img src={preview} alt="Preview" className="w-full max-h-72 object-contain p-4" />
-                <button onClick={(e) => { e.stopPropagation(); setImage(null); setPreview(null) }} className="absolute top-2 right-2 w-8 h-8 bg-slate-800/60 hover:bg-slate-800/80 text-white rounded-full flex items-center justify-center text-sm backdrop-blur-sm transition-all">✕</button>
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 dark:group-hover:bg-black/20 transition-all duration-300" />
+                <button onClick={(e) => { e.stopPropagation(); setImage(null); setPreview(null) }} className="absolute top-3 right-3 w-8 h-8 bg-slate-800/60 hover:bg-slate-800/80 text-white rounded-full flex items-center justify-center text-sm backdrop-blur-sm transition-all hover:scale-110 active:scale-95">✕</button>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-16">
-                <div className="w-16 h-16 bg-emerald-100 dark:bg-emerald-900/50 rounded-2xl flex items-center justify-center text-3xl mb-4">📸</div>
-                <p className="text-slate-500 dark:text-slate-400 text-lg font-medium">{t('scanner.clickOrDrag')}</p>
-                <p className="text-slate-400 dark:text-slate-500 text-sm mt-1">{t('scanner.supports')}</p>
+              <div className="flex flex-col items-center justify-center py-16 gap-3">
+                <div className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/50 dark:to-emerald-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-emerald-500/10">
+                  <span className="drop-shadow-sm">📸</span>
+                </div>
+                <div>
+                  <p className="text-slate-600 dark:text-slate-300 text-lg font-semibold">{t('scanner.clickOrDrag')}</p>
+                  <p className="text-slate-400 dark:text-slate-500 text-sm mt-0.5">{t('scanner.supports')}</p>
+                </div>
               </div>
             )}
           </div>
         )}
 
         {mode === 'camera' && (
-          <div className="rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden bg-slate-50/50 dark:bg-slate-800/50">
+          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-600/60 overflow-hidden bg-slate-50/50 dark:bg-slate-800/50 shadow-sm">
             {!stream ? (
-              <div className="flex flex-col items-center py-12">
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-2xl flex items-center justify-center text-3xl mb-4">📷</div>
-                <p className="text-slate-500 dark:text-slate-400 mb-4">{t('scanner.clickToStartCamera')}</p>
-                <button onClick={startCamera} aria-label="Camera capture" className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg">{t('scanner.startCamera')}</button>
+              <div className="flex flex-col items-center py-12 gap-4">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-blue-500/10">📷</div>
+                <p className="text-slate-500 dark:text-slate-400">{t('scanner.clickToStartCamera')}</p>
+                <button onClick={startCamera} aria-label="Camera capture" className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98] ring-1 ring-blue-500/20">{t('scanner.startCamera')}</button>
               </div>
             ) : (
               <div>
                 <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5 dark:bg-black/20" />
-                <div className="flex gap-2 p-3 bg-slate-100/50 dark:bg-slate-700/50">
-                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md">{t('scanner.capturePhoto')}</button>
-                  <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all">{t('scanner.cancel')}</button>
+                <div className="flex gap-2 p-3 bg-slate-100/50 dark:bg-slate-700/50 backdrop-blur-sm">
+                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg active:scale-[0.98] ring-1 ring-emerald-500/20">{t('scanner.capturePhoto')}</button>
+                  <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all duration-200 active:scale-[0.98]">{t('scanner.cancel')}</button>
                 </div>
               </div>
             )}
@@ -153,13 +168,18 @@ export default function Scanner({ onScanComplete }) {
 
         <canvas ref={canvasRef} hidden />
 
-        {error && <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2"><span>⚠</span> {error}</div>}
+        {error && (
+          <div className="mt-4 p-3 bg-red-50/90 dark:bg-red-900/25 backdrop-blur-sm border border-red-200/60 dark:border-red-800/50 rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2.5 shadow-sm">
+            <span className="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/40 flex items-center justify-center text-xs shrink-0">!</span>
+            <span>{error}</span>
+          </div>
+        )}
 
         <div className="flex gap-3 mt-6">
-          <button onClick={handleScan} disabled={loading || !image} className="flex-1 bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-3 rounded-xl text-base font-bold hover:from-emerald-600 hover:to-teal-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+          <button onClick={handleScan} disabled={loading || !image} className="flex-1 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white py-3 rounded-xl text-base font-bold hover:from-emerald-600 hover:to-emerald-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] ring-1 ring-emerald-500/20">
             {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('scanner.analyzing')}</> : t('scanner.scanAndAnalyze')}
           </button>
-          <button onClick={handleDemo} disabled={loading} className="px-6 py-3 rounded-xl text-base font-bold bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">
+          <button onClick={handleDemo} disabled={loading} className="px-6 py-3 rounded-xl text-base font-bold bg-gradient-to-r from-purple-500 to-violet-600 text-white hover:from-purple-600 hover:to-violet-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed flex items-center justify-center gap-2 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-purple-500/20 active:scale-[0.98] ring-1 ring-purple-500/20">
             {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('common.loading')}</> : t('scanner.demoMode')}
           </button>
         </div>

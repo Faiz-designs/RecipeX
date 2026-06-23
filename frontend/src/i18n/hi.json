@@ -261,6 +261,46 @@
     "estimatedTotalCost": "अनुमानित कुल",
     "leftoverSuggestion": "बचे हुए का सुझाव"
   },
+  "filters": {
+    "pantryMatch": "पैंट्री मैच",
+    "prepTime": "तैयारी का समय",
+    "anyTime": "कोई भी समय",
+    "under15": "15 मिनट से कम",
+    "under30": "30 मिनट से कम",
+    "over30": "30 मिनट से अधिक",
+    "diet": "आहार",
+    "vegetarian": "शाकाहारी",
+    "vegan": "वीगन",
+    "glutenFree": "ग्लूटेन-मुक्त",
+    "lowCarb": "लो-कार्ब",
+    "season": "मौसम",
+    "spring": "बसंत",
+    "summer": "ग्रीष्म",
+    "fall": "पतझड़",
+    "winter": "शीत",
+    "allSeasons": "सभी मौसम"
+  },
+  "cookingMode": {
+    "title": "कुकिंग मोड",
+    "start": "खाना पकाना शुरू करें",
+    "exit": "कुकिंग मोड से बाहर निकलें",
+    "step": "चरण",
+    "of": "का",
+    "prev": "पिछला",
+    "next": "अगला",
+    "done": "पूर्ण"
+  },
+  "recipeCard": {
+    "scale": "मात्रा बदलें",
+    "servings": "सर्विंग्स",
+    "metric": "मीट्रिक",
+    "imperial": "इंपीरियल",
+    "ingredients": "सामग्री",
+    "steps": "चरण",
+    "stepGroup": "चरण {start}-{end}",
+    "checked": "चेक किया",
+    "gatherAll": "सभी सामग्री इकट्ठा करें"
+  },
   "footer": {
     "tagline": "AI-संचालित किचन सहायक — स्कैन करें, पकाएं, और बेहतर खाएं।"
   },

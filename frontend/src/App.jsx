@@ -9,6 +9,7 @@ import Contact from './pages/Contact'
 import Recipes from './pages/Recipes'
 import Nutrition from './pages/Nutrition'
 import ShoppingList from './pages/ShoppingList'
+import CookingMode from './pages/CookingMode'
 import MealPlanner from './pages/MealPlanner'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
@@ -31,7 +32,7 @@ function Nav() {
   return (
     <div className="flex gap-0.5 items-center flex-wrap">
       {links.map(l => (
-        <Link key={l.to} to={l.to} className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all whitespace-nowrap ${pathname === l.to ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300' : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30'}`}>
+        <Link key={l.to} to={l.to} aria-current={pathname === l.to ? 'page' : undefined} className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-all whitespace-nowrap ${pathname === l.to ? 'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300' : 'text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30'}`}>
           {l.label}
         </Link>
       ))}
@@ -93,6 +94,7 @@ function AppContent() {
           <Route path="/recipes" element={<Recipes />} />
           <Route path="/nutrition" element={<Nutrition />} />
           <Route path="/shopping-list" element={<ShoppingList />} />
+          <Route path="/cooking-mode" element={<CookingMode />} />
           <Route path="/meal-planner" element={<MealPlanner />} />
           <Route path="/history" element={<History />} />
           <Route path="/about" element={<About />} />

@@ -6,6 +6,7 @@ import NutritionTable from '../components/NutritionTable'
 import AllergyReport from '../components/AllergyReport'
 import Substitutions from '../components/Substitutions'
 import Improvements from '../components/Improvements'
+import SchemaMarkup from '../components/SchemaMarkup'
 import HealthBenefits from '../components/HealthBenefits'
 import StorageTips from '../components/StorageTips'
 import CookingTips from '../components/CookingTips'
@@ -89,6 +90,8 @@ export default function Scan() {
               <button onClick={handleReset} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98] whitespace-nowrap">{t('scan.newScan')}</button>
             </div>
           </div>
+
+          <SchemaMarkup recipes={r?.recipes} />
 
           {r.improvements?.overall_verdict && (
             <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40 border border-emerald-200/60 dark:border-emerald-700/30 rounded-2xl p-5 md:p-6 mb-8 shadow-sm">

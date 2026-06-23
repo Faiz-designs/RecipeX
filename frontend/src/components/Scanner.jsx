@@ -104,7 +104,7 @@ export default function Scanner({ onScanComplete }) {
         </div>
 
         {mode === 'upload' && (
-          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} className={`relative rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer overflow-hidden ${dragOver ? 'border-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 scale-[1.01]' : 'border-slate-200 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20'}`}>
+          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-xl border-2 border-dashed transition-all duration-200 cursor-pointer overflow-hidden ${dragOver ? 'border-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 scale-[1.01]' : 'border-slate-200 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20'}`}>
             <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
@@ -133,13 +133,13 @@ export default function Scanner({ onScanComplete }) {
               <div className="flex flex-col items-center py-12">
                 <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900/50 rounded-2xl flex items-center justify-center text-3xl mb-4">📷</div>
                 <p className="text-slate-500 dark:text-slate-400 mb-4">{t('scanner.clickToStartCamera')}</p>
-                <button onClick={startCamera} className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg">{t('scanner.startCamera')}</button>
+                <button onClick={startCamera} aria-label="Camera capture" className="px-6 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all shadow-md hover:shadow-lg">{t('scanner.startCamera')}</button>
               </div>
             ) : (
               <div>
                 <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5 dark:bg-black/20" />
                 <div className="flex gap-2 p-3 bg-slate-100/50 dark:bg-slate-700/50">
-                  <button onClick={captureFromCamera} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md">{t('scanner.capturePhoto')}</button>
+                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl font-semibold hover:from-emerald-600 hover:to-teal-600 transition-all shadow-md">{t('scanner.capturePhoto')}</button>
                   <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all">{t('scanner.cancel')}</button>
                 </div>
               </div>

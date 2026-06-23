@@ -302,6 +302,46 @@
     "pricePerKg": "Price/kg",
     "thisScan": "This scan"
   },
+  "filters": {
+    "pantryMatch": "Pantry Match",
+    "prepTime": "Prep Time",
+    "anyTime": "Any Time",
+    "under15": "Under 15 min",
+    "under30": "Under 30 min",
+    "over30": "Over 30 min",
+    "diet": "Diet",
+    "vegetarian": "Vegetarian",
+    "vegan": "Vegan",
+    "glutenFree": "Gluten-Free",
+    "lowCarb": "Low-Carb",
+    "season": "Season",
+    "spring": "Spring",
+    "summer": "Summer",
+    "fall": "Fall",
+    "winter": "Winter",
+    "allSeasons": "All Seasons"
+  },
+  "cookingMode": {
+    "title": "Cooking Mode",
+    "start": "Start Cooking",
+    "exit": "Exit Cooking Mode",
+    "step": "Step",
+    "of": "of",
+    "prev": "Previous",
+    "next": "Next",
+    "done": "Done"
+  },
+  "recipeCard": {
+    "scale": "Scale",
+    "servings": "servings",
+    "metric": "Metric",
+    "imperial": "Imperial",
+    "ingredients": "Ingredients",
+    "steps": "Steps",
+    "stepGroup": "Step {start}-{end}",
+    "checked": "checked",
+    "gatherAll": "Gather all ingredients"
+  },
   "footer": {
     "tagline": "AI-Powered Kitchen Assistant — Scan, Cook, and Eat Better."
   },

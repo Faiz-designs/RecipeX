@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '../utils/AuthContext'
 import SEO from '../components/SEO'
 import Scanner from '../components/Scanner'
 import RecipeCard from '../components/RecipeCard'
@@ -22,6 +24,7 @@ import VideoSection from '../components/VideoSection'
 
 export default function Scan() {
   const { t } = useTranslation()
+  const { user } = useAuth()
   const [result, setResult] = useState(null)
   const [showReport, setShowReport] = useState(false)
   const [showTop, setShowTop] = useState(false)
@@ -79,7 +82,23 @@ export default function Scan() {
             <h1 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">{t('scan.title')}</h1>
             <p className="text-slate-500 dark:text-slate-400">{t('scan.subtitle')}</p>
           </div>
-          <Scanner onScanComplete={handleScanComplete} />
+          {user ? (
+            <Scanner onScanComplete={handleScanComplete} />
+          ) : (
+            <div className="text-center py-16 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+              <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">🔒</div>
+              <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('auth.signInRequired')}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('auth.signInDesc')}</p>
+              <div className="flex gap-3 justify-center">
+                <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all text-sm">
+                  {t('nav.signIn')}
+                </Link>
+                <Link to="/signup" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-blue-700 transition-all text-sm">
+                  {t('nav.signUp')}
+                </Link>
+              </div>
+            </div>
+          )}
         </div>
       )}
 

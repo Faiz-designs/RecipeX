@@ -195,6 +195,8 @@ def application(environ, start_response):
         d, s = me(a)
         return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
     if p == '/scan' and m == 'POST':
+        u = get_user(a)
+        if not u: return jr(start_response, {'error': 'Not authenticated'}, '401 Unauthorized')
         try:
             b = rb(environ)
             b64 = b.get('image','') if b else ''

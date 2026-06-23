@@ -5,7 +5,7 @@ from models.scan import Scan
 from models.vegetable import Vegetable, Nutrition, Recipe, Substitution
 from services.groq_service import analyze_image
 from services.demo_data import DEMO_DATA
-from routes.auth import get_current_user, get_current_user_optional
+from routes.auth import get_current_user
 from models.user import User
 import json
 
@@ -96,7 +96,7 @@ def demo_scan(db: Session = Depends(get_db)):
 
 
 @router.post("/")
-async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user_optional)):
+async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     if not file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail="File must be an image")
 

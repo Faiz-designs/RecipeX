@@ -264,6 +264,7 @@
     "fullName": "Full Name",
     "age": "Age",
     "email": "Email",
+    "signInRequired": "Sign in to start scanning",
     "signIn": "Sign In",
     "signingIn": "Signing in...",
     "createAccount_btn": "Create Account",

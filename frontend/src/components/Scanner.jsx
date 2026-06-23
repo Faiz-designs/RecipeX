@@ -1,12 +1,14 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import axios from 'axios'
 import { useTranslation } from 'react-i18next'
+import { useAuth } from '../utils/AuthContext'
 import FridgeScanner from './FridgeScanner'
 
 const API = 'https://FaizBasha05.pythonanywhere.com'
 
 export default function Scanner({ onScanComplete }) {
   const { t } = useTranslation()
+  const { getToken } = useAuth()
   const [image, setImage] = useState(null)
   const [preview, setPreview] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -64,7 +66,9 @@ export default function Scanner({ onScanComplete }) {
   const handleDemo = async () => {
     setLoading(true); setError('')
     try {
-      const res = await axios.get(`${API}/scan/demo`)
+      const token = getToken()
+      const headers = token ? { Authorization: `Bearer ${token}` } : {}
+      const res = await axios.get(`${API}/scan/demo`, { headers })
       if (onScanComplete) onScanComplete(res.data)
     } catch { setError(t('scanner.scanFailed')) }
     finally { setLoading(false) }
@@ -81,7 +85,9 @@ export default function Scanner({ onScanComplete }) {
         reader.onerror = reject
       })
       const base64 = await toBase64(image)
-      const res = await axios.post(`${API}/scan/`, { image: base64 })
+      const token = getToken()
+      const headers = token ? { Authorization: `Bearer ${token}` } : {}
+      const res = await axios.post(`${API}/scan/`, { image: base64 }, { headers })
       if (onScanComplete) onScanComplete(res.data)
     } catch (err) {
       setError(err.response?.data?.message || t('scanner.scanFailed'))

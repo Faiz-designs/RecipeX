@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import axios from 'axios'
+import VoiceInput from './VoiceInput'
 
 const API = 'https://FaizBasha05.pythonanywhere.com'
 
@@ -10,6 +11,7 @@ export default function Scanner({ onScanComplete }) {
   const [error, setError] = useState('')
   const [mode, setMode] = useState('upload')
   const [dragOver, setDragOver] = useState(false)
+  const [voiceNote, setVoiceNote] = useState('')
   const fileRef = useRef(null)
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
@@ -147,6 +149,17 @@ export default function Scanner({ onScanComplete }) {
         )}
 
         <canvas ref={canvasRef} hidden />
+
+        <div className="mt-4 flex items-center gap-3 p-3 bg-slate-50/50 dark:bg-slate-700/30 border border-slate-100 dark:border-slate-700 rounded-xl">
+          <VoiceInput onResult={(text) => setVoiceNote(text)} />
+          <div className="flex-1">
+            {voiceNote ? (
+              <p className="text-sm text-slate-600 dark:text-slate-300"><span className="font-medium text-emerald-600 dark:text-emerald-400">Voice note:</span> {voiceNote}</p>
+            ) : (
+              <p className="text-xs text-slate-400 dark:text-slate-500">Tap 🎤 to describe what you're scanning</p>
+            )}
+          </div>
+        </div>
 
         {error && <div className="mt-4 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2"><span>⚠</span> {error}</div>}
 

@@ -184,6 +184,13 @@ html {
   border-color: rgba(132, 204, 22, 0.35);
 }
 
+.bg-lime-subtle {
+  background-color: rgba(132, 204, 22, 0.08);
+}
+.dark .bg-lime-subtle {
+  background-color: rgba(132, 204, 22, 0.12);
+}
+
 .btn-glass-emerald {
   background: rgba(16, 185, 129, 0.2);
   color: #047857;

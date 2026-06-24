@@ -251,7 +251,22 @@ def application(environ, start_response):
         try:
             b = rb(environ)
             b64 = b.get('image','') if b else ''
-            if b64: d = {'scan_id': 1, 'result': analyze_image(base64.b64decode(b64))}
+            if b64:
+                result = analyze_image(base64.b64decode(b64))
+                result.setdefault("recipes", {})
+                for level in ["easy", "intermediate", "advanced"]:
+                    result["recipes"].setdefault(level, {})
+                result.setdefault("scan_summary", {})
+                result["scan_summary"].setdefault("items", [])
+                result.setdefault("nutrition", [])
+                result.setdefault("allergy_report", [])
+                result.setdefault("substitutions", [])
+                result.setdefault("health_benefits", [])
+                result.setdefault("storage_tips", [])
+                result.setdefault("cooking_tips", [])
+                result.setdefault("cost_estimation", [])
+                result.setdefault("improvements", {})
+                d = {'scan_id': 1, 'result': result}
             else: d = {'error': 'No image'}
         except Exception as e: d = {'error': str(e)}
         return jr(start_response, d)

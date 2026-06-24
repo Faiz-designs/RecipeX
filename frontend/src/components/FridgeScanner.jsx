@@ -3,14 +3,95 @@ import { useTranslation } from 'react-i18next'
 import { getFridgeItems, addFridgeItem, removeFridgeItem, clearFridge, findMatchingRecipes } from '../utils/fridgeMode'
 import { Link } from 'react-router-dom'
 
-const quickAdds = [
-  { name: 'Tomato', emoji: '🍅' }, { name: 'Spinach', emoji: '🥬' }, { name: 'Carrot', emoji: '🥕' },
-  { name: 'Onion', emoji: '🧅' }, { name: 'Bell Pepper', emoji: '🫑' }, { name: 'Broccoli', emoji: '🥦' },
-  { name: 'Potato', emoji: '🥔' }, { name: 'Cucumber', emoji: '🥒' }, { name: 'Garlic', emoji: '🧄' },
-  { name: 'Corn', emoji: '🌽' }, { name: 'Cabbage', emoji: '🥬' }, { name: 'Cauliflower', emoji: '🥦' },
-  { name: 'Eggplant', emoji: '🍆' }, { name: 'Mushroom', emoji: '🍄' }, { name: 'Lettuce', emoji: '🥬' },
-  { name: 'Green Beans', emoji: '🫘' }, { name: 'Peas', emoji: '🫛' }, { name: 'Zucchini', emoji: '🥒' },
-  { name: 'Sweet Potato', emoji: '🍠' }, { name: 'Ginger', emoji: '🫚' },
+const categories = [
+  {
+    label: 'Vegetables', icon: '🥦',
+    items: [
+      { name: 'Tomato', emoji: '🍅' }, { name: 'Spinach', emoji: '🥬' }, { name: 'Carrot', emoji: '🥕' },
+      { name: 'Onion', emoji: '🧅' }, { name: 'Bell Pepper', emoji: '🫑' }, { name: 'Broccoli', emoji: '🥦' },
+      { name: 'Potato', emoji: '🥔' }, { name: 'Cucumber', emoji: '🥒' }, { name: 'Garlic', emoji: '🧄' },
+      { name: 'Corn', emoji: '🌽' }, { name: 'Cabbage', emoji: '🥬' }, { name: 'Cauliflower', emoji: '🥦' },
+      { name: 'Eggplant', emoji: '🍆' }, { name: 'Mushroom', emoji: '🍄' }, { name: 'Lettuce', emoji: '🥬' },
+      { name: 'Green Beans', emoji: '🫘' }, { name: 'Peas', emoji: '🫛' }, { name: 'Zucchini', emoji: '🥒' },
+      { name: 'Sweet Potato', emoji: '🍠' }, { name: 'Ginger', emoji: '🫚' }, { name: 'Celery', emoji: '🥬' },
+      { name: 'Radish', emoji: '🫘' }, { name: 'Beetroot', emoji: '🫘' }, { name: 'Pumpkin', emoji: '🎃' },
+      { name: 'Asparagus', emoji: '🥬' }, { name: 'Artichoke', emoji: '🥬' }, { name: 'Kale', emoji: '🥬' },
+      { name: 'Okra', emoji: '🫘' },
+    ]
+  },
+  {
+    label: 'Fruits', icon: '🍎',
+    items: [
+      { name: 'Apple', emoji: '🍎' }, { name: 'Banana', emoji: '🍌' }, { name: 'Orange', emoji: '🍊' },
+      { name: 'Strawberry', emoji: '🍓' }, { name: 'Grapes', emoji: '🍇' }, { name: 'Mango', emoji: '🥭' },
+      { name: 'Lemon', emoji: '🍋' }, { name: 'Avocado', emoji: '🥑' }, { name: 'Pineapple', emoji: '🍍' },
+      { name: 'Watermelon', emoji: '🍉' }, { name: 'Blueberry', emoji: '🫐' }, { name: 'Cherry', emoji: '🍒' },
+      { name: 'Peach', emoji: '🍑' }, { name: 'Pear', emoji: '🍐' }, { name: 'Coconut', emoji: '🥥' },
+      { name: 'Kiwi', emoji: '🥝' }, { name: 'Papaya', emoji: '🏵️' }, { name: 'Pomegranate', emoji: '🏵️' },
+      { name: 'Lime', emoji: '🍋‍🟩' }, { name: 'Dragon Fruit', emoji: '🏵️' },
+    ]
+  },
+  {
+    label: 'Meat & Poultry', icon: '🍗',
+    items: [
+      { name: 'Chicken Breast', emoji: '🍗' }, { name: 'Chicken Thigh', emoji: '🍗' }, { name: 'Ground Beef', emoji: '🥩' },
+      { name: 'Steak', emoji: '🥩' }, { name: 'Pork Chop', emoji: '🥩' }, { name: 'Bacon', emoji: '🥓' },
+      { name: 'Turkey', emoji: '🍗' }, { name: 'Lamb', emoji: '🥩' }, { name: 'Chicken Wings', emoji: '🍗' },
+      { name: 'Sausage', emoji: '🌭' }, { name: 'Ham', emoji: '🥩' }, { name: 'Duck', emoji: '🍗' },
+      { name: 'Mutton', emoji: '🥩' }, { name: 'Beef Mince', emoji: '🥩' }, { name: 'Chicken Drumstick', emoji: '🍗' },
+    ]
+  },
+  {
+    label: 'Seafood', icon: '🐟',
+    items: [
+      { name: 'Salmon', emoji: '🐟' }, { name: 'Shrimp', emoji: '🦐' }, { name: 'Tuna', emoji: '🐟' },
+      { name: 'Cod', emoji: '🐟' }, { name: 'Crab', emoji: '🦀' }, { name: 'Lobster', emoji: '🦞' },
+      { name: 'Prawns', emoji: '🦐' }, { name: 'Sardines', emoji: '🐟' }, { name: 'Mackerel', emoji: '🐟' },
+      { name: 'Clams', emoji: '🐚' }, { name: 'Mussels', emoji: '🐚' }, { name: 'Trout', emoji: '🐟' },
+      { name: 'Tilapia', emoji: '🐟' }, { name: 'Squid', emoji: '🦑' }, { name: 'Octopus', emoji: '🐙' },
+    ]
+  },
+  {
+    label: 'Dairy & Eggs', icon: '🥛',
+    items: [
+      { name: 'Milk', emoji: '🥛' }, { name: 'Eggs', emoji: '🥚' }, { name: 'Butter', emoji: '🧈' },
+      { name: 'Cheese', emoji: '🧀' }, { name: 'Yogurt', emoji: '🫗' }, { name: 'Cream', emoji: '🥛' },
+      { name: 'Sour Cream', emoji: '🫗' }, { name: 'Cottage Cheese', emoji: '🧀' }, { name: 'Mozzarella', emoji: '🧀' },
+      { name: 'Cheddar', emoji: '🧀' }, { name: 'Parmesan', emoji: '🧀' }, { name: 'Greek Yogurt', emoji: '🫗' },
+      { name: 'Heavy Cream', emoji: '🥛' }, { name: 'Buttermilk', emoji: '🥛' }, { name: 'Ice Cream', emoji: '🍦' },
+    ]
+  },
+  {
+    label: 'Herbs & Spices', icon: '🌿',
+    items: [
+      { name: 'Basil', emoji: '🌿' }, { name: 'Cilantro', emoji: '🌿' }, { name: 'Mint', emoji: '🌿' },
+      { name: 'Rosemary', emoji: '🌿' }, { name: 'Thyme', emoji: '🌿' }, { name: 'Oregano', emoji: '🌿' },
+      { name: 'Parsley', emoji: '🌿' }, { name: 'Turmeric', emoji: '🏵️' }, { name: 'Cumin', emoji: '🏵️' },
+      { name: 'Cinnamon', emoji: '🏵️' }, { name: 'Paprika', emoji: '🏵️' }, { name: 'Chili Powder', emoji: '🌶️' },
+      { name: 'Black Pepper', emoji: '🏵️' }, { name: 'Salt', emoji: '🧂' }, { name: 'Bay Leaf', emoji: '🌿' },
+      { name: 'Dill', emoji: '🌿' }, { name: 'Sage', emoji: '🌿' }, { name: 'Curry Powder', emoji: '🏵️' },
+    ]
+  },
+  {
+    label: 'Grains & Legumes', icon: '🌾',
+    items: [
+      { name: 'Rice', emoji: '🍚' }, { name: 'Pasta', emoji: '🍝' }, { name: 'Bread', emoji: '🍞' },
+      { name: 'Flour', emoji: '🌾' }, { name: 'Oats', emoji: '🥣' }, { name: 'Quinoa', emoji: '🌾' },
+      { name: 'Lentils', emoji: '🫘' }, { name: 'Chickpeas', emoji: '🫘' }, { name: 'Black Beans', emoji: '🫘' },
+      { name: 'Kidney Beans', emoji: '🫘' }, { name: 'Noodles', emoji: '🍜' }, { name: 'Couscous', emoji: '🌾' },
+      { name: 'Barley', emoji: '🌾' }, { name: 'Wheat', emoji: '🌾' }, { name: 'Cornmeal', emoji: '🌽' },
+    ]
+  },
+  {
+    label: 'Condiments & Sauces', icon: '🫙',
+    items: [
+      { name: 'Olive Oil', emoji: '🫒' }, { name: 'Soy Sauce', emoji: '🫙' }, { name: 'Ketchup', emoji: '🫙' },
+      { name: 'Mustard', emoji: '🫙' }, { name: 'Mayonnaise', emoji: '🫙' }, { name: 'Vinegar', emoji: '🫙' },
+      { name: 'Honey', emoji: '🍯' }, { name: 'Hot Sauce', emoji: '🌶️' }, { name: 'BBQ Sauce', emoji: '🫙' },
+      { name: 'Tomato Sauce', emoji: '🫙' }, { name: 'Coconut Milk', emoji: '🥥' }, { name: 'Fish Sauce', emoji: '🫙' },
+      { name: 'Maple Syrup', emoji: '🫙' }, { name: 'Sesame Oil', emoji: '🫙' }, { name: 'Worcestershire', emoji: '🫙' },
+    ]
+  },
 ]
 
 export default function FridgeScanner() {
@@ -20,6 +101,7 @@ export default function FridgeScanner() {
   const [recipes, setRecipes] = useState([])
   const [loading, setLoading] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [expandedCats, setExpandedCats] = useState(categories.map((_, i) => i < 3 ? i : -1).filter(i => i >= 0))
 
   const handleAdd = (name) => {
     addFridgeItem({ name })
@@ -64,12 +146,29 @@ export default function FridgeScanner() {
           <button onClick={() => newItem.trim() && handleAdd(newItem.trim())} className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-semibold text-sm hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md">{t('fridgeMode.add')}</button>
         </div>
 
-        <div className="flex flex-wrap gap-1.5 mb-4">
-          {quickAdds.map(q => (
-            <button key={q.name} onClick={() => handleAdd(q.name)} className="text-xs px-2.5 py-1.5 bg-white/60 dark:bg-stone-700/60 border border-blue-200 dark:border-blue-800/40 rounded-full text-stone-600 dark:text-stone-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
-              {q.emoji} {q.name}
-            </button>
-          ))}
+        <div className="space-y-2 mb-4 max-h-72 overflow-y-auto">
+          {categories.map((cat, ci) => {
+            const open = expandedCats.includes(ci)
+            return (
+              <div key={cat.label}>
+                <button onClick={() => setExpandedCats(open ? expandedCats.filter(i => i !== ci) : [...expandedCats, ci])} className="flex items-center gap-2 w-full text-left px-3 py-2 rounded-xl bg-stone-50/80 dark:bg-stone-800/50 border border-stone-200/60 dark:border-stone-700/40 hover:bg-stone-100 dark:hover:bg-stone-700/40 transition-colors">
+                  <span className="text-lg">{cat.icon}</span>
+                  <span className="text-sm font-semibold text-stone-700 dark:text-stone-300 flex-1">{cat.label}</span>
+                  <span className="text-xs text-stone-400">{cat.items.length}</span>
+                  <span className="text-stone-400 text-xs transition-transform duration-200" style={{ transform: open ? 'rotate(180deg)' : '' }}>▼</span>
+                </button>
+                {open && (
+                  <div className="flex flex-wrap gap-1.5 mt-2 px-1">
+                    {cat.items.map(q => (
+                      <button key={q.name} onClick={() => handleAdd(q.name)} className="text-xs px-2.5 py-1.5 bg-white/60 dark:bg-stone-700/60 border border-blue-200 dark:border-blue-800/40 rounded-full text-stone-600 dark:text-stone-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+                        {q.emoji} {q.name}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )
+          })}
         </div>
 
         <div className="space-y-1.5 mb-4">

@@ -82,7 +82,7 @@ export default function CookingMode() {
 
   if (!recipe) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
         <div className="glass-card rounded-2xl p-8 shadow-xl text-center">
           <p className="text-white/80 text-xl font-medium">No recipe selected</p>
         </div>
@@ -107,10 +107,10 @@ export default function CookingMode() {
   return (
     <>
       <SEO title="Cooking Mode" description="Step-by-step hands-free cooking mode with voice assistant and timer." />
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col">
+      <div className="min-h-screen bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900 text-white flex flex-col">
       <header className="glass-nav px-6 py-4 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
-          <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center text-sm shadow-lg shadow-emerald-500/20">👨‍🍳</div>
+          <div className="w-9 h-9 bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl flex items-center justify-center text-sm shadow-lg shadow-orange-500/20">👨‍🍳</div>
           <h1 className="text-xl md:text-2xl font-bold truncate">{recipe.name}</h1>
         </div>
         <button onClick={() => navigate(-1)} className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-xl text-sm font-semibold hover:bg-white/20 transition-all border border-white/10">
@@ -126,8 +126,8 @@ export default function CookingMode() {
           </h2>
           <div className="space-y-2.5">
             {ingredients.map((ing, i) => (
-              <button key={i} onClick={() => toggleIngredient(i)} className={`w-full text-left px-4 py-3 rounded-xl text-base flex items-center gap-3 transition-all ${checked.includes(i) ? 'bg-slate-700/50 text-slate-400 line-through' : 'bg-slate-700/30 hover:bg-slate-700/60 border border-slate-700/40 hover:border-slate-600/60'}`}>
-                <span className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${checked.includes(i) ? 'bg-emerald-500 border-emerald-500 shadow-sm' : 'border-slate-500'}`} role="checkbox" aria-checked={checked.includes(i)}>
+              <button key={i} onClick={() => toggleIngredient(i)} className={`w-full text-left px-4 py-3 rounded-xl text-base flex items-center gap-3 transition-all ${checked.includes(i) ? 'bg-slate-700/50 text-stone-400 line-through' : 'bg-slate-700/30 hover:bg-slate-700/60 border border-slate-700/40 hover:border-slate-600/60'}`}>
+                <span className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-all ${checked.includes(i) ? 'bg-orange-500 border-orange-500 shadow-sm' : 'border-stone-500'}`} role="checkbox" aria-checked={checked.includes(i)}>
                   {checked.includes(i) ? '✓' : ''}
                 </span>
                 {ing}
@@ -138,14 +138,14 @@ export default function CookingMode() {
             <h3 className="text-base font-semibold mb-3 flex items-center gap-2">⏱ Timer</h3>
             <div className="flex gap-2 flex-wrap">
               {[1, 2, 3, 5, 10, 15].map(m => (
-                <button key={m} onClick={() => startTimer(m)} className="px-3 py-2 bg-slate-700/50 rounded-xl text-sm hover:bg-slate-600/60 transition-all border border-slate-600/40 hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/10 active:scale-95">
+                <button key={m} onClick={() => startTimer(m)} className="px-3 py-2 bg-slate-700/50 rounded-xl text-sm hover:bg-slate-600/60 transition-all border border-slate-600/40 hover:border-orange-500/40 hover:shadow-lg hover:shadow-orange-500/10 active:scale-95">
                   {m} min
                 </button>
               ))}
             </div>
             {timerSeconds > 0 && (
               <div className="mt-5 text-center bg-slate-700/30 rounded-xl p-4 border border-slate-600/40">
-                <p className="text-4xl font-mono font-bold text-emerald-400">{Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}</p>
+                <p className="text-4xl font-mono font-bold text-orange-400">{Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}</p>
                 <button onClick={() => { clearInterval(timer); setTimerSeconds(0) }} className="text-sm text-red-400 hover:text-red-300 mt-2.5 transition-colors px-3 py-1 rounded-lg hover:bg-red-900/30">{t('cookingMode.cancel')}</button>
               </div>
             )}
@@ -156,19 +156,19 @@ export default function CookingMode() {
           <div className="max-w-2xl w-full">
             <div className="text-center mb-8">
               <div className="flex items-center justify-center gap-2 mb-3">
-                <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider">{t('cookingMode.step')}</span>
-                <span className="text-sm font-bold text-emerald-400">{currentStep + 1}</span>
-                <span className="text-xs text-slate-500">/</span>
-                <span className="text-sm text-slate-400">{steps.length}</span>
+                <span className="text-xs font-semibold text-stone-400 uppercase tracking-wider">{t('cookingMode.step')}</span>
+                <span className="text-sm font-bold text-orange-400">{currentStep + 1}</span>
+                <span className="text-xs text-stone-500">/</span>
+                <span className="text-sm text-stone-400">{steps.length}</span>
               </div>
               <div className="w-full bg-slate-700/60 rounded-full h-2 overflow-hidden shadow-inner" role="progressbar" aria-valuenow={currentStep + 1} aria-valuemin={1} aria-valuemax={steps.length} aria-label={`Step ${currentStep + 1} of ${steps.length}`}>
-                <div className="bg-gradient-to-r from-emerald-500 to-emerald-400 h-2 rounded-full transition-all duration-500 ease-out shadow-sm" style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }} />
+                <div className="bg-gradient-to-r from-orange-500 to-orange-400 h-2 rounded-full transition-all duration-500 ease-out shadow-sm" style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }} />
               </div>
             </div>
 
             <div className="glass-card rounded-2xl p-8 md:p-10 mb-8 min-h-[220px] flex items-center justify-center shadow-xl relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              <p className="text-2xl md:text-3xl leading-relaxed text-center font-medium text-slate-100 relative z-10">
+              <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <p className="text-2xl md:text-3xl leading-relaxed text-center font-medium text-stone-100 relative z-10">
                 {steps[currentStep]}
               </p>
             </div>
@@ -177,19 +177,19 @@ export default function CookingMode() {
               <button
                 onClick={() => setCurrentStep(s => Math.max(0, s - 1))}
                 disabled={currentStep === 0}
-                className="flex-1 px-6 py-4 bg-slate-700/60 backdrop-blur-sm rounded-xl text-lg font-semibold disabled:opacity-30 hover:bg-slate-600/60 transition-all border border-slate-600/40 hover:border-slate-500/40 active:scale-[0.98]"
+                className="flex-1 px-6 py-4 bg-slate-700/60 backdrop-blur-sm rounded-xl text-lg font-semibold disabled:opacity-30 hover:bg-slate-600/60 transition-all border border-slate-600/40 hover:border-stone-500/40 active:scale-[0.98]"
                 aria-label={t('cookingMode.prev')}
               >
                 ← {t('cookingMode.prev')}
               </button>
               {currentStep === steps.length - 1 ? (
-                <button onClick={() => navigate(-1)} className="flex-1 px-6 py-4 btn-glass btn-glass-emerald rounded-xl text-lg font-semibold active:scale-[0.98]">
+                <button onClick={() => navigate(-1)} className="flex-1 px-6 py-4 btn-glass btn-glass-orange rounded-xl text-lg font-semibold active:scale-[0.98]">
                   {t('cookingMode.done')} ✓
                 </button>
               ) : (
                 <button
                   onClick={() => setCurrentStep(s => Math.min(steps.length - 1, s + 1))}
-                  className="flex-1 px-6 py-4 btn-glass btn-glass-emerald rounded-xl text-lg font-semibold active:scale-[0.98]"
+                  className="flex-1 px-6 py-4 btn-glass btn-glass-orange rounded-xl text-lg font-semibold active:scale-[0.98]"
                   aria-label={t('cookingMode.next')}
                 >
                   {t('cookingMode.next')} →
@@ -202,7 +202,7 @@ export default function CookingMode() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => speaking ? stopSpeaking() : speak(steps[currentStep])}
-                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 border ${speaking ? 'bg-emerald-600/80 border-emerald-500/50 hover:bg-emerald-500/80 shadow-lg shadow-emerald-500/20' : 'bg-slate-700/50 border-slate-600/40 hover:bg-slate-600/50'}`}
+                    className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 border ${speaking ? 'bg-emerald-600/80 border-orange-500/50 hover:bg-orange-500/80 shadow-lg shadow-orange-500/20' : 'bg-slate-700/50 border-slate-600/40 hover:bg-slate-600/50'}`}
                   >
                     {speaking ? '🔊' : '🔇'} {speaking ? t('voiceAssistant.stopReading') : t('voiceAssistant.readAloud')}
                   </button>
@@ -213,14 +213,14 @@ export default function CookingMode() {
                     🎤 {t('voiceAssistant.voiceCommands')}
                   </button>
                 </div>
-                {listening && <span className="text-xs text-emerald-400 animate-pulse font-medium">{t('voiceAssistant.listening')}</span>}
+                {listening && <span className="text-xs text-orange-400 animate-pulse font-medium">{t('voiceAssistant.listening')}</span>}
               </div>
               {voiceInput && (
-                <div className="mt-3 text-sm text-slate-300 bg-slate-700/40 backdrop-blur-sm rounded-xl px-4 py-2.5 border border-slate-600/40">
+                <div className="mt-3 text-sm text-stone-300 bg-slate-700/40 backdrop-blur-sm rounded-xl px-4 py-2.5 border border-slate-600/40">
                   🗣 "{voiceInput}"
                 </div>
               )}
-              <p className="text-xs text-slate-500 mt-3">{t('voiceAssistant.sayNext')}</p>
+              <p className="text-xs text-stone-500 mt-3">{t('voiceAssistant.sayNext')}</p>
             </div>
           </div>
         </main>

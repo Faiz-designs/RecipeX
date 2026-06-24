@@ -16,7 +16,7 @@ export default function Profile() {
     <>
       <SEO title="Profile" description="Your RecipeX AI account profile." />
       <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
+      <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-orange-500/10">
         <div className="flex items-center gap-4">
           <div className="relative">
             <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-4xl shadow-inner border border-white/20">👤</div>
@@ -32,27 +32,27 @@ export default function Profile() {
       </div>
 
       <div className="glass-card rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-        <div className="px-6 py-4 border-b border-slate-200/60 dark:border-slate-700/40 flex items-center gap-2">
+        <div className="px-6 py-4 border-b border-stone-200/60 dark:border-stone-700/40 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-400" />
-          <h2 className="font-bold text-slate-800 dark:text-slate-100">{t('auth.accountDetails')}</h2>
+          <h2 className="font-bold text-stone-800 dark:text-stone-100">{t('auth.accountDetails')}</h2>
         </div>
         <div className="p-6">
           <div className="grid sm:grid-cols-2 gap-5">
             <div className="glass-card rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.email')}</p>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.email}</p>
+              <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-1">{t('auth.email')}</p>
+              <p className="text-sm font-medium text-stone-700 dark:text-stone-200">{user.email}</p>
             </div>
             <div className="glass-card rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.age')}</p>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.age || t('auth.notSet')}</p>
+              <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-1">{t('auth.age')}</p>
+              <p className="text-sm font-medium text-stone-700 dark:text-stone-200">{user.age || t('auth.notSet')}</p>
             </div>
             <div className="glass-card rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.allergies')}</p>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.allergies || t('auth.noneListed')}</p>
+              <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-1">{t('auth.allergies')}</p>
+              <p className="text-sm font-medium text-stone-700 dark:text-stone-200">{user.allergies || t('auth.noneListed')}</p>
             </div>
             <div className="glass-card rounded-xl p-4">
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.dietaryPreferences')}</p>
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.dietary_preferences || t('auth.noneListed')}</p>
+              <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-1">{t('auth.dietaryPreferences')}</p>
+              <p className="text-sm font-medium text-stone-700 dark:text-stone-200">{user.dietary_preferences || t('auth.noneListed')}</p>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function Profile() {
         <button onClick={handleLogout} className="px-6 py-2.5 btn-glass btn-glass-red rounded-xl active:scale-[0.98] flex items-center gap-2">
           {t('nav.signOut')}
         </button>
-        <Link to="/scan" className="px-6 py-2.5 btn-glass btn-glass-emerald rounded-xl active:scale-[0.98] flex items-center gap-2">
+        <Link to="/scan" className="px-6 py-2.5 btn-glass btn-glass-orange rounded-xl active:scale-[0.98] flex items-center gap-2">
           {t('nav.scan')}
         </Link>
       </div>

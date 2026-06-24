@@ -44,33 +44,33 @@ export default function OnboardingTour() {
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 rounded-2xl flex items-center justify-center text-4xl mb-5 shadow-lg">
             {steps[step].emoji}
           </div>
-          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-2">{steps[step].title}</h3>
-          <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-8">{steps[step].desc}</p>
+          <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-2">{steps[step].title}</h3>
+          <p className="text-sm text-stone-500 dark:text-stone-400 leading-relaxed mb-8">{steps[step].desc}</p>
 
           <div className="flex gap-2 mb-8">
             {steps.map((_, i) => (
-              <div key={i} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === step ? 'w-6 bg-emerald-500' : 'bg-slate-300 dark:bg-slate-600'}`} />
+              <div key={i} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === step ? 'w-6 bg-orange-500' : 'bg-slate-300 dark:bg-stone-600'}`} />
             ))}
           </div>
 
           <div className="flex gap-3 w-full">
             {step > 0 && (
-              <button onClick={() => setStep(s => s - 1)} className="flex-1 px-4 py-2.5 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-medium hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-all">
+              <button onClick={() => setStep(s => s - 1)} className="flex-1 px-4 py-2.5 border border-stone-200 dark:border-stone-600 text-stone-600 dark:text-stone-300 rounded-xl text-sm font-medium hover:bg-stone-50 dark:hover:bg-stone-700/50 transition-all">
                 Back
               </button>
             )}
             {step < steps.length - 1 ? (
-              <button onClick={() => setStep(s => s + 1)} className="flex-1 px-4 py-2.5 btn-glass btn-glass-emerald rounded-xl text-sm font-semibold">
+              <button onClick={() => setStep(s => s + 1)} className="flex-1 px-4 py-2.5 btn-glass btn-glass-orange rounded-xl text-sm font-semibold">
                 Next
               </button>
             ) : (
-              <button onClick={dismiss} className="flex-1 px-4 py-2.5 btn-glass btn-glass-emerald rounded-xl text-sm font-semibold">
+              <button onClick={dismiss} className="flex-1 px-4 py-2.5 btn-glass btn-glass-orange rounded-xl text-sm font-semibold">
                 Get Started 🚀
               </button>
             )}
           </div>
 
-          <button onClick={dismiss} className="mt-4 text-xs text-slate-400 dark:text-slate-500 hover:text-slate-500 dark:hover:text-slate-400 transition-colors">
+          <button onClick={dismiss} className="mt-4 text-xs text-stone-400 dark:text-stone-500 hover:text-stone-500 dark:hover:text-stone-400 transition-colors">
             Skip tour
           </button>
         </div>

@@ -56,17 +56,17 @@ export default function FridgeScanner() {
       <div className="glass-card rounded-2xl p-5 shadow-sm">
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🧊</div>
-          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('fridgeMode.title')}</h2>
+          <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('fridgeMode.title')}</h2>
         </div>
 
         <div className="flex gap-2 mb-4">
-          <input value={newItem} onChange={e => setNewItem(e.target.value)} onKeyDown={e => e.key === 'Enter' && newItem.trim() && handleAdd(newItem.trim())} placeholder={t('fridgeMode.addItem')} className="flex-1 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
+          <input value={newItem} onChange={e => setNewItem(e.target.value)} onKeyDown={e => e.key === 'Enter' && newItem.trim() && handleAdd(newItem.trim())} placeholder={t('fridgeMode.addItem')} className="flex-1 px-3 py-2 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-blue-400" />
           <button onClick={() => newItem.trim() && handleAdd(newItem.trim())} className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-semibold text-sm hover:from-blue-600 hover:to-cyan-600 transition-all shadow-md">{t('fridgeMode.add')}</button>
         </div>
 
         <div className="flex flex-wrap gap-1.5 mb-4">
           {quickAdds.map(q => (
-            <button key={q.name} onClick={() => handleAdd(q.name)} className="text-xs px-2.5 py-1.5 bg-white/60 dark:bg-slate-700/60 border border-blue-200 dark:border-blue-800/40 rounded-full text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
+            <button key={q.name} onClick={() => handleAdd(q.name)} className="text-xs px-2.5 py-1.5 bg-white/60 dark:bg-stone-700/60 border border-blue-200 dark:border-blue-800/40 rounded-full text-stone-600 dark:text-stone-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-colors">
               {q.emoji} {q.name}
             </button>
           ))}
@@ -75,8 +75,8 @@ export default function FridgeScanner() {
         <div className="space-y-1.5 mb-4">
           {items.map(item => (
             <div key={item.id} className="flex items-center gap-2 glass-card rounded-xl px-3 py-2">
-              <span className="flex-1 text-sm font-medium text-slate-700 dark:text-slate-200">{item.name}</span>
-              <button onClick={() => handleRemove(item.id)} className="text-xs text-slate-400 hover:text-red-500 transition-colors">✕</button>
+              <span className="flex-1 text-sm font-medium text-stone-700 dark:text-stone-200">{item.name}</span>
+              <button onClick={() => handleRemove(item.id)} className="text-xs text-stone-400 hover:text-red-500 transition-colors">✕</button>
             </div>
           ))}
         </div>
@@ -93,25 +93,25 @@ export default function FridgeScanner() {
         {items.length === 0 && (
           <div className="text-center py-6">
             <div className="text-4xl mb-2">🧊</div>
-            <p className="text-sm text-slate-500 dark:text-slate-400">{t('fridgeMode.emptyDesc')}</p>
+            <p className="text-sm text-stone-500 dark:text-stone-400">{t('fridgeMode.emptyDesc')}</p>
           </div>
         )}
       </div>
 
       {showResults && recipes.length > 0 && (
         <div className="mt-6">
-          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-100 mb-4">{t('fridgeMode.matchingRecipes')}</h3>
+          <h3 className="text-lg font-bold text-stone-800 dark:text-stone-100 mb-4">{t('fridgeMode.matchingRecipes')}</h3>
           <div className="grid sm:grid-cols-2 gap-3">
             {recipes.map((r, i) => (
               <div key={i} className="glass-card rounded-2xl p-4 hover:shadow-lg transition-all">
                 <div className="flex items-center justify-between mb-2">
-                  <h4 className="font-bold text-slate-800 dark:text-slate-100 text-sm">{r.name}</h4>
+                  <h4 className="font-bold text-stone-800 dark:text-stone-100 text-sm">{r.name}</h4>
                   <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
                     {r.matchPercent}% match
                   </span>
                 </div>
                 <div className="flex gap-1.5 flex-wrap mb-2">
-                  {r.matchedIngredients?.map((ing, j) => <span key={j} className="text-xs bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 px-2 py-0.5 rounded-full">✓ {ing}</span>)}
+                  {r.matchedIngredients?.map((ing, j) => <span key={j} className="text-xs bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded-full">✓ {ing}</span>)}
                 </div>
                 <Link to="/cooking-mode" state={{ recipe: r }} className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700">
                   👨‍🍳 {t('cookingMode.start')} →
@@ -125,7 +125,7 @@ export default function FridgeScanner() {
       {showResults && recipes.length === 0 && items.length > 0 && (
         <div className="mt-6 text-center py-8 glass-card rounded-2xl">
           <div className="text-4xl mb-2">🤷</div>
-          <p className="text-slate-500 dark:text-slate-400">{t('fridgeMode.noMatches')}</p>
+          <p className="text-stone-500 dark:text-stone-400">{t('fridgeMode.noMatches')}</p>
         </div>
       )}
     </div>

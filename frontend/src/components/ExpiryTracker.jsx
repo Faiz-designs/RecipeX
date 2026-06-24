@@ -58,7 +58,7 @@ export default function ExpiryTracker({ scanResult }) {
     <div className="glass-card rounded-2xl p-5 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-sm shadow-sm">⏰</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('expiry.title')}</h2>
+        <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('expiry.title')}</h2>
       </div>
 
       {reminders.length > 0 && (
@@ -71,8 +71,8 @@ export default function ExpiryTracker({ scanResult }) {
       )}
 
       <div className="flex gap-2 mb-4">
-        <input value={newName} onChange={e => setNewName(e.target.value)} placeholder={t('expiry.itemName')} className="flex-1 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
-        <input type="date" value={newExpiry} onChange={e => setNewExpiry(e.target.value)} className="w-36 px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        <input value={newName} onChange={e => setNewName(e.target.value)} placeholder={t('expiry.itemName')} className="flex-1 px-3 py-2 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
+        <input type="date" value={newExpiry} onChange={e => setNewExpiry(e.target.value)} className="w-36 px-3 py-2 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-400" />
         <button onClick={handleAdd} className="px-4 py-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl font-semibold text-sm hover:from-amber-600 hover:to-orange-600 transition-all shadow-md">+</button>
       </div>
 
@@ -82,12 +82,12 @@ export default function ExpiryTracker({ scanResult }) {
           return (
             <div key={item.id} className="flex items-center gap-3 glass-card rounded-xl px-4 py-2.5">
               <span className={`w-2 h-2 rounded-full ${daysLeft > 3 ? 'bg-green-500' : daysLeft > 1 ? 'bg-amber-500' : 'bg-red-500'}`} />
-              <span className="flex-1 text-sm font-medium text-slate-700 dark:text-slate-200">{item.name}</span>
+              <span className="flex-1 text-sm font-medium text-stone-700 dark:text-stone-200">{item.name}</span>
               <span className={`text-xs font-semibold ${daysLeft > 3 ? 'text-green-600' : daysLeft > 1 ? 'text-amber-600' : 'text-red-600'}`}>
                 {daysLeft > 0 ? `${daysLeft}d` : t('expiry.expired')}
               </span>
-              <span className="text-xs text-slate-400">{new Date(item.expiryDate).toLocaleDateString()}</span>
-              <button onClick={() => { removeExpiryItem(item.id); setItems(getExpiryItems()) }} className="text-xs text-slate-400 hover:text-red-500 transition-colors">✕</button>
+              <span className="text-xs text-stone-400">{new Date(item.expiryDate).toLocaleDateString()}</span>
+              <button onClick={() => { removeExpiryItem(item.id); setItems(getExpiryItems()) }} className="text-xs text-stone-400 hover:text-red-500 transition-colors">✕</button>
             </div>
           )
         })}

@@ -87,7 +87,7 @@ export default function MealPlanner() {
     <>
       <SEO title="Meal Planner" description="Plan your weekly meals with AI-generated recipes from scanned vegetables." />
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-emerald-500/10">
+        <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-orange-500/10">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">📅</div>
@@ -128,8 +128,8 @@ export default function MealPlanner() {
         {showAiPlan && aiPlan && (
           <div className="mb-8 space-y-6">
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">🤖 {t('mealPlanner.aiPlanTitle')}</h2>
-              <button onClick={() => setShowAiPlan(false)} className="text-sm text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">{t('common.close')}</button>
+              <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">🤖 {t('mealPlanner.aiPlanTitle')}</h2>
+              <button onClick={() => setShowAiPlan(false)} className="text-sm text-stone-400 hover:text-stone-600 dark:hover:text-stone-300">{t('common.close')}</button>
             </div>
 
             <div className="grid gap-4">
@@ -138,9 +138,9 @@ export default function MealPlanner() {
                 if (!dayData) return null
                 return (
                   <div key={dayEn} className="glass-card rounded-2xl overflow-hidden shadow-sm">
-                    <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 px-5 py-3 border-b border-slate-200/60 dark:border-slate-700/50 flex items-center justify-between">
-                      <span className="font-bold text-slate-800 dark:text-slate-100">{t(`mealPlanner.${dayEn.toLowerCase()}`)}</span>
-                      <span className="text-xs text-slate-500 dark:text-slate-400">{dayData.total_daily_calories?.toFixed(0)} {t('mealPlanner.calories')} · {dayData.total_daily_protein_g?.toFixed(0)}g {t('mealPlanner.protein')}</span>
+                    <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 px-5 py-3 border-b border-stone-200/60 dark:border-stone-700/50 flex items-center justify-between">
+                      <span className="font-bold text-stone-800 dark:text-stone-100">{t(`mealPlanner.${dayEn.toLowerCase()}`)}</span>
+                      <span className="text-xs text-stone-500 dark:text-stone-400">{dayData.total_daily_calories?.toFixed(0)} {t('mealPlanner.calories')} · {dayData.total_daily_protein_g?.toFixed(0)}g {t('mealPlanner.protein')}</span>
                     </div>
                     <div className="p-4 grid sm:grid-cols-3 gap-3">
                       {mealKeys.map(mk => {
@@ -149,12 +149,12 @@ export default function MealPlanner() {
                         return (
                           <div key={mk} className="glass-card rounded-xl p-3">
                             <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">{t(`mealPlanner.${mk}`)}</span>
-                              <span className="text-xs text-slate-400 dark:text-slate-500">{meal.prep_time_minutes} {t('mealPlanner.prepTime')}</span>
+                              <span className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wide">{t(`mealPlanner.${mk}`)}</span>
+                              <span className="text-xs text-stone-400 dark:text-stone-500">{meal.prep_time_minutes} {t('mealPlanner.prepTime')}</span>
                             </div>
-                            <p className="font-bold text-sm text-slate-800 dark:text-slate-100">{meal.name}</p>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">{meal.description}</p>
-                            <div className="flex gap-2 mt-2 text-xs text-slate-400 dark:text-slate-500">
+                            <p className="font-bold text-sm text-stone-800 dark:text-stone-100">{meal.name}</p>
+                            <p className="text-xs text-stone-500 dark:text-stone-400 mt-1 line-clamp-2">{meal.description}</p>
+                            <div className="flex gap-2 mt-2 text-xs text-stone-400 dark:text-stone-500">
                               <span>{meal.calories?.toFixed(0)} {t('mealPlanner.calories')}</span>
                               <span>{meal.protein_g?.toFixed(0)}g {t('mealPlanner.protein')}</span>
                             </div>
@@ -164,7 +164,7 @@ export default function MealPlanner() {
                     </div>
                     {dayData.snacks?.length > 0 && (
                       <div className="px-4 pb-4">
-                        <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1.5">{t('mealPlanner.snacks')}</p>
+                        <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5">{t('mealPlanner.snacks')}</p>
                         <div className="flex flex-wrap gap-1.5">
                           {dayData.snacks.map((s, i) => (
                             <span key={i} className="text-xs bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-1 rounded-full border border-amber-200/50 dark:border-amber-700/30">{s.name || s}</span>
@@ -179,7 +179,7 @@ export default function MealPlanner() {
 
             {aiPlan.nutrition_summary && (
               <div className="glass-card rounded-2xl p-5">
-                <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-3">📊 {t('mealPlanner.nutritionSummary')}</h3>
+                <h3 className="font-bold text-stone-800 dark:text-stone-100 mb-3">📊 {t('mealPlanner.nutritionSummary')}</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
                   {[{ label: t('mealPlanner.avgDaily') + ' ' + t('mealPlanner.calories'), value: `${aiPlan.nutrition_summary.avg_daily_calories?.toFixed(0)}` },
                    { label: t('mealPlanner.avgDaily') + ' Protein', value: `${aiPlan.nutrition_summary.avg_daily_protein_g?.toFixed(0)}g` },
@@ -188,26 +188,26 @@ export default function MealPlanner() {
                   ].map((item, i) => (
                     <div key={i} className="glass-card rounded-xl p-3 text-center">
                       <div className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">{item.value}</div>
-                      <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.label}</div>
+                      <div className="text-xs text-stone-500 dark:text-stone-400 mt-0.5">{item.label}</div>
                     </div>
                   ))}
                 </div>
                 {aiPlan.nutrition_summary.dietary_notes && (
-                  <p className="text-xs text-slate-600 dark:text-slate-300 italic">{aiPlan.nutrition_summary.dietary_notes}</p>
+                  <p className="text-xs text-stone-600 dark:text-stone-300 italic">{aiPlan.nutrition_summary.dietary_notes}</p>
                 )}
               </div>
             )}
 
             {aiPlan.weekly_grocery_list?.length > 0 && (
               <div className="glass-card rounded-2xl p-5">
-                <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-3">🛒 {t('mealPlanner.groceryList')}</h3>
+                <h3 className="font-bold text-stone-800 dark:text-stone-100 mb-3">🛒 {t('mealPlanner.groceryList')}</h3>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {aiPlan.weekly_grocery_list.map((cat, i) => (
                     <div key={i} className="glass-card rounded-xl p-3">
-                      <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase mb-1.5">{cat.category}</p>
+                      <p className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase mb-1.5">{cat.category}</p>
                       <div className="flex flex-wrap gap-1">
                         {(cat.items || []).map((item, j) => (
-                          <span key={j} className="text-xs bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded-full border border-slate-200 dark:border-slate-600">{item}</span>
+                          <span key={j} className="text-xs bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2 py-0.5 rounded-full border border-stone-200 dark:border-stone-600">{item}</span>
                         ))}
                       </div>
                     </div>
@@ -220,10 +220,10 @@ export default function MealPlanner() {
 
         {allRecipes.length === 0 && !aiPlan && (
           <div className="text-center py-20 glass-card rounded-2xl shadow-sm mb-8">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">📅</div>
-            <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('mealPlanner.noRecipes')}</p>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('mealPlanner.noRecipesDesc')}</p>
-            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-emerald px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
+            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-orange-200 dark:border-orange-700/50 flex items-center justify-center text-4xl shadow-lg">📅</div>
+            <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('mealPlanner.noRecipes')}</p>
+            <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('mealPlanner.noRecipesDesc')}</p>
+            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-orange px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
               📸 Scan Vegetables →
             </Link>
           </div>
@@ -235,35 +235,35 @@ export default function MealPlanner() {
               <table className="w-full">
                 <thead>
                   <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30">
-                    <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50 w-24"></th>
-                    {DAYS.map(d => <th key={d} className="p-3 text-center text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50 min-w-[130px]">{d}</th>)}
+                    <th className="p-3 text-left text-sm font-bold text-stone-700 dark:text-stone-200 border-b border-stone-200/60 dark:border-stone-700/50 w-24"></th>
+                    {DAYS.map(d => <th key={d} className="p-3 text-center text-sm font-bold text-stone-700 dark:text-stone-200 border-b border-stone-200/60 dark:border-stone-700/50 min-w-[130px]">{d}</th>)}
                   </tr>
                 </thead>
                 <tbody>
                   {MEALS.map(meal => (
-                    <tr key={meal} className="border-t border-slate-200/40 dark:border-slate-700/40">
-                      <td className="p-3 text-sm font-bold text-slate-600 dark:text-slate-300 border-r border-slate-200/40 dark:border-slate-700/40 bg-slate-50/50 dark:bg-slate-700/20">{meal}</td>
+                    <tr key={meal} className="border-t border-stone-200/40 dark:border-stone-700/40">
+                      <td className="p-3 text-sm font-bold text-stone-600 dark:text-stone-300 border-r border-stone-200/40 dark:border-stone-700/40 bg-stone-50/50 dark:bg-stone-700/20">{meal}</td>
                       {DAYS.map(day => {
                         const key = `${day}-${meal}`
                         const recipe = plan[key]
                         const isSelecting = selecting === key
                         return (
-                          <td key={day} className="p-2 text-center border-r border-slate-200/40 dark:border-slate-700/40 last:border-r-0 relative hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors">
+                          <td key={day} className="p-2 text-center border-r border-stone-200/40 dark:border-stone-700/40 last:border-r-0 relative hover:bg-stone-50/50 dark:hover:bg-slate-700/20 transition-colors">
                             {recipe ? (
                               <div className="glass-card rounded-xl p-2.5 group hover:shadow-sm transition-shadow">
-                                <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 truncate">{recipe}</p>
+                                <p className="text-xs font-semibold text-stone-700 dark:text-stone-200 truncate">{recipe}</p>
                                 <button onClick={() => setMeal(day, meal, recipe)} className="text-xs text-red-400 hover:text-red-500 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">✕ {t('mealPlanner.removeDay')}</button>
                               </div>
                             ) : (
-                              <button onClick={() => setSelecting(key)} className="w-full text-xs text-slate-400 dark:text-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 border border-dashed border-slate-300 dark:border-slate-600 rounded-xl py-2.5 hover:border-emerald-400 dark:hover:border-emerald-500 transition-all hover:bg-emerald-50/50 dark:hover:bg-emerald-900/20">
+                              <button onClick={() => setSelecting(key)} className="w-full text-xs text-stone-400 dark:text-stone-500 hover:text-orange-600 dark:hover:text-orange-400 border border-dashed border-stone-300 dark:border-stone-600 rounded-xl py-2.5 hover:border-orange-400 dark:hover:border-orange-500 transition-all hover:bg-orange-50/50 dark:hover:bg-orange-900/20">
                                 + {t('mealPlanner.add')}
                               </button>
                             )}
                             {isSelecting && allRecipes.length > 0 && (
                               <div className="absolute z-20 top-full left-1/2 -translate-x-1/2 mt-1.5 glass-card rounded-xl shadow-xl p-2 min-w-[200px] max-h-56 overflow-y-auto">
-                                <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 px-2 py-1.5 border-b border-slate-100 dark:border-slate-700 mb-1">{t('mealPlanner.availableRecipes')}</div>
+                                <div className="text-xs font-semibold text-stone-400 dark:text-stone-500 px-2 py-1.5 border-b border-stone-100 dark:border-stone-700 mb-1">{t('mealPlanner.availableRecipes')}</div>
                                 {allRecipes.map((r, i) => (
-                                  <button key={i} onClick={() => setMeal(day, meal, r.name)} className="block w-full text-left text-xs p-2.5 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-slate-600 dark:text-slate-300 transition-colors font-medium">
+                                  <button key={i} onClick={() => setMeal(day, meal, r.name)} className="block w-full text-left text-xs p-2.5 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/30 text-stone-600 dark:text-stone-300 transition-colors font-medium">
                                     {r.name}
                                   </button>
                                 ))}
@@ -280,16 +280,16 @@ export default function MealPlanner() {
 
             <div className="mt-8 glass-card rounded-2xl shadow-sm p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍽️</div>
-                <h2 className="font-bold text-slate-800 dark:text-slate-100">{t('mealPlanner.availableRecipes')}</h2>
-                <span className="text-xs text-slate-400 dark:text-slate-500 font-medium bg-slate-100 dark:bg-slate-700/80 px-2 py-0.5 rounded-full ml-auto">{allRecipes.length}</span>
+                <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍽️</div>
+                <h2 className="font-bold text-stone-800 dark:text-stone-100">{t('mealPlanner.availableRecipes')}</h2>
+                <span className="text-xs text-stone-400 dark:text-stone-500 font-medium bg-stone-100 dark:bg-stone-700/80 px-2 py-0.5 rounded-full ml-auto">{allRecipes.length}</span>
               </div>
               {allRecipes.length === 0 ? (
-                <p className="text-sm text-slate-400 dark:text-slate-500">{t('mealPlanner.noRecipesDesc')}</p>
+                <p className="text-sm text-stone-400 dark:text-stone-500">{t('mealPlanner.noRecipesDesc')}</p>
               ) : (
                 <div className="flex flex-wrap gap-2">
                   {allRecipes.map((r, i) => (
-                    <span key={i} className="text-xs bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-700/50 px-3 py-1.5 rounded-full font-medium shadow-sm">{r.name}</span>
+                    <span key={i} className="text-xs bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 text-orange-700 dark:text-orange-300 border border-orange-200/60 dark:border-orange-700/50 px-3 py-1.5 rounded-full font-medium shadow-sm">{r.name}</span>
                   ))}
                 </div>
               )}

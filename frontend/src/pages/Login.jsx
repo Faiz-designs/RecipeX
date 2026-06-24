@@ -29,22 +29,22 @@ export default function Login() {
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="relative glass-card rounded-2xl shadow-xl p-8">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-orange-500/5 to-transparent pointer-events-none" />
           <div className="relative">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-emerald-500/20 text-2xl">🔐</div>
-              <h1 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{t('auth.welcomeBack')}</h1>
-              <p className="text-sm text-slate-400 dark:text-slate-500 mt-1.5">{t('auth.signInDesc')}</p>
+              <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-orange-500/20 text-2xl">🔐</div>
+              <h1 className="text-2xl font-extrabold text-stone-800 dark:text-stone-100">{t('auth.welcomeBack')}</h1>
+              <p className="text-sm text-stone-400 dark:text-stone-500 mt-1.5">{t('auth.signInDesc')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.username')}</label>
-                <input value={form.username} onChange={e => setForm({...form, username: e.target.value})} required className="w-full px-4 py-3 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.username')} />
+                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.username')}</label>
+                <input value={form.username} onChange={e => setForm({...form, username: e.target.value})} required className="w-full px-4 py-3 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-orange-400/60 focus:border-orange-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.username')} />
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.password')}</label>
-                <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required className="w-full px-4 py-3 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.password')} />
+                <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.password')}</label>
+                <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required className="w-full px-4 py-3 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-orange-400/60 focus:border-orange-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.password')} />
               </div>
 
               {error && (
@@ -54,13 +54,13 @@ export default function Login() {
                 </div>
               )}
 
-              <button type="submit" disabled={loading} className="w-full py-3 btn-glass btn-glass-emerald rounded-xl disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2.5">
+              <button type="submit" disabled={loading} className="w-full py-3 btn-glass btn-glass-orange rounded-xl disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2.5">
                 {loading ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('auth.signingIn')}</> : t('auth.signIn')}
               </button>
             </form>
 
-            <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-7 pt-5 border-t border-slate-200/60 dark:border-slate-700/40">
-              {t('auth.noAccount')} <Link to="/signup" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">{t('auth.createOne')}</Link>
+            <p className="text-center text-sm text-stone-500 dark:text-stone-400 mt-7 pt-5 border-t border-stone-200/60 dark:border-stone-700/40">
+              {t('auth.noAccount')} <Link to="/signup" className="text-orange-600 dark:text-orange-400 font-semibold hover:text-orange-700 dark:hover:text-orange-300 transition-colors">{t('auth.createOne')}</Link>
             </p>
           </div>
         </div>

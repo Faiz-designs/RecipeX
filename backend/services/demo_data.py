@@ -85,7 +85,7 @@ DEMO_DATA = {
         "Serve immediately at room temperature."
       ],
       "plating_suggestion": "Serve in a wide wooden bowl with dressing drizzled in a spiral pattern.",
-      "estimated_cost": "$5.00",
+      "estimated_cost": "₹420",
       "budget_friendly": True
     },
     "intermediate": {
@@ -103,7 +103,7 @@ DEMO_DATA = {
         "Arrange roasted vegetables on a platter and drizzle with herb sauce."
       ],
       "plating_suggestion": "Arrange roasted vegetables on a large white platter with sauce drizzled artistically.",
-      "estimated_cost": "$8.50",
+      "estimated_cost": "₹710",
       "budget_friendly": True
     },
     "advanced": {
@@ -124,7 +124,7 @@ DEMO_DATA = {
         "Serve with tomato salad on the side."
       ],
       "plating_suggestion": "Place stuffed bell pepper in the center of a plate surrounded by a ring of fresh tomato salad and microgreens.",
-      "estimated_cost": "$12.00",
+      "estimated_cost": "₹1,000",
       "budget_friendly": False
     }
   },
@@ -390,7 +390,7 @@ DEMO_DATA = {
     "meal_balance_justification": "The 5-vegetable selection covers an excellent range of vitamins A, C, K, fibre, and antioxidants. Broccoli and bell pepper are standout additions. The main gaps are protein and healthy fats — a serving of legumes would bring this to 10/10.",
     "next_scan_suggestion": "Pair this vegetable plate with chickpeas or grilled tofu for a complete meal with protein and healthy fats",
     "overall_verdict": "Excellent 5-vegetable selection with high nutritional density. Tomato, spinach, carrot, broccoli, and bell pepper cover a wide spectrum of vitamins, minerals, and antioxidants. Broccoli stands out for its vitamin C and sulforaphane content, while bell pepper delivers the highest vitamin C per gram. The main gaps are protein, healthy fats, and vitamin B12. Adding lentils, avocado, or grilled paneer would make this a perfectly balanced meal.",
-    "estimated_total_cost": "$7.00 - $10.00",
+    "estimated_total_cost": "₹580 - ₹830",
     "leftover_recipe_suggestion": "Transform leftover roasted vegetables into a hearty frittata or blend into a creamy soup the next day."
   },
   "health_benefits": [
@@ -613,42 +613,42 @@ DEMO_DATA = {
     {
       "vegetable_id": "veg_01",
       "vegetable_name": "Tomato",
-      "estimated_price_per_kg": "$3.50 - $6.00",
-      "price_seasonality": "Peak summer (July-September) is cheapest at $2.50/kg; winter greenhouse tomatoes can cost up to $8.00/kg.",
+      "estimated_price_per_kg": "₹290 - ₹500",
+      "price_seasonality": "Peak summer (July-September) is cheapest at ₹210/kg; winter greenhouse tomatoes can cost up to ₹670/kg.",
       "budget_tip": "Buy in bulk during farmers market season and can your own tomatoes for year-round savings.",
-      "estimated_cost_for_this_scan": "$1.60 - $2.70"
+      "estimated_cost_for_this_scan": "₹130 - ₹230"
     },
     {
       "vegetable_id": "veg_02",
       "vegetable_name": "Spinach",
-      "estimated_price_per_kg": "$5.00 - $8.00",
-      "price_seasonality": "Spring and fall offer the best prices ($4.50/kg); summer heat and winter cold drive prices up by 30-40%.",
+      "estimated_price_per_kg": "₹420 - ₹670",
+      "price_seasonality": "Spring and fall offer the best prices (₹380/kg); summer heat and winter cold drive prices up by 30-40%.",
       "budget_tip": "Buy frozen spinach for recipes — it is 50% cheaper, equally nutritious, and lasts months in the freezer.",
-      "estimated_cost_for_this_scan": "$0.30 - $0.50"
+      "estimated_cost_for_this_scan": "₹25 - ₹42"
     },
     {
       "vegetable_id": "veg_03",
       "vegetable_name": "Carrot",
-      "estimated_price_per_kg": "$1.50 - $3.00",
-      "price_seasonality": "Carrots are affordable year-round; cheapest in fall harvest season ($1.20/kg) and slightly pricier in early summer.",
+      "estimated_price_per_kg": "₹130 - ₹250",
+      "price_seasonality": "Carrots are affordable year-round; cheapest in fall harvest season (₹100/kg) and slightly pricier in early summer.",
       "budget_tip": "Buy whole carrots with tops still attached — they are fresher and cheaper than pre-cut baby carrots.",
-      "estimated_cost_for_this_scan": "$0.20 - $0.40"
+      "estimated_cost_for_this_scan": "₹17 - ₹33"
     },
     {
       "vegetable_id": "veg_04",
       "vegetable_name": "Broccoli",
-      "estimated_price_per_kg": "$3.00 - $5.00",
-      "price_seasonality": "Best prices in fall and winter ($2.50/kg); spring/summer prices rise as supply tightens.",
+      "estimated_price_per_kg": "₹250 - ₹420",
+      "price_seasonality": "Best prices in fall and winter (₹210/kg); spring/summer prices rise as supply tightens.",
       "budget_tip": "Use the entire broccoli — stem, leaves, and florets. The stem is just as tasty when peeled and sliced.",
-      "estimated_cost_for_this_scan": "$0.90 - $1.50"
+      "estimated_cost_for_this_scan": "₹75 - ₹130"
     },
     {
       "vegetable_id": "veg_05",
       "vegetable_name": "Bell Pepper",
-      "estimated_price_per_kg": "$4.00 - $7.00",
-      "price_seasonality": "Red and yellow peppers are 2x the price of green ones. Summer offers best value at around $3.00/kg.",
+      "estimated_price_per_kg": "₹330 - ₹580",
+      "price_seasonality": "Red and yellow peppers are 2x the price of green ones. Summer offers best value at around ₹250/kg.",
       "budget_tip": "Green bell peppers are significantly cheaper and have the same nutritional profile — use them when recipes don't require sweetness.",
-      "estimated_cost_for_this_scan": "$1.00 - $1.70"
+      "estimated_cost_for_this_scan": "₹83 - ₹140"
     }
   ]
 }

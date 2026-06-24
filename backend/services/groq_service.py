@@ -176,16 +176,16 @@ For each vegetable, provide preparation techniques and cooking methods.
 }
 
 STEP 9 — COST ESTIMATION — Output key: "cost_estimation"
-For each vegetable, estimate cost based on typical market prices.
+For each vegetable, estimate cost based on Indian market prices in ₹ (rupees).
 {
   "cost_estimation": [
     {
       "vegetable_id": "veg_01",
       "vegetable_name": "Tomato",
-      "estimated_price_per_kg": "$3.50 - $5.00",
+      "estimated_price_per_kg": "₹290 - ₹420",
       "price_seasonality": "Cheapest in summer (July-September), most expensive in winter.",
       "budget_tip": "Buy in bulk during peak season and freeze for winter use.",
-      "estimated_cost_for_this_scan": "$1.50 - $2.50"
+      "estimated_cost_for_this_scan": "₹130 - ₹210"
     }
   ]
 }
@@ -208,7 +208,7 @@ STEP 11 — IMPROVEMENTS — Output key: "improvements"
     "meal_balance_justification": "",
     "next_scan_suggestion": "",
     "overall_verdict": "",
-    "estimated_total_cost": "$5.00 - $8.00",
+    "estimated_total_cost": "₹420 - ₹670",
     "leftover_recipe_suggestion": "Use leftover vegetables in a frittata or stir-fry the next day."
   }
 }"""

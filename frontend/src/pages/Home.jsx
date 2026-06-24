@@ -1,7 +1,33 @@
 import { Link } from 'react-router-dom'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SEO from '../components/SEO'
+
+function CountUp({ end, duration = 1500 }) {
+  const [count, setCount] = useState(0)
+  const ref = useRef(null)
+  const counted = useRef(false)
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !counted.current) {
+        counted.current = true
+        const start = performance.now()
+        const step = (now) => {
+          const p = Math.min((now - start) / duration, 1)
+          const eased = 1 - Math.pow(1 - p, 3)
+          setCount(Math.floor(eased * end))
+          if (p < 1) requestAnimationFrame(step)
+        }
+        requestAnimationFrame(step)
+      }
+    }, { threshold: 0.5 })
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [end, duration])
+  return <span ref={ref}>{count}</span>
+}
 
 export default function Home() {
   const { t } = useTranslation()
@@ -82,10 +108,10 @@ export default function Home() {
   ]
 
   const stats = [
-    { value: '5+', label: t('home.stats.vegetables') },
-    { value: '15+', label: t('home.stats.recipes') },
-    { value: '9', label: t('home.stats.allergyGroups') },
-    { value: '100%', label: t('home.stats.free') },
+    { value: 5, suffix: '+', label: t('home.stats.vegetables') },
+    { value: 15, suffix: '+', label: t('home.stats.recipes') },
+    { value: 9, suffix: '', label: t('home.stats.allergyGroups') },
+    { value: 100, suffix: '%', label: t('home.stats.free') },
   ]
 
   return (
@@ -108,16 +134,16 @@ export default function Home() {
             <span className="text-sm font-medium text-white/90">{t('home.aiPowered')}</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-            {t('home.heroTitle')}
-            <span className="block text-emerald-200 mt-2">{t('home.heroTitleLine2')}</span>
+            <span className="animate-textReveal inline-block" style={{ animationDelay: '0.1s' }}>{t('home.heroTitle')}</span>
+            <span className="block text-emerald-200 mt-2 animate-textReveal" style={{ animationDelay: '0.3s' }}>{t('home.heroTitleLine2')}</span>
           </h1>
-          <p className="text-lg md:text-xl text-emerald-50/85 mb-10 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-emerald-50/85 mb-10 leading-relaxed max-w-2xl mx-auto animate-textReveal" style={{ animationDelay: '0.5s' }}>
             {t('home.heroDesc')}
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/scan"
-              className="group inline-flex items-center gap-2 btn-glass btn-glass-white px-8 py-3.5 rounded-xl text-lg active:scale-[0.97]"
+              className="group inline-flex items-center gap-2 btn-glass btn-glass-white px-8 py-3.5 rounded-xl text-lg active:scale-[0.97] animate-glow"
             >
               {t('home.startScanning')}
               <span className="inline-block group-hover:translate-x-1.5 transition-transform duration-300 ease-out">→</span>
@@ -141,7 +167,7 @@ export default function Home() {
               style={{ animationDelay: `${i * 0.12}s` }}
             >
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-lime-500 to-lime-500 rounded-l-2xl" />
-              <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-lime-600 to-lime-600 dark:from-lime-400 dark:to-lime-400">{s.value}</div>
+              <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-lime-600 to-lime-600 dark:from-lime-400 dark:to-lime-400"><CountUp end={s.value} />{s.suffix}</div>
               <div className="text-sm text-stone-500 dark:text-stone-400 font-medium mt-1">{s.label}</div>
             </div>
           ))}
@@ -157,7 +183,7 @@ export default function Home() {
           {features.map((item, i) => (
             <div
               key={i}
-              className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-lime-500/5 hover:border-lime-300 dark:hover:border-lime-600 hover:-translate-y-1.5 transition-all duration-300"
+              className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-lime-500/5 hover:-translate-y-1.5 transition-all duration-300 hover-gradient-border"
               style={{ animationDelay: `${i * 0.1}s` }}
             >
               <div className="w-14 h-14 glass rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md">

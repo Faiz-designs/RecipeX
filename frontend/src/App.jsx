@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom'
 import { AuthProvider, useAuth } from './utils/AuthContext'
 import { useTranslation } from 'react-i18next'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState, useEffect, useRef } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import useDarkMode from './utils/useDarkMode'
 
@@ -47,6 +47,39 @@ function Nav() {
   )
 }
 
+function ScrollProgress() {
+  useEffect(() => {
+    const bar = document.getElementById('scroll-progress')
+    if (!bar) return
+    const update = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight
+      bar.style.width = h > 0 ? `${(window.scrollY / h) * 100}%` : '0%'
+    }
+    window.addEventListener('scroll', update, { passive: true })
+    return () => window.removeEventListener('scroll', update)
+  }, [])
+  return <div id="scroll-progress" />
+}
+
+function RippleButton({ children, className, ...props }) {
+  const btnRef = useRef(null)
+  const handleClick = (e) => {
+    const btn = btnRef.current
+    if (!btn) return
+    const rect = btn.getBoundingClientRect()
+    const ripple = document.createElement('span')
+    const size = Math.max(rect.width, rect.height)
+    ripple.style.width = ripple.style.height = `${size}px`
+    ripple.style.left = `${e.clientX - rect.left - size / 2}px`
+    ripple.style.top = `${e.clientY - rect.top - size / 2}px`
+    ripple.className = 'btn-ripple'
+    btn.appendChild(ripple)
+    ripple.addEventListener('animationend', () => ripple.remove())
+    props.onClick?.(e)
+  }
+  return <button ref={btnRef} className={className} {...props} onClick={handleClick}>{children}</button>
+}
+
 function AppContent() {
   const { user, loading } = useAuth()
   const [dark, toggleDark] = useDarkMode()
@@ -56,6 +89,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-lime-50/20 to-white dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 flex flex-col transition-colors duration-300">
+      <ScrollProgress />
       <nav className="sticky top-0 z-50 glass-nav shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
           <Link to="/" className="flex items-center gap-2 group shrink-0">
@@ -110,19 +144,19 @@ function AppContent() {
           </div>
         }>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/scan" element={<Scan />} />
-            <Route path="/recipes" element={<Recipes />} />
-            <Route path="/nutrition" element={<Nutrition />} />
-            <Route path="/shopping-list" element={<ShoppingList />} />
-            <Route path="/cooking-mode" element={<CookingMode />} />
-            <Route path="/meal-planner" element={<MealPlanner />} />
-            <Route path="/history" element={<History />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={user ? <Profile /> : <Login />} />
+            <Route path="/" element={<div className="animate-pageEnter"><Home /></div>} />
+            <Route path="/scan" element={<div className="animate-pageEnter"><Scan /></div>} />
+            <Route path="/recipes" element={<div className="animate-pageEnter"><Recipes /></div>} />
+            <Route path="/nutrition" element={<div className="animate-pageEnter"><Nutrition /></div>} />
+            <Route path="/shopping-list" element={<div className="animate-pageEnter"><ShoppingList /></div>} />
+            <Route path="/cooking-mode" element={<div className="animate-pageEnter"><CookingMode /></div>} />
+            <Route path="/meal-planner" element={<div className="animate-pageEnter"><MealPlanner /></div>} />
+            <Route path="/history" element={<div className="animate-pageEnter"><History /></div>} />
+            <Route path="/about" element={<div className="animate-pageEnter"><About /></div>} />
+            <Route path="/contact" element={<div className="animate-pageEnter"><Contact /></div>} />
+            <Route path="/login" element={<div className="animate-pageEnter"><Login /></div>} />
+            <Route path="/signup" element={<div className="animate-pageEnter"><Signup /></div>} />
+            <Route path="/profile" element={<div className="animate-pageEnter">{user ? <Profile /> : <Login />}</div>} />
           </Routes>
         </Suspense>
       </main>

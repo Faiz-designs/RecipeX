@@ -94,17 +94,17 @@ export default function Home() {
       <div ref={sectionRef}>
       <div className="relative overflow-hidden bg-gradient-to-br from-lime-700 via-lime-600 to-lime-600 animate-gradient py-20 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15)_0%,_transparent_60%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-15">
-          <div className="absolute top-10 left-10 text-7xl animate-float stagger-1">🥦</div>
-          <div className="absolute top-20 right-20 text-6xl animate-float stagger-3">🍅</div>
-          <div className="absolute bottom-16 left-1/4 text-5xl animate-float stagger-5">🥕</div>
-          <div className="absolute top-1/3 right-1/4 text-6xl animate-float stagger-2">🥬</div>
-          <div className="absolute bottom-20 right-10 text-5xl animate-float stagger-6">🌶️</div>
-          <div className="absolute top-40 left-1/2 text-4xl animate-float stagger-4">🧄</div>
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-10 left-10 w-20 h-20 glass rounded-2xl flex items-center justify-center text-3xl animate-float stagger-1 shadow-lg">🥦</div>
+          <div className="absolute top-20 right-20 w-16 h-16 glass rounded-xl flex items-center justify-center text-2xl animate-float stagger-3 shadow-lg">🍅</div>
+          <div className="absolute bottom-16 left-1/4 w-14 h-14 glass rounded-xl flex items-center justify-center text-xl animate-float stagger-5 shadow-md">🥕</div>
+          <div className="absolute top-1/3 right-1/4 w-16 h-16 glass rounded-xl flex items-center justify-center text-2xl animate-float stagger-2 shadow-lg">🥬</div>
+          <div className="absolute bottom-20 right-10 w-14 h-14 glass rounded-xl flex items-center justify-center text-xl animate-float stagger-6 shadow-md">🌶️</div>
+          <div className="absolute top-40 left-1/2 w-12 h-12 glass rounded-lg flex items-center justify-center text-lg animate-float stagger-4 shadow-md">🧄</div>
         </div>
         <div className="relative max-w-3xl mx-auto text-center px-4">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-1.5 mb-6 border border-white/20 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-            <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
+          <div className="inline-flex items-center gap-2 glass rounded-full px-5 py-1.5 mb-6 shadow-[0_0_20px_rgba(132,204,22,0.3)]">
+            <span className="w-2 h-2 rounded-full bg-lime-300 animate-pulse" />
             <span className="text-sm font-medium text-white/90">{t('home.aiPowered')}</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
@@ -124,7 +124,7 @@ export default function Home() {
             </Link>
             <Link
               to="/scan"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-3.5 rounded-xl text-lg font-semibold hover:bg-white/20 hover:border-white/50 transition-all duration-300"
+              className="inline-flex items-center gap-2 glass rounded-xl px-8 py-3.5 text-lg font-semibold text-white hover:bg-white/20 transition-all duration-300"
             >
               {t('home.tryDemo')} <span>🎮</span>
             </Link>
@@ -160,7 +160,7 @@ export default function Home() {
               className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-lime-500/5 hover:border-lime-300 dark:hover:border-lime-600 hover:-translate-y-1.5 transition-all duration-300"
               style={{ animationDelay: `${i * 0.1}s` }}
             >
-              <div className="w-14 h-14 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-800/60 dark:to-teal-800/60 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 ring-1 ring-lime-200/50 dark:ring-lime-700/30">
+              <div className="w-14 h-14 glass rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md">
                 {item.emoji}
               </div>
               <h3 className="font-bold text-stone-800 dark:text-stone-100 mb-2 text-lg">{item.title}</h3>
@@ -172,9 +172,9 @@ export default function Home() {
 
       <div className="relative overflow-hidden bg-gradient-to-br from-lime-700 via-lime-600 to-lime-600 py-16">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(255,255,255,0.1)_0%,_transparent_60%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-6 left-10 text-5xl animate-float stagger-2">🥦</div>
-          <div className="absolute bottom-6 right-10 text-5xl animate-float stagger-4">🍳</div>
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-6 left-10 w-14 h-14 glass rounded-xl flex items-center justify-center text-xl animate-float stagger-2 shadow-lg">🥦</div>
+          <div className="absolute bottom-6 right-10 w-14 h-14 glass rounded-xl flex items-center justify-center text-xl animate-float stagger-4 shadow-lg">🍳</div>
         </div>
         <div className="relative max-w-3xl mx-auto text-center px-4">
           <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">{t('home.ctaTitle')}</h2>

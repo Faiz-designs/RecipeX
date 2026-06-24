@@ -1,6 +1,6 @@
 import sys, json, os, base64, hashlib
 from datetime import datetime, timedelta, date
-sys.path.insert(0, '/home/FaizBasha05/NutriZen-AI/backend')
+sys.path.insert(0, '/home/FaizBasha05/RecipeX/backend')
 # Set GROQ_API_KEY as environment variable on PythonAnywhere via Web tab -> Environment variables
 # or uncomment the line below with your actual key:
 # os.environ['GROQ_API_KEY'] = 'your-key-here'
@@ -12,7 +12,7 @@ from models.user import User
 from models.favorite import Favorite
 from models.nutrition_log import NutritionLog
 from models.scan import Scan
-LOCK_FILE = '/home/FaizBasha05/NutriZen-AI/backend/site_lock.json'
+LOCK_FILE = '/home/FaizBasha05/RecipeX/backend/site_lock.json'
 ADMIN_SECRET = 'RecipeXAdmin2024!'
 from passlib.context import CryptContext
 from jose import jwt, JWTError

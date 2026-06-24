@@ -125,7 +125,8 @@ export default function FridgeScanner() {
         if (data.result.recipes.intermediate) allRecipes.push({ ...data.result.recipes.intermediate, difficulty: 'intermediate' })
         if (data.result.recipes.advanced) allRecipes.push({ ...data.result.recipes.advanced, difficulty: 'advanced' })
       }
-      const matched = findMatchingRecipes(items, allRecipes)
+      const scannedItems = data?.result?.scan_summary?.items || []
+      const matched = findMatchingRecipes(items, allRecipes, scannedItems)
       setRecipes(matched)
       setShowResults(true)
     } catch (err) {
@@ -139,6 +140,7 @@ export default function FridgeScanner() {
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🧊</div>
           <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('fridgeMode.title')}</h2>
+          <span className="text-xs bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded-full font-semibold ml-auto">{items.length} items</span>
         </div>
 
         <div className="flex gap-2 mb-4">

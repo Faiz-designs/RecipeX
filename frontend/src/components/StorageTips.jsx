@@ -11,7 +11,7 @@ export default function StorageTips({ storage_tips }) {
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {storage_tips.map((veg) => (
-          <div key={veg.vegetable_id} className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+          <div key={veg.vegetable_id} className="glass-card rounded-2xl shadow-sm overflow-hidden hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
             <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 px-4 py-3 border-b border-slate-100 dark:border-slate-700">
               <h3 className="font-bold text-slate-800 dark:text-slate-100">{veg.vegetable_name}</h3>
             </div>

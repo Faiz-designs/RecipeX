@@ -11,7 +11,7 @@ export default function HealthBenefits({ health_benefits }) {
       </div>
       <div className="space-y-4">
         {health_benefits.map((veg) => (
-          <div key={veg.vegetable_id} className="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 overflow-hidden hover:shadow-md transition-shadow">
+          <div key={veg.vegetable_id} className="glass-card rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
             <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 px-5 py-3 border-b border-slate-100 dark:border-slate-700">
               <h3 className="font-bold text-slate-800 dark:text-slate-100 text-lg">{veg.vegetable_name}</h3>
             </div>

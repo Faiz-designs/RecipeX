@@ -80,7 +80,7 @@ export default function History() {
             <div className="w-8 h-8 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin" />
           </div>
         ) : history.length === 0 && !selected ? (
-          <div className="text-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+          <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
             <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">📜</div>
             <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('history.noScans')}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('history.noScansDesc')}</p>
@@ -93,7 +93,7 @@ export default function History() {
             <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-sm text-emerald-600 dark:text-emerald-400 font-medium mb-5 hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors group">
               <span className="group-hover:-translate-x-0.5 transition-transform">←</span> {t('history.back')}
             </button>
-            <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl shadow-lg border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-7 mb-6">
+            <div className="glass-card rounded-2xl shadow-lg p-5 md:p-7 mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-11 h-11 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center shadow-md text-lg">📊</div>
                 <div>
@@ -103,7 +103,7 @@ export default function History() {
               </div>
             </div>
             {r.improvements?.overall_verdict && (
-              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40 border border-emerald-200/60 dark:border-emerald-700/30 rounded-2xl p-6 mb-6 shadow-sm">
+              <div className="glass-card rounded-2xl p-6 mb-6 shadow-sm">
                 <div className="flex items-start gap-4 flex-col sm:flex-row sm:items-center">
                   <div className="flex items-center gap-3 shrink-0">
                     <div className="relative w-20 h-20">
@@ -127,7 +127,7 @@ export default function History() {
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {r.scan_summary.items.map(item => (
-                    <div key={item.id} className="bg-white dark:bg-slate-800/90 rounded-xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-3.5 hover:shadow-md transition-shadow">
+                    <div key={item.id} className="glass-card rounded-xl shadow-sm p-3.5 hover:shadow-md transition-shadow">
                       <p className="font-bold text-slate-800 dark:text-slate-100 text-sm">{item.common_name}</p>
                       <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full inline-block mt-1.5 ${item.freshness_status === 'Fresh' ? 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-700/50' : item.freshness_status === 'Slightly Aged' ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50' : 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700/50'}`}>{item.freshness_status}</span>
                     </div>
@@ -149,7 +149,7 @@ export default function History() {
                 <button
                   key={entry.id}
                   onClick={() => user && token ? handleSelectServer(entry.id) : setSelected(entry)}
-                  className="w-full text-left bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
+                  className="w-full text-left glass-card rounded-2xl shadow-sm p-5 hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 group"
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0 flex items-center gap-3">

@@ -56,7 +56,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col transition-colors duration-300">
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 dark:bg-slate-900/80 border-b border-emerald-100/50 dark:border-emerald-900/20 shadow-sm">
+      <nav className="sticky top-0 z-50 glass-nav shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
           <Link to="/" className="flex items-center gap-2 group shrink-0">
             <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-lg group-hover:scale-105 group-hover:shadow-emerald-400/20 transition-all duration-300">
@@ -129,7 +129,7 @@ function AppContent() {
       <footer className="mt-auto">
         <div className="relative">
           <div className="h-px bg-gradient-to-r from-transparent via-emerald-300/50 dark:via-emerald-600/30 to-transparent" />
-          <div className="max-w-6xl mx-auto px-4 py-10">
+          <div className="max-w-6xl mx-auto px-4 py-10 glass-card mt-4 rounded-2xl">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-xl flex items-center justify-center shadow-md">

@@ -31,26 +31,26 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 overflow-hidden hover:shadow-md transition-shadow">
+      <div className="glass-card rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
         <div className="px-6 py-4 border-b border-slate-200/60 dark:border-slate-700/40 flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-emerald-400" />
           <h2 className="font-bold text-slate-800 dark:text-slate-100">{t('auth.accountDetails')}</h2>
         </div>
         <div className="p-6">
           <div className="grid sm:grid-cols-2 gap-5">
-            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+            <div className="glass-card rounded-xl p-4">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.email')}</p>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.email}</p>
             </div>
-            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+            <div className="glass-card rounded-xl p-4">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.age')}</p>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.age || t('auth.notSet')}</p>
             </div>
-            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+            <div className="glass-card rounded-xl p-4">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.allergies')}</p>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.allergies || t('auth.noneListed')}</p>
             </div>
-            <div className="bg-slate-50/50 dark:bg-slate-700/20 rounded-xl p-4 border border-slate-100/80 dark:border-slate-700/40">
+            <div className="glass-card rounded-xl p-4">
               <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{t('auth.dietaryPreferences')}</p>
               <p className="text-sm font-medium text-slate-700 dark:text-slate-200">{user.dietary_preferences || t('auth.noneListed')}</p>
             </div>

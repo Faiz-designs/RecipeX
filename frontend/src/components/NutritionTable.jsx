@@ -30,8 +30,8 @@ export default function NutritionTable({ nutrition }) {
         <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.title')}</h2>
       </div>
-      <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
-        <table className="w-full bg-white dark:bg-slate-800">
+      <div className="overflow-x-auto rounded-2xl shadow-sm glass-card">
+        <table className="w-full">
           <thead>
             <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40">
               <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 whitespace-nowrap">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
@@ -58,7 +58,7 @@ export default function NutritionTable({ nutrition }) {
       </div>
       <div className="mt-4 flex flex-wrap gap-2">
         {nutrition.map(n => (
-          <div key={n.vegetable_id} className="text-sm bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl px-4 py-2 shadow-sm">
+          <div key={n.vegetable_id} className="text-sm glass-card rounded-xl px-4 py-2 shadow-sm">
             <span className="font-bold text-slate-700 dark:text-slate-200">{n.vegetable_name}</span>
             <span className="text-slate-400 dark:text-slate-500 mx-1.5">·</span>
             <span className="text-slate-500 dark:text-slate-400">{t('nutrition.glycemicIndex')} {n.glycemic_index ?? t('common.na')}</span>

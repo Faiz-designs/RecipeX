@@ -180,7 +180,7 @@ export default function Nutrition() {
               { key: 'fat_g', label: t('nutrition.totalFat'), suffix: 'g', decimals: 1, emoji: '🧈' },
               { key: 'dietary_fibre_g', label: t('nutrition.totalFibre'), suffix: 'g', decimals: 1, emoji: '🌿' },
             ].map((item, i) => (
-              <div key={i} className="group bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
+              <div key={i} className="group glass-card rounded-2xl shadow-sm p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                 <div className="text-2xl mb-1">{item.emoji}</div>
                 <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">
                   {totals[item.key]?.toFixed(item.decimals) || 0}{item.suffix}
@@ -191,7 +191,7 @@ export default function Nutrition() {
           </div>
 
           {/* Daily Nutrition Tracker */}
-          <div className="mb-10 bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6">
+          <div className="mb-10 glass-card rounded-2xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center text-sm shadow-sm">📊</div>
@@ -206,7 +206,7 @@ export default function Nutrition() {
             </div>
 
             {showLogForm && user && token && (
-              <div className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 mb-5 border border-slate-200/60 dark:border-slate-700/50">
+              <div className="glass-card rounded-xl p-4 mb-5">
                 <div className="grid sm:grid-cols-2 gap-3 mb-3">
                   <input value={log.food_name} onChange={e => setLog({ ...log, food_name: e.target.value })} placeholder={t('nutritionTracker.foodName')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
                   <select value={log.meal_type} onChange={e => setLog({ ...log, meal_type: e.target.value })} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm">
@@ -243,7 +243,7 @@ export default function Nutrition() {
                     const val = chartData.length > 0 ? chartData[chartData.length - 1][item.key] || 0 : 0
                     const pct = Math.min((val / item.target) * 100, 100)
                     return (
-                      <div key={i} className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 border border-slate-200/60 dark:border-slate-700/50">
+                      <div key={i} className="glass-card rounded-xl p-4">
                         <div className="flex items-center justify-between mb-1.5">
                           <div className="flex items-center gap-1.5">
                             <span>{item.emoji}</span>
@@ -260,11 +260,11 @@ export default function Nutrition() {
                 </div>
 
                 <div className="grid sm:grid-cols-2 gap-6">
-                  <div className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 border border-slate-200/60 dark:border-slate-700/50">
+                  <div className="glass-card rounded-xl p-4">
                     <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{t('nutritionTracker.dailyCalories')}</p>
                     <DailyChart data={chartData.map(d => ({ label: d.date?.slice(5), value: d.calories }))} color="from-orange-400 to-red-500" max={2500} />
                   </div>
-                  <div className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-4 border border-slate-200/60 dark:border-slate-700/50">
+                  <div className="glass-card rounded-xl p-4">
                     <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wide">{t('nutritionTracker.dailyProtein')}</p>
                     <DailyChart data={chartData.map(d => ({ label: d.date?.slice(5), value: d.protein }))} color="from-blue-400 to-blue-500" max={80} />
                   </div>
@@ -274,7 +274,7 @@ export default function Nutrition() {
                   <p className="text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">{t('nutritionTracker.history')}</p>
                   <div className="space-y-1.5 max-h-48 overflow-y-auto">
                     {dailyHistory.map((d, i) => (
-                      <div key={i} className="flex items-center justify-between px-3 py-2 bg-slate-50 dark:bg-slate-700/40 rounded-lg text-xs">
+                      <div key={i} className="flex items-center justify-between px-3 py-2 glass-card rounded-lg text-xs">
                         <span className="font-medium text-slate-600 dark:text-slate-300">{d.date}</span>
                         <span className="text-slate-400 dark:text-slate-500">{d.calories?.toFixed(0)} cal · {d.protein?.toFixed(0)}g P · {d.carbs?.toFixed(0)}g C · {d.fat?.toFixed(0)}g F</span>
                       </div>
@@ -295,7 +295,7 @@ export default function Nutrition() {
             <div className="mb-10">
               <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">{t('nutrition.title')}</h2>
               <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60">
-                <table className="w-full bg-white dark:bg-slate-800/90">
+                <table className="w-full">
                   <thead>
                     <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40">
                       <th className="p-3.5 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
@@ -333,7 +333,7 @@ export default function Nutrition() {
               <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100 mb-4">💊 {t('nutrition.vitaminSources')}</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {topSources.map((v) => (
-                  <div key={v.key} className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5">
+                  <div key={v.key} className="glass-card rounded-2xl shadow-sm p-5">
                     <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${v.color} flex items-center justify-center text-white font-bold text-sm mb-3 shadow-sm`}>💊</div>
                     <p className="font-bold text-slate-800 dark:text-slate-100 text-sm mb-2">{v.name}</p>
                     {v.sources.length > 0 ? v.sources.map((s, i) => (
@@ -349,7 +349,7 @@ export default function Nutrition() {
           )}
 
           {nutrition.length === 0 && (
-            <div className="text-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+            <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
               <div className="text-4xl mb-4">🥗</div>
               <p className="text-lg text-slate-500 dark:text-slate-400">{t('common.noData')}</p>
             </div>

@@ -143,7 +143,7 @@ export function RecipeCardItem({
   }
 
   return (
-    <div className="group bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/60 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+    <div className="group glass-card rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
       {/* ── Header ── */}
       <div className={`bg-gradient-to-r ${headerGradient} px-5 py-4 relative overflow-hidden`}>
         <div className="absolute inset-0 bg-white/5" />

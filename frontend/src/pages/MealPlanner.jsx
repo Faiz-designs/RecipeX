@@ -137,7 +137,7 @@ export default function MealPlanner() {
                 const dayData = aiPlan[dayEn.toLowerCase()]
                 if (!dayData) return null
                 return (
-                  <div key={dayEn} className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 overflow-hidden shadow-sm">
+                  <div key={dayEn} className="glass-card rounded-2xl overflow-hidden shadow-sm">
                     <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 px-5 py-3 border-b border-slate-200/60 dark:border-slate-700/50 flex items-center justify-between">
                       <span className="font-bold text-slate-800 dark:text-slate-100">{t(`mealPlanner.${dayEn.toLowerCase()}`)}</span>
                       <span className="text-xs text-slate-500 dark:text-slate-400">{dayData.total_daily_calories?.toFixed(0)} {t('mealPlanner.calories')} · {dayData.total_daily_protein_g?.toFixed(0)}g {t('mealPlanner.protein')}</span>
@@ -147,7 +147,7 @@ export default function MealPlanner() {
                         const meal = dayData[mk]
                         if (!meal) return null
                         return (
-                          <div key={mk} className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-3 border border-slate-100 dark:border-slate-700/30">
+                          <div key={mk} className="glass-card rounded-xl p-3">
                             <div className="flex items-center justify-between mb-1.5">
                               <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wide">{t(`mealPlanner.${mk}`)}</span>
                               <span className="text-xs text-slate-400 dark:text-slate-500">{meal.prep_time_minutes} {t('mealPlanner.prepTime')}</span>
@@ -178,7 +178,7 @@ export default function MealPlanner() {
             </div>
 
             {aiPlan.nutrition_summary && (
-              <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-2xl p-5 border border-purple-200/60 dark:border-purple-700/30">
+              <div className="glass-card rounded-2xl p-5">
                 <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-3">📊 {t('mealPlanner.nutritionSummary')}</h3>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-3">
                   {[{ label: t('mealPlanner.avgDaily') + ' ' + t('mealPlanner.calories'), value: `${aiPlan.nutrition_summary.avg_daily_calories?.toFixed(0)}` },
@@ -186,7 +186,7 @@ export default function MealPlanner() {
                    { label: t('mealPlanner.avgDaily') + ' Carbs', value: `${aiPlan.nutrition_summary.avg_daily_carbs_g?.toFixed(0)}g` },
                    { label: t('mealPlanner.avgDaily') + ' Fat', value: `${aiPlan.nutrition_summary.avg_daily_fat_g?.toFixed(0)}g` },
                   ].map((item, i) => (
-                    <div key={i} className="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center border border-purple-200/40 dark:border-purple-700/30">
+                    <div key={i} className="glass-card rounded-xl p-3 text-center">
                       <div className="text-xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 dark:from-purple-400 dark:to-pink-400">{item.value}</div>
                       <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">{item.label}</div>
                     </div>
@@ -199,11 +199,11 @@ export default function MealPlanner() {
             )}
 
             {aiPlan.weekly_grocery_list?.length > 0 && (
-              <div className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 p-5">
+              <div className="glass-card rounded-2xl p-5">
                 <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-3">🛒 {t('mealPlanner.groceryList')}</h3>
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {aiPlan.weekly_grocery_list.map((cat, i) => (
-                    <div key={i} className="bg-slate-50 dark:bg-slate-700/40 rounded-xl p-3 border border-slate-100 dark:border-slate-700/30">
+                    <div key={i} className="glass-card rounded-xl p-3">
                       <p className="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase mb-1.5">{cat.category}</p>
                       <div className="flex flex-wrap gap-1">
                         {(cat.items || []).map((item, j) => (
@@ -219,7 +219,7 @@ export default function MealPlanner() {
         )}
 
         {allRecipes.length === 0 && !aiPlan && (
-          <div className="text-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm mb-8">
+          <div className="text-center py-20 glass-card rounded-2xl shadow-sm mb-8">
             <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">📅</div>
             <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('mealPlanner.noRecipes')}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('mealPlanner.noRecipesDesc')}</p>
@@ -231,8 +231,8 @@ export default function MealPlanner() {
 
         {allRecipes.length > 0 && (
           <>
-            <div className="overflow-x-auto rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60">
-              <table className="w-full bg-white dark:bg-slate-800/90">
+            <div className="overflow-x-auto rounded-2xl shadow-sm glass-card">
+              <table className="w-full">
                 <thead>
                   <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30">
                     <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-200/60 dark:border-slate-700/50 w-24"></th>
@@ -250,7 +250,7 @@ export default function MealPlanner() {
                         return (
                           <td key={day} className="p-2 text-center border-r border-slate-200/40 dark:border-slate-700/40 last:border-r-0 relative hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition-colors">
                             {recipe ? (
-                              <div className="bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40 border border-emerald-200/60 dark:border-emerald-700/40 rounded-xl p-2.5 group hover:shadow-sm transition-shadow">
+                              <div className="glass-card rounded-xl p-2.5 group hover:shadow-sm transition-shadow">
                                 <p className="text-xs font-semibold text-slate-700 dark:text-slate-200 truncate">{recipe}</p>
                                 <button onClick={() => setMeal(day, meal, recipe)} className="text-xs text-red-400 hover:text-red-500 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">✕ {t('mealPlanner.removeDay')}</button>
                               </div>
@@ -260,7 +260,7 @@ export default function MealPlanner() {
                               </button>
                             )}
                             {isSelecting && allRecipes.length > 0 && (
-                              <div className="absolute z-20 top-full left-1/2 -translate-x-1/2 mt-1.5 bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700/60 rounded-xl shadow-xl shadow-slate-900/20 p-2 min-w-[200px] max-h-56 overflow-y-auto">
+                              <div className="absolute z-20 top-full left-1/2 -translate-x-1/2 mt-1.5 glass-card rounded-xl shadow-xl p-2 min-w-[200px] max-h-56 overflow-y-auto">
                                 <div className="text-xs font-semibold text-slate-400 dark:text-slate-500 px-2 py-1.5 border-b border-slate-100 dark:border-slate-700 mb-1">{t('mealPlanner.availableRecipes')}</div>
                                 {allRecipes.map((r, i) => (
                                   <button key={i} onClick={() => setMeal(day, meal, r.name)} className="block w-full text-left text-xs p-2.5 rounded-lg hover:bg-emerald-50 dark:hover:bg-emerald-900/30 text-slate-600 dark:text-slate-300 transition-colors font-medium">
@@ -278,7 +278,7 @@ export default function MealPlanner() {
               </table>
             </div>
 
-            <div className="mt-8 bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6 hover:shadow-md transition-shadow">
+            <div className="mt-8 glass-card rounded-2xl shadow-sm p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-2.5 mb-4">
                 <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍽️</div>
                 <h2 className="font-bold text-slate-800 dark:text-slate-100">{t('mealPlanner.availableRecipes')}</h2>

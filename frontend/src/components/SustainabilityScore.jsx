@@ -33,7 +33,7 @@ export default function SustainabilityScore({ vegetables, freshnessStatuses }) {
   }
 
   return (
-    <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/30 dark:to-emerald-900/30 border border-green-200/60 dark:border-green-800/40 rounded-2xl p-5 shadow-sm">
+    <div className="glass-card rounded-2xl p-5 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🌱</div>
         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('sustainability.title')}</h2>

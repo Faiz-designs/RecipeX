@@ -39,7 +39,7 @@ export default function OnboardingTour() {
 
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 max-w-md w-full mx-4 p-8 animate-scaleIn">
+      <div className="glass-card rounded-3xl shadow-2xl max-w-md w-full mx-4 p-8 animate-scaleIn">
         <div className="flex flex-col items-center text-center">
           <div className="w-20 h-20 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 rounded-2xl flex items-center justify-center text-4xl mb-5 shadow-lg">
             {steps[step].emoji}

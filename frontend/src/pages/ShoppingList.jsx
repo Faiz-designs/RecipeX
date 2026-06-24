@@ -133,7 +133,7 @@ export default function ShoppingList() {
       </div>
 
       {items.length === 0 ? (
-        <div className="text-center py-20 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+        <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
           <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">
             🛒
           </div>
@@ -153,7 +153,7 @@ export default function ShoppingList() {
             const isExpanded = expandedCats[cat]
             const catConfig = CATEGORIES[cat] || { icon: '📦' }
             return (
-              <div key={cat} className="bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+              <div key={cat} className="glass-card rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                 <button
                   onClick={() => toggleCategory(cat)}
                   className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-slate-50/80 dark:hover:bg-slate-700/40 transition-colors"
@@ -202,7 +202,7 @@ export default function ShoppingList() {
       )}
 
       {items.length > 0 && (
-        <div className="mt-6 bg-white dark:bg-slate-800/90 rounded-2xl border border-slate-200/80 dark:border-slate-700/60 p-5">
+        <div className="mt-6 glass-card rounded-2xl p-5">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🚚</div>
             <h3 className="font-bold text-slate-800 dark:text-slate-100 text-sm">{t('groceryDelivery.orderFrom')}</h3>

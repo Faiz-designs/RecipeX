@@ -137,7 +137,7 @@ export default function Home() {
           {stats.map((s, i) => (
             <div
               key={i}
-              className="animate-stat opacity-0 relative bg-white/80 dark:bg-slate-800/70 backdrop-blur-md rounded-2xl shadow-lg dark:shadow-slate-900/50 border border-white/50 dark:border-slate-700/50 p-5 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
+              className="animate-stat opacity-0 relative glass-card rounded-2xl shadow-lg p-5 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
               style={{ animationDelay: `${i * 0.12}s` }}
             >
               <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500 to-teal-500 rounded-l-2xl" />
@@ -157,7 +157,7 @@ export default function Home() {
           {features.map((item, i) => (
             <div
               key={i}
-              className="animate-feature opacity-0 group relative bg-white/70 dark:bg-slate-800/60 backdrop-blur-sm rounded-2xl shadow-sm dark:shadow-slate-900/30 border border-slate-100 dark:border-slate-700/50 p-6 hover:shadow-xl hover:shadow-emerald-500/5 hover:border-emerald-300 dark:hover:border-emerald-600 hover:-translate-y-1.5 transition-all duration-300"
+              className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-emerald-500/5 hover:border-emerald-300 dark:hover:border-emerald-600 hover:-translate-y-1.5 transition-all duration-300"
               style={{ animationDelay: `${i * 0.1}s` }}
             >
               <div className="w-14 h-14 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-800/60 dark:to-teal-800/60 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 ring-1 ring-emerald-200/50 dark:ring-emerald-700/30">

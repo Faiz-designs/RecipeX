@@ -55,7 +55,7 @@ export default function ExpiryTracker({ scanResult }) {
   if (items.length === 0 && !scanResult) return null
 
   return (
-    <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 border border-amber-200/60 dark:border-amber-800/40 rounded-2xl p-5 shadow-sm">
+    <div className="glass-card rounded-2xl p-5 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
         <div className="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex items-center justify-center text-sm shadow-sm">⏰</div>
         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('expiry.title')}</h2>
@@ -80,7 +80,7 @@ export default function ExpiryTracker({ scanResult }) {
         {items.map(item => {
           const daysLeft = getDaysLeft(item.expiryDate)
           return (
-            <div key={item.id} className="flex items-center gap-3 bg-white/60 dark:bg-slate-800/60 rounded-xl px-4 py-2.5 border border-amber-100 dark:border-amber-800/40">
+            <div key={item.id} className="flex items-center gap-3 glass-card rounded-xl px-4 py-2.5">
               <span className={`w-2 h-2 rounded-full ${daysLeft > 3 ? 'bg-green-500' : daysLeft > 1 ? 'bg-amber-500' : 'bg-red-500'}`} />
               <span className="flex-1 text-sm font-medium text-slate-700 dark:text-slate-200">{item.name}</span>
               <span className={`text-xs font-semibold ${daysLeft > 3 ? 'text-green-600' : daysLeft > 1 ? 'text-amber-600' : 'text-red-600'}`}>

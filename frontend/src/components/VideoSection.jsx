@@ -10,7 +10,7 @@ export default function VideoSection({ recipeName, difficulty }) {
         <div className="w-8 h-8 bg-gradient-to-br from-red-400 to-red-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🎥</div>
         <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('videoSection.title')}</h2>
       </div>
-      <div className="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/30 dark:to-orange-900/30 border border-red-200/60 dark:border-red-800/40 rounded-2xl p-5">
+      <div className="glass-card rounded-2xl p-5">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="font-semibold text-slate-700 dark:text-slate-200">🍳 {t('videoSection.watch')}: {recipeName}</p>

@@ -183,7 +183,7 @@ export default function Recipes() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {[1, 2, 3].map(i => (
-            <div key={i} className="bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/60 rounded-2xl overflow-hidden shadow-sm">
+            <div key={i} className="glass-card rounded-2xl overflow-hidden shadow-sm">
               <div className="h-20 bg-gradient-to-r from-slate-200 via-slate-300 to-slate-200 dark:from-slate-700 dark:via-slate-600 dark:to-slate-700 animate-shimmer" />
               <div className="p-5 space-y-3">
                 <div className="h-5 bg-slate-200 dark:bg-slate-700 rounded-lg animate-shimmer w-3/4" />
@@ -207,7 +207,7 @@ export default function Recipes() {
             <h1 className="text-4xl font-extrabold text-white">{t('recipes.title')}</h1>
           </div>
         </div>
-        <div className="bg-red-50/90 dark:bg-red-900/25 backdrop-blur-sm border border-red-200/60 dark:border-red-800/50 rounded-2xl p-8 text-center shadow-sm">
+        <div className="glass-card rounded-2xl p-8 text-center shadow-sm">
           <div className="text-5xl mb-4">⚠️</div>
           <p className="text-red-700 dark:text-red-300 font-bold text-lg mb-1">{t('recipes.failedToLoad')}</p>
           <p className="text-red-500 dark:text-red-400 text-sm mb-5">{error}</p>
@@ -259,7 +259,7 @@ export default function Recipes() {
         </div>
 
         {showPantry && (
-          <div className="bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm border border-slate-200/80 dark:border-slate-700/60 rounded-2xl p-5 mb-6 shadow-sm hover:shadow-lg transition-all duration-300">
+          <div className="glass-card rounded-2xl p-5 mb-6 shadow-sm hover:shadow-lg transition-all duration-300">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-bold text-slate-700 dark:text-slate-200">🧺 {t('recipes.myPantry')}</h3>
               {pantry.length > 0 && (
@@ -323,7 +323,7 @@ export default function Recipes() {
           </div>
         </div>
 
-        <div className="flex flex-wrap gap-3 mb-6 p-3 bg-slate-50/50 dark:bg-slate-800/30 rounded-2xl border border-slate-100 dark:border-slate-700/50">
+        <div className="flex flex-wrap gap-3 mb-6 p-3 glass-card rounded-2xl">
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide mr-1">{t('filters.prepTime')}:</span>
             {[{ key: 'any', label: t('filters.anyTime') }, { key: 'under15', label: t('filters.under15') }, { key: 'under30', label: t('filters.under30') }, { key: 'over30', label: t('filters.over30') }].map(opt => (
@@ -351,7 +351,7 @@ export default function Recipes() {
         </div>
 
         {filtered.length === 0 ? (
-          <div className="text-center py-16 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl border border-slate-200/80 dark:border-slate-700/60 shadow-sm">
+          <div className="text-center py-16 glass-card rounded-2xl shadow-sm">
             <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/40 dark:to-orange-900/40 border-2 border-amber-200 dark:border-amber-700/50 flex items-center justify-center text-4xl shadow-lg">
               🔍
             </div>

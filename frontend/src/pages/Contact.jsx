@@ -48,7 +48,7 @@ export default function Contact() {
             { icon: '📍', title: t('contact.location'), value: 'Remote · Worldwide', gradient: 'from-rose-400 to-pink-500' },
             { icon: '⏱️', title: t('contact.responseTime'), value: t('contact.responseTimeValue'), gradient: 'from-amber-400 to-orange-500' },
           ].map((item, i) => (
-            <div key={i} key={i} className="group bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <div key={i} className="group glass-card rounded-2xl shadow-sm p-6 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
               <div className={`w-14 h-14 bg-gradient-to-br ${item.gradient} rounded-xl flex items-center justify-center text-2xl mx-auto mb-4 shadow-md group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
                 {item.icon}
               </div>
@@ -59,7 +59,7 @@ export default function Contact() {
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 mb-16">
-          <div className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-xl border border-slate-200/80 dark:border-slate-700/60 p-8">
+          <div className="glass-card rounded-2xl shadow-xl p-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-11 h-11 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center text-lg shadow-md">✉️</div>
               <h2 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{t('contact.submit')}</h2>
@@ -98,7 +98,7 @@ export default function Contact() {
             </div>
             <div className="space-y-3">
               {faqItems.map((item, i) => (
-                <div key={i} className="bg-white dark:bg-slate-800/90 rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 overflow-hidden transition-all duration-300 hover:shadow-md">
+                <div key={i} className="glass-card rounded-2xl shadow-sm overflow-hidden transition-all duration-300 hover:shadow-md">
                   <button onClick={() => setExpanded(expanded === i ? null : i)} className="w-full flex items-center justify-between p-5 text-left hover:bg-slate-50/80 dark:hover:bg-slate-700/40 transition-colors">
                     <span className="font-semibold text-slate-800 dark:text-slate-100 pr-4 text-sm">{item.q}</span>
                     <span className={`shrink-0 w-7 h-7 rounded-full bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/50 dark:to-teal-900/50 flex items-center justify-center text-sm font-bold text-emerald-600 dark:text-emerald-400 transition-all duration-300 border border-emerald-200/60 dark:border-emerald-700/50 ${expanded === i ? 'rotate-180 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-800/60 dark:to-teal-800/60' : ''}`}>

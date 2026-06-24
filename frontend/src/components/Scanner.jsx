@@ -96,13 +96,13 @@ export default function Scanner({ onScanComplete }) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-6 md:p-8 hover:shadow-lg transition-all duration-300">
+      <div className="glass-card rounded-2xl shadow-sm p-6 md:p-8 hover:shadow-lg transition-all duration-300">
         <div className="flex items-center gap-3 mb-6">
           <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-md ring-1 ring-emerald-500/20"><span className="text-lg">📸</span></div>
           <div><h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scanner.title')}</h2><p className="text-sm text-slate-400 dark:text-slate-500">{t('scanner.subtitle')}</p></div>
         </div>
 
-        <div className="relative bg-slate-100/80 dark:bg-slate-700/50 rounded-2xl p-1.5 mb-6">
+        <div className="relative glass-card rounded-2xl p-1.5 mb-6">
           <div className="flex gap-1">
             {['upload', 'camera', 'fridge'].map(m => (
               <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-slate-600 text-emerald-600 dark:text-emerald-300 shadow-sm ring-1 ring-slate-200/50 dark:ring-slate-500/50' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
@@ -150,7 +150,7 @@ export default function Scanner({ onScanComplete }) {
         )}
 
         {mode === 'camera' && (
-          <div className="rounded-2xl border border-slate-200/80 dark:border-slate-600/60 overflow-hidden bg-slate-50/50 dark:bg-slate-800/50 shadow-sm">
+          <div className="rounded-2xl overflow-hidden glass-card shadow-sm">
             {!stream ? (
               <div className="flex flex-col items-center py-12 gap-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-blue-500/10">📷</div>
@@ -175,7 +175,7 @@ export default function Scanner({ onScanComplete }) {
         <canvas ref={canvasRef} hidden />
 
         {error && (
-          <div className="mt-4 p-3 bg-red-50/90 dark:bg-red-900/25 backdrop-blur-sm border border-red-200/60 dark:border-red-800/50 rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2.5 shadow-sm">
+          <div className="mt-4 p-3 glass-card rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2.5 shadow-sm">
             <span className="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/40 flex items-center justify-center text-xs shrink-0">!</span>
             <span>{error}</span>
           </div>

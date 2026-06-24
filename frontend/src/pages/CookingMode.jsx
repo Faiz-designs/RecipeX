@@ -83,7 +83,7 @@ export default function CookingMode() {
   if (!recipe) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-        <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-700/60 p-8 shadow-xl text-center">
+        <div className="glass-card rounded-2xl p-8 shadow-xl text-center">
           <p className="text-white/80 text-xl font-medium">No recipe selected</p>
         </div>
       </div>
@@ -108,7 +108,7 @@ export default function CookingMode() {
     <>
       <SEO title="Cooking Mode" description="Step-by-step hands-free cooking mode with voice assistant and timer." />
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white flex flex-col">
-      <header className="bg-slate-800/80 backdrop-blur-sm border-b border-slate-700/60 px-6 py-4 flex items-center justify-between sticky top-0 z-30">
+      <header className="glass-nav px-6 py-4 flex items-center justify-between sticky top-0 z-30">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-xl flex items-center justify-center text-sm shadow-lg shadow-emerald-500/20">👨‍🍳</div>
           <h1 className="text-xl md:text-2xl font-bold truncate">{recipe.name}</h1>
@@ -119,7 +119,7 @@ export default function CookingMode() {
       </header>
 
       <div className="flex-1 flex flex-col lg:flex-row">
-        <aside className="lg:w-80 bg-slate-800/60 backdrop-blur-sm p-6 border-b lg:border-b-0 lg:border-r border-slate-700/60">
+        <aside className="lg:w-80 glass-card p-6 border-b lg:border-b-0 lg:border-r">
           <h2 className="text-lg font-bold mb-4 flex items-center gap-2">
             <span className="w-1.5 h-5 bg-emerald-400 rounded-full inline-block" />
             {t('recipeCard.ingredients')}
@@ -166,7 +166,7 @@ export default function CookingMode() {
               </div>
             </div>
 
-            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 md:p-10 mb-8 min-h-[220px] flex items-center justify-center border border-slate-700/60 shadow-xl shadow-slate-900/30 relative overflow-hidden group">
+            <div className="glass-card rounded-2xl p-8 md:p-10 mb-8 min-h-[220px] flex items-center justify-center shadow-xl relative overflow-hidden group">
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <p className="text-2xl md:text-3xl leading-relaxed text-center font-medium text-slate-100 relative z-10">
                 {steps[currentStep]}
@@ -197,7 +197,7 @@ export default function CookingMode() {
               )}
             </div>
 
-            <div className="mt-6 bg-slate-800/60 backdrop-blur-sm rounded-2xl p-5 border border-slate-700/60 shadow-lg">
+            <div className="mt-6 glass-card rounded-2xl p-5 shadow-lg">
               <div className="flex items-center justify-between gap-4 flex-wrap">
                 <div className="flex items-center gap-3">
                   <button

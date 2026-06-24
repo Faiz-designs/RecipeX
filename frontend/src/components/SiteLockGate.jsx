@@ -59,7 +59,7 @@ export default function SiteLockGate({ children }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4">
-      <div className="w-full max-w-md bg-white dark:bg-slate-800/90 rounded-3xl shadow-2xl border border-slate-200/80 dark:border-slate-700/60 p-8 text-center">
+      <div className="w-full max-w-md glass-card rounded-3xl shadow-2xl p-8 text-center">
         <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">
           🔒
         </div>

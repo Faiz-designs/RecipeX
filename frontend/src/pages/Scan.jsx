@@ -85,7 +85,7 @@ export default function Scan() {
           {user ? (
             <Scanner onScanComplete={handleScanComplete} />
           ) : (
-            <div className="text-center py-16 bg-white/50 dark:bg-slate-800/50 rounded-2xl border border-slate-200/60 dark:border-slate-700/40 shadow-sm">
+            <div className="text-center py-16 glass-card rounded-2xl shadow-sm">
               <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">🔒</div>
               <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('auth.signInRequired')}</p>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('auth.signInDesc')}</p>
@@ -104,7 +104,7 @@ export default function Scan() {
 
       {showReport && r && (
         <div className="animate-fadeIn">
-          <div className="bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-7 mb-8 hover:shadow-lg transition-all duration-300">
+          <div className="glass-card rounded-2xl shadow-sm p-5 md:p-7 mb-8 hover:shadow-lg transition-all duration-300">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-2xl flex items-center justify-center shadow-md ring-1 ring-emerald-500/20"><span className="text-xl">📊</span></div>
@@ -123,7 +123,7 @@ export default function Scan() {
           <SchemaMarkup recipes={r?.recipes} />
 
           {r.improvements?.overall_verdict && (
-            <div className="bg-gradient-to-br from-emerald-50/80 to-emerald-100/50 dark:from-emerald-900/30 dark:to-emerald-800/20 border border-emerald-200/60 dark:border-emerald-700/30 rounded-2xl p-6 md:p-7 mb-8 shadow-sm hover:shadow-lg transition-all duration-300">
+            <div className="glass-card rounded-2xl p-6 md:p-7 mb-8 shadow-sm hover:shadow-lg transition-all duration-300">
               <div className="flex items-start gap-5 flex-col sm:flex-row">
                 <div className="flex items-center gap-4 shrink-0">
                   <div className="relative w-20 h-20">
@@ -158,14 +158,14 @@ export default function Scan() {
 
           <div className="space-y-8">
             {r.scan_summary?.items && (
-              <div id="section-veg" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300">
+              <div id="section-veg" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300">
                 <div className="flex items-center gap-2.5 mb-5">
                   <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-emerald-500/20">🥬</div>
                   <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.vegetables')}</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {r.scan_summary.items.map((item) => (
-                    <div key={item.id} className="bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700/60 rounded-2xl p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                    <div key={item.id} className="glass-card rounded-2xl p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-bold text-slate-800 dark:text-slate-100 text-sm sm:text-base">{item.common_name}</p>
                         <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${item.freshness_status === 'Fresh' ? 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300' : item.freshness_status === 'Slightly Aged' ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300'}`}>{item.freshness_status}</span>
@@ -177,20 +177,20 @@ export default function Scan() {
               </div>
             )}
 
-            <div id="section-recipes" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300">
+            <div id="section-recipes" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300">
               <RecipeCard recipes={r.recipes} />
               {r.recipes?.easy?.name && <VideoSection recipeName={r.recipes.easy.name} difficulty="easy" />}
               {r.recipes?.intermediate?.name && <VideoSection recipeName={r.recipes.intermediate.name} difficulty="intermediate" />}
               {r.recipes?.advanced?.name && <VideoSection recipeName={r.recipes.advanced.name} difficulty="advanced" />}
             </div>
-            <div id="section-health" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><HealthBenefits health_benefits={r.health_benefits} /></div>
-            <div id="section-nutrition" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><NutritionTable nutrition={r.nutrition} /></div>
-            <div id="section-storage" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><StorageTips storage_tips={r.storage_tips} /></div>
-            <div id="section-cooking" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><CookingTips cooking_tips={r.cooking_tips} /></div>
-            <div id="section-allergy" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><AllergyReport allergy_report={r.allergy_report} /></div>
-            <div id="section-subs" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><Substitutions substitutions={r.substitutions} /></div>
-            <div id="section-cost" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><CostEstimation cost_estimation={r.cost_estimation} improvements={r.improvements} /></div>
-            <div id="section-improve" className="scroll-mt-20 bg-white/80 dark:bg-slate-800/70 backdrop-blur-sm rounded-2xl shadow-sm border border-slate-200/80 dark:border-slate-700/60 p-5 md:p-6 hover:shadow-lg transition-all duration-300"><Improvements improvements={r.improvements} /></div>
+            <div id="section-health" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><HealthBenefits health_benefits={r.health_benefits} /></div>
+            <div id="section-nutrition" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><NutritionTable nutrition={r.nutrition} /></div>
+            <div id="section-storage" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><StorageTips storage_tips={r.storage_tips} /></div>
+            <div id="section-cooking" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><CookingTips cooking_tips={r.cooking_tips} /></div>
+            <div id="section-allergy" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><AllergyReport allergy_report={r.allergy_report} /></div>
+            <div id="section-subs" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><Substitutions substitutions={r.substitutions} /></div>
+            <div id="section-cost" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><CostEstimation cost_estimation={r.cost_estimation} improvements={r.improvements} /></div>
+            <div id="section-improve" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300"><Improvements improvements={r.improvements} /></div>
           </div>
 
           <SustainabilityScore vegetables={r.scan_summary?.items?.map(i => i.common_name)} freshnessStatuses={r.scan_summary?.items?.map(i => i.freshness_status)} />

@@ -28,7 +28,7 @@
     "getStarted": "Get Started Free",
     "aiPowered": "AI-Powered Kitchen Assistant",
     "stats": {
-      "vegetables": "Vegetables",
+      "vegetables": "Food Items",
       "recipes": "Recipes",
       "allergyGroups": "Allergy Groups",
       "free": "Free"
@@ -76,7 +76,7 @@
     "vegetablesDetected_plural": "vegetables detected",
     "newScan": "New Scan",
     "sections": {
-      "vegetables": "Vegetables",
+      "vegetables": "Food Items",
       "recipes": "Recipes",
       "healthBenefits": "Health Benefits",
       "nutrition": "Nutrition",

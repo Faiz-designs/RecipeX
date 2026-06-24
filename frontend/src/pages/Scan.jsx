@@ -34,7 +34,7 @@ export default function Scan() {
   const [fridgeItems, setFridgeItems] = useState(getFridgeItems())
 
   const sections = [
-    { label: t('scan.sections.vegetables'), id: 'section-veg', emoji: '🥬' },
+    { label: t('scan.sections.vegetables'), id: 'section-veg', emoji: '📋' },
     { label: t('scan.sections.recipes'), id: 'section-recipes', emoji: '🍳' },
     { label: t('scan.sections.healthBenefits'), id: 'section-health', emoji: '💚' },
     { label: t('scan.sections.nutrition'), id: 'section-nutrition', emoji: '🥦' },

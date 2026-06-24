@@ -120,6 +120,12 @@ html {
 @keyframes countUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pageEnter { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
 @keyframes textReveal { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes drawCheck { to { stroke-dashoffset: 0; } }
+@keyframes morphSun { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(180deg) scale(0.8); } 100% { transform: rotate(360deg) scale(1); } }
+@keyframes bounceUp { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes scoreRing { from { stroke-dashoffset: 314; } to { stroke-dashoffset: var(--offset); } }
+@keyframes particleFloat { 0%, 100% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; } 25% { transform: translateY(-20px) translateX(10px) scale(1.1); opacity: 0.6; } 50% { transform: translateY(-40px) translateX(-5px) scale(0.9); opacity: 0.4; } 75% { transform: translateY(-20px) translateX(15px) scale(1.05); opacity: 0.5; } }
+@keyframes blurIn { from { filter: blur(20px); transform: scale(1.1); } to { filter: blur(0); transform: scale(1); } }
 
 .animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
 .animate-fadeInUp { animation: fadeInUp 0.6s ease-out forwards; }
@@ -135,6 +141,12 @@ html {
 .animate-pageEnter { animation: pageEnter 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 .animate-textReveal { animation: textReveal 0.6s ease-out forwards; }
 .animate-countUp { animation: countUp 0.4s ease-out forwards; }
+.animate-drawCheck { animation: drawCheck 0.5s ease-out 0.3s forwards; }
+.animate-bounceUp { animation: bounceUp 1s ease-in-out infinite; }
+.animate-scoreRing { animation: scoreRing 1.5s ease-out forwards; }
+.animate-particleFloat { animation: particleFloat 6s ease-in-out infinite; }
+.animate-blurIn { animation: blurIn 0.6s ease-out forwards; }
+.animate-morphSun { animation: morphSun 0.6s ease-in-out forwards; }
 
 .animate-shimmer {
   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
@@ -398,4 +410,91 @@ html {
 /* Magnetic button container */
 .magnetic-btn {
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 3D tilt card */
+.tilt-card {
+  perspective: 800px;
+}
+.tilt-card > * {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform;
+}
+
+/* Score ring */
+.score-ring {
+  transform: rotate(-90deg);
+}
+.score-ring-bg {
+  fill: none;
+  stroke: rgba(132, 204, 22, 0.1);
+  stroke-width: 6;
+}
+.score-ring-fill {
+  fill: none;
+  stroke: #84CC16;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 314;
+  stroke-dashoffset: 314;
+}
+.score-ring-fill.animated {
+  animation: scoreRing 1.5s ease-out forwards;
+}
+
+/* Success checkmark */
+.checkmark-circle {
+  stroke: #84CC16;
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+}
+.checkmark-circle.animated {
+  animation: drawCheck 0.5s ease-out forwards;
+}
+.checkmark-path {
+  stroke: #84CC16;
+  stroke-width: 3;
+  fill: none;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+}
+.checkmark-path.animated {
+  animation: drawCheck 0.3s ease-out 0.2s forwards;
+}
+
+/* Back to top */
+.back-to-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 50;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(20px);
+}
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Image blur-up placeholder */
+.img-blur {
+  filter: blur(20px);
+  transition: filter 0.4s ease-out, transform 0.4s ease-out;
+  transform: scale(1.05);
+}
+.img-blur.loaded {
+  filter: blur(0);
+  transform: scale(1);
+}
+
+/* Particle */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
 }

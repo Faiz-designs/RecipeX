@@ -61,6 +61,33 @@ function ScrollProgress() {
   return <div id="scroll-progress" />
 }
 
+function TiltHandler() {
+  useEffect(() => {
+    const handler = (e) => {
+      document.querySelectorAll('.tilt-card').forEach(card => {
+        const rect = card.getBoundingClientRect()
+        const x = (e.clientX - rect.left) / rect.width - 0.5
+        const y = (e.clientY - rect.top) / rect.height - 0.5
+        const child = card.firstElementChild
+        if (child) child.style.transform = `rotateX(${y * -8}deg) rotateY(${x * 8}deg)`
+      })
+    }
+    const reset = () => {
+      document.querySelectorAll('.tilt-card').forEach(card => {
+        const child = card.firstElementChild
+        if (child) child.style.transform = ''
+      })
+    }
+    window.addEventListener('mousemove', handler)
+    window.addEventListener('mouseleave', reset)
+    return () => {
+      window.removeEventListener('mousemove', handler)
+      window.removeEventListener('mouseleave', reset)
+    }
+  }, [])
+  return null
+}
+
 function RippleButton({ children, className, ...props }) {
   const btnRef = useRef(null)
   const handleClick = (e) => {
@@ -80,6 +107,24 @@ function RippleButton({ children, className, ...props }) {
   return <button ref={btnRef} className={className} {...props} onClick={handleClick}>{children}</button>
 }
 
+function BackToTop() {
+  const [visible, setVisible] = useState(false)
+  useEffect(() => {
+    const handler = () => setVisible(window.scrollY > 400)
+    window.addEventListener('scroll', handler, { passive: true })
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+  return (
+    <button
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+      className={`back-to-top w-12 h-12 btn-glass btn-glass-lime rounded-2xl flex items-center justify-center text-xl shadow-lg ${visible ? 'visible' : ''}`}
+      title="Back to top"
+    >
+      ↑
+    </button>
+  )
+}
+
 function AppContent() {
   const { user, loading } = useAuth()
   const [dark, toggleDark] = useDarkMode()
@@ -90,6 +135,7 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-stone-50 via-lime-50/20 to-white dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 flex flex-col transition-colors duration-300">
       <ScrollProgress />
+      <TiltHandler />
       <nav className="sticky top-0 z-50 glass-nav shadow-sm">
         <div className="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
           <Link to="/" className="flex items-center gap-2 group shrink-0">
@@ -127,8 +173,14 @@ function AppContent() {
               <option value="bn">বা</option>
               <option value="mr">मरा</option>
             </select>
-            <button onClick={toggleDark} className="w-8 h-8 rounded-xl flex items-center justify-center text-base glass hover:bg-lime-100/30 dark:hover:bg-lime-900/30 transition-all" title={dark ? 'Light mode' : 'Dark mode'}>
-              {dark ? '☀️' : '🌙'}
+            <button onClick={toggleDark} className="w-8 h-8 rounded-xl flex items-center justify-center glass hover:bg-lime-100/30 dark:hover:bg-lime-900/30 transition-all" title={dark ? 'Light mode' : 'Dark mode'}>
+              <svg viewBox="0 0 24 24" className="w-5 h-5 transition-all duration-500" style={{ transform: dark ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                {dark ? (
+                  <path fill="#BEF264" d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.39 5.39 0 0 1-4.4 2.26 5.38 5.38 0 0 1-5.38-5.38c0-2.1 1.2-3.92 2.96-4.8A8.9 8.9 0 0 0 12 3z" />
+                ) : (
+                  <path fill="#84CC16" d="M12 17a5 5 0 1 0 0-10 5 5 0 0 0 0 10zm0-12V3m0 18v-2m8-8h2M4 12H2m15.07-7.07l1.41-1.41M5.64 18.36l1.41-1.41M18.36 18.36l1.41 1.41M6.34 5.64L4.93 4.22" stroke="#84CC16" strokeWidth="2" strokeLinecap="round" fill="none" />
+                )}
+              </svg>
             </button>
           </div>
         </div>
@@ -158,8 +210,9 @@ function AppContent() {
             <Route path="/signup" element={<div className="animate-pageEnter"><Signup /></div>} />
             <Route path="/profile" element={<div className="animate-pageEnter">{user ? <Profile /> : <Login />}</div>} />
           </Routes>
-        </Suspense>
+          </Suspense>
       </main>
+      <BackToTop />
       <footer className="mt-auto">
         <div className="max-w-6xl mx-auto px-4 pb-6 mb-4">
           <div className="glass-footer rounded-2xl p-6">

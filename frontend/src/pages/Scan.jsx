@@ -22,6 +22,7 @@ import { addRecipeIngredientsToList } from '../utils/shoppingList'
 import { toggleFavorite, isFavorite } from '../utils/favorites'
 import { getFridgeItems, findMatchingRecipes } from '../utils/fridgeMode'
 import VideoSection from '../components/VideoSection'
+import confetti from 'canvas-confetti'
 
 export default function Scan() {
   const { t } = useTranslation()
@@ -59,6 +60,12 @@ export default function Scan() {
       if (data.result.recipes.advanced) allRecipes.push({ ...data.result.recipes.advanced, difficulty: 'advanced' })
     }
     setFridgeRecipes(findMatchingRecipes(items, allRecipes))
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 },
+      colors: ['#84CC16', '#A3E635', '#BEF264', '#10B981', '#34D399'],
+    })
   }
 
   useEffect(() => {
@@ -117,9 +124,15 @@ export default function Scan() {
       {showReport && r && (
         <div className="animate-fadeIn">
           <div className="glass-card rounded-2xl shadow-sm p-5 md:p-7 mb-8 hover:shadow-lg transition-all duration-300">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl flex items-center justify-center shadow-md ring-1 ring-lime-500/20"><span className="text-xl">📊</span></div>
+                <div className="relative">
+                  <div className="w-12 h-12 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl flex items-center justify-center shadow-md ring-1 ring-lime-500/20"><span className="text-xl">📊</span></div>
+                  <svg className="absolute -top-1 -right-1 w-5 h-5" viewBox="0 0 24 24">
+                    <circle className="checkmark-circle animated" cx="12" cy="12" r="11" />
+                    <path className="checkmark-path animated" d="M7 12.5l3 3 7-7" />
+                  </svg>
+                </div>
                 <div>
                   <h1 className="text-2xl md:text-3xl font-extrabold text-stone-800 dark:text-stone-100">{t('scan.results')}</h1>
                   <p className="text-stone-400 dark:text-stone-500 text-sm">{t('scan.vegetablesDetected', { count: r.scan_summary?.total_vegetables_detected })}</p>
@@ -146,8 +159,8 @@ export default function Scan() {
                           <stop offset="100%" stopColor="#059669" />
                         </linearGradient>
                       </defs>
-                      <circle cx="18" cy="18" r="15.5" fill="none" className="stroke-stone-200 dark:stroke-stone-600" strokeWidth="2.5" />
-                      <circle cx="18" cy="18" r="15.5" fill="none" stroke={r.improvements.meal_balance_score_out_of_10 >= 8 ? 'url(#scoreGradient)' : r.improvements.meal_balance_score_out_of_10 >= 5 ? '#f59e0b' : '#ef4444'} strokeWidth="2.5" strokeDasharray={`${r.improvements.meal_balance_score_out_of_10 / 10 * 100} 100`} strokeLinecap="round" className="drop-shadow-sm" />
+                      <circle cx="18" cy="18" r="15.5" fill="none" className="score-ring-bg" strokeWidth="2.5" />
+                      <circle cx="18" cy="18" r="15.5" fill="none" className="score-ring-fill animated" strokeWidth="2.5" stroke={r.improvements.meal_balance_score_out_of_10 >= 8 ? 'url(#scoreGradient)' : r.improvements.meal_balance_score_out_of_10 >= 5 ? '#f59e0b' : '#ef4444'} style={{ '--offset': `${314 - (r.improvements.meal_balance_score_out_of_10 / 10) * 314}px` }} />
                     </svg>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-2xl font-extrabold tracking-tight" style={{ color: r.improvements.meal_balance_score_out_of_10 >= 8 ? '#059669' : r.improvements.meal_balance_score_out_of_10 >= 5 ? '#d97706' : '#dc2626' }}>{r.improvements.meal_balance_score_out_of_10}</span>

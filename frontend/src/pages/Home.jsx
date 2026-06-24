@@ -121,6 +121,17 @@ export default function Home() {
       <div className="relative overflow-hidden bg-gradient-to-br from-lime-700 via-lime-600 to-lime-600 animate-gradient py-20 md:py-28">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15)_0%,_transparent_60%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-20">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="particle animate-particleFloat" style={{
+              width: `${4 + Math.random() * 8}px`,
+              height: `${4 + Math.random() * 8}px`,
+              background: 'rgba(255,255,255,0.3)',
+              left: `${10 + Math.random() * 80}%`,
+              top: `${10 + Math.random() * 80}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${4 + Math.random() * 4}s`,
+            }} />
+          ))}
           <div className="absolute top-10 left-10 w-20 h-20 glass rounded-2xl flex items-center justify-center text-3xl animate-float stagger-1 shadow-lg">🥦</div>
           <div className="absolute top-20 right-20 w-16 h-16 glass rounded-xl flex items-center justify-center text-2xl animate-float stagger-3 shadow-lg">🍅</div>
           <div className="absolute bottom-16 left-1/4 w-14 h-14 glass rounded-xl flex items-center justify-center text-xl animate-float stagger-5 shadow-md">🥕</div>
@@ -183,7 +194,7 @@ export default function Home() {
           {features.map((item, i) => (
             <div
               key={i}
-              className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-lime-500/5 hover:-translate-y-1.5 transition-all duration-300 hover-gradient-border"
+              className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-lime-500/5 hover:-translate-y-1.5 transition-all duration-300 hover-gradient-border tilt-card"
               style={{ animationDelay: `${i * 0.1}s` }}
             >
               <div className="w-14 h-14 glass rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md">

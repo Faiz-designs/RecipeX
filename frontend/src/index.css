@@ -187,9 +187,10 @@ html {
   border-radius: 0.75rem;
   position: relative;
   overflow: hidden;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease, border-color 0.3s ease;
 }
 .btn-glass:hover { transform: translateY(-2px); }
-.btn-glass:active { transform: translateY(0) scale(0.97); }
+.btn-glass:active { transform: scale(0.94); }
 .btn-glass:disabled { opacity: 0.4; cursor: not-allowed; transform: none !important; }
 
 .btn-ripple {
@@ -497,4 +498,134 @@ html {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+}
+
+/* Micro-interactions */
+.tap-scale {
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tap-scale:active {
+  transform: scale(0.94);
+}
+
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #84CC16;
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 1px;
+}
+.link-underline:hover::after {
+  width: 100%;
+}
+
+/* Logo bounce */
+@keyframes logoBounce {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  50% { transform: scale(1.15) rotate(3deg); opacity: 1; }
+  70% { transform: scale(0.95) rotate(-1deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+.animate-logoBounce {
+  animation: logoBounce 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Logo hover pulse */
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.1) rotate(-5deg); }
+  75% { transform: scale(1.1) rotate(5deg); }
+}
+.logo-hover:hover .logo-icon {
+  animation: logoPulse 0.4s ease-in-out;
+}
+
+/* Offline banner */
+@keyframes slideDown {
+  from { transform: translateY(-100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.offline-banner {
+  animation: slideDown 0.3s ease-out forwards;
+}
+
+/* Swipe to delete hint */
+.swipe-hint {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0 0.75rem 0.75rem 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+  color: white;
+  font-size: 1.25rem;
+}
+.swipe-container {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.swipe-container .swipe-content {
+  transition: transform 0.2s ease-out;
+  position: relative;
+  z-index: 1;
+  background: inherit;
+}
+
+/* Skeleton variants */
+.skeleton-text {
+  height: 0.75rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.25rem;
+}
+.skeleton-title {
+  height: 1.25rem;
+  width: 60%;
+  margin-bottom: 0.75rem;
+  border-radius: 0.375rem;
+}
+.skeleton-avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+}
+.skeleton-card {
+  height: 8rem;
+  border-radius: 0.75rem;
+}
+
+/* Empty state */
+@keyframes emptyFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.animate-emptyFloat {
+  animation: emptyFloat 3s ease-in-out infinite;
 }

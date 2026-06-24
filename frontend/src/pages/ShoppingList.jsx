@@ -1,7 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { motion, Reorder } from 'framer-motion'
 import SEO from '../components/SEO'
+import EmptyState from '../components/EmptyState'
 import { getShoppingList, addToShoppingList, removeFromShoppingList, toggleShoppingItem, clearShoppingList } from '../utils/shoppingList'
 
 const CATEGORIES = {
@@ -56,6 +58,42 @@ function categorizeItem(name) {
 }
 
 const EMPTY_PANTRY_MSG = 'Add ingredients you have at home to find matching recipes'
+
+function SwipeItem({ item, onToggle, onRemove }) {
+  const touchX = useRef(0)
+  const [offsetX, setOffsetX] = useState(0)
+  const handleTouchStart = (e) => { touchX.current = e.touches[0].clientX }
+  const handleTouchMove = (e) => {
+    const diff = e.touches[0].clientX - touchX.current
+    if (diff < 0) setOffsetX(Math.max(diff, -80))
+    else setOffsetX(Math.min(diff, 0))
+  }
+  const handleTouchEnd = () => {
+    if (offsetX < -40) { onRemove(item.id); setOffsetX(0); touchX.current = 0; return }
+    setOffsetX(0)
+    touchX.current = 0
+  }
+  return (
+    <div className="relative overflow-hidden rounded-xl swipe-container" onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} onTouchEnd={handleTouchEnd}>
+      <div className="absolute inset-y-0 right-0 flex items-center justify-end px-4 bg-red-500/90 text-white text-sm font-bold rounded-xl swipe-hint">
+        {offsetX === 0 ? 'Swipe →' : 'Delete'}
+      </div>
+      <Reorder.Item
+        value={item}
+        as="div"
+        whileDrag={{ scale: 1.02, boxShadow: '0 8px 32px rgba(0,0,0,0.12)' }}
+        style={{ x: offsetX }}
+        className={`relative flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-stone-50/50 dark:hover:bg-stone-700/30 tap-scale cursor-grab active:cursor-grabbing ${item.checked ? 'opacity-60' : ''}`}
+      >
+        <button onClick={() => onToggle(item.id)} role="checkbox" aria-checked={item.checked} className={`w-5 h-5 rounded-md border-2 flex items-center justify-center text-xs transition-all shrink-0 ${item.checked ? 'bg-lime-500 border-lime-500 text-white shadow-sm' : 'border-stone-300 dark:border-stone-500 hover:border-lime-400'}`}>
+          {item.checked ? '✓' : ''}
+        </button>
+        <span className={`flex-1 text-sm font-medium ${item.checked ? 'text-stone-400 dark:text-stone-500 line-through' : 'text-stone-700 dark:text-stone-200'}`}>{item.name}</span>
+        <button onClick={() => onRemove(item.id)} className="text-xs text-stone-400 hover:text-red-500 dark:hover:text-red-400 transition-colors px-2 py-1 shrink-0 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg">✕</button>
+      </Reorder.Item>
+    </div>
+  )
+}
 
 export default function ShoppingList() {
   const { t } = useTranslation()
@@ -133,17 +171,19 @@ export default function ShoppingList() {
       </div>
 
       {items.length === 0 ? (
-        <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
-          <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">
-            🛒
-          </div>
-          <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('shoppingList.emptyTitle')}</p>
-          <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('shoppingList.emptyDesc')}</p>
-          <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
-            📸 {t('shoppingList.scanVeggies')} →
-          </Link>
-          <p className="text-xs text-stone-400 dark:text-stone-500 mt-6">💡 Tip: Scan vegetables to auto-generate shopping lists from recipes</p>
-        </div>
+        <EmptyState
+          emoji="🛒"
+          title={t('shoppingList.emptyTitle')}
+          description={t('shoppingList.emptyDesc')}
+          action={
+            <>
+              <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl text-sm">
+                📸 {t('shoppingList.scanVeggies')} →
+              </Link>
+              <p className="text-xs text-stone-400 dark:text-stone-500 mt-4">💡 Tip: Scan vegetables to auto-generate shopping lists from recipes</p>
+            </>
+          }
+        />
       ) : (
         <div className="space-y-3">
           {CATEGORY_ORDER.map(cat => {
@@ -176,17 +216,16 @@ export default function ShoppingList() {
                   </div>
                 </button>
                 {isExpanded && (
-                  <div className="px-3 pb-3 space-y-0.5">
+                  <Reorder.Group axis="y" values={catItems} onReorder={(reordered) => {
+                    const all = items
+                    const other = all.filter(i => !catItems.find(c => c.id === i.id))
+                    const reindexed = reordered.map((item, idx) => ({ ...item, order: idx }))
+                    setItems([...other, ...reindexed].sort((a,b) => (a.order || 0) - (b.order || 0)))
+                  }} className="px-3 pb-3 space-y-0.5">
                     {catItems.map(item => (
-                      <div key={item.id} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-stone-50/50 dark:hover:bg-stone-700/30 ${item.checked ? 'opacity-60' : ''}`}>
-                        <button onClick={() => handleToggle(item.id)} role="checkbox" aria-checked={item.checked} className={`w-5 h-5 rounded-md border-2 flex items-center justify-center text-xs transition-all shrink-0 ${item.checked ? 'bg-lime-500 border-lime-500 text-white shadow-sm' : 'border-stone-300 dark:border-stone-500 hover:border-lime-400'}`}>
-                          {item.checked ? '✓' : ''}
-                        </button>
-                        <span className={`flex-1 text-sm font-medium ${item.checked ? 'text-stone-400 dark:text-stone-500 line-through' : 'text-stone-700 dark:text-stone-200'}`}>{item.name}</span>
-                        <button onClick={() => handleRemove(item.id)} className="text-xs text-stone-400 hover:text-red-500 dark:hover:text-red-400 transition-colors px-2 py-1 shrink-0 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg">✕</button>
-                      </div>
+                      <SwipeItem key={item.id} item={item} onToggle={handleToggle} onRemove={handleRemove} />
                     ))}
-                  </div>
+                  </Reorder.Group>
                 )}
               </div>
             )

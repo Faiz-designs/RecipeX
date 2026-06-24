@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import SEO from '../components/SEO'
+import useScrollReveal from '../hooks/useScrollReveal'
 
 function CountUp({ end, duration = 1500 }) {
   const [count, setCount] = useState(0)
@@ -169,7 +170,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="stats-section" className="max-w-5xl mx-auto px-4 -mt-10 relative z-10">
+      <div id="stats-section" className="max-w-5xl mx-auto px-4 -mt-10 relative z-10 reveal reveal-visible">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map((s, i) => (
             <div
@@ -185,7 +186,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div id="features-section" className="max-w-5xl mx-auto px-4 py-20">
+      <div id="features-section" className="max-w-5xl mx-auto px-4 py-20 reveal" ref={useScrollReveal()}>
         <div className="text-center mb-12 animate-on-scroll opacity-0">
           <h2 className="text-3xl md:text-4xl font-extrabold text-stone-800 dark:text-stone-100 mb-3">{t('home.featuresTitle')}</h2>
           <p className="text-stone-500 dark:text-stone-400 max-w-lg mx-auto">{t('home.featuresDesc')}</p>
@@ -207,7 +208,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="relative overflow-hidden bg-gradient-to-br from-lime-700 via-lime-600 to-lime-600 py-16">
+      <div className="relative overflow-hidden bg-gradient-to-br from-lime-700 via-lime-600 to-lime-600 py-16 reveal" ref={useScrollReveal()}>
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(255,255,255,0.1)_0%,_transparent_60%)] pointer-events-none" />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-6 left-10 w-14 h-14 glass rounded-xl flex items-center justify-center text-xl animate-float stagger-2 shadow-lg">🥦</div>

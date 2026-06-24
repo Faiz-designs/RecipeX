@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../utils/AuthContext'
 import SEO from '../components/SEO'
+import EmptyState from '../components/EmptyState'
 import RecipeCard from '../components/RecipeCard'
 import NutritionTable from '../components/NutritionTable'
 import AllergyReport from '../components/AllergyReport'
@@ -80,14 +81,16 @@ export default function History() {
             <div className="w-8 h-8 border-4 border-lime-200 border-t-emerald-500 rounded-full animate-spin" />
           </div>
         ) : history.length === 0 && !selected ? (
-          <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">📜</div>
-            <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('history.noScans')}</p>
-            <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('history.noScansDesc')}</p>
-            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
-              📸 {t('history.scanNow')} →
-            </Link>
-          </div>
+          <EmptyState
+            emoji="📜"
+            title={t('history.noScans')}
+            description={t('history.noScansDesc')}
+            action={
+              <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl text-sm">
+                📸 {t('history.scanNow')} →
+              </Link>
+            }
+          />
         ) : selected && r ? (
           <div>
             <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-sm text-lime-600 dark:text-lime-400 font-medium mb-5 hover:text-lime-700 dark:hover:text-lime-300 transition-colors group">

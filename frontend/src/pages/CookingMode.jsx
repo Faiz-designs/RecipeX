@@ -118,6 +118,28 @@ export default function CookingMode() {
         </button>
       </header>
 
+      <div className="sticky top-[64px] z-20 px-6 py-3 glass-nav border-t border-white/5">
+        <div className="flex items-center gap-1.5 justify-center max-w-2xl mx-auto">
+          <span className="text-xs text-stone-400 mr-2 shrink-0">{currentStep + 1}/{steps.length}</span>
+          <div className="flex items-center gap-1 flex-1 overflow-x-auto scrollbar-none">
+            {steps.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentStep(i)}
+                className={`shrink-0 rounded-full transition-all duration-300 ${
+                  i === currentStep
+                    ? 'w-8 h-1.5 bg-lime-400 shadow-lg shadow-lime-400/30'
+                    : i < currentStep
+                    ? 'w-2 h-2 bg-emerald-500/60 hover:bg-emerald-400'
+                    : 'w-2 h-2 bg-stone-600/60 hover:bg-stone-500'
+                }`}
+                aria-label={`Go to step ${i + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
       <div className="flex-1 flex flex-col lg:flex-row">
         <aside className="lg:w-80 glass-card p-6 border-b lg:border-b-0 lg:border-r">
           <h2 className="text-lg font-bold mb-4 flex items-center gap-2">

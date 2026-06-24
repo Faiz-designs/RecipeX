@@ -79,16 +79,11 @@ export default function Scanner({ onScanComplete }) {
     if (!image) { setError(t('scanner.selectImage')); return }
     setLoading(true); setError('')
     try {
-      const toBase64 = (file) => new Promise((resolve, reject) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = () => resolve(reader.result.split(',')[1])
-        reader.onerror = reject
-      })
-      const base64 = await toBase64(image)
       const token = getToken()
       const headers = token ? { Authorization: `Bearer ${token}` } : {}
-      const res = await axios.post(`${API}/scan/`, { image: base64 }, { headers })
+      const formData = new FormData()
+      formData.append('file', image)
+      const res = await axios.post(`${API}/scan/`, formData, { headers })
       if (onScanComplete) onScanComplete(res.data)
     } catch (err) {
       setError(err.response?.data?.message || t('scanner.scanFailed'))

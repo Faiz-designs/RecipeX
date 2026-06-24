@@ -93,17 +93,21 @@ export default function Home() {
           </p>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: '📷', title: 'Smart Scan', desc: 'Identify any vegetable instantly with AI' },
-              { icon: '🍳', title: 'Recipe Finder', desc: 'Get personalized recipes from your ingredients' },
-              { icon: '🥗', title: 'Nutrition Data', desc: 'Detailed macros, vitamins, and health insights' },
-              { icon: '📅', title: 'Meal Planner', desc: 'AI generates weekly meal plans for you' },
-              { icon: '🛒', title: 'Shopping List', desc: 'Auto-categorized lists with delivery links' },
-              { icon: '🌍', title: '8 Languages', desc: 'Available in English, Hindi, Telugu & more' },
+              { img: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=600&h=400&fit=crop', title: 'Smart Scan', desc: 'Identify any vegetable instantly with AI' },
+              { img: 'https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=600&h=400&fit=crop', title: 'Recipe Finder', desc: 'Get personalized recipes from your ingredients' },
+              { img: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600&h=400&fit=crop', title: 'Nutrition Data', desc: 'Detailed macros, vitamins, and health insights' },
+              { img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop', title: 'Meal Planner', desc: 'AI generates weekly meal plans for you' },
+              { img: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=600&h=400&fit=crop', title: 'Shopping List', desc: 'Auto-categorized lists with delivery links' },
+              { img: 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=600&h=400&fit=crop', title: '8 Languages', desc: 'Available in English, Hindi, Telugu & more' },
             ].map(f => (
-              <div key={f.title} className="feature-card glass-card rounded-2xl p-8 card-hover">
-                <div className="text-5xl mb-5">{f.icon}</div>
-                <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-2">{f.title}</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">{f.desc}</p>
+              <div key={f.title} className="feature-card glass-card rounded-2xl card-hover overflow-hidden group">
+                <div className="h-48 overflow-hidden">
+                  <img src={f.img} alt={f.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" />
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-2">{f.title}</h3>
+                  <p className="text-stone-500 text-sm leading-relaxed">{f.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -120,17 +124,20 @@ export default function Home() {
             </p>
             <div className="grid md:grid-cols-3 gap-8">
               {[
-                { step: '01', title: 'Scan', desc: 'Point your camera at any vegetable or upload a photo.' },
-                { step: '02', title: 'Discover', desc: 'Get instant AI analysis with recipes, nutrition, and tips.' },
-                { step: '03', title: 'Cook & Track', desc: 'Follow guided recipes, track nutrition, and plan meals.' },
+                { step: '01', img: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?w=600&h=400&fit=crop', title: 'Scan', desc: 'Point your camera at any vegetable or upload a photo.' },
+                { step: '02', img: 'https://images.unsplash.com/photo-1506368249639-73a05d6f6488?w=600&h=400&fit=crop', title: 'Discover', desc: 'Get instant AI analysis with recipes, nutrition, and tips.' },
+                { step: '03', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&h=400&fit=crop', title: 'Cook & Track', desc: 'Follow guided recipes, track nutrition, and plan meals.' },
               ].map(s => (
-                <div key={s.step} className="step-card glass-card rounded-2xl p-8 card-hover relative">
-                  <div className="text-6xl font-black text-red-600/10 font-display absolute top-4 right-6 leading-none">{s.step}</div>
-                  <div className="w-14 h-14 rounded-xl bg-red-500/15 border border-red-400/30 flex items-center justify-center text-2xl mb-6 relative">
-                    <span className="text-red-600 font-black font-display">{s.step}</span>
+                <div key={s.step} className="step-card glass-card rounded-2xl card-hover overflow-hidden">
+                  <div className="h-52 overflow-hidden relative">
+                    <img src={s.img} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute bottom-3 left-4 text-4xl font-black text-white/80 font-display leading-none">{s.step}</div>
                   </div>
-                  <h3 className="text-2xl font-bold text-stone-800 dark:text-stone-100 mb-3">{s.title}</h3>
-                  <p className="text-stone-500 leading-relaxed">{s.desc}</p>
+                  <div className="p-6">
+                    <h3 className="text-2xl font-bold text-stone-800 dark:text-stone-100 mb-3">{s.title}</h3>
+                    <p className="text-stone-500 leading-relaxed">{s.desc}</p>
+                  </div>
                 </div>
               ))}
             </div>

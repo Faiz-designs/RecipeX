@@ -147,8 +147,8 @@ html {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .dark .glass {
-  background: rgba(26, 21, 16, 0.7);
-  border-color: rgba(255, 255, 255, 0.05);
+  background: rgba(30, 35, 20, 0.75);
+  border-color: rgba(132, 204, 22, 0.15);
 }
 
 .btn-glass {
@@ -273,9 +273,9 @@ html {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 }
 .dark .glass-card {
-  background: rgba(26, 21, 16, 0.55);
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  background: rgba(26, 30, 18, 0.6);
+  border-color: rgba(132, 204, 22, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 .glass-nav {
   background: rgba(255, 255, 255, 0.65);
@@ -284,6 +284,17 @@ html {
   border-bottom: 1px solid rgba(255, 255, 255, 0.25);
 }
 .dark .glass-nav {
-  background: rgba(26, 21, 16, 0.65);
-  border-bottom-color: rgba(255, 255, 255, 0.05);
+  background: rgba(22, 26, 16, 0.75);
+  border-bottom-color: rgba(132, 204, 22, 0.12);
+}
+
+.glass-footer {
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.dark .glass-footer {
+  background: rgba(18, 22, 14, 0.65);
+  border-top-color: rgba(132, 204, 22, 0.08);
 }

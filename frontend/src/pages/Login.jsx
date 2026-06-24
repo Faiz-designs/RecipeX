@@ -40,15 +40,15 @@ export default function Login() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.username')}</label>
-                <input value={form.username} onChange={e => setForm({...form, username: e.target.value})} required className="w-full px-4 py-3 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400/60 focus:border-lime-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.username')} />
+                <input value={form.username} onChange={e => setForm({...form, username: e.target.value})} required className="w-full px-4 py-3 glass border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400/60 focus:border-lime-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.username')} />
               </div>
               <div>
                 <label className="block text-sm font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.password')}</label>
-                <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required className="w-full px-4 py-3 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400/60 focus:border-lime-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.password')} />
+                <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required className="w-full px-4 py-3 glass border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400/60 focus:border-lime-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.password')} />
               </div>
 
               {error && (
-                <div className="p-3.5 bg-red-50/80 dark:bg-red-900/30 backdrop-blur-sm border border-red-200/60 dark:border-red-800/60 rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2.5">
+                <div className="p-3.5 glass border border-red-300/50 dark:border-red-600/30 rounded-xl text-sm text-red-600 dark:text-red-400 flex items-center gap-2.5">
                   <span className="w-6 h-6 rounded-full bg-red-100 dark:bg-red-900/50 flex items-center justify-center shrink-0 text-xs">⚠</span>
                   {error}
                 </div>

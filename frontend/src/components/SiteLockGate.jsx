@@ -50,7 +50,7 @@ export default function SiteLockGate({ children }) {
   if (state === 'loading') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-stone-50 via-lime-50/20 to-white dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-lime-200 border-t-emerald-500 rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-lime-300/50 border-t-lime-500 rounded-full animate-spin shadow-lg shadow-lime-500/10" />
       </div>
     )
   }
@@ -72,10 +72,10 @@ export default function SiteLockGate({ children }) {
             onChange={e => { setPassword(e.target.value); setError('') }}
             placeholder="Enter site password"
             autoFocus
-            className="w-full px-4 py-3 bg-stone-50 dark:bg-stone-700/60 border border-stone-200 dark:border-stone-600 rounded-xl text-sm text-center text-stone-800 dark:text-stone-200 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-lime-400/50 transition-all"
+            className="w-full px-4 py-3 glass border border-stone-200 dark:border-stone-600 rounded-xl text-sm text-center text-stone-800 dark:text-stone-200 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-lime-400/50 transition-all"
           />
           {error && (
-            <p className="text-sm text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-lg px-3 py-2">{error}</p>
+            <p className="text-sm text-red-500 dark:text-red-400 glass rounded-lg px-3 py-2">{error}</p>
           )}
           <button
             type="submit"

@@ -103,10 +103,10 @@ export default function Scanner({ onScanComplete }) {
           <div><h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scanner.title')}</h2><p className="text-sm text-stone-400 dark:text-stone-500">{t('scanner.subtitle')}</p></div>
         </div>
 
-        <div className="relative glass-card rounded-2xl p-1.5 mb-6">
+        <div className="relative glass rounded-2xl p-1.5 mb-6">
           <div className="flex gap-1">
             {['upload', 'camera', 'fridge'].map(m => (
-              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-stone-600 text-lime-600 dark:text-lime-300 shadow-sm ring-1 ring-stone-200/50 dark:ring-stone-500/50' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
+              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-stone-600 text-lime-600 dark:text-lime-300 shadow-sm' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
                 <span className="flex items-center justify-center gap-2">
                   <span className={`text-base ${mode === m ? 'scale-110' : 'opacity-70'} transition-all duration-200`}>{m === 'upload' ? '📁' : m === 'camera' ? '📷' : '🧊'}</span>
                   <span>{m === 'upload' ? t('scanner.upload') : m === 'camera' ? t('scanner.camera') : t('fridgeMode.title')}</span>
@@ -174,7 +174,7 @@ export default function Scanner({ onScanComplete }) {
         {mode === 'fridge' && <FridgeScanner />}
 
         {mode !== 'fridge' && getFridgeItems().length > 0 && (
-          <div className="mt-4 p-3 rounded-xl bg-gradient-to-br from-lime-50 to-lime-50 dark:from-lime-900/20 dark:to-lime-900/20 border border-lime-200/60 dark:border-lime-700/30 flex items-center gap-2.5 text-sm">
+          <div className="mt-4 p-3 rounded-xl glass flex items-center gap-2.5 text-sm">
             <span className="text-lg">🧊</span>
             <span className="text-stone-600 dark:text-stone-300"><strong className="text-lime-600 dark:text-lime-400">{getFridgeItems().length} items</strong> in your fridge — matches will show in scan results</span>
           </div>

@@ -25,9 +25,9 @@ self.addEventListener('fetch', (e) => {
   if (requestUrl.hostname === 'FaizBasha05.pythonanywhere.com') {
     e.respondWith(
       fetch(e.request).then(res => {
+        const clone = res.clone()
         if (res.status === 200) {
-          const c = caches.open(API_CACHE)
-          c.then(cache => cache.put(e.request, res.clone()))
+          caches.open(API_CACHE).then(cache => cache.put(e.request, clone))
         }
         return res
       }).catch(() => caches.match(e.request))
@@ -39,9 +39,9 @@ self.addEventListener('fetch', (e) => {
   if (destination === 'document' || e.request.mode === 'navigate') {
     e.respondWith(
       fetch(e.request).then(res => {
+        const clone = res.clone()
         if (res.status === 200) {
-          const c = caches.open(CACHE)
-          c.then(cache => cache.put(e.request, res.clone()))
+          caches.open(CACHE).then(cache => cache.put(e.request, clone))
         }
         return res
       }).catch(() => caches.match(e.request))
@@ -52,9 +52,9 @@ self.addEventListener('fetch', (e) => {
   // Static assets — CacheFirst
   e.respondWith(
     caches.match(e.request).then(r => r || fetch(e.request).then(res => {
+      const clone = res.clone()
       if (res.status === 200) {
-        const c = caches.open(STATIC_CACHE)
-        c.then(cache => cache.put(e.request, res.clone()))
+        caches.open(STATIC_CACHE).then(cache => cache.put(e.request, clone))
       }
       return res
     }))

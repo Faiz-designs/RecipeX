@@ -2,17 +2,6 @@ import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import SEO from '../components/SEO'
 
-const techStack = [
-  { name: 'React', color: 'text-sky-600 dark:text-sky-400' },
-  { name: 'Vite', color: 'text-purple-600 dark:text-purple-400' },
-  { name: 'Tailwind', color: 'text-cyan-600 dark:text-cyan-400' },
-  { name: 'FastAPI', color: 'text-orange-600 dark:text-orange-400' },
-  { name: 'Groq AI', color: 'text-orange-600 dark:text-orange-400' },
-  { name: 'SQLite', color: 'text-blue-600 dark:text-blue-400' },
-  { name: 'PythonAnywhere', color: 'text-teal-600 dark:text-teal-400' },
-  { name: 'Vercel', color: 'text-stone-600 dark:text-stone-400' },
-]
-
 export default function About() {
   const { t } = useTranslation()
 
@@ -86,17 +75,7 @@ export default function About() {
           </p>
         </div>
 
-        <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-stone-800 dark:text-stone-100 mb-3">{t('about.techStack')}</h2>
-          <p className="text-stone-500 dark:text-stone-400 max-w-lg mx-auto">{t('about.techStack')}</p>
-        </div>
-        <div className="flex flex-wrap justify-center gap-3">
-          {techStack.map((tech, i) => (
-            <span key={i} className={`px-4 py-2 glass-card rounded-xl text-sm font-semibold shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all ${tech.color}`}>
-              {tech.name}
-            </span>
-          ))}
-        </div>
+
       </div>
     </div>
     </>

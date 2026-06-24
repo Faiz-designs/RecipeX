@@ -98,14 +98,14 @@ export default function Scanner({ onScanComplete }) {
     <div className="max-w-2xl mx-auto">
       <div className="glass-card rounded-2xl shadow-sm p-6 md:p-8 hover:shadow-lg transition-all duration-300">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center shadow-md ring-1 ring-emerald-500/20"><span className="text-lg">📸</span></div>
-          <div><h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scanner.title')}</h2><p className="text-sm text-slate-400 dark:text-slate-500">{t('scanner.subtitle')}</p></div>
+          <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center shadow-md ring-1 ring-red-600/20"><span className="text-lg">📸</span></div>
+          <div><h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scanner.title')}</h2><p className="text-sm text-stone-400 dark:text-stone-500">{t('scanner.subtitle')}</p></div>
         </div>
 
         <div className="relative glass-card rounded-2xl p-1.5 mb-6">
           <div className="flex gap-1">
             {['upload', 'camera', 'fridge'].map(m => (
-              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-slate-600 text-emerald-600 dark:text-emerald-300 shadow-sm ring-1 ring-slate-200/50 dark:ring-slate-500/50' : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
+              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-stone-600 text-red-600 dark:text-red-300 shadow-sm ring-1 ring-stone-200/50 dark:ring-stone-500/50' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-white/50 dark:hover:bg-stone-600/30'}`}>
                 <span className="flex items-center justify-center gap-2">
                   <span className={`text-base ${mode === m ? 'scale-110' : 'opacity-70'} transition-all duration-200`}>{m === 'upload' ? '📁' : m === 'camera' ? '📷' : '🧊'}</span>
                   <span>{m === 'upload' ? t('scanner.upload') : m === 'camera' ? t('scanner.camera') : t('fridgeMode.title')}</span>
@@ -116,18 +116,18 @@ export default function Scanner({ onScanComplete }) {
         </div>
 
         {mode === 'upload' && (
-          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-2xl border-2 transition-all duration-300 cursor-pointer overflow-hidden ${dragOver ? 'border-emerald-400 bg-emerald-50/80 dark:bg-emerald-900/30 scale-[1.01] shadow-lg shadow-emerald-500/10' : 'border-dashed border-slate-200 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-500 bg-slate-50/50 dark:bg-slate-800/50 hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20'}`}>
+          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-2xl border-2 transition-all duration-300 cursor-pointer overflow-hidden ${dragOver ? 'border-red-400 bg-red-50/80 dark:bg-red-900/30 scale-[1.01] shadow-lg shadow-red-600/10' : 'border-dashed border-stone-200 dark:border-stone-600 hover:border-red-300 dark:hover:border-red-500 bg-stone-50/50 dark:bg-stone-800/50 hover:bg-red-50/30 dark:hover:bg-red-900/20'}`}>
             <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-4">
                 <div className="relative w-16 h-16">
-                  <div className="absolute inset-0 rounded-full bg-emerald-100 dark:bg-emerald-900/40 animate-ping opacity-25" />
-                  <div className="absolute inset-0 border-[3px] border-emerald-200/60 dark:border-emerald-800/60 rounded-full" />
-                  <div className="absolute inset-0 border-[3px] border-transparent border-t-emerald-500 rounded-full animate-spin" />
+                  <div className="absolute inset-0 rounded-full bg-red-50 dark:bg-red-900/40 animate-ping opacity-25" />
+                  <div className="absolute inset-0 border-[3px] border-red-200/60 dark:border-red-800/60 rounded-full" />
+                  <div className="absolute inset-0 border-[3px] border-transparent border-t-red-600 rounded-full animate-spin" />
                   <div className="absolute inset-0 flex items-center justify-center"><span className="text-xl">🔍</span></div>
                 </div>
-                <p className="text-emerald-600 dark:text-emerald-400 font-bold text-lg">{t('scanner.analyzing')}</p>
-                <p className="text-slate-400 dark:text-slate-500 text-sm">{t('scanner.identifying')}</p>
+                <p className="text-red-600 dark:text-red-400 font-bold text-lg">{t('scanner.analyzing')}</p>
+                <p className="text-stone-400 dark:text-stone-500 text-sm">{t('scanner.identifying')}</p>
               </div>
             ) : preview ? (
               <div className="relative group">
@@ -137,12 +137,12 @@ export default function Scanner({ onScanComplete }) {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="w-16 h-16 bg-gradient-to-br from-emerald-100 to-emerald-200 dark:from-emerald-900/50 dark:to-emerald-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-emerald-500/10">
+                <div className="w-16 h-16 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-900/50 dark:to-red-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-red-600/10">
                   <span className="drop-shadow-sm">📸</span>
                 </div>
                 <div>
-                  <p className="text-slate-600 dark:text-slate-300 text-lg font-semibold">{t('scanner.clickOrDrag')}</p>
-                  <p className="text-slate-400 dark:text-slate-500 text-sm mt-0.5">{t('scanner.supports')}</p>
+                  <p className="text-stone-600 dark:text-stone-300 text-lg font-semibold">{t('scanner.clickOrDrag')}</p>
+                  <p className="text-stone-400 dark:text-stone-500 text-sm mt-0.5">{t('scanner.supports')}</p>
                 </div>
               </div>
             )}
@@ -154,19 +154,19 @@ export default function Scanner({ onScanComplete }) {
             {!stream ? (
               <div className="flex flex-col items-center py-12 gap-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/50 dark:to-blue-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-blue-500/10">📷</div>
-                <p className="text-slate-500 dark:text-slate-400">{t('scanner.clickToStartCamera')}</p>
-                <button onClick={startCamera} aria-label="Camera capture" className="px-6 py-2.5 btn-glass btn-glass-blue rounded-xl font-semibold active:scale-[0.98]">{t('scanner.startCamera')}</button>
+                <p className="text-stone-500 dark:text-stone-400">{t('scanner.clickToStartCamera')}</p>
+                <button onClick={startCamera} aria-label="Camera capture" className="px-6 py-2.5 btn-glass btn-glass-red rounded-xl font-semibold active:scale-[0.98]">{t('scanner.startCamera')}</button>
               </div>
             ) : (
               <div>
-                <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5 dark:bg-black/20" />
-                <div className="flex gap-2 p-3 bg-slate-100/50 dark:bg-slate-700/50 backdrop-blur-sm">
-                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 btn-glass btn-glass-emerald rounded-xl font-semibold active:scale-[0.98]">{t('scanner.capturePhoto')}</button>
-                  <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-slate-200 dark:bg-slate-600 text-slate-600 dark:text-slate-300 rounded-xl font-medium hover:bg-slate-300 dark:hover:bg-slate-500 transition-all duration-200 active:scale-[0.98]">{t('scanner.cancel')}</button>
+                  <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5 dark:bg-black/20" />
+                <div className="flex gap-2 p-3 bg-stone-100/50 dark:bg-stone-700/50 backdrop-blur-sm">
+                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 btn-glass btn-glass-red rounded-xl font-semibold active:scale-[0.98]">{t('scanner.capturePhoto')}</button>
+                  <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-stone-200 dark:bg-stone-600 text-stone-600 dark:text-stone-300 rounded-xl font-medium hover:bg-stone-300 dark:hover:bg-stone-500 transition-all duration-200 active:scale-[0.98]">{t('scanner.cancel')}</button>
                 </div>
               </div>
             )}
-            {preview && <div className="relative border-t border-slate-200 dark:border-slate-600"><img src={preview} alt="Captured" loading="lazy" className="w-full max-h-48 object-contain p-3" /></div>}
+            {preview && <div className="relative border-t border-stone-200 dark:border-stone-600"><img src={preview} alt="Captured" loading="lazy" className="w-full max-h-48 object-contain p-3" /></div>}
           </div>
         )}
 
@@ -182,10 +182,10 @@ export default function Scanner({ onScanComplete }) {
         )}
 
         <div className="flex gap-3 mt-6">
-          <button onClick={handleScan} disabled={loading || !image} className="flex-1 btn-glass btn-glass-emerald py-3 rounded-xl text-base flex items-center justify-center gap-2 active:scale-[0.98]">
+          <button onClick={handleScan} disabled={loading || !image} className="flex-1 btn-glass btn-glass-red py-3 rounded-xl text-base flex items-center justify-center gap-2 active:scale-[0.98]">
             {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('scanner.analyzing')}</> : t('scanner.scanAndAnalyze')}
           </button>
-          <button onClick={handleDemo} disabled={loading} className="px-6 py-3 btn-glass btn-glass-purple flex items-center justify-center gap-2 active:scale-[0.98]">
+          <button onClick={handleDemo} disabled={loading} className="px-6 py-3 btn-glass btn-glass-gold flex items-center justify-center gap-2 active:scale-[0.98]">
             {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('common.loading')}</> : t('scanner.demoMode')}
           </button>
         </div>

@@ -1,193 +1,155 @@
-import { Link } from 'react-router-dom'
 import { useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import SEO from '../components/SEO'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function Home() {
   const { t } = useTranslation()
-  const sectionRef = useRef(null)
+  const heroRef = useRef()
+  const statsRef = useRef()
+  const featuresRef = useRef()
+  const stepsRef = useRef()
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fadeInUp')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    if (sectionRef.current) {
-      const cards = sectionRef.current.querySelectorAll('.animate-on-scroll')
-      cards.forEach((el) => observer.observe(el))
-    }
-
-    return () => observer.disconnect()
+    const ctx = gsap.context(() => {
+      gsap.from('.hero-title', { y: 80, opacity: 0, duration: 1, ease: 'power4.out' })
+      gsap.from('.hero-sub', { y: 40, opacity: 0, duration: 0.8, delay: 0.3, ease: 'power3.out' })
+      gsap.from('.hero-cta', { y: 30, opacity: 0, duration: 0.6, delay: 0.6, ease: 'power3.out', stagger: 0.15 })
+      gsap.from('.hero-image', { scale: 1.1, opacity: 0, duration: 1.2, delay: 0.2, ease: 'power4.out' })
+      gsap.from('.stat-item', { y: 60, opacity: 0, duration: 0.8, stagger: 0.15, scrollTrigger: { trigger: statsRef.current, start: 'top 80%' } })
+      gsap.from('.feature-card', { y: 80, opacity: 0, duration: 0.8, stagger: 0.12, scrollTrigger: { trigger: featuresRef.current, start: 'top 75%' } })
+      gsap.from('.step-card', { x: -60, opacity: 0, duration: 0.7, stagger: 0.2, scrollTrigger: { trigger: stepsRef.current, start: 'top 75%' } })
+    })
+    return () => ctx.revert()
   }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fadeInUp')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    const el = document.getElementById('stats-section')
-    if (el) {
-      const statCards = el.querySelectorAll('.animate-stat')
-      statCards.forEach((c) => observer.observe(c))
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fadeInUp')
-            observer.unobserve(entry.target)
-          }
-        })
-      },
-      { threshold: 0.1 }
-    )
-
-    const el = document.getElementById('features-section')
-    if (el) {
-      const featureCards = el.querySelectorAll('.animate-feature')
-      featureCards.forEach((c) => observer.observe(c))
-    }
-
-    return () => observer.disconnect()
-  }, [])
-
-  const features = [
-    { emoji: '📸', title: t('home.features.smartScan'), desc: t('home.features.smartScanDesc') },
-    { emoji: '🍳', title: t('home.features.threeLevelRecipes'), desc: t('home.features.threeLevelRecipesDesc') },
-    { emoji: '🥦', title: t('home.features.nutritionPer100g'), desc: t('home.features.nutritionPer100gDesc') },
-    { emoji: '🩺', title: t('home.features.allergyReport'), desc: t('home.features.allergyReportDesc') },
-    { emoji: '🔄', title: t('home.features.smartSubstitutions'), desc: t('home.features.smartSubstitutionsDesc') },
-    { emoji: '📊', title: t('home.features.mealBalanceScore'), desc: t('home.features.mealBalanceScoreDesc') },
-  ]
-
-  const stats = [
-    { value: '5+', label: t('home.stats.vegetables') },
-    { value: '15+', label: t('home.stats.recipes') },
-    { value: '9', label: t('home.stats.allergyGroups') },
-    { value: '100%', label: t('home.stats.free') },
-  ]
 
   return (
     <>
       <SEO title="Home" description="Your smart kitchen companion. Scan vegetables, get AI-powered recipes, nutrition, and allergy insights." />
-      <div ref={sectionRef}>
-      <div className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-600 animate-gradient py-20 md:py-28">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(255,255,255,0.15)_0%,_transparent_60%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-15">
-          <div className="absolute top-10 left-10 text-7xl animate-float stagger-1">🥦</div>
-          <div className="absolute top-20 right-20 text-6xl animate-float stagger-3">🍅</div>
-          <div className="absolute bottom-16 left-1/4 text-5xl animate-float stagger-5">🥕</div>
-          <div className="absolute top-1/3 right-1/4 text-6xl animate-float stagger-2">🥬</div>
-          <div className="absolute bottom-20 right-10 text-5xl animate-float stagger-6">🌶️</div>
-          <div className="absolute top-40 left-1/2 text-4xl animate-float stagger-4">🧄</div>
-        </div>
-        <div className="relative max-w-3xl mx-auto text-center px-4">
-          <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm rounded-full px-5 py-1.5 mb-6 border border-white/20 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-            <span className="w-2 h-2 rounded-full bg-emerald-300 animate-pulse" />
-            <span className="text-sm font-medium text-white/90">{t('home.aiPowered')}</span>
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 leading-tight tracking-tight">
-            {t('home.heroTitle')}
-            <span className="block text-emerald-200 mt-2">{t('home.heroTitleLine2')}</span>
-          </h1>
-          <p className="text-lg md:text-xl text-emerald-50/85 mb-10 leading-relaxed max-w-2xl mx-auto">
-            {t('home.heroDesc')}
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              to="/scan"
-              className="group inline-flex items-center gap-2 btn-glass btn-glass-white px-8 py-3.5 rounded-xl text-lg active:scale-[0.97]"
-            >
-              {t('home.startScanning')}
-              <span className="inline-block group-hover:translate-x-1.5 transition-transform duration-300 ease-out">→</span>
-            </Link>
-            <Link
-              to="/scan"
-              className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white border border-white/30 px-8 py-3.5 rounded-xl text-lg font-semibold hover:bg-white/20 hover:border-white/50 transition-all duration-300"
-            >
-              {t('home.tryDemo')} <span>🎮</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <div id="stats-section" className="max-w-5xl mx-auto px-4 -mt-10 relative z-10">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stats.map((s, i) => (
-            <div
-              key={i}
-              className="animate-stat opacity-0 relative glass-card rounded-2xl shadow-lg p-5 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden"
-              style={{ animationDelay: `${i * 0.12}s` }}
-            >
-              <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-emerald-500 to-teal-500 rounded-l-2xl" />
-              <div className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400">{s.value}</div>
-              <div className="text-sm text-slate-500 dark:text-slate-400 font-medium mt-1">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div id="features-section" className="max-w-5xl mx-auto px-4 py-20">
-        <div className="text-center mb-12 animate-on-scroll opacity-0">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-slate-800 dark:text-slate-100 mb-3">{t('home.featuresTitle')}</h2>
-          <p className="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">{t('home.featuresDesc')}</p>
-        </div>
-        <div className="grid md:grid-cols-3 gap-5">
-          {features.map((item, i) => (
-            <div
-              key={i}
-              className="animate-feature opacity-0 group relative glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:shadow-emerald-500/5 hover:border-emerald-300 dark:hover:border-emerald-600 hover:-translate-y-1.5 transition-all duration-300"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            >
-              <div className="w-14 h-14 bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-800/60 dark:to-teal-800/60 rounded-full flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 ring-1 ring-emerald-200/50 dark:ring-emerald-700/30">
-                {item.emoji}
+      <div>
+        {/* Hero */}
+        <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-stone-900 via-red-950/70 to-stone-900" />
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyek0zNiAyNHYySDI0di0yaDEyeiIvPjwvZz48L2c+PC9zdmc+')] opacity-40" />
+          <div className="absolute top-20 right-[-10%] w-[600px] h-[600px] rounded-full bg-red-600/20 blur-[120px]" />
+          <div className="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-rose-600/15 blur-[100px]" />
+          <div className="relative max-w-6xl mx-auto px-6 py-32 w-full">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <span className="inline-block px-4 py-2 bg-red-500/20 backdrop-blur-md border border-red-400/30 rounded-full text-red-300 text-sm font-semibold mb-6">AI-Powered Kitchen Assistant</span>
+                <h1 className="hero-title text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[0.9] mb-6">
+                  <span className="font-display">RecipeX</span>
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-rose-400 to-red-300">AI</span>
+                </h1>
+                <p className="hero-sub text-lg md:text-xl text-stone-300 max-w-lg mb-8 leading-relaxed">
+                  Scan any vegetable with your camera and get instant recipes, nutrition, storage tips, and more — powered by artificial intelligence.
+                </p>
+                <div className="hero-cta flex flex-wrap gap-4">
+                  <Link to="/scan" className="btn-glass btn-glass-red px-8 py-4 rounded-xl text-lg">Start Scanning</Link>
+                  <Link to="/recipes" className="btn-glass btn-glass-white px-8 py-4 rounded-xl text-lg">Explore Recipes</Link>
+                </div>
               </div>
-              <h3 className="font-bold text-slate-800 dark:text-slate-100 mb-2 text-lg">{item.title}</h3>
-              <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{item.desc}</p>
+              <div className="hero-image relative">
+                <div className="aspect-square max-w-md mx-auto rounded-3xl bg-gradient-to-br from-red-500/30 via-rose-600/20 to-red-500/10 border border-red-400/20 backdrop-blur-sm flex items-center justify-center overflow-hidden">
+                  <div className="text-center p-8">
+                    <div className="text-8xl mb-4 animate-float">🥗</div>
+                    <p className="text-stone-300 text-lg font-medium">Snap. Scan. Cook.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-          ))}
-        </div>
-      </div>
+          </div>
+        </section>
 
-      <div className="relative overflow-hidden bg-gradient-to-br from-emerald-700 via-emerald-600 to-teal-600 py-16">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(255,255,255,0.1)_0%,_transparent_60%)] pointer-events-none" />
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-6 left-10 text-5xl animate-float stagger-2">🥦</div>
-          <div className="absolute bottom-6 right-10 text-5xl animate-float stagger-4">🍳</div>
-        </div>
-        <div className="relative max-w-3xl mx-auto text-center px-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">{t('home.ctaTitle')}</h2>
-          <p className="text-emerald-100/85 mb-8 max-w-lg mx-auto">{t('home.ctaDesc')}</p>
-          <Link
-            to="/scan"
-            className="inline-flex items-center gap-2 btn-glass btn-glass-white px-10 py-4 rounded-xl text-lg active:scale-[0.97]"
-          >
-            {t('home.getStarted')} <span>→</span>
-          </Link>
-        </div>
+        {/* Stats */}
+        <section ref={statsRef} className="relative -mt-20 z-10 max-w-4xl mx-auto px-6">
+          <div className="glass-card rounded-2xl p-8 grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: '50K+', label: 'Foods Scanned' },
+              { value: '10K+', label: 'Recipes' },
+              { value: '5K+', label: 'Active Users' },
+              { value: '99%', label: 'Accuracy' },
+            ].map(s => (
+              <div key={s.label} className="stat-item text-center">
+                <div className="text-3xl md:text-4xl font-black text-red-600 font-display">{s.value}</div>
+                <div className="text-sm text-stone-500 mt-1">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* Features */}
+        <section ref={featuresRef} className="max-w-6xl mx-auto px-6 py-28">
+          <h2 className="text-3xl md:text-5xl font-black text-center mb-4 font-display text-stone-800 dark:text-stone-100">
+            Everything You Need
+          </h2>
+          <p className="text-stone-500 text-center max-w-xl mx-auto mb-16">
+            From scanning to cooking, RecipeX AI has you covered.
+          </p>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { icon: '📷', title: 'Smart Scan', desc: 'Identify any vegetable instantly with AI' },
+              { icon: '🍳', title: 'Recipe Finder', desc: 'Get personalized recipes from your ingredients' },
+              { icon: '🥗', title: 'Nutrition Data', desc: 'Detailed macros, vitamins, and health insights' },
+              { icon: '📅', title: 'Meal Planner', desc: 'AI generates weekly meal plans for you' },
+              { icon: '🛒', title: 'Shopping List', desc: 'Auto-categorized lists with delivery links' },
+              { icon: '🌍', title: '8 Languages', desc: 'Available in English, Hindi, Telugu & more' },
+            ].map(f => (
+              <div key={f.title} className="feature-card glass-card rounded-2xl p-8 card-hover">
+                <div className="text-5xl mb-5">{f.icon}</div>
+                <h3 className="text-xl font-bold text-stone-800 dark:text-stone-100 mb-2">{f.title}</h3>
+                <p className="text-stone-500 text-sm leading-relaxed">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section ref={stepsRef} className="bg-stone-50 dark:bg-stone-800/50 py-28">
+          <div className="max-w-6xl mx-auto px-6">
+            <h2 className="text-3xl md:text-5xl font-black text-center mb-4 font-display text-stone-800 dark:text-stone-100">
+              How It Works
+            </h2>
+            <p className="text-stone-500 text-center max-w-xl mx-auto mb-16">
+              Three simple steps to smarter cooking.
+            </p>
+            <div className="grid md:grid-cols-3 gap-8">
+              {[
+                { step: '01', title: 'Scan', desc: 'Point your camera at any vegetable or upload a photo.' },
+                { step: '02', title: 'Discover', desc: 'Get instant AI analysis with recipes, nutrition, and tips.' },
+                { step: '03', title: 'Cook & Track', desc: 'Follow guided recipes, track nutrition, and plan meals.' },
+              ].map(s => (
+                <div key={s.step} className="step-card glass-card rounded-2xl p-8 card-hover relative">
+                  <div className="text-6xl font-black text-red-600/10 font-display absolute top-4 right-6 leading-none">{s.step}</div>
+                  <div className="w-14 h-14 rounded-xl bg-red-500/15 border border-red-400/30 flex items-center justify-center text-2xl mb-6 relative">
+                    <span className="text-red-600 font-black font-display">{s.step}</span>
+                  </div>
+                  <h3 className="text-2xl font-bold text-stone-800 dark:text-stone-100 mb-3">{s.title}</h3>
+                  <p className="text-stone-500 leading-relaxed">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom CTA */}
+        <section className="max-w-6xl mx-auto px-6 py-28 text-center">
+          <div className="glass-card rounded-3xl p-16 max-w-3xl mx-auto">
+            <h2 className="text-3xl md:text-5xl font-black mb-6 font-display text-stone-800 dark:text-stone-100">
+              Ready to Transform Your Kitchen?
+            </h2>
+            <p className="text-stone-500 max-w-lg mx-auto mb-10">
+              Join thousands of smart cooks using AI to reduce waste, eat better, and save time.
+            </p>
+            <Link to="/signup" className="btn-glass btn-glass-red px-10 py-4 rounded-xl text-lg inline-block">Get Started Free</Link>
+          </div>
+        </section>
       </div>
-    </div>
     </>
   )
 }

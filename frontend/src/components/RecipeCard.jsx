@@ -100,8 +100,8 @@ export function RecipeCardItem({
 
   if (!r) return null
 
-  const headerGradient = config?.color || config?.header || 'from-emerald-500 to-emerald-600'
-  const stepBadge = config?.step || config?.badge || 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300'
+  const headerGradient = config?.color || config?.header || 'from-red-600 to-red-700'
+  const stepBadge = config?.step || config?.badge || 'bg-red-50 dark:bg-red-900/60 text-red-700 dark:text-red-300'
   const label = config?.label || level || ''
 
   const groups = stepGroups(r.steps)
@@ -174,25 +174,25 @@ export function RecipeCardItem({
       <div className="p-5">
         {/* Servings & Unit Controls */}
         <div className="flex items-center gap-2 mb-4">
-          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('recipeCard.scale')}:</span>
-          <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-700/50 rounded-lg p-0.5">
+          <span className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide">{t('recipeCard.scale')}:</span>
+          <div className="flex items-center gap-1.5 bg-stone-100 dark:bg-stone-700/50 rounded-lg p-0.5">
             <button
               onClick={() => setServings(Math.max(1, servings - 1))}
-              className="w-7 h-7 rounded-md bg-white dark:bg-slate-600 text-slate-600 dark:text-slate-300 flex items-center justify-center text-base font-bold hover:bg-emerald-50 dark:hover:bg-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all shadow-sm"
+              className="w-7 h-7 rounded-md bg-white dark:bg-stone-600 text-stone-600 dark:text-stone-300 flex items-center justify-center text-base font-bold hover:bg-red-50 dark:hover:bg-stone-500 hover:text-red-600 dark:hover:text-red-400 transition-all shadow-sm"
             >−</button>
-            <span className="text-sm font-bold text-slate-700 dark:text-slate-200 min-w-[2.5rem] text-center">{servings}</span>
+            <span className="text-sm font-bold text-stone-700 dark:text-stone-200 min-w-[2.5rem] text-center">{servings}</span>
             <button
               onClick={() => setServings(Math.min(20, servings + 1))}
-              className="w-7 h-7 rounded-md bg-white dark:bg-slate-600 text-slate-600 dark:text-slate-300 flex items-center justify-center text-base font-bold hover:bg-emerald-50 dark:hover:bg-slate-500 hover:text-emerald-600 dark:hover:text-emerald-400 transition-all shadow-sm"
+              className="w-7 h-7 rounded-md bg-white dark:bg-stone-600 text-stone-600 dark:text-stone-300 flex items-center justify-center text-base font-bold hover:bg-red-50 dark:hover:bg-stone-500 hover:text-red-600 dark:hover:text-red-400 transition-all shadow-sm"
             >+</button>
           </div>
-          <span className="text-xs text-slate-400 dark:text-slate-500">{t('recipeCard.servings')}</span>
+          <span className="text-xs text-stone-400 dark:text-stone-500">{t('recipeCard.servings')}</span>
           <button
             onClick={() => setUnitSystem(unitSystem === 'metric' ? 'imperial' : 'metric')}
             className={`ml-auto text-xs font-bold px-3 py-1.5 rounded-xl border transition-all duration-200 ${
               unitSystem === 'metric'
-                ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-600 dark:text-emerald-400 border-emerald-200 dark:border-emerald-700 shadow-sm'
-                : 'bg-white dark:bg-slate-700 text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-600 hover:border-emerald-300 dark:hover:border-emerald-600'
+                ? 'bg-red-50 dark:bg-red-900/40 text-red-600 dark:text-red-400 border-red-200 dark:border-red-700 shadow-sm'
+                : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-red-300 dark:hover:border-red-600'
             }`}
           >
             {unitSystem === 'metric' ? t('recipeCard.metric') : t('recipeCard.imperial')}
@@ -203,10 +203,10 @@ export function RecipeCardItem({
         {r.additional_ingredients_required?.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wide">{t('recipes.youWillNeed')}</p>
+              <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide">{t('recipes.youWillNeed')}</p>
               <button
                 onClick={gatherAll}
-                className="text-xs text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 font-semibold transition-colors"
+                className="text-xs text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-semibold transition-colors"
               >
                 {checkedIngredients.size === r.additional_ingredients_required.length && checkedIngredients.size > 0
                   ? t('recipeCard.checked')
@@ -226,17 +226,17 @@ export function RecipeCardItem({
                     key={i}
                     className={`cursor-pointer text-xs px-3 py-1 rounded-full font-semibold border transition-all duration-200 ${
                       checked
-                        ? 'bg-slate-100 dark:bg-slate-700 text-slate-400 dark:text-slate-500 border-slate-200 dark:border-slate-600 line-through shadow-sm'
+                        ? 'bg-stone-100 dark:bg-stone-700 text-stone-400 dark:text-stone-500 border-stone-200 dark:border-stone-600 line-through shadow-sm'
                         : inPantry
-                          ? 'bg-emerald-50 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300 border-emerald-200/80 dark:border-emerald-700/60 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 hover:shadow-sm active:scale-95'
+                          ? 'bg-red-50 dark:bg-red-900/40 text-red-700 dark:text-red-300 border-red-200/80 dark:border-red-700/60 hover:bg-red-100 dark:hover:bg-red-900/60 hover:shadow-sm active:scale-95'
                           : 'bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-700/60 hover:bg-amber-100 dark:hover:bg-amber-900/60 hover:shadow-sm active:scale-95'
                     }`}
                   >
                     <input type="checkbox" checked={checked} onChange={() => toggleChecked(i)} className="sr-only" />
                     <span className={`inline-block w-3.5 h-3.5 rounded border-2 mr-1.5 align-middle transition-all duration-200 ${
                       checked
-                        ? 'bg-emerald-500 border-emerald-500'
-                        : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-500'
+                        ? 'bg-red-600 border-red-600'
+                        : 'bg-white dark:bg-stone-800 border-stone-300 dark:border-stone-500'
                     }`}>
                       {checked && <svg className="w-full h-full text-white" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
                     </span>
@@ -259,17 +259,17 @@ export function RecipeCardItem({
                 <div key={gi} className="mb-5">
                   <div className="flex items-center gap-2 mb-3">
                     <div className={`w-1.5 h-1.5 rounded-full ${stepBadge}`} />
-                    <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wide">
+                    <span className="text-xs font-semibold text-stone-400 dark:text-stone-500 uppercase tracking-wide">
                       {t('recipeCard.stepGroup', { start, end })}
                     </span>
                   </div>
-                  <div className="relative pl-6 border-l-2 border-slate-200 dark:border-slate-600 space-y-4">
+                  <div className="relative pl-6 border-l-2 border-stone-200 dark:border-stone-600 space-y-4">
                     {group.map((step, si) => {
                       const globalIdx = gi * 3 + si
                       return (
                         <div key={si} className="relative group/step">
-                          <div className={`absolute -left-[1.85rem] top-1 w-3 h-3 rounded-full bg-white dark:bg-slate-800 border-2 ${stepBadge} shadow-sm transition-transform duration-200 group-hover/step:scale-125`} />
-                          <div className="text-sm text-slate-600 dark:text-slate-300 ml-1 leading-relaxed">{globalIdx + 1}. {step}</div>
+                          <div className={`absolute -left-[1.85rem] top-1 w-3 h-3 rounded-full bg-white dark:bg-stone-800 border-2 ${stepBadge} shadow-sm transition-transform duration-200 group-hover/step:scale-125`} />
+                          <div className="text-sm text-stone-600 dark:text-stone-300 ml-1 leading-relaxed">{globalIdx + 1}. {step}</div>
                         </div>
                       )
                     })}
@@ -284,7 +284,7 @@ export function RecipeCardItem({
         {r.steps?.length > 3 && (
           <button
             onClick={handleToggleExpand}
-            className="text-sm font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 mt-2 mb-1 transition-all duration-200 inline-flex items-center gap-1"
+            className="text-sm font-bold text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 mt-2 mb-1 transition-all duration-200 inline-flex items-center gap-1"
           >
             {isExpanded ? <>{t('recipes.showLess')} ↑</> : <>+{r.steps.length - 3} {t('recipes.moreSteps')} ↓</>}
           </button>
@@ -292,9 +292,9 @@ export function RecipeCardItem({
 
         {/* Plating Suggestion */}
         {r.plating_suggestion && (
-          <div className="mt-4 pt-4 border-t border-dashed border-slate-100 dark:border-slate-700">
-            <p className="text-xs text-slate-500 dark:text-slate-400 italic leading-relaxed flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center text-xs shrink-0 mt-0.5">💡</span>
+            <div className="mt-4 pt-4 border-t border-dashed border-stone-100 dark:border-stone-700">
+            <p className="text-xs text-stone-500 dark:text-stone-400 italic leading-relaxed flex items-start gap-2">
+              <span className="w-5 h-5 rounded-full bg-red-50 dark:bg-red-900/40 flex items-center justify-center text-xs shrink-0 mt-0.5">💡</span>
               <span>{r.plating_suggestion}</span>
             </p>
           </div>
@@ -305,14 +305,14 @@ export function RecipeCardItem({
 
         {/* Cost & Budget Info */}
         <div className="flex items-center gap-3 mt-3">
-          {r.servings && <span className="text-xs text-slate-400 dark:text-slate-500">🍽 {servings} {t('recipes.servings')}</span>}
-          {r.estimated_cost && <span className="text-xs font-semibold text-emerald-600 dark:text-emerald-400">💰 ~{r.estimated_cost}</span>}
-          {r.budget_friendly && <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-semibold">{t('recipes.budget')} 👍</span>}
+          {r.servings && <span className="text-xs text-stone-400 dark:text-stone-500">🍽 {servings} {t('recipes.servings')}</span>}
+          {r.estimated_cost && <span className="text-xs font-semibold text-red-600 dark:text-red-400">💰 ~{r.estimated_cost}</span>}
+          {r.budget_friendly && <span className="text-xs px-2.5 py-0.5 rounded-full bg-red-50 dark:bg-red-900/50 text-red-700 dark:text-red-300 font-semibold">{t('recipes.budget')} 👍</span>}
         </div>
 
         {/* Action Buttons (Add to List / Save / Share / Cooking Mode) */}
         {showActions && (
-          <div className="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+          <div className="grid grid-cols-4 gap-2 mt-4 pt-4 border-t border-stone-100 dark:border-stone-700">
             <button
               onClick={handleAddToList}
               aria-label={t('recipes.addToList')}
@@ -337,7 +337,7 @@ export function RecipeCardItem({
             <Link
               to="/cooking-mode"
               state={{ recipe: r }}
-              className="flex items-center justify-center gap-1.5 text-xs font-semibold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-700/50 rounded-xl px-2 py-2.5 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-all duration-200 hover:shadow-sm active:scale-[0.97] text-center"
+              className="flex items-center justify-center gap-1.5 text-xs font-semibold bg-red-50 dark:bg-red-900/30 text-red-700 dark:text-red-300 border border-red-200/80 dark:border-red-700/50 rounded-xl px-2 py-2.5 hover:bg-red-100 dark:hover:bg-red-900/50 transition-all duration-200 hover:shadow-sm active:scale-[0.97] text-center"
             >
               <span className="text-base">👨‍🍳</span>
               <span>{t('cookingMode.start')}</span>
@@ -361,7 +361,7 @@ export default function RecipeCard({ recipes, showActions }) {
 
   const levels = ['easy', 'intermediate', 'advanced']
   const levelConfig = {
-    easy: { color: 'from-emerald-500 to-emerald-600', badge: 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300', step: 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300' },
+    easy: { color: 'from-red-600 to-red-700', badge: 'bg-red-50 dark:bg-red-900/60 text-red-700 dark:text-red-300', step: 'bg-red-50 dark:bg-red-900/60 text-red-700 dark:text-red-300' },
     intermediate: { color: 'from-amber-500 to-amber-600', badge: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300', step: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300' },
     advanced: { color: 'from-red-500 to-red-600', badge: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300', step: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300' },
   }
@@ -380,8 +380,8 @@ export default function RecipeCard({ recipes, showActions }) {
     <div className="mb-8">
       <div className="flex items-center justify-between gap-4 mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-gradient-to-br from-emerald-400 to-emerald-600 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-emerald-500/20">🍳</div>
-          <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('scan.sections.recipes')}</h2>
+          <div className="w-9 h-9 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-red-600/20">🍳</div>
+          <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scan.sections.recipes')}</h2>
         </div>
         <PersonalizationBar onAgeGroupChange={handleAgeGroupChange} />
       </div>

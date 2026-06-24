@@ -27,26 +27,26 @@ export default function NutritionTable({ nutrition }) {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
-        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('nutrition.title')}</h2>
+        <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-rose-600 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
+        <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('nutrition.title')}</h2>
       </div>
       <div className="overflow-x-auto rounded-2xl shadow-sm glass-card">
         <table className="w-full">
           <thead>
-            <tr className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/40 dark:to-teal-900/40">
-              <th className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 whitespace-nowrap">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
-              {nutrition.map(n => <th key={n.vegetable_id} className="p-3 text-left text-sm font-bold text-slate-700 dark:text-slate-200 border-b border-slate-100 dark:border-slate-700 whitespace-nowrap">{n.vegetable_name}</th>)}
+            <tr className="bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-900/40 dark:to-rose-900/40">
+              <th className="p-3 text-left text-sm font-bold text-stone-700 dark:text-stone-200 border-b border-stone-100 dark:border-stone-700 whitespace-nowrap">{t('nutrition.nutrient')} ({t('nutrition.per100g')})</th>
+              {nutrition.map(n => <th key={n.vegetable_id} className="p-3 text-left text-sm font-bold text-stone-700 dark:text-stone-200 border-b border-stone-100 dark:border-stone-700 whitespace-nowrap">{n.vegetable_name}</th>)}
             </tr>
           </thead>
           <tbody>
             {rows.map(({ key, label, max, color }) => (
-              <tr key={key} className="hover:bg-emerald-50/30 dark:hover:bg-emerald-900/20 transition-colors">
-                <td className="p-3 text-sm text-slate-600 dark:text-slate-300 border-b border-slate-50 dark:border-slate-700/50 font-medium whitespace-nowrap">{label}</td>
+              <tr key={key} className="hover:bg-red-50/30 dark:hover:bg-red-900/20 transition-colors">
+                <td className="p-3 text-sm text-stone-600 dark:text-stone-300 border-b border-stone-50 dark:border-stone-700/50 font-medium whitespace-nowrap">{label}</td>
                 {nutrition.map(n => {
                   const val = n.per_100g?.[key]
                   return (
-                    <td key={n.vegetable_id} className="p-3 text-sm text-slate-700 dark:text-slate-200 border-b border-slate-50 dark:border-slate-700/50 min-w-[120px]">
-                      <span className="font-bold text-slate-800 dark:text-slate-100">{val ?? '-'}</span>
+                    <td key={n.vegetable_id} className="p-3 text-sm text-stone-700 dark:text-stone-200 border-b border-stone-50 dark:border-stone-700/50 min-w-[120px]">
+                      <span className="font-bold text-stone-800 dark:text-stone-100">{val ?? '-'}</span>
                       {val != null && <Bar value={val} max={max} color={color} />}
                     </td>
                   )
@@ -59,11 +59,11 @@ export default function NutritionTable({ nutrition }) {
       <div className="mt-4 flex flex-wrap gap-2">
         {nutrition.map(n => (
           <div key={n.vegetable_id} className="text-sm glass-card rounded-xl px-4 py-2 shadow-sm">
-            <span className="font-bold text-slate-700 dark:text-slate-200">{n.vegetable_name}</span>
-            <span className="text-slate-400 dark:text-slate-500 mx-1.5">·</span>
-            <span className="text-slate-500 dark:text-slate-400">{t('nutrition.glycemicIndex')} {n.glycemic_index ?? t('common.na')}</span>
-            <span className="text-slate-400 dark:text-slate-500 mx-1.5">·</span>
-            <span className="text-emerald-600 dark:text-emerald-400 font-semibold">{n.health_score_out_of_10}/10</span>
+            <span className="font-bold text-stone-700 dark:text-stone-200">{n.vegetable_name}</span>
+            <span className="text-stone-400 dark:text-stone-500 mx-1.5">·</span>
+            <span className="text-stone-500 dark:text-stone-400">{t('nutrition.glycemicIndex')} {n.glycemic_index ?? t('common.na')}</span>
+            <span className="text-stone-400 dark:text-stone-500 mx-1.5">·</span>
+            <span className="text-red-600 dark:text-red-400 font-semibold">{n.health_score_out_of_10}/10</span>
           </div>
         ))}
       </div>

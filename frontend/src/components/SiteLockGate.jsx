@@ -80,7 +80,7 @@ export default function SiteLockGate({ children }) {
           <button
             type="submit"
             disabled={submitting || !password.trim()}
-            className="w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold text-base hover:from-emerald-600 hover:to-emerald-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed transition-all shadow-lg shadow-emerald-500/20"
+            className="w-full py-3 btn-glass btn-glass-emerald rounded-xl text-base"
           >
             {submitting ? 'Verifying...' : 'Unlock'}
           </button>

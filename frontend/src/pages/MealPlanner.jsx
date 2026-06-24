@@ -223,7 +223,7 @@ export default function MealPlanner() {
             <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">📅</div>
             <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('mealPlanner.noRecipes')}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('mealPlanner.noRecipesDesc')}</p>
-            <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-7 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-[0.98] text-sm">
+            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-emerald px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
               📸 Scan Vegetables →
             </Link>
           </div>

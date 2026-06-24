@@ -129,7 +129,7 @@ export default function ShoppingList() {
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">🔍</span>
         </div>
-        <button onClick={handleAdd} className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg active:scale-[0.98]">{t('shoppingList.addItem')}</button>
+        <button onClick={handleAdd} className="px-5 py-3 btn-glass btn-glass-emerald rounded-xl active:scale-[0.98]">{t('shoppingList.addItem')}</button>
       </div>
 
       {items.length === 0 ? (
@@ -139,7 +139,7 @@ export default function ShoppingList() {
           </div>
           <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('shoppingList.emptyTitle')}</p>
           <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('shoppingList.emptyDesc')}</p>
-          <Link to="/scan" className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-7 py-3.5 rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-[0.98] text-sm">
+          <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-emerald px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
             📸 {t('shoppingList.scanVeggies')} →
           </Link>
           <p className="text-xs text-slate-400 dark:text-slate-500 mt-6">💡 Tip: Scan vegetables to auto-generate shopping lists from recipes</p>

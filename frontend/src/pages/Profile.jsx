@@ -59,10 +59,10 @@ export default function Profile() {
       </div>
 
       <div className="flex gap-3 mt-6">
-        <button onClick={handleLogout} className="px-6 py-2.5 bg-gradient-to-r from-red-500 to-rose-600 text-white rounded-xl font-bold hover:from-red-600 hover:to-rose-700 transition-all shadow-md hover:shadow-lg hover:shadow-red-500/20 active:scale-[0.98] flex items-center gap-2">
+        <button onClick={handleLogout} className="px-6 py-2.5 btn-glass btn-glass-red rounded-xl active:scale-[0.98] flex items-center gap-2">
           {t('nav.signOut')}
         </button>
-        <Link to="/scan" className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] flex items-center gap-2">
+        <Link to="/scan" className="px-6 py-2.5 btn-glass btn-glass-emerald rounded-xl active:scale-[0.98] flex items-center gap-2">
           {t('nav.scan')}
         </Link>
       </div>

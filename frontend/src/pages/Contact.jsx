@@ -87,7 +87,7 @@ export default function Contact() {
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('contact.message')}</label>
                 <textarea name="message" value={form.message} onChange={handleChange} required rows="5" className="w-full px-4 py-2.5 rounded-xl bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all resize-vertical shadow-sm" placeholder={t('contact.message')} />
               </div>
-              <button type="submit" className="w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98]">{t('contact.submit')}</button>
+              <button type="submit" className="w-full py-3 btn-glass btn-glass-emerald rounded-xl active:scale-[0.98]">{t('contact.submit')}</button>
             </form>
           </div>
 

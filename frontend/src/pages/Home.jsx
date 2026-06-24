@@ -117,7 +117,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               to="/scan"
-              className="group inline-flex items-center gap-2 bg-white text-emerald-700 px-8 py-3.5 rounded-xl text-lg font-bold hover:bg-emerald-50 transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.97]"
+              className="group inline-flex items-center gap-2 btn-glass btn-glass-white px-8 py-3.5 rounded-xl text-lg active:scale-[0.97]"
             >
               {t('home.startScanning')}
               <span className="inline-block group-hover:translate-x-1.5 transition-transform duration-300 ease-out">→</span>
@@ -181,7 +181,7 @@ export default function Home() {
           <p className="text-emerald-100/85 mb-8 max-w-lg mx-auto">{t('home.ctaDesc')}</p>
           <Link
             to="/scan"
-            className="inline-flex items-center gap-2 bg-white text-emerald-700 px-10 py-4 rounded-xl text-lg font-bold hover:bg-emerald-50 transition-all duration-300 shadow-lg shadow-emerald-500/25 hover:shadow-xl hover:shadow-emerald-500/40 active:scale-[0.97]"
+            className="inline-flex items-center gap-2 btn-glass btn-glass-white px-10 py-4 rounded-xl text-lg active:scale-[0.97]"
           >
             {t('home.getStarted')} <span>→</span>
           </Link>

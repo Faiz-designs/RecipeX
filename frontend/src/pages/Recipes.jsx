@@ -211,7 +211,7 @@ export default function Recipes() {
           <div className="text-5xl mb-4">⚠️</div>
           <p className="text-red-700 dark:text-red-300 font-bold text-lg mb-1">{t('recipes.failedToLoad')}</p>
           <p className="text-red-500 dark:text-red-400 text-sm mb-5">{error}</p>
-          <button onClick={() => window.location.reload()} className="px-6 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] ring-1 ring-emerald-500/20">{t('recipes.tryAgain')}</button>
+          <button onClick={() => window.location.reload()} className="px-6 py-2.5 btn-glass btn-glass-emerald rounded-xl active:scale-[0.98]">{t('recipes.tryAgain')}</button>
         </div>
       </div>
     )
@@ -288,7 +288,7 @@ export default function Recipes() {
                 placeholder={t('recipes.addPantryHint')}
                 className="flex-1 px-3 py-2 bg-slate-50 dark:bg-slate-700/50 border border-slate-200/80 dark:border-slate-600/60 rounded-lg text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:border-emerald-400 transition-all duration-200"
               />
-              <button onClick={handleAddPantry} className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-lg text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-sm hover:shadow-md active:scale-[0.98] ring-1 ring-emerald-500/20">{t('shoppingList.addItem')}</button>
+              <button onClick={handleAddPantry} className="px-4 py-2 btn-glass btn-glass-emerald rounded-lg text-sm active:scale-[0.98]">{t('shoppingList.addItem')}</button>
             </div>
 
             {pantry.length > 0 && (
@@ -366,7 +366,7 @@ export default function Recipes() {
                 ))}
               </div>
             )}
-            <button onClick={handleClearFilters} className="inline-flex items-center gap-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-6 py-3 rounded-xl font-bold shadow-md hover:shadow-lg hover:from-emerald-600 hover:to-emerald-700 transition-all active:scale-[0.98] text-sm">
+            <button onClick={handleClearFilters} className="inline-flex items-center gap-2 btn-glass btn-glass-emerald px-6 py-3 rounded-xl active:scale-[0.98] text-sm">
               ✕ Clear All Filters
             </button>
           </div>

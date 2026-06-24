@@ -60,11 +60,11 @@ export default function OnboardingTour() {
               </button>
             )}
             {step < steps.length - 1 ? (
-              <button onClick={() => setStep(s => s + 1)} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md">
+              <button onClick={() => setStep(s => s + 1)} className="flex-1 px-4 py-2.5 btn-glass btn-glass-emerald rounded-xl text-sm font-semibold">
                 Next
               </button>
             ) : (
-              <button onClick={dismiss} className="flex-1 px-4 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md">
+              <button onClick={dismiss} className="flex-1 px-4 py-2.5 btn-glass btn-glass-emerald rounded-xl text-sm font-semibold">
                 Get Started 🚀
               </button>
             )}

@@ -90,10 +90,10 @@ export default function Scan() {
               <p className="text-xl font-bold text-slate-700 dark:text-slate-200 mb-2">{t('auth.signInRequired')}</p>
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('auth.signInDesc')}</p>
               <div className="flex gap-3 justify-center">
-                <Link to="/login" className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-emerald-600 hover:to-emerald-700 transition-all text-sm">
+                <Link to="/login" className="px-6 py-3 btn-glass btn-glass-emerald rounded-xl text-sm">
                   {t('nav.signIn')}
                 </Link>
-                <Link to="/signup" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl hover:from-blue-600 hover:to-blue-700 transition-all text-sm">
+                <Link to="/signup" className="px-6 py-3 btn-glass btn-glass-blue rounded-xl text-sm">
                   {t('nav.signUp')}
                 </Link>
               </div>
@@ -115,7 +115,7 @@ export default function Scan() {
               </div>
               <div className="flex gap-2">
                 <ShareButton title="RecipeX Scan Results" text={`Check out this vegetable scan on RecipeX AI!`} />
-                <button onClick={handleReset} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] ring-1 ring-emerald-500/20 whitespace-nowrap">{t('scan.newScan')}</button>
+                <button onClick={handleReset} className="px-5 py-2.5 btn-glass btn-glass-emerald rounded-xl active:scale-[0.98] whitespace-nowrap">{t('scan.newScan')}</button>
               </div>
             </div>
           </div>
@@ -199,7 +199,7 @@ export default function Scan() {
       )}
 
       {showTop && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 w-12 h-12 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-2xl shadow-lg hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center text-xl z-50 active:scale-95 ring-1 ring-emerald-500/20" title={t('scan.backToTop')}>
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 w-12 h-12 btn-glass btn-glass-emerald rounded-2xl flex items-center justify-center text-xl z-50 active:scale-95" title={t('scan.backToTop')}>
           <span className="drop-shadow-sm">↑</span>
         </button>
       )}

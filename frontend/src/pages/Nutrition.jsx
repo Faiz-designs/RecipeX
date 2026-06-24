@@ -132,7 +132,7 @@ export default function Nutrition() {
         <div className="text-4xl mb-4">⚠️</div>
         <p className="text-lg text-red-500 font-bold mb-2">{t('common.error')}</p>
         <p className="text-sm text-slate-500 mb-6">{error}</p>
-        <button onClick={() => window.location.reload()} className="px-6 py-3 bg-emerald-500 text-white rounded-xl font-bold hover:bg-emerald-600 transition-all">{t('common.retry')}</button>
+        <button onClick={() => window.location.reload()} className="px-6 py-3 btn-glass btn-glass-emerald rounded-xl">{t('common.retry')}</button>
       </div>
     )
   }
@@ -199,7 +199,7 @@ export default function Nutrition() {
               </div>
               <button
                 onClick={() => setShowLogForm(!showLogForm)}
-                className="px-4 py-2 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-md"
+                className="px-4 py-2 btn-glass btn-glass-emerald rounded-xl text-sm"
               >
                 {showLogForm ? t('common.close') : `+ ${t('nutritionTracker.logMeal')}`}
               </button>
@@ -219,7 +219,7 @@ export default function Nutrition() {
                   <input type="number" value={log.carbohydrates_g || ''} onChange={e => setLog({ ...log, carbohydrates_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.carbs')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
                   <input type="number" value={log.fat_g || ''} onChange={e => setLog({ ...log, fat_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.fat')} className="px-3 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm" />
                 </div>
-                <button onClick={handleLog} disabled={saving} className="px-5 py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-bold hover:from-emerald-600 hover:to-emerald-700 transition-all disabled:opacity-50 shadow-md">
+                <button onClick={handleLog} disabled={saving} className="px-5 py-2.5 btn-glass btn-glass-emerald rounded-xl text-sm">
                   {saving ? t('common.loading') : logSaved ? `✓ ${t('nutritionTracker.saved')}` : t('nutritionTracker.save')}
                 </button>
               </div>

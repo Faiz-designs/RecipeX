@@ -183,13 +183,13 @@ export default function CookingMode() {
                 ← {t('cookingMode.prev')}
               </button>
               {currentStep === steps.length - 1 ? (
-                <button onClick={() => navigate(-1)} className="flex-1 px-6 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-[0.98]">
+                <button onClick={() => navigate(-1)} className="flex-1 px-6 py-4 btn-glass btn-glass-emerald rounded-xl text-lg font-semibold active:scale-[0.98]">
                   {t('cookingMode.done')} ✓
                 </button>
               ) : (
                 <button
                   onClick={() => setCurrentStep(s => Math.min(steps.length - 1, s + 1))}
-                  className="flex-1 px-6 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-xl text-lg font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow-lg shadow-emerald-500/20 hover:shadow-xl hover:shadow-emerald-500/30 active:scale-[0.98]"
+                  className="flex-1 px-6 py-4 btn-glass btn-glass-emerald rounded-xl text-lg font-semibold active:scale-[0.98]"
                   aria-label={t('cookingMode.next')}
                 >
                   {t('cookingMode.next')} →

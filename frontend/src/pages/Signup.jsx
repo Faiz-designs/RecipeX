@@ -82,7 +82,7 @@ export default function Signup() {
                 </div>
               )}
 
-              <button type="submit" disabled={loading} className="w-full py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl font-bold hover:from-emerald-600 hover:to-emerald-700 disabled:from-slate-300 disabled:to-slate-300 dark:disabled:from-slate-600 dark:disabled:to-slate-600 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg hover:shadow-emerald-500/20 active:scale-[0.98] flex items-center justify-center gap-2.5">
+              <button type="submit" disabled={loading} className="w-full py-3 btn-glass btn-glass-emerald rounded-xl disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2.5">
                 {loading ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('auth.creating')}</> : t('auth.createAccount_btn')}
               </button>
             </form>

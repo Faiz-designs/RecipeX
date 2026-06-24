@@ -75,7 +75,7 @@ function AppContent() {
             ) : (
               <>
                 <Link to="/login" className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 transition-all">{t('nav.signIn')}</Link>
-                <Link to="/signup" className="px-4 py-1.5 text-sm font-bold bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-lg hover:from-emerald-600 hover:to-teal-700 shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 transition-all duration-300">{t('nav.signUp')}</Link>
+                <Link to="/signup" className="px-4 py-1.5 text-sm btn-glass btn-glass-emerald rounded-lg">{t('nav.signUp')}</Link>
               </>
             )}
             <Link to="/contact" className="px-3 py-1.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 rounded-lg hover:bg-emerald-50/80 dark:hover:bg-emerald-900/30 hidden sm:inline transition-all">{t('nav.contact')}</Link>

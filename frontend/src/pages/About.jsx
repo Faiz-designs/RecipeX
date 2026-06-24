@@ -18,7 +18,7 @@ export default function About() {
     <>
       <SEO title="About" description="Learn about RecipeX AI — the AI-powered smart kitchen assistant." />
       <div className="animate-fadeIn">
-      <div className="relative overflow-hidden bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 py-20 md:py-28">
+      <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 py-20 md:py-28">
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 text-6xl animate-float">🥗</div>
           <div className="absolute top-20 right-20 text-5xl animate-float stagger-2">🤖</div>
@@ -43,7 +43,7 @@ export default function About() {
       <div className="max-w-5xl mx-auto px-4 py-16">
         <div className="glass-card rounded-2xl shadow-lg p-8 md:p-10 mb-16 hover:shadow-xl transition-shadow">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-11 h-11 bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl flex items-center justify-center text-lg shadow-md">🎯</div>
+            <div className="w-11 h-11 bg-gradient-to-br from-lime-400 to-lime-500 rounded-xl flex items-center justify-center text-lg shadow-md">🎯</div>
             <h2 className="text-2xl font-extrabold text-stone-800 dark:text-stone-100">{t('about.mission')}</h2>
           </div>
           <p className="text-stone-600 dark:text-stone-300 leading-relaxed text-lg">
@@ -57,7 +57,7 @@ export default function About() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-16">
           {features.map((item, i) => (
-            <div key={i} className="group glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:border-orange-300 dark:hover:border-orange-600 hover:-translate-y-1 transition-all duration-300">
+            <div key={i} className="group glass-card rounded-2xl shadow-sm p-6 hover:shadow-xl hover:border-lime-300 dark:hover:border-lime-600 hover:-translate-y-1 transition-all duration-300">
               <div className="w-12 h-12 bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-emerald-900/50 dark:to-teal-900/50 rounded-xl flex items-center justify-center text-2xl mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm">
                 {item.emoji}
               </div>

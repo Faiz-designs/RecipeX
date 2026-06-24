@@ -14,12 +14,12 @@ export default function NutritionTable({ nutrition }) {
   if (!nutrition || nutrition.length === 0) return null
 
   const rows = [
-    { key: 'calories_kcal', label: t('nutrition.calories'), max: 100, color: 'bg-gradient-to-r from-orange-400 to-orange-500' },
-    { key: 'carbohydrates_g', label: t('nutrition.carbs'), max: 30, color: 'bg-gradient-to-r from-yellow-400 to-amber-500' },
+    { key: 'calories_kcal', label: t('nutrition.calories'), max: 100, color: 'bg-gradient-to-r from-lime-400 to-lime-500' },
+    { key: 'carbohydrates_g', label: t('nutrition.carbs'), max: 30, color: 'bg-gradient-to-r from-yellow-400 to-lime-500' },
     { key: 'dietary_fibre_g', label: t('nutrition.fibre'), max: 10, color: 'bg-gradient-to-r from-emerald-400 to-emerald-500' },
     { key: 'protein_g', label: t('nutrition.protein'), max: 10, color: 'bg-gradient-to-r from-blue-400 to-blue-500' },
     { key: 'fat_g', label: t('nutrition.fat'), max: 10, color: 'bg-gradient-to-r from-red-400 to-red-500' },
-    { key: 'vitamin_c_mg', label: t('nutrition.vitaminC'), max: 100, color: 'bg-gradient-to-r from-amber-400 to-orange-400' },
+    { key: 'vitamin_c_mg', label: t('nutrition.vitaminC'), max: 100, color: 'bg-gradient-to-r from-lime-400 to-lime-400' },
     { key: 'iron_mg', label: t('nutrition.iron'), max: 10, color: 'bg-gradient-to-r from-purple-400 to-purple-500' },
     { key: 'potassium_mg', label: t('nutrition.potassium'), max: 600, color: 'bg-gradient-to-r from-indigo-400 to-indigo-500' },
   ]
@@ -27,7 +27,7 @@ export default function NutritionTable({ nutrition }) {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
+        <div className="w-8 h-8 bg-gradient-to-br from-lime-500 to-lime-600 rounded-lg flex items-center justify-center text-sm shadow-sm">🥦</div>
         <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('nutrition.title')}</h2>
       </div>
       <div className="overflow-x-auto rounded-2xl shadow-sm glass-card">
@@ -40,7 +40,7 @@ export default function NutritionTable({ nutrition }) {
           </thead>
           <tbody>
             {rows.map(({ key, label, max, color }) => (
-              <tr key={key} className="hover:bg-orange-50/30 dark:hover:bg-orange-900/20 transition-colors">
+              <tr key={key} className="hover:bg-lime-50/30 dark:hover:bg-lime-900/20 transition-colors">
                 <td className="p-3 text-sm text-stone-600 dark:text-stone-300 border-b border-slate-50 dark:border-stone-700/50 font-medium whitespace-nowrap">{label}</td>
                 {nutrition.map(n => {
                   const val = n.per_100g?.[key]
@@ -63,11 +63,11 @@ export default function NutritionTable({ nutrition }) {
             <span className="text-stone-400 dark:text-stone-500 mx-1.5">·</span>
             <span className="text-stone-500 dark:text-stone-400">{t('nutrition.glycemicIndex')} {n.glycemic_index ?? t('common.na')}</span>
             <span className="text-stone-400 dark:text-stone-500 mx-1.5">·</span>
-            <span className="text-orange-600 dark:text-orange-400 font-semibold">{n.health_score_out_of_10}/10</span>
+            <span className="text-lime-600 dark:text-lime-400 font-semibold">{n.health_score_out_of_10}/10</span>
           </div>
         ))}
       </div>
-      {nutrition.some(n => n.data_confidence === 'Estimated') && <p className="text-xs text-amber-600 dark:text-amber-400 mt-3 flex items-center gap-1">⚠ {t('nutrition.someValuesEstimated')}</p>}
+      {nutrition.some(n => n.data_confidence === 'Estimated') && <p className="text-xs text-lime-600 dark:text-lime-400 mt-3 flex items-center gap-1">⚠ {t('nutrition.someValuesEstimated')}</p>}
     </div>
   )
 }

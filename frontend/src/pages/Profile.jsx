@@ -16,7 +16,7 @@ export default function Profile() {
     <>
       <SEO title="Profile" description="Your RecipeX AI account profile." />
       <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-orange-500/10">
+      <div className="bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-lime-500/10">
         <div className="flex items-center gap-4">
           <div className="relative">
             <div className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center text-4xl shadow-inner border border-white/20">👤</div>
@@ -62,7 +62,7 @@ export default function Profile() {
         <button onClick={handleLogout} className="px-6 py-2.5 btn-glass btn-glass-red rounded-xl active:scale-[0.98] flex items-center gap-2">
           {t('nav.signOut')}
         </button>
-        <Link to="/scan" className="px-6 py-2.5 btn-glass btn-glass-orange rounded-xl active:scale-[0.98] flex items-center gap-2">
+        <Link to="/scan" className="px-6 py-2.5 btn-glass btn-glass-lime rounded-xl active:scale-[0.98] flex items-center gap-2">
           {t('nav.scan')}
         </Link>
       </div>

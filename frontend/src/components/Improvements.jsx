@@ -4,7 +4,7 @@ export default function Improvements({ improvements }) {
   const { t } = useTranslation()
   if (!improvements) return null
   const score = improvements.meal_balance_score_out_of_10
-  const scoreColor = score >= 8 ? 'from-emerald-500 to-emerald-600' : score >= 5 ? 'from-amber-500 to-amber-600' : 'from-red-500 to-red-600'
+  const scoreColor = score >= 8 ? 'from-emerald-500 to-emerald-600' : score >= 5 ? 'from-lime-500 to-lime-600' : 'from-red-500 to-red-600'
 
   return (
     <div className="mb-8">

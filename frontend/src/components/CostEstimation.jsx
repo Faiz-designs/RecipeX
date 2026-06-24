@@ -10,16 +10,16 @@ export default function CostEstimation({ cost_estimation, improvements }) {
         <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scan.sections.cost')}</h2>
       </div>
       {improvements?.estimated_total_cost && (
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-900/30 dark:to-orange-900/30 border border-amber-200 dark:border-amber-700/40 rounded-2xl p-4 mb-4">
+        <div className="bg-gradient-to-r from-lime-50 to-lime-50 dark:from-lime-900/30 dark:to-lime-900/30 border border-lime-200 dark:border-lime-700/40 rounded-2xl p-4 mb-4">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-xl flex items-center justify-center text-lg shadow-sm">💰</div>
+            <div className="w-10 h-10 bg-gradient-to-br from-lime-400 to-lime-500 rounded-xl flex items-center justify-center text-lg shadow-sm">💰</div>
             <div>
-              <p className="text-xs font-semibold text-amber-700 dark:text-amber-300 uppercase tracking-wide">{t('improvements.estimatedTotalCost')}</p>
+              <p className="text-xs font-semibold text-lime-700 dark:text-lime-300 uppercase tracking-wide">{t('improvements.estimatedTotalCost')}</p>
               <p className="text-xl font-extrabold text-stone-800 dark:text-stone-100">{improvements.estimated_total_cost}</p>
             </div>
           </div>
           {improvements.leftover_recipe_suggestion && (
-            <p className="text-sm text-stone-500 dark:text-stone-400 mt-3 pt-3 border-t border-amber-200/50 dark:border-amber-700/30 flex items-start gap-1.5">
+            <p className="text-sm text-stone-500 dark:text-stone-400 mt-3 pt-3 border-t border-lime-200/50 dark:border-lime-700/30 flex items-start gap-1.5">
               <span>♻️</span> {improvements.leftover_recipe_suggestion}
             </p>
           )}

@@ -64,8 +64,8 @@ export default function Recipes() {
   }
 
   const difficultyConfig = {
-    easy: { label: t('recipes.easy'), badge: 'bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300', header: 'from-orange-500 to-orange-600' },
-    intermediate: { label: t('recipes.intermediate'), badge: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300', header: 'from-amber-500 to-amber-600' },
+    easy: { label: t('recipes.easy'), badge: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300', header: 'from-lime-500 to-lime-600' },
+    intermediate: { label: t('recipes.intermediate'), badge: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300', header: 'from-lime-500 to-lime-600' },
     advanced: { label: t('recipes.advanced'), badge: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300', header: 'from-red-500 to-red-600' },
   }
 
@@ -169,7 +169,7 @@ export default function Recipes() {
   if (loading) {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="relative overflow-hidden bg-gradient-to-br from-orange-600 via-orange-500 to-orange-400 rounded-2xl mb-8">
+        <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-400 rounded-2xl mb-8">
           <div className="absolute inset-0 bg-white/5" />
           <div className="relative h-48 flex items-center justify-center">
             <div className="flex items-center gap-3 text-white">
@@ -201,7 +201,7 @@ export default function Recipes() {
   if (error) {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="relative overflow-hidden bg-gradient-to-br from-orange-600 via-orange-500 to-orange-400 rounded-2xl mb-8">
+        <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-400 rounded-2xl mb-8">
           <div className="absolute inset-0 bg-white/5" />
           <div className="relative h-48 flex items-center justify-center">
             <h1 className="text-4xl font-extrabold text-white">{t('recipes.title')}</h1>
@@ -211,7 +211,7 @@ export default function Recipes() {
           <div className="text-5xl mb-4">⚠️</div>
           <p className="text-red-700 dark:text-red-300 font-bold text-lg mb-1">{t('recipes.failedToLoad')}</p>
           <p className="text-red-500 dark:text-red-400 text-sm mb-5">{error}</p>
-          <button onClick={() => window.location.reload()} className="px-6 py-2.5 btn-glass btn-glass-orange rounded-xl active:scale-[0.98]">{t('recipes.tryAgain')}</button>
+          <button onClick={() => window.location.reload()} className="px-6 py-2.5 btn-glass btn-glass-lime rounded-xl active:scale-[0.98]">{t('recipes.tryAgain')}</button>
         </div>
       </div>
     )
@@ -221,7 +221,7 @@ export default function Recipes() {
     <>
       <SEO title="Explore Recipes" description="Browse AI-generated recipes from scanned vegetables. Filter by difficulty, diet, prep time, and season." />
       <div className="animate-fadeIn">
-      <div className="relative overflow-hidden bg-gradient-to-br from-orange-600 via-orange-500 to-orange-400 animate-gradient py-20 md:py-28">
+      <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-400 animate-gradient py-20 md:py-28">
         <div className="absolute inset-0 bg-white/5" />
         <div className="absolute inset-0 opacity-15">
           <div className="absolute top-10 left-10 text-6xl animate-float">🍳</div>
@@ -247,12 +247,12 @@ export default function Recipes() {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder={`${t('recipes.searchHint')} — add pantry items to see matches`}
-              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-stone-800/90 border border-stone-200/80 dark:border-stone-700/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:border-orange-400 transition-all duration-200 shadow-sm placeholder:text-stone-400 dark:placeholder:text-stone-500"
+              className="w-full pl-9 pr-4 py-2.5 bg-white dark:bg-stone-800/90 border border-stone-200/80 dark:border-stone-700/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 focus:border-lime-400 transition-all duration-200 shadow-sm placeholder:text-stone-400 dark:placeholder:text-stone-500"
             />
           </div>
           <button
             onClick={() => setShowPantry(!showPantry)}
-            className={`px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-300 active:scale-[0.98] ${showPantry ? 'bg-orange-500 text-white border-orange-500 shadow-md shadow-orange-500/20 ring-1 ring-orange-500/20' : 'bg-white dark:bg-stone-800/90 text-stone-600 dark:text-stone-300 border-stone-200/80 dark:border-stone-700/60 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-sm'}`}
+            className={`px-4 py-2.5 rounded-xl text-sm font-bold border transition-all duration-300 active:scale-[0.98] ${showPantry ? 'bg-lime-500 text-white border-lime-500 shadow-md shadow-lime-500/20 ring-1 ring-lime-500/20' : 'bg-white dark:bg-stone-800/90 text-stone-600 dark:text-stone-300 border-stone-200/80 dark:border-stone-700/60 hover:border-lime-300 dark:hover:border-lime-600 hover:shadow-sm'}`}
           >
             🧺 {t('recipes.myPantry')}
           </button>
@@ -272,7 +272,7 @@ export default function Recipes() {
             ) : (
               <div className="flex flex-wrap gap-2 mb-4">
                 {pantry.map((item, i) => (
-                  <span key={i} className="inline-flex items-center gap-1.5 text-xs bg-orange-50 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 border border-orange-200/80 dark:border-orange-700/60 px-3 py-1.5 rounded-full font-semibold shadow-sm">
+                  <span key={i} className="inline-flex items-center gap-1.5 text-xs bg-lime-50 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border border-lime-200/80 dark:border-lime-700/60 px-3 py-1.5 rounded-full font-semibold shadow-sm">
                     {item}
                     <button onClick={() => handleRemovePantry(item)} className="hover:text-red-500 dark:hover:text-red-400 transition-colors leading-none text-base">×</button>
                   </span>
@@ -286,9 +286,9 @@ export default function Recipes() {
                 onChange={e => setPantryInput(e.target.value)}
                 onKeyDown={e => e.key === 'Enter' && handleAddPantry()}
                 placeholder={t('recipes.addPantryHint')}
-                className="flex-1 px-3 py-2 bg-stone-50 dark:bg-stone-700/50 border border-stone-200/80 dark:border-stone-600/60 rounded-lg text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-orange-400/50 focus:border-orange-400 transition-all duration-200"
+                className="flex-1 px-3 py-2 bg-stone-50 dark:bg-stone-700/50 border border-stone-200/80 dark:border-stone-600/60 rounded-lg text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400/50 focus:border-lime-400 transition-all duration-200"
               />
-              <button onClick={handleAddPantry} className="px-4 py-2 btn-glass btn-glass-orange rounded-lg text-sm active:scale-[0.98]">{t('shoppingList.addItem')}</button>
+              <button onClick={handleAddPantry} className="px-4 py-2 btn-glass btn-glass-lime rounded-lg text-sm active:scale-[0.98]">{t('shoppingList.addItem')}</button>
             </div>
 
             {pantry.length > 0 && (
@@ -299,7 +299,7 @@ export default function Recipes() {
                     <button
                       key={option}
                       onClick={() => setPantryFilter(option)}
-                      className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 ${pantryFilter === option ? 'bg-orange-500 text-white border-orange-500 shadow-sm ring-1 ring-orange-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-sm'}`}
+                      className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 ${pantryFilter === option ? 'bg-lime-500 text-white border-lime-500 shadow-sm ring-1 ring-lime-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-lime-300 dark:hover:border-lime-600 hover:shadow-sm'}`}
                     >
                       {option}
                     </button>
@@ -316,7 +316,7 @@ export default function Recipes() {
           </p>
           <div className="flex flex-wrap gap-2">
             {levels.map(level => (
-              <button key={level.key} onClick={() => setFilter(level.key)} className={`px-4 py-1.5 rounded-xl text-sm font-bold border transition-all duration-200 active:scale-[0.97] ${filter === level.key ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white border-orange-500 shadow-md ring-1 ring-orange-500/20' : 'bg-white dark:bg-stone-800/90 text-stone-600 dark:text-stone-300 border-stone-200/80 dark:border-stone-700/60 hover:border-orange-300 dark:hover:border-orange-600 hover:text-orange-600 dark:hover:text-orange-400 hover:shadow-sm'}`}>
+              <button key={level.key} onClick={() => setFilter(level.key)} className={`px-4 py-1.5 rounded-xl text-sm font-bold border transition-all duration-200 active:scale-[0.97] ${filter === level.key ? 'bg-gradient-to-r from-lime-500 to-lime-600 text-white border-lime-500 shadow-md ring-1 ring-lime-500/20' : 'bg-white dark:bg-stone-800/90 text-stone-600 dark:text-stone-300 border-stone-200/80 dark:border-stone-700/60 hover:border-lime-300 dark:hover:border-lime-600 hover:text-lime-600 dark:hover:text-lime-400 hover:shadow-sm'}`}>
                 {level.label}
               </button>
             ))}
@@ -327,7 +327,7 @@ export default function Recipes() {
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mr-1">{t('filters.prepTime')}:</span>
             {[{ key: 'any', label: t('filters.anyTime') }, { key: 'under15', label: t('filters.under15') }, { key: 'under30', label: t('filters.under30') }, { key: 'over30', label: t('filters.over30') }].map(opt => (
-              <button key={opt.key} onClick={() => setPrepTime(opt.key)} className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 active:scale-[0.97] ${prepTime === opt.key ? 'bg-orange-500 text-white border-orange-500 shadow-sm ring-1 ring-orange-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-sm'}`}>
+              <button key={opt.key} onClick={() => setPrepTime(opt.key)} className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 active:scale-[0.97] ${prepTime === opt.key ? 'bg-lime-500 text-white border-lime-500 shadow-sm ring-1 ring-lime-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-lime-300 dark:hover:border-lime-600 hover:shadow-sm'}`}>
                 {opt.label}
               </button>
             ))}
@@ -335,7 +335,7 @@ export default function Recipes() {
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mr-1">{t('filters.diet')}:</span>
             {[{ key: 'all', label: 'All' }, { key: 'vegetarian', label: t('filters.vegetarian') }, { key: 'vegan', label: t('filters.vegan') }, { key: 'glutenFree', label: t('filters.glutenFree') }, { key: 'lowCarb', label: t('filters.lowCarb') }].map(opt => (
-              <button key={opt.key} onClick={() => setDiet(opt.key)} className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 active:scale-[0.97] ${diet === opt.key ? 'bg-orange-500 text-white border-orange-500 shadow-sm ring-1 ring-orange-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-sm'}`}>
+              <button key={opt.key} onClick={() => setDiet(opt.key)} className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 active:scale-[0.97] ${diet === opt.key ? 'bg-lime-500 text-white border-lime-500 shadow-sm ring-1 ring-lime-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-lime-300 dark:hover:border-lime-600 hover:shadow-sm'}`}>
                 {opt.label}
               </button>
             ))}
@@ -343,7 +343,7 @@ export default function Recipes() {
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mr-1">{t('filters.season')}:</span>
             {[{ key: 'all', label: t('filters.allSeasons') }, { key: 'spring', label: t('filters.spring') }, { key: 'summer', label: t('filters.summer') }, { key: 'fall', label: t('filters.fall') }, { key: 'winter', label: t('filters.winter') }].map(opt => (
-              <button key={opt.key} onClick={() => setSeason(opt.key)} className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 active:scale-[0.97] ${season === opt.key ? 'bg-orange-500 text-white border-orange-500 shadow-sm ring-1 ring-orange-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-orange-300 dark:hover:border-orange-600 hover:shadow-sm'}`}>
+              <button key={opt.key} onClick={() => setSeason(opt.key)} className={`px-3 py-1 rounded-lg text-xs font-bold border transition-all duration-200 active:scale-[0.97] ${season === opt.key ? 'bg-lime-500 text-white border-lime-500 shadow-sm ring-1 ring-lime-500/20' : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-lime-300 dark:hover:border-lime-600 hover:shadow-sm'}`}>
                 {opt.label}
               </button>
             ))}
@@ -352,7 +352,7 @@ export default function Recipes() {
 
         {filtered.length === 0 ? (
           <div className="text-center py-16 glass-card rounded-2xl shadow-sm">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/40 dark:to-orange-900/40 border-2 border-amber-200 dark:border-amber-700/50 flex items-center justify-center text-4xl shadow-lg">
+            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-lime-50 to-lime-50 dark:from-lime-900/40 dark:to-lime-900/40 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">
               🔍
             </div>
             <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">No recipes found</p>
@@ -366,7 +366,7 @@ export default function Recipes() {
                 ))}
               </div>
             )}
-            <button onClick={handleClearFilters} className="inline-flex items-center gap-2 btn-glass btn-glass-orange px-6 py-3 rounded-xl active:scale-[0.98] text-sm">
+            <button onClick={handleClearFilters} className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-6 py-3 rounded-xl active:scale-[0.98] text-sm">
               ✕ Clear All Filters
             </button>
           </div>

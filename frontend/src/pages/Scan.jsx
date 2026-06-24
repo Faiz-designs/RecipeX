@@ -98,11 +98,11 @@ export default function Scan() {
             <Scanner onScanComplete={handleScanComplete} />
           ) : (
             <div className="text-center py-16 glass-card rounded-2xl shadow-sm">
-              <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-orange-200 dark:border-orange-700/50 flex items-center justify-center text-4xl shadow-lg">🔒</div>
+              <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">🔒</div>
               <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('auth.signInRequired')}</p>
               <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('auth.signInDesc')}</p>
               <div className="flex gap-3 justify-center">
-                <Link to="/login" className="px-6 py-3 btn-glass btn-glass-orange rounded-xl text-sm">
+                <Link to="/login" className="px-6 py-3 btn-glass btn-glass-lime rounded-xl text-sm">
                   {t('nav.signIn')}
                 </Link>
                 <Link to="/signup" className="px-6 py-3 btn-glass btn-glass-blue rounded-xl text-sm">
@@ -119,7 +119,7 @@ export default function Scan() {
           <div className="glass-card rounded-2xl shadow-sm p-5 md:p-7 mb-8 hover:shadow-lg transition-all duration-300">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center shadow-md ring-1 ring-orange-500/20"><span className="text-xl">📊</span></div>
+                <div className="w-12 h-12 bg-gradient-to-br from-lime-400 to-lime-600 rounded-2xl flex items-center justify-center shadow-md ring-1 ring-lime-500/20"><span className="text-xl">📊</span></div>
                 <div>
                   <h1 className="text-2xl md:text-3xl font-extrabold text-stone-800 dark:text-stone-100">{t('scan.results')}</h1>
                   <p className="text-stone-400 dark:text-stone-500 text-sm">{t('scan.vegetablesDetected', { count: r.scan_summary?.total_vegetables_detected })}</p>
@@ -127,7 +127,7 @@ export default function Scan() {
               </div>
               <div className="flex gap-2">
                 <ShareButton title="RecipeX Scan Results" text={`Check out this vegetable scan on RecipeX AI!`} />
-                <button onClick={handleReset} className="px-5 py-2.5 btn-glass btn-glass-orange rounded-xl active:scale-[0.98] whitespace-nowrap">{t('scan.newScan')}</button>
+                <button onClick={handleReset} className="px-5 py-2.5 btn-glass btn-glass-lime rounded-xl active:scale-[0.98] whitespace-nowrap">{t('scan.newScan')}</button>
               </div>
             </div>
           </div>
@@ -162,7 +162,7 @@ export default function Scan() {
 
           <div className="flex flex-wrap gap-2 mb-8 overflow-x-auto pb-1 scrollbar-hide">
             {sections.map(s => (
-              <button key={s.id} onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth' })} className={`text-sm px-4 py-2 rounded-xl border transition-all duration-300 whitespace-nowrap font-bold active:scale-[0.97] ${activeSection === s.id ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-white border-orange-500 shadow-md ring-1 ring-orange-500/20' : 'bg-white/80 dark:bg-stone-800/70 backdrop-blur-sm text-stone-600 dark:text-stone-300 border-stone-200/80 dark:border-stone-700/60 hover:border-orange-300 dark:hover:border-orange-600 hover:text-orange-600 dark:hover:text-orange-400 shadow-sm hover:shadow-md'}`}>
+              <button key={s.id} onClick={() => document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth' })} className={`text-sm px-4 py-2 rounded-xl border transition-all duration-300 whitespace-nowrap font-bold active:scale-[0.97] ${activeSection === s.id ? 'bg-gradient-to-r from-lime-500 to-lime-600 text-white border-lime-500 shadow-md ring-1 ring-lime-500/20' : 'bg-white/80 dark:bg-stone-800/70 backdrop-blur-sm text-stone-600 dark:text-stone-300 border-stone-200/80 dark:border-stone-700/60 hover:border-lime-300 dark:hover:border-lime-600 hover:text-lime-600 dark:hover:text-lime-400 shadow-sm hover:shadow-md'}`}>
                 <span className="mr-1.5">{s.emoji}</span> {s.label}
               </button>
             ))}
@@ -172,7 +172,7 @@ export default function Scan() {
             {r.scan_summary?.items && (
               <div id="section-veg" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300">
                 <div className="flex items-center gap-2.5 mb-5">
-                  <div className="w-9 h-9 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-orange-500/20">🥬</div>
+                  <div className="w-9 h-9 bg-gradient-to-br from-lime-400 to-lime-600 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-lime-500/20">🥬</div>
                   <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scan.sections.vegetables')}</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -180,7 +180,7 @@ export default function Scan() {
                     <div key={item.id} className="glass-card rounded-2xl p-4 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-bold text-stone-800 dark:text-stone-100 text-sm sm:text-base">{item.common_name}</p>
-                        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${item.freshness_status === 'Fresh' ? 'bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300' : item.freshness_status === 'Slightly Aged' ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300'}`}>{item.freshness_status}</span>
+                        <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${item.freshness_status === 'Fresh' ? 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300' : item.freshness_status === 'Slightly Aged' ? 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300' : 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300'}`}>{item.freshness_status}</span>
                       </div>
                       <p className="text-xs text-stone-400 dark:text-stone-500">{item.estimated_quantity} ~ {item.estimated_weight_grams}g</p>
                     </div>
@@ -191,7 +191,7 @@ export default function Scan() {
 
             <div id="section-recipes" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300">
               {fridgeItems.length > 0 && fridgeRecipes.length > 0 && (
-                <div className="mb-6 p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200/60 dark:border-orange-700/30">
+                <div className="mb-6 p-4 rounded-2xl bg-gradient-to-br from-lime-50 to-lime-50 dark:from-lime-900/20 dark:to-lime-900/20 border border-lime-200/60 dark:border-lime-700/30">
                   <div className="flex items-center gap-2 mb-3">
                     <span className="text-lg">🧊</span>
                     <h3 className="font-bold text-stone-800 dark:text-stone-100 text-sm">Your Fridge Matches</h3>
@@ -204,11 +204,11 @@ export default function Scan() {
                           <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">{r.name}</p>
                           <div className="flex gap-1 mt-1">
                             {r.matchedIngredients?.slice(0, 3).map((ing, j) => (
-                              <span key={j} className="text-[10px] bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-1.5 py-0.5 rounded-full">✓ {ing}</span>
+                              <span key={j} className="text-[10px] bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300 px-1.5 py-0.5 rounded-full">✓ {ing}</span>
                             ))}
                           </div>
                         </div>
-                        <span className={`text-xs font-bold px-2 py-1 rounded-full shrink-0 ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
+                        <span className={`text-xs font-bold px-2 py-1 rounded-full shrink-0 ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
                           {r.matchPercent}%
                         </span>
                       </div>
@@ -237,7 +237,7 @@ export default function Scan() {
       )}
 
       {showTop && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 w-12 h-12 btn-glass btn-glass-orange rounded-2xl flex items-center justify-center text-xl z-50 active:scale-95" title={t('scan.backToTop')}>
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-6 right-6 w-12 h-12 btn-glass btn-glass-lime rounded-2xl flex items-center justify-center text-xl z-50 active:scale-95" title={t('scan.backToTop')}>
           <span className="drop-shadow-sm">↑</span>
         </button>
       )}

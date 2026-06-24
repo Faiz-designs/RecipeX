@@ -6,7 +6,7 @@ export default function StorageTips({ storage_tips }) {
   return (
     <div className="mb-8">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 bg-gradient-to-br from-orange-500 to-amber-600 rounded-lg flex items-center justify-center text-sm shadow-sm">❄️</div>
+        <div className="w-8 h-8 bg-gradient-to-br from-lime-500 to-lime-600 rounded-lg flex items-center justify-center text-sm shadow-sm">❄️</div>
         <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scan.sections.storage')}</h2>
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -21,10 +21,10 @@ export default function StorageTips({ storage_tips }) {
                 <p className="text-sm text-stone-600 dark:text-stone-300 mt-0.5">{veg.method}</p>
               </div>
               <div className="flex items-center gap-3 text-sm">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300">⏱ {veg.shelf_life_days} {t('storage.days')}</span>
+                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300">⏱ {veg.shelf_life_days} {t('storage.days')}</span>
                 {veg.refrigerate
                   ? <span className="text-xs px-2.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300">❄️ {t('storage.refrigerate')}</span>
-                  : <span className="text-xs px-2.5 py-1 rounded-full bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">🌡️ {t('storage.countertop')}</span>
+                  : <span className="text-xs px-2.5 py-1 rounded-full bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300">🌡️ {t('storage.countertop')}</span>
                 }
               </div>
               {veg.refrigerate_note && <p className="text-xs text-stone-400 dark:text-stone-500">{veg.refrigerate_note}</p>}
@@ -35,8 +35,8 @@ export default function StorageTips({ storage_tips }) {
                 </div>
               )}
               {veg.tip && (
-                <div className="bg-amber-50/50 dark:bg-amber-900/20 border border-amber-200/50 dark:border-amber-800/40 rounded-lg p-2.5">
-                  <p className="text-xs font-medium text-amber-700 dark:text-amber-300 flex items-start gap-1"><span>💡</span> {veg.tip}</p>
+                <div className="bg-lime-50/50 dark:bg-lime-900/20 border border-lime-200/50 dark:border-lime-800/40 rounded-lg p-2.5">
+                  <p className="text-xs font-medium text-lime-700 dark:text-lime-300 flex items-start gap-1"><span>💡</span> {veg.tip}</p>
                 </div>
               )}
             </div>

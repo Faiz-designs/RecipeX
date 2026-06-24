@@ -98,7 +98,7 @@ export default function ShoppingList() {
     <>
       <SEO title="Shopping List" description="Auto-categorized shopping list with progress tracking for your recipe ingredients." />
       <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-orange-500/10">
+      <div className="bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-lime-500/10">
         <div className="flex items-center gap-3 mb-2">
           <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">🛒</div>
           <div>
@@ -125,21 +125,21 @@ export default function ShoppingList() {
             value={newItem} onChange={e => setNewItem(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleAdd()}
             placeholder={t('shoppingList.placeholder')}
-            className="w-full px-4 py-3 pl-10 bg-white dark:bg-stone-800/90 border border-stone-200/80 dark:border-stone-700/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent transition-all shadow-sm"
+            className="w-full px-4 py-3 pl-10 bg-white dark:bg-stone-800/90 border border-stone-200/80 dark:border-stone-700/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-lime-400 focus:border-transparent transition-all shadow-sm"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-sm">🔍</span>
         </div>
-        <button onClick={handleAdd} className="px-5 py-3 btn-glass btn-glass-orange rounded-xl active:scale-[0.98]">{t('shoppingList.addItem')}</button>
+        <button onClick={handleAdd} className="px-5 py-3 btn-glass btn-glass-lime rounded-xl active:scale-[0.98]">{t('shoppingList.addItem')}</button>
       </div>
 
       {items.length === 0 ? (
         <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
-          <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-orange-200 dark:border-orange-700/50 flex items-center justify-center text-4xl shadow-lg">
+          <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">
             🛒
           </div>
           <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('shoppingList.emptyTitle')}</p>
           <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('shoppingList.emptyDesc')}</p>
-          <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-orange px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
+          <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
             📸 {t('shoppingList.scanVeggies')} →
           </Link>
           <p className="text-xs text-stone-400 dark:text-stone-500 mt-6">💡 Tip: Scan vegetables to auto-generate shopping lists from recipes</p>
@@ -166,9 +166,9 @@ export default function ShoppingList() {
                   <div className="flex items-center gap-2.5">
                     <div className="flex items-center gap-1.5">
                       <div className="w-16 h-1.5 bg-stone-100 dark:bg-stone-700 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-orange-400 to-orange-500 rounded-full transition-all duration-500" style={{ width: `${catItems.length ? (catChecked / catItems.length) * 100 : 0}%` }} />
+                        <div className="h-full bg-gradient-to-r from-lime-400 to-lime-500 rounded-full transition-all duration-500" style={{ width: `${catItems.length ? (catChecked / catItems.length) * 100 : 0}%` }} />
                       </div>
-                      <span className="text-xs text-orange-600 dark:text-orange-400 font-semibold min-w-[2rem] text-right">{catChecked}/{catItems.length}</span>
+                      <span className="text-xs text-lime-600 dark:text-lime-400 font-semibold min-w-[2rem] text-right">{catChecked}/{catItems.length}</span>
                     </div>
                     <svg className={`w-4 h-4 text-stone-400 dark:text-stone-500 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
@@ -179,7 +179,7 @@ export default function ShoppingList() {
                   <div className="px-3 pb-3 space-y-0.5">
                     {catItems.map(item => (
                       <div key={item.id} className={`flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-stone-50/50 dark:hover:bg-stone-700/30 ${item.checked ? 'opacity-60' : ''}`}>
-                        <button onClick={() => handleToggle(item.id)} role="checkbox" aria-checked={item.checked} className={`w-5 h-5 rounded-md border-2 flex items-center justify-center text-xs transition-all shrink-0 ${item.checked ? 'bg-orange-500 border-orange-500 text-white shadow-sm' : 'border-stone-300 dark:border-stone-500 hover:border-orange-400'}`}>
+                        <button onClick={() => handleToggle(item.id)} role="checkbox" aria-checked={item.checked} className={`w-5 h-5 rounded-md border-2 flex items-center justify-center text-xs transition-all shrink-0 ${item.checked ? 'bg-lime-500 border-lime-500 text-white shadow-sm' : 'border-stone-300 dark:border-stone-500 hover:border-lime-400'}`}>
                           {item.checked ? '✓' : ''}
                         </button>
                         <span className={`flex-1 text-sm font-medium ${item.checked ? 'text-stone-400 dark:text-stone-500 line-through' : 'text-stone-700 dark:text-stone-200'}`}>{item.name}</span>

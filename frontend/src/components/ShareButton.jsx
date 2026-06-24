@@ -27,7 +27,7 @@ export default function ShareButton({ title, text, url }) {
   return (
     <button
       onClick={handleShare}
-      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-stone-100 dark:bg-stone-700/60 text-stone-600 dark:text-stone-300 rounded-lg hover:bg-orange-100 dark:hover:bg-emerald-900/40 hover:text-orange-600 dark:hover:text-orange-400 transition-all border border-stone-200 dark:border-stone-600/60"
+      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-stone-100 dark:bg-stone-700/60 text-stone-600 dark:text-stone-300 rounded-lg hover:bg-lime-100 dark:hover:bg-emerald-900/40 hover:text-lime-600 dark:hover:text-lime-400 transition-all border border-stone-200 dark:border-stone-600/60"
       aria-label={t('share.title')}
     >
       {copied ? '✓' : '🔗'} {copied ? t('share.copied') : t('share.title')}

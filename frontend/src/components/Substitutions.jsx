@@ -6,7 +6,7 @@ export default function Substitutions({ substitutions }) {
 
   const matchStyles = {
     High: 'bg-emerald-100 dark:bg-emerald-900/60 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-700',
-    Moderate: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-700',
+    Moderate: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300 border-lime-200 dark:border-lime-700',
     Low: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 border-red-200 dark:border-red-700'
   }
 

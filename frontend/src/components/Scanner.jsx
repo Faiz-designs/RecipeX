@@ -99,14 +99,14 @@ export default function Scanner({ onScanComplete }) {
     <div className="max-w-2xl mx-auto">
       <div className="glass-card rounded-2xl shadow-sm p-6 md:p-8 hover:shadow-lg transition-all duration-300">
         <div className="flex items-center gap-3 mb-6">
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center shadow-md ring-1 ring-orange-500/20"><span className="text-lg">📸</span></div>
+          <div className="w-10 h-10 bg-gradient-to-br from-lime-400 to-lime-600 rounded-xl flex items-center justify-center shadow-md ring-1 ring-lime-500/20"><span className="text-lg">📸</span></div>
           <div><h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scanner.title')}</h2><p className="text-sm text-stone-400 dark:text-stone-500">{t('scanner.subtitle')}</p></div>
         </div>
 
         <div className="relative glass-card rounded-2xl p-1.5 mb-6">
           <div className="flex gap-1">
             {['upload', 'camera', 'fridge'].map(m => (
-              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-stone-600 text-orange-600 dark:text-orange-300 shadow-sm ring-1 ring-stone-200/50 dark:ring-stone-500/50' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
+              <button key={m} onClick={() => { setMode(m); setError(''); if (stream) { stream.getTracks().forEach(t => t.stop()); setStream(null) } }} className={`relative flex-1 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${mode === m ? 'bg-white dark:bg-stone-600 text-lime-600 dark:text-lime-300 shadow-sm ring-1 ring-stone-200/50 dark:ring-stone-500/50' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-white/50 dark:hover:bg-slate-600/30'}`}>
                 <span className="flex items-center justify-center gap-2">
                   <span className={`text-base ${mode === m ? 'scale-110' : 'opacity-70'} transition-all duration-200`}>{m === 'upload' ? '📁' : m === 'camera' ? '📷' : '🧊'}</span>
                   <span>{m === 'upload' ? t('scanner.upload') : m === 'camera' ? t('scanner.camera') : t('fridgeMode.title')}</span>
@@ -117,17 +117,17 @@ export default function Scanner({ onScanComplete }) {
         </div>
 
         {mode === 'upload' && (
-          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-2xl border-2 transition-all duration-300 cursor-pointer overflow-hidden ${dragOver ? 'border-orange-400 bg-orange-50/80 dark:bg-orange-900/30 scale-[1.01] shadow-lg shadow-orange-500/10' : 'border-dashed border-stone-200 dark:border-stone-600 hover:border-orange-300 dark:hover:border-orange-500 bg-stone-50/50 dark:bg-stone-800/50 hover:bg-orange-50/30 dark:hover:bg-orange-900/20'}`}>
+          <div onClick={() => !loading && fileRef.current?.click()} onDrop={handleDrop} onDragOver={handleDragOver} onDragLeave={handleDragLeave} aria-label="Upload image" className={`relative rounded-2xl border-2 transition-all duration-300 cursor-pointer overflow-hidden ${dragOver ? 'border-lime-400 bg-lime-50/80 dark:bg-lime-900/30 scale-[1.01] shadow-lg shadow-lime-500/10' : 'border-dashed border-stone-200 dark:border-stone-600 hover:border-lime-300 dark:hover:border-lime-500 bg-stone-50/50 dark:bg-stone-800/50 hover:bg-lime-50/30 dark:hover:bg-lime-900/20'}`}>
             <input ref={fileRef} type="file" accept="image/*" onChange={handleFile} hidden />
             {loading ? (
               <div className="flex flex-col items-center justify-center py-16 gap-4">
                 <div className="relative w-16 h-16">
-                  <div className="absolute inset-0 rounded-full bg-orange-100 dark:bg-orange-900/40 animate-ping opacity-25" />
-                  <div className="absolute inset-0 border-[3px] border-orange-200/60 dark:border-emerald-800/60 rounded-full" />
+                  <div className="absolute inset-0 rounded-full bg-lime-100 dark:bg-lime-900/40 animate-ping opacity-25" />
+                  <div className="absolute inset-0 border-[3px] border-lime-200/60 dark:border-emerald-800/60 rounded-full" />
                   <div className="absolute inset-0 border-[3px] border-transparent border-t-emerald-500 rounded-full animate-spin" />
                   <div className="absolute inset-0 flex items-center justify-center"><span className="text-xl">🔍</span></div>
                 </div>
-                <p className="text-orange-600 dark:text-orange-400 font-bold text-lg">{t('scanner.analyzing')}</p>
+                <p className="text-lime-600 dark:text-lime-400 font-bold text-lg">{t('scanner.analyzing')}</p>
                 <p className="text-stone-400 dark:text-stone-500 text-sm">{t('scanner.identifying')}</p>
               </div>
             ) : preview ? (
@@ -138,7 +138,7 @@ export default function Scanner({ onScanComplete }) {
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-16 gap-3">
-                <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-emerald-900/50 dark:to-emerald-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-orange-500/10">
+                <div className="w-16 h-16 bg-gradient-to-br from-lime-100 to-lime-200 dark:from-emerald-900/50 dark:to-emerald-800/50 rounded-2xl flex items-center justify-center text-3xl shadow-inner ring-1 ring-lime-500/10">
                   <span className="drop-shadow-sm">📸</span>
                 </div>
                 <div>
@@ -162,7 +162,7 @@ export default function Scanner({ onScanComplete }) {
               <div>
                 <video ref={videoRef} autoPlay className="w-full max-h-72 object-contain bg-black/5 dark:bg-black/20" />
                 <div className="flex gap-2 p-3 bg-stone-100/50 dark:bg-stone-700/50 backdrop-blur-sm">
-                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 btn-glass btn-glass-orange rounded-xl font-semibold active:scale-[0.98]">{t('scanner.capturePhoto')}</button>
+                  <button onClick={captureFromCamera} aria-label="Camera capture" className="flex-1 px-4 py-2.5 btn-glass btn-glass-lime rounded-xl font-semibold active:scale-[0.98]">{t('scanner.capturePhoto')}</button>
                   <button onClick={() => { stream.getTracks().forEach(t => t.stop()); setStream(null) }} className="px-4 py-2.5 bg-stone-200 dark:bg-stone-600 text-stone-600 dark:text-stone-300 rounded-xl font-medium hover:bg-stone-300 dark:hover:bg-stone-500 transition-all duration-200 active:scale-[0.98]">{t('scanner.cancel')}</button>
                 </div>
               </div>
@@ -174,9 +174,9 @@ export default function Scanner({ onScanComplete }) {
         {mode === 'fridge' && <FridgeScanner />}
 
         {mode !== 'fridge' && getFridgeItems().length > 0 && (
-          <div className="mt-4 p-3 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200/60 dark:border-orange-700/30 flex items-center gap-2.5 text-sm">
+          <div className="mt-4 p-3 rounded-xl bg-gradient-to-br from-lime-50 to-lime-50 dark:from-lime-900/20 dark:to-lime-900/20 border border-lime-200/60 dark:border-lime-700/30 flex items-center gap-2.5 text-sm">
             <span className="text-lg">🧊</span>
-            <span className="text-stone-600 dark:text-stone-300"><strong className="text-orange-600 dark:text-orange-400">{getFridgeItems().length} items</strong> in your fridge — matches will show in scan results</span>
+            <span className="text-stone-600 dark:text-stone-300"><strong className="text-lime-600 dark:text-lime-400">{getFridgeItems().length} items</strong> in your fridge — matches will show in scan results</span>
           </div>
         )}
 
@@ -190,7 +190,7 @@ export default function Scanner({ onScanComplete }) {
         )}
 
         <div className="flex gap-3 mt-6">
-          <button onClick={handleScan} disabled={loading || !image} className="flex-1 btn-glass btn-glass-orange py-3 rounded-xl text-base flex items-center justify-center gap-2 active:scale-[0.98]">
+          <button onClick={handleScan} disabled={loading || !image} className="flex-1 btn-glass btn-glass-lime py-3 rounded-xl text-base flex items-center justify-center gap-2 active:scale-[0.98]">
             {loading ? <><span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('scanner.analyzing')}</> : t('scanner.scanAndAnalyze')}
           </button>
           <button onClick={handleDemo} disabled={loading} className="px-6 py-3 btn-glass btn-glass-purple flex items-center justify-center gap-2 active:scale-[0.98]">

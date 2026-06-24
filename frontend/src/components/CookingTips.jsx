@@ -12,7 +12,7 @@ export default function CookingTips({ cooking_tips }) {
       <div className="grid sm:grid-cols-2 gap-4">
         {cooking_tips.map((veg) => (
           <div key={veg.vegetable_id} className="bg-white dark:bg-stone-800 rounded-2xl shadow-sm border border-stone-100 dark:border-stone-700 overflow-hidden hover:shadow-md hover:-transtone-y-0.5 transition-all duration-300">
-            <div className="bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-900/30 dark:to-amber-900/30 px-5 py-3 border-b border-stone-100 dark:border-stone-700">
+            <div className="bg-gradient-to-r from-lime-50 to-lime-50 dark:from-lime-900/30 dark:to-lime-900/30 px-5 py-3 border-b border-stone-100 dark:border-stone-700">
               <h3 className="font-bold text-stone-800 dark:text-stone-100 text-lg">{veg.vegetable_name}</h3>
             </div>
             <div className="p-4 space-y-3.5">
@@ -24,7 +24,7 @@ export default function CookingTips({ cooking_tips }) {
                 <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide mb-1.5">{t('cookingTips.bestMethods')}</p>
                 <div className="flex flex-wrap gap-1.5">
                   {veg.best_cooking_methods?.map((m, i) => (
-                    <span key={i} className="text-xs bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-700/50 px-2.5 py-0.5 rounded-full font-medium">{m}</span>
+                    <span key={i} className="text-xs bg-lime-50 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300 border border-lime-200 dark:border-lime-700/50 px-2.5 py-0.5 rounded-full font-medium">{m}</span>
                   ))}
                 </div>
               </div>

@@ -49,7 +49,7 @@ export default function OnboardingTour() {
 
           <div className="flex gap-2 mb-8">
             {steps.map((_, i) => (
-              <div key={i} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === step ? 'w-6 bg-orange-500' : 'bg-slate-300 dark:bg-stone-600'}`} />
+              <div key={i} className={`w-2 h-2 rounded-full transition-all duration-300 ${i === step ? 'w-6 bg-lime-500' : 'bg-slate-300 dark:bg-stone-600'}`} />
             ))}
           </div>
 
@@ -60,11 +60,11 @@ export default function OnboardingTour() {
               </button>
             )}
             {step < steps.length - 1 ? (
-              <button onClick={() => setStep(s => s + 1)} className="flex-1 px-4 py-2.5 btn-glass btn-glass-orange rounded-xl text-sm font-semibold">
+              <button onClick={() => setStep(s => s + 1)} className="flex-1 px-4 py-2.5 btn-glass btn-glass-lime rounded-xl text-sm font-semibold">
                 Next
               </button>
             ) : (
-              <button onClick={dismiss} className="flex-1 px-4 py-2.5 btn-glass btn-glass-orange rounded-xl text-sm font-semibold">
+              <button onClick={dismiss} className="flex-1 px-4 py-2.5 btn-glass btn-glass-lime rounded-xl text-sm font-semibold">
                 Get Started 🚀
               </button>
             )}

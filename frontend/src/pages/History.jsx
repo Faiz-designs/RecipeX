@@ -58,7 +58,7 @@ export default function History() {
     <>
       <SEO title="Scan History" description="View your past vegetable scans and recipe results." />
       <div className="max-w-5xl mx-auto px-4 py-8">
-        <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-orange-500/10">
+        <div className="bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-lime-500/10">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">📋</div>
@@ -77,25 +77,25 @@ export default function History() {
 
         {loading ? (
           <div className="flex justify-center py-20">
-            <div className="w-8 h-8 border-4 border-orange-200 border-t-emerald-500 rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-lime-200 border-t-emerald-500 rounded-full animate-spin" />
           </div>
         ) : history.length === 0 && !selected ? (
           <div className="text-center py-20 glass-card rounded-2xl shadow-sm">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-orange-200 dark:border-orange-700/50 flex items-center justify-center text-4xl shadow-lg">📜</div>
+            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">📜</div>
             <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('history.noScans')}</p>
             <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('history.noScansDesc')}</p>
-            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-orange px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
+            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
               📸 {t('history.scanNow')} →
             </Link>
           </div>
         ) : selected && r ? (
           <div>
-            <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-sm text-orange-600 dark:text-orange-400 font-medium mb-5 hover:text-orange-700 dark:hover:text-orange-300 transition-colors group">
+            <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-sm text-lime-600 dark:text-lime-400 font-medium mb-5 hover:text-lime-700 dark:hover:text-lime-300 transition-colors group">
               <span className="group-hover:-translate-x-0.5 transition-transform">←</span> {t('history.back')}
             </button>
             <div className="glass-card rounded-2xl shadow-lg p-5 md:p-7 mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 bg-gradient-to-br from-orange-400 to-orange-500 rounded-xl flex items-center justify-center shadow-md text-lg">📊</div>
+                <div className="w-11 h-11 bg-gradient-to-br from-lime-400 to-lime-500 rounded-xl flex items-center justify-center shadow-md text-lg">📊</div>
                 <div>
                   <h2 className="text-xl font-extrabold text-stone-800 dark:text-stone-100">{t('scan.results')}</h2>
                   <p className="text-sm text-stone-400 dark:text-stone-500">{new Date(selected.timestamp).toLocaleString()}</p>
@@ -122,14 +122,14 @@ export default function History() {
             {r.scan_summary?.items && (
               <div className="mb-6">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-xs shadow-sm">🥬</div>
+                  <div className="w-8 h-8 bg-gradient-to-br from-lime-400 to-lime-500 rounded-lg flex items-center justify-center text-xs shadow-sm">🥬</div>
                   <h2 className="text-lg font-bold text-stone-800 dark:text-stone-100">{t('scan.sections.vegetables')}</h2>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
                   {r.scan_summary.items.map(item => (
                     <div key={item.id} className="glass-card rounded-xl shadow-sm p-3.5 hover:shadow-md transition-shadow">
                       <p className="font-bold text-stone-800 dark:text-stone-100 text-sm">{item.common_name}</p>
-                      <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full inline-block mt-1.5 ${item.freshness_status === 'Fresh' ? 'bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300 border border-orange-200 dark:border-orange-700/50' : item.freshness_status === 'Slightly Aged' ? 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-700/50' : 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700/50'}`}>{item.freshness_status}</span>
+                      <span className={`text-xs font-semibold px-2.5 py-0.5 rounded-full inline-block mt-1.5 ${item.freshness_status === 'Fresh' ? 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300 border border-lime-200 dark:border-lime-700/50' : item.freshness_status === 'Slightly Aged' ? 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300 border border-lime-200 dark:border-lime-700/50' : 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-700/50'}`}>{item.freshness_status}</span>
                     </div>
                   ))}
                 </div>

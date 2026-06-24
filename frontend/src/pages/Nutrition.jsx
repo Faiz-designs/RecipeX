@@ -4,12 +4,12 @@ import { useAuth } from '../utils/AuthContext'
 import SEO from '../components/SEO'
 
 const nutrientRows = [
-  { key: 'calories_kcal', label: 'Calories (kcal)', max: 100, color: 'from-orange-400 to-orange-500' },
-  { key: 'carbohydrates_g', label: 'Carbs (g)', max: 30, color: 'from-yellow-400 to-amber-500' },
+  { key: 'calories_kcal', label: 'Calories (kcal)', max: 100, color: 'from-lime-400 to-lime-500' },
+  { key: 'carbohydrates_g', label: 'Carbs (g)', max: 30, color: 'from-yellow-400 to-lime-500' },
   { key: 'dietary_fibre_g', label: 'Fibre (g)', max: 10, color: 'from-emerald-400 to-emerald-500' },
   { key: 'protein_g', label: 'Protein (g)', max: 10, color: 'from-blue-400 to-blue-500' },
   { key: 'fat_g', label: 'Fat (g)', max: 10, color: 'from-red-400 to-red-500' },
-  { key: 'vitamin_c_mg', label: 'Vitamin C (mg)', max: 100, color: 'from-amber-400 to-orange-400' },
+  { key: 'vitamin_c_mg', label: 'Vitamin C (mg)', max: 100, color: 'from-lime-400 to-lime-400' },
   { key: 'iron_mg', label: 'Iron (mg)', max: 10, color: 'from-purple-400 to-purple-500' },
   { key: 'potassium_mg', label: 'Potassium (mg)', max: 600, color: 'from-indigo-400 to-indigo-500' },
   { key: 'calcium_mg', label: 'Calcium (mg)', max: 200, color: 'from-pink-400 to-pink-500' },
@@ -24,7 +24,7 @@ const dailyTargets = {
 }
 
 const vitaminHighlights = [
-  { key: 'vitamin_c_mg', name: 'Vitamin C', unit: 'mg', color: 'from-amber-400 to-orange-400' },
+  { key: 'vitamin_c_mg', name: 'Vitamin C', unit: 'mg', color: 'from-lime-400 to-lime-400' },
   { key: 'iron_mg', name: 'Iron', unit: 'mg', color: 'from-purple-400 to-purple-500' },
   { key: 'potassium_mg', name: 'Potassium', unit: 'mg', color: 'from-indigo-400 to-indigo-500' },
   { key: 'calcium_mg', name: 'Calcium', unit: 'mg', color: 'from-pink-400 to-pink-500' },
@@ -120,7 +120,7 @@ export default function Nutrition() {
   if (loading) {
     return (
       <div className="max-w-5xl mx-auto px-4 py-8 animate-fadeIn">
-        <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white"><div className="h-8 w-48 bg-white/20 rounded-lg animate-pulse" /><div className="h-4 w-72 bg-white/20 rounded-lg mt-3 animate-pulse" /></div>
+        <div className="bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 rounded-2xl p-6 md:p-8 mb-8 text-white"><div className="h-8 w-48 bg-white/20 rounded-lg animate-pulse" /><div className="h-4 w-72 bg-white/20 rounded-lg mt-3 animate-pulse" /></div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-10">{Array.from({ length: 5 }).map((_, i) => <div key={i} className="h-28 bg-stone-100 dark:bg-stone-800 rounded-2xl animate-pulse" />)}</div>
       </div>
     )
@@ -132,7 +132,7 @@ export default function Nutrition() {
         <div className="text-4xl mb-4">⚠️</div>
         <p className="text-lg text-red-500 font-bold mb-2">{t('common.error')}</p>
         <p className="text-sm text-stone-500 mb-6">{error}</p>
-        <button onClick={() => window.location.reload()} className="px-6 py-3 btn-glass btn-glass-orange rounded-xl">{t('common.retry')}</button>
+        <button onClick={() => window.location.reload()} className="px-6 py-3 btn-glass btn-glass-lime rounded-xl">{t('common.retry')}</button>
       </div>
     )
   }
@@ -157,7 +157,7 @@ export default function Nutrition() {
     <>
       <SEO title="Nutrition Tracker" description="Track daily nutrition, vitamins, and health scores from your scanned vegetables." />
       <div className="animate-fadeIn">
-        <div className="relative overflow-hidden bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 py-16 md:py-20">
+        <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 py-16 md:py-20">
           <div className="absolute inset-0 overflow-hidden opacity-10 pointer-events-none">
             <span className="absolute top-4 left-[15%] text-6xl animate-float" style={{ animationDelay: '0s' }}>🥦</span>
             <span className="absolute top-8 right-[20%] text-5xl animate-float" style={{ animationDelay: '1s' }}>🥕</span>
@@ -182,7 +182,7 @@ export default function Nutrition() {
             ].map((item, i) => (
               <div key={i} className="group glass-card rounded-2xl shadow-sm p-5 text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-200">
                 <div className="text-2xl mb-1">{item.emoji}</div>
-                <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-600 to-amber-600 dark:from-orange-400 dark:to-amber-400">
+                <div className="text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-lime-600 to-lime-600 dark:from-lime-400 dark:to-lime-400">
                   {totals[item.key]?.toFixed(item.decimals) || 0}{item.suffix}
                 </div>
                 <div className="text-xs text-stone-500 dark:text-stone-400 font-medium mt-1">{item.label}</div>
@@ -194,12 +194,12 @@ export default function Nutrition() {
           <div className="mb-10 glass-card rounded-2xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-5">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-red-500 rounded-lg flex items-center justify-center text-sm shadow-sm">📊</div>
+                <div className="w-8 h-8 bg-gradient-to-br from-lime-400 to-red-500 rounded-lg flex items-center justify-center text-sm shadow-sm">📊</div>
                 <h2 className="text-lg font-bold text-stone-800 dark:text-stone-100">{t('nutritionTracker.trackerTitle')}</h2>
               </div>
               <button
                 onClick={() => setShowLogForm(!showLogForm)}
-                className="px-4 py-2 btn-glass btn-glass-orange rounded-xl text-sm"
+                className="px-4 py-2 btn-glass btn-glass-lime rounded-xl text-sm"
               >
                 {showLogForm ? t('common.close') : `+ ${t('nutritionTracker.logMeal')}`}
               </button>
@@ -219,15 +219,15 @@ export default function Nutrition() {
                   <input type="number" value={log.carbohydrates_g || ''} onChange={e => setLog({ ...log, carbohydrates_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.carbs')} className="px-3 py-2 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm" />
                   <input type="number" value={log.fat_g || ''} onChange={e => setLog({ ...log, fat_g: +e.target.value || 0 })} placeholder={t('nutritionTracker.fat')} className="px-3 py-2 bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 rounded-xl text-sm" />
                 </div>
-                <button onClick={handleLog} disabled={saving} className="px-5 py-2.5 btn-glass btn-glass-orange rounded-xl text-sm">
+                <button onClick={handleLog} disabled={saving} className="px-5 py-2.5 btn-glass btn-glass-lime rounded-xl text-sm">
                   {saving ? t('common.loading') : logSaved ? `✓ ${t('nutritionTracker.saved')}` : t('nutritionTracker.save')}
                 </button>
               </div>
             )}
 
             {showLogForm && (!user || !token) && (
-              <div className="text-center py-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl border border-amber-200/60 dark:border-amber-700/40 mb-5">
-                <p className="text-sm text-amber-600 dark:text-amber-400 font-medium">{t('nutritionTracker.signInRequired')}</p>
+              <div className="text-center py-4 bg-lime-50 dark:bg-lime-900/20 rounded-xl border border-lime-200/60 dark:border-lime-700/40 mb-5">
+                <p className="text-sm text-lime-600 dark:text-lime-400 font-medium">{t('nutritionTracker.signInRequired')}</p>
               </div>
             )}
 
@@ -235,9 +235,9 @@ export default function Nutrition() {
               <div>
                 <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
                   {[
-                    { key: 'calories', label: t('nutritionTracker.dailyCalories'), target: 2000, color: 'from-orange-400 to-red-500', emoji: '🔥' },
+                    { key: 'calories', label: t('nutritionTracker.dailyCalories'), target: 2000, color: 'from-lime-400 to-red-500', emoji: '🔥' },
                     { key: 'protein', label: t('nutritionTracker.dailyProtein'), target: 50, color: 'from-blue-400 to-blue-500', emoji: '🥩' },
-                    { key: 'carbs', label: t('nutritionTracker.dailyCarbs'), target: 300, color: 'from-yellow-400 to-amber-500', emoji: '🌾' },
+                    { key: 'carbs', label: t('nutritionTracker.dailyCarbs'), target: 300, color: 'from-yellow-400 to-lime-500', emoji: '🌾' },
                     { key: 'fat', label: t('nutritionTracker.dailyFat'), target: 65, color: 'from-red-400 to-red-500', emoji: '🧈' },
                   ].map((item, i) => {
                     const val = chartData.length > 0 ? chartData[chartData.length - 1][item.key] || 0 : 0
@@ -262,7 +262,7 @@ export default function Nutrition() {
                 <div className="grid sm:grid-cols-2 gap-6">
                   <div className="glass-card rounded-xl p-4">
                     <p className="text-xs font-bold text-stone-500 dark:text-stone-400 mb-3 uppercase tracking-wide">{t('nutritionTracker.dailyCalories')}</p>
-                    <DailyChart data={chartData.map(d => ({ label: d.date?.slice(5), value: d.calories }))} color="from-orange-400 to-red-500" max={2500} />
+                    <DailyChart data={chartData.map(d => ({ label: d.date?.slice(5), value: d.calories }))} color="from-lime-400 to-red-500" max={2500} />
                   </div>
                   <div className="glass-card rounded-xl p-4">
                     <p className="text-xs font-bold text-stone-500 dark:text-stone-400 mb-3 uppercase tracking-wide">{t('nutritionTracker.dailyProtein')}</p>
@@ -304,7 +304,7 @@ export default function Nutrition() {
                   </thead>
                   <tbody>
                     {nutrientRows.map(({ key, label, max, color }) => (
-                      <tr key={key} className="hover:bg-orange-50/30 dark:hover:bg-orange-900/20 transition-colors">
+                      <tr key={key} className="hover:bg-lime-50/30 dark:hover:bg-lime-900/20 transition-colors">
                         <td className="p-3.5 text-sm font-medium text-stone-600 dark:text-stone-300 border-b border-stone-200/40 dark:border-stone-700/40">{label}</td>
                         {nutrition.map(n => {
                           const val = n.per_100g?.[key]
@@ -339,7 +339,7 @@ export default function Nutrition() {
                     {v.sources.length > 0 ? v.sources.map((s, i) => (
                       <div key={i} className="flex items-center justify-between text-xs py-1 border-b border-stone-100 dark:border-stone-700/50 last:border-0">
                         <span className="text-stone-600 dark:text-stone-300">{s.vegetable_name}</span>
-                        <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-orange-600">{s.per_100g?.[v.key]?.toFixed(1) || '—'} {v.unit}</span>
+                        <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-lime-500 to-lime-600">{s.per_100g?.[v.key]?.toFixed(1) || '—'} {v.unit}</span>
                       </div>
                     )) : <p className="text-xs text-stone-400 dark:text-stone-500">{t('common.noData')}</p>}
                   </div>

@@ -140,7 +140,7 @@ export default function FridgeScanner() {
         <div className="flex items-center gap-2 mb-4">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🧊</div>
           <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('fridgeMode.title')}</h2>
-          <span className="text-xs bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded-full font-semibold ml-auto">{items.length} items</span>
+          <span className="text-xs bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300 px-2 py-0.5 rounded-full font-semibold ml-auto">{items.length} items</span>
         </div>
 
         <div className="flex gap-2 mb-4">
@@ -207,12 +207,12 @@ export default function FridgeScanner() {
               <div key={i} className="glass-card rounded-2xl p-4 hover:shadow-lg transition-all">
                 <div className="flex items-center justify-between mb-2">
                   <h4 className="font-bold text-stone-800 dark:text-stone-100 text-sm">{r.name}</h4>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
+                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
                     {r.matchPercent}% match
                   </span>
                 </div>
                 <div className="flex gap-1.5 flex-wrap mb-2">
-                  {r.matchedIngredients?.map((ing, j) => <span key={j} className="text-xs bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-2 py-0.5 rounded-full">✓ {ing}</span>)}
+                  {r.matchedIngredients?.map((ing, j) => <span key={j} className="text-xs bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300 px-2 py-0.5 rounded-full">✓ {ing}</span>)}
                 </div>
                 <Link to="/cooking-mode" state={{ recipe: r }} className="inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700">
                   👨‍🍳 {t('cookingMode.start')} →

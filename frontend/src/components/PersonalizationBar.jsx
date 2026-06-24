@@ -31,7 +31,7 @@ export default function PersonalizationBar({ onAgeGroupChange }) {
     <div className="flex items-center gap-3 glass-card rounded-xl px-4 py-2 shadow-sm">
       <span className="text-sm font-medium text-stone-500 dark:text-stone-400">{t('personalization.cookFor')}:</span>
       {groups.map(g => (
-        <button key={g.key} onClick={() => handleChange(g.key)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${ageGroup === g.key ? 'bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 shadow-sm' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-700/50'}`}>
+        <button key={g.key} onClick={() => handleChange(g.key)} className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-all ${ageGroup === g.key ? 'bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300 shadow-sm' : 'text-stone-500 dark:text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-700/50'}`}>
           <span>{g.emoji}</span> {g.label}
         </button>
       ))}

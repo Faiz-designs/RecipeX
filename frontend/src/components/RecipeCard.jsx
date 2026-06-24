@@ -100,8 +100,8 @@ export function RecipeCardItem({
 
   if (!r) return null
 
-  const headerGradient = config?.color || config?.header || 'from-orange-500 to-orange-600'
-  const stepBadge = config?.step || config?.badge || 'bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300'
+  const headerGradient = config?.color || config?.header || 'from-lime-500 to-lime-600'
+  const stepBadge = config?.step || config?.badge || 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300'
   const label = config?.label || level || ''
 
   const groups = stepGroups(r.steps)
@@ -178,12 +178,12 @@ export function RecipeCardItem({
           <div className="flex items-center gap-1.5 bg-stone-100 dark:bg-stone-700/50 rounded-lg p-0.5">
             <button
               onClick={() => setServings(Math.max(1, servings - 1))}
-              className="w-7 h-7 rounded-md bg-white dark:bg-stone-600 text-stone-600 dark:text-stone-300 flex items-center justify-center text-base font-bold hover:bg-orange-50 dark:hover:bg-stone-500 hover:text-orange-600 dark:hover:text-orange-400 transition-all shadow-sm"
+              className="w-7 h-7 rounded-md bg-white dark:bg-stone-600 text-stone-600 dark:text-stone-300 flex items-center justify-center text-base font-bold hover:bg-lime-50 dark:hover:bg-stone-500 hover:text-lime-600 dark:hover:text-lime-400 transition-all shadow-sm"
             >−</button>
             <span className="text-sm font-bold text-stone-700 dark:text-stone-200 min-w-[2.5rem] text-center">{servings}</span>
             <button
               onClick={() => setServings(Math.min(20, servings + 1))}
-              className="w-7 h-7 rounded-md bg-white dark:bg-stone-600 text-stone-600 dark:text-stone-300 flex items-center justify-center text-base font-bold hover:bg-orange-50 dark:hover:bg-stone-500 hover:text-orange-600 dark:hover:text-orange-400 transition-all shadow-sm"
+              className="w-7 h-7 rounded-md bg-white dark:bg-stone-600 text-stone-600 dark:text-stone-300 flex items-center justify-center text-base font-bold hover:bg-lime-50 dark:hover:bg-stone-500 hover:text-lime-600 dark:hover:text-lime-400 transition-all shadow-sm"
             >+</button>
           </div>
           <span className="text-xs text-stone-400 dark:text-stone-500">{t('recipeCard.servings')}</span>
@@ -191,8 +191,8 @@ export function RecipeCardItem({
             onClick={() => setUnitSystem(unitSystem === 'metric' ? 'imperial' : 'metric')}
             className={`ml-auto text-xs font-bold px-3 py-1.5 rounded-xl border transition-all duration-200 ${
               unitSystem === 'metric'
-                ? 'bg-orange-50 dark:bg-orange-900/40 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-700 shadow-sm'
-                : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-orange-300 dark:hover:border-orange-600'
+                ? 'bg-lime-50 dark:bg-lime-900/40 text-lime-600 dark:text-lime-400 border-lime-200 dark:border-lime-700 shadow-sm'
+                : 'bg-white dark:bg-stone-700 text-stone-500 dark:text-stone-400 border-stone-200 dark:border-stone-600 hover:border-lime-300 dark:hover:border-lime-600'
             }`}
           >
             {unitSystem === 'metric' ? t('recipeCard.metric') : t('recipeCard.imperial')}
@@ -206,7 +206,7 @@ export function RecipeCardItem({
               <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide">{t('recipes.youWillNeed')}</p>
               <button
                 onClick={gatherAll}
-                className="text-xs text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 font-semibold transition-colors"
+                className="text-xs text-lime-600 dark:text-lime-400 hover:text-lime-700 dark:hover:text-lime-300 font-semibold transition-colors"
               >
                 {checkedIngredients.size === r.additional_ingredients_required.length && checkedIngredients.size > 0
                   ? t('recipeCard.checked')
@@ -228,14 +228,14 @@ export function RecipeCardItem({
                       checked
                         ? 'bg-stone-100 dark:bg-stone-700 text-stone-400 dark:text-stone-500 border-stone-200 dark:border-stone-600 line-through shadow-sm'
                         : inPantry
-                          ? 'bg-orange-50 dark:bg-orange-900/40 text-orange-700 dark:text-orange-300 border-orange-200/80 dark:border-orange-700/60 hover:bg-orange-100 dark:hover:bg-orange-900/60 hover:shadow-sm active:scale-95'
-                          : 'bg-amber-50 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 border-amber-200/80 dark:border-amber-700/60 hover:bg-amber-100 dark:hover:bg-amber-900/60 hover:shadow-sm active:scale-95'
+                          ? 'bg-lime-50 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border-lime-200/80 dark:border-lime-700/60 hover:bg-lime-100 dark:hover:bg-lime-900/60 hover:shadow-sm active:scale-95'
+                          : 'bg-lime-50 dark:bg-lime-900/40 text-lime-700 dark:text-lime-300 border-lime-200/80 dark:border-lime-700/60 hover:bg-lime-100 dark:hover:bg-lime-900/60 hover:shadow-sm active:scale-95'
                     }`}
                   >
                     <input type="checkbox" checked={checked} onChange={() => toggleChecked(i)} className="sr-only" />
                     <span className={`inline-block w-3.5 h-3.5 rounded border-2 mr-1.5 align-middle transition-all duration-200 ${
                       checked
-                        ? 'bg-orange-500 border-orange-500'
+                        ? 'bg-lime-500 border-lime-500'
                         : 'bg-white dark:bg-stone-800 border-stone-300 dark:border-stone-500'
                     }`}>
                       {checked && <svg className="w-full h-full text-white" viewBox="0 0 12 12" fill="none"><path d="M2.5 6L5 8.5L9.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
@@ -284,7 +284,7 @@ export function RecipeCardItem({
         {r.steps?.length > 3 && (
           <button
             onClick={handleToggleExpand}
-            className="text-sm font-bold text-orange-600 dark:text-orange-400 hover:text-orange-700 dark:hover:text-orange-300 mt-2 mb-1 transition-all duration-200 inline-flex items-center gap-1"
+            className="text-sm font-bold text-lime-600 dark:text-lime-400 hover:text-lime-700 dark:hover:text-lime-300 mt-2 mb-1 transition-all duration-200 inline-flex items-center gap-1"
           >
             {isExpanded ? <>{t('recipes.showLess')} ↑</> : <>+{r.steps.length - 3} {t('recipes.moreSteps')} ↓</>}
           </button>
@@ -294,7 +294,7 @@ export function RecipeCardItem({
         {r.plating_suggestion && (
           <div className="mt-4 pt-4 border-t border-dashed border-stone-100 dark:border-stone-700">
             <p className="text-xs text-stone-500 dark:text-stone-400 italic leading-relaxed flex items-start gap-2">
-              <span className="w-5 h-5 rounded-full bg-orange-100 dark:bg-orange-900/40 flex items-center justify-center text-xs shrink-0 mt-0.5">💡</span>
+              <span className="w-5 h-5 rounded-full bg-lime-100 dark:bg-lime-900/40 flex items-center justify-center text-xs shrink-0 mt-0.5">💡</span>
               <span>{r.plating_suggestion}</span>
             </p>
           </div>
@@ -306,8 +306,8 @@ export function RecipeCardItem({
         {/* Cost & Budget Info */}
         <div className="flex items-center gap-3 mt-3">
           {r.servings && <span className="text-xs text-stone-400 dark:text-stone-500">🍽 {servings} {t('recipes.servings')}</span>}
-          {r.estimated_cost && <span className="text-xs font-semibold text-orange-600 dark:text-orange-400">💰 ~{r.estimated_cost}</span>}
-          {r.budget_friendly && <span className="text-xs px-2.5 py-0.5 rounded-full bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 font-semibold">{t('recipes.budget')} 👍</span>}
+          {r.estimated_cost && <span className="text-xs font-semibold text-lime-600 dark:text-lime-400">💰 ~{r.estimated_cost}</span>}
+          {r.budget_friendly && <span className="text-xs px-2.5 py-0.5 rounded-full bg-lime-100 dark:bg-lime-900/50 text-lime-700 dark:text-lime-300 font-semibold">{t('recipes.budget')} 👍</span>}
         </div>
 
         {/* Action Buttons (Add to List / Save / Share / Cooking Mode) */}
@@ -316,7 +316,7 @@ export function RecipeCardItem({
             <button
               onClick={handleAddToList}
               aria-label={t('recipes.addToList')}
-              className="flex items-center justify-center gap-1.5 text-xs font-semibold bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-700/50 rounded-xl px-2 py-2.5 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-all duration-200 hover:shadow-sm active:scale-[0.97]"
+              className="flex items-center justify-center gap-1.5 text-xs font-semibold bg-lime-50 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300 border border-lime-200/80 dark:border-lime-700/50 rounded-xl px-2 py-2.5 hover:bg-lime-100 dark:hover:bg-lime-900/50 transition-all duration-200 hover:shadow-sm active:scale-[0.97]"
             >
               <span className="text-base">🛒</span>
               <span>{addedMsg || t('recipes.addToList')}</span>
@@ -337,7 +337,7 @@ export function RecipeCardItem({
             <Link
               to="/cooking-mode"
               state={{ recipe: r }}
-              className="flex items-center justify-center gap-1.5 text-xs font-semibold bg-orange-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 border border-orange-200/80 dark:border-orange-700/50 rounded-xl px-2 py-2.5 hover:bg-orange-100 dark:hover:bg-orange-900/50 transition-all duration-200 hover:shadow-sm active:scale-[0.97] text-center"
+              className="flex items-center justify-center gap-1.5 text-xs font-semibold bg-lime-50 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300 border border-lime-200/80 dark:border-lime-700/50 rounded-xl px-2 py-2.5 hover:bg-lime-100 dark:hover:bg-lime-900/50 transition-all duration-200 hover:shadow-sm active:scale-[0.97] text-center"
             >
               <span className="text-base">👨‍🍳</span>
               <span>{t('cookingMode.start')}</span>
@@ -361,8 +361,8 @@ export default function RecipeCard({ recipes, showActions }) {
 
   const levels = ['easy', 'intermediate', 'advanced']
   const levelConfig = {
-    easy: { color: 'from-orange-500 to-orange-600', badge: 'bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300', step: 'bg-orange-100 dark:bg-orange-900/60 text-orange-700 dark:text-orange-300' },
-    intermediate: { color: 'from-amber-500 to-amber-600', badge: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300', step: 'bg-amber-100 dark:bg-amber-900/60 text-amber-700 dark:text-amber-300' },
+    easy: { color: 'from-lime-500 to-lime-600', badge: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300', step: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300' },
+    intermediate: { color: 'from-lime-500 to-lime-600', badge: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300', step: 'bg-lime-100 dark:bg-lime-900/60 text-lime-700 dark:text-lime-300' },
     advanced: { color: 'from-red-500 to-red-600', badge: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300', step: 'bg-red-100 dark:bg-red-900/60 text-red-700 dark:text-red-300' },
   }
 
@@ -380,7 +380,7 @@ export default function RecipeCard({ recipes, showActions }) {
     <div className="mb-8">
       <div className="flex items-center justify-between gap-4 mb-5">
         <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-orange-500/20">🍳</div>
+          <div className="w-9 h-9 bg-gradient-to-br from-lime-400 to-lime-600 rounded-xl flex items-center justify-center text-sm shadow-md ring-1 ring-lime-500/20">🍳</div>
           <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('scan.sections.recipes')}</h2>
         </div>
         <PersonalizationBar onAgeGroupChange={handleAgeGroupChange} />

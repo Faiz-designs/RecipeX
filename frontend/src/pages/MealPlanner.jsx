@@ -87,7 +87,7 @@ export default function MealPlanner() {
     <>
       <SEO title="Meal Planner" description="Plan your weekly meals with AI-generated recipes from scanned vegetables." />
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="bg-gradient-to-br from-orange-600 via-orange-500 to-amber-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-orange-500/10">
+        <div className="bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-lime-500/10">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center text-2xl shadow-inner">📅</div>
@@ -149,7 +149,7 @@ export default function MealPlanner() {
                         return (
                           <div key={mk} className="glass-card rounded-xl p-3">
                             <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase tracking-wide">{t(`mealPlanner.${mk}`)}</span>
+                              <span className="text-xs font-bold text-lime-600 dark:text-lime-400 uppercase tracking-wide">{t(`mealPlanner.${mk}`)}</span>
                               <span className="text-xs text-stone-400 dark:text-stone-500">{meal.prep_time_minutes} {t('mealPlanner.prepTime')}</span>
                             </div>
                             <p className="font-bold text-sm text-stone-800 dark:text-stone-100">{meal.name}</p>
@@ -167,7 +167,7 @@ export default function MealPlanner() {
                         <p className="text-xs font-semibold text-stone-500 dark:text-stone-400 mb-1.5">{t('mealPlanner.snacks')}</p>
                         <div className="flex flex-wrap gap-1.5">
                           {dayData.snacks.map((s, i) => (
-                            <span key={i} className="text-xs bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 px-2 py-1 rounded-full border border-amber-200/50 dark:border-amber-700/30">{s.name || s}</span>
+                            <span key={i} className="text-xs bg-lime-50 dark:bg-lime-900/30 text-lime-700 dark:text-lime-300 px-2 py-1 rounded-full border border-lime-200/50 dark:border-lime-700/30">{s.name || s}</span>
                           ))}
                         </div>
                       </div>
@@ -204,7 +204,7 @@ export default function MealPlanner() {
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
                   {aiPlan.weekly_grocery_list.map((cat, i) => (
                     <div key={i} className="glass-card rounded-xl p-3">
-                      <p className="text-xs font-bold text-orange-600 dark:text-orange-400 uppercase mb-1.5">{cat.category}</p>
+                      <p className="text-xs font-bold text-lime-600 dark:text-lime-400 uppercase mb-1.5">{cat.category}</p>
                       <div className="flex flex-wrap gap-1">
                         {(cat.items || []).map((item, j) => (
                           <span key={j} className="text-xs bg-white dark:bg-stone-800 text-stone-600 dark:text-stone-300 px-2 py-0.5 rounded-full border border-stone-200 dark:border-stone-600">{item}</span>
@@ -220,10 +220,10 @@ export default function MealPlanner() {
 
         {allRecipes.length === 0 && !aiPlan && (
           <div className="text-center py-20 glass-card rounded-2xl shadow-sm mb-8">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-orange-200 dark:border-orange-700/50 flex items-center justify-center text-4xl shadow-lg">📅</div>
+            <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">📅</div>
             <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('mealPlanner.noRecipes')}</p>
             <p className="text-sm text-stone-500 dark:text-stone-400 mb-8 max-w-sm mx-auto leading-relaxed">{t('mealPlanner.noRecipesDesc')}</p>
-            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-orange px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
+            <Link to="/scan" className="inline-flex items-center gap-2 btn-glass btn-glass-lime px-7 py-3.5 rounded-xl active:scale-[0.98] text-sm">
               📸 Scan Vegetables →
             </Link>
           </div>
@@ -255,7 +255,7 @@ export default function MealPlanner() {
                                 <button onClick={() => setMeal(day, meal, recipe)} className="text-xs text-red-400 hover:text-red-500 mt-1.5 opacity-0 group-hover:opacity-100 transition-opacity">✕ {t('mealPlanner.removeDay')}</button>
                               </div>
                             ) : (
-                              <button onClick={() => setSelecting(key)} className="w-full text-xs text-stone-400 dark:text-stone-500 hover:text-orange-600 dark:hover:text-orange-400 border border-dashed border-stone-300 dark:border-stone-600 rounded-xl py-2.5 hover:border-orange-400 dark:hover:border-orange-500 transition-all hover:bg-orange-50/50 dark:hover:bg-orange-900/20">
+                              <button onClick={() => setSelecting(key)} className="w-full text-xs text-stone-400 dark:text-stone-500 hover:text-lime-600 dark:hover:text-lime-400 border border-dashed border-stone-300 dark:border-stone-600 rounded-xl py-2.5 hover:border-lime-400 dark:hover:border-lime-500 transition-all hover:bg-lime-50/50 dark:hover:bg-lime-900/20">
                                 + {t('mealPlanner.add')}
                               </button>
                             )}
@@ -263,7 +263,7 @@ export default function MealPlanner() {
                               <div className="absolute z-20 top-full left-1/2 -translate-x-1/2 mt-1.5 glass-card rounded-xl shadow-xl p-2 min-w-[200px] max-h-56 overflow-y-auto">
                                 <div className="text-xs font-semibold text-stone-400 dark:text-stone-500 px-2 py-1.5 border-b border-stone-100 dark:border-stone-700 mb-1">{t('mealPlanner.availableRecipes')}</div>
                                 {allRecipes.map((r, i) => (
-                                  <button key={i} onClick={() => setMeal(day, meal, r.name)} className="block w-full text-left text-xs p-2.5 rounded-lg hover:bg-orange-50 dark:hover:bg-orange-900/30 text-stone-600 dark:text-stone-300 transition-colors font-medium">
+                                  <button key={i} onClick={() => setMeal(day, meal, r.name)} className="block w-full text-left text-xs p-2.5 rounded-lg hover:bg-lime-50 dark:hover:bg-lime-900/30 text-stone-600 dark:text-stone-300 transition-colors font-medium">
                                     {r.name}
                                   </button>
                                 ))}
@@ -280,7 +280,7 @@ export default function MealPlanner() {
 
             <div className="mt-8 glass-card rounded-2xl shadow-sm p-6 hover:shadow-md transition-shadow">
               <div className="flex items-center gap-2.5 mb-4">
-                <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍽️</div>
+                <div className="w-8 h-8 bg-gradient-to-br from-lime-400 to-lime-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🍽️</div>
                 <h2 className="font-bold text-stone-800 dark:text-stone-100">{t('mealPlanner.availableRecipes')}</h2>
                 <span className="text-xs text-stone-400 dark:text-stone-500 font-medium bg-stone-100 dark:bg-stone-700/80 px-2 py-0.5 rounded-full ml-auto">{allRecipes.length}</span>
               </div>
@@ -289,7 +289,7 @@ export default function MealPlanner() {
               ) : (
                 <div className="flex flex-wrap gap-2">
                   {allRecipes.map((r, i) => (
-                    <span key={i} className="text-xs bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 text-orange-700 dark:text-orange-300 border border-orange-200/60 dark:border-orange-700/50 px-3 py-1.5 rounded-full font-medium shadow-sm">{r.name}</span>
+                    <span key={i} className="text-xs bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-900/30 dark:to-teal-900/30 text-lime-700 dark:text-lime-300 border border-lime-200/60 dark:border-lime-700/50 px-3 py-1.5 rounded-full font-medium shadow-sm">{r.name}</span>
                   ))}
                 </div>
               )}

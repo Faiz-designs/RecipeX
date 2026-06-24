@@ -17,7 +17,7 @@ export default class ErrorBoundary extends Component {
           <div className="text-5xl mb-4">⚠️</div>
           <h2 className="text-2xl font-bold text-stone-800 dark:text-stone-100 mb-2">Something went wrong</h2>
           <p className="text-stone-500 dark:text-stone-400 mb-6 text-sm">An unexpected error occurred. Please try refreshing the page.</p>
-          <button onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload() }} className="px-6 py-2.5 btn-glass btn-glass-orange rounded-xl font-semibold">
+          <button onClick={() => { this.setState({ hasError: false, error: null }); window.location.reload() }} className="px-6 py-2.5 btn-glass btn-glass-lime rounded-xl font-semibold">
             Refresh Page
           </button>
           {this.props.fallback || null}

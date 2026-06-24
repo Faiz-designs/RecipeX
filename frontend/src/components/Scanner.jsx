@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useTranslation } from 'react-i18next'
 import { useAuth } from '../utils/AuthContext'
 import FridgeScanner from './FridgeScanner'
+import { getFridgeItems } from '../utils/fridgeMode'
 
 const API = 'https://FaizBasha05.pythonanywhere.com'
 
@@ -171,6 +172,13 @@ export default function Scanner({ onScanComplete }) {
         )}
 
         {mode === 'fridge' && <FridgeScanner />}
+
+        {mode !== 'fridge' && getFridgeItems().length > 0 && (
+          <div className="mt-4 p-3 rounded-xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200/60 dark:border-orange-700/30 flex items-center gap-2.5 text-sm">
+            <span className="text-lg">🧊</span>
+            <span className="text-stone-600 dark:text-stone-300"><strong className="text-orange-600 dark:text-orange-400">{getFridgeItems().length} items</strong> in your fridge — matches will show in scan results</span>
+          </div>
+        )}
 
         <canvas ref={canvasRef} hidden />
 

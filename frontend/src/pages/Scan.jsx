@@ -20,6 +20,7 @@ import ExpiryTracker from '../components/ExpiryTracker'
 import { addScanToHistory } from '../utils/scanHistory'
 import { addRecipeIngredientsToList } from '../utils/shoppingList'
 import { toggleFavorite, isFavorite } from '../utils/favorites'
+import { getFridgeItems, findMatchingRecipes } from '../utils/fridgeMode'
 import VideoSection from '../components/VideoSection'
 
 export default function Scan() {
@@ -29,6 +30,8 @@ export default function Scan() {
   const [showReport, setShowReport] = useState(false)
   const [showTop, setShowTop] = useState(false)
   const [activeSection, setActiveSection] = useState('')
+  const [fridgeRecipes, setFridgeRecipes] = useState([])
+  const [fridgeItems, setFridgeItems] = useState(getFridgeItems())
 
   const sections = [
     { label: t('scan.sections.vegetables'), id: 'section-veg', emoji: '🥬' },
@@ -47,6 +50,15 @@ export default function Scan() {
     setResult(data)
     setShowReport(true)
     addScanToHistory(data.result)
+    const items = getFridgeItems()
+    setFridgeItems(items)
+    const allRecipes = []
+    if (data?.result?.recipes) {
+      if (data.result.recipes.easy) allRecipes.push({ ...data.result.recipes.easy, difficulty: 'easy' })
+      if (data.result.recipes.intermediate) allRecipes.push({ ...data.result.recipes.intermediate, difficulty: 'intermediate' })
+      if (data.result.recipes.advanced) allRecipes.push({ ...data.result.recipes.advanced, difficulty: 'advanced' })
+    }
+    setFridgeRecipes(findMatchingRecipes(items, allRecipes))
   }
 
   useEffect(() => {
@@ -178,6 +190,32 @@ export default function Scan() {
             )}
 
             <div id="section-recipes" className="scroll-mt-20 glass-card rounded-2xl shadow-sm p-5 md:p-6 hover:shadow-lg transition-all duration-300">
+              {fridgeItems.length > 0 && fridgeRecipes.length > 0 && (
+                <div className="mb-6 p-4 rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 border border-orange-200/60 dark:border-orange-700/30">
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="text-lg">🧊</span>
+                    <h3 className="font-bold text-stone-800 dark:text-stone-100 text-sm">Your Fridge Matches</h3>
+                    <span className="text-xs text-stone-400 ml-auto">{fridgeItems.length} items in fridge</span>
+                  </div>
+                  <div className="grid sm:grid-cols-2 gap-2">
+                    {fridgeRecipes.map((r, i) => (
+                      <div key={i} className="glass-card rounded-xl p-3 flex items-center justify-between">
+                        <div>
+                          <p className="text-sm font-semibold text-stone-800 dark:text-stone-100">{r.name}</p>
+                          <div className="flex gap-1 mt-1">
+                            {r.matchedIngredients?.slice(0, 3).map((ing, j) => (
+                              <span key={j} className="text-[10px] bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 px-1.5 py-0.5 rounded-full">✓ {ing}</span>
+                            ))}
+                          </div>
+                        </div>
+                        <span className={`text-xs font-bold px-2 py-1 rounded-full shrink-0 ${r.matchPercent >= 70 ? 'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300' : r.matchPercent >= 40 ? 'bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300' : 'bg-red-100 dark:bg-red-900/50 text-red-700 dark:text-red-300'}`}>
+                          {r.matchPercent}%
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               <RecipeCard recipes={r.recipes} />
               {r.recipes?.easy?.name && <VideoSection recipeName={r.recipes.easy.name} difficulty="easy" />}
               {r.recipes?.intermediate?.name && <VideoSection recipeName={r.recipes.intermediate.name} difficulty="intermediate" />}

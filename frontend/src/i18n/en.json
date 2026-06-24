@@ -206,7 +206,7 @@
     "signInRequired": "Sign in to generate AI meal plans"
   },
   "about": {
-    "title": "About RecipeX AI",
+    "title": "About NutriZen AI",
     "tagline": "AI-Powered Smart Kitchen Assistant",
     "mission": "Our Mission",
     "missionDesc": "To reduce food waste and make healthy cooking accessible to everyone by leveraging the power of AI. We believe that knowing what's in your kitchen should be simple, fast, and free.",
@@ -224,7 +224,7 @@
       "budgetCooking": "Budget Cooking",
       "budgetCookingDesc": "Cost estimation and smart savings tips"
     },
-    "team": "Built with ❤️ by RecipeX Team",
+    "team": "Built with ❤️ by NutriZen Team",
     "techStack": "Tech Stack"
   },
   "contact": {
@@ -255,9 +255,9 @@
   },
   "auth": {
     "welcomeBack": "Welcome Back",
-    "signInDesc": "Sign in to your RecipeX account",
+    "signInDesc": "Sign in to your NutriZen account",
     "createAccount": "Create Account",
-    "signUpDesc": "Join RecipeX AI for free",
+    "signUpDesc": "Join NutriZen AI for free",
     "username": "Username",
     "password": "Password",
     "confirmPassword": "Confirm",

@@ -63,7 +63,7 @@ export default function SiteLockGate({ children }) {
         <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">
           🔒
         </div>
-        <h1 className="text-2xl font-extrabold text-stone-800 dark:text-stone-100 mb-2">RecipeX AI</h1>
+        <h1 className="text-2xl font-extrabold text-stone-800 dark:text-stone-100 mb-2">NutriZen AI</h1>
         <p className="text-sm text-stone-500 dark:text-stone-400 mb-6">This site is temporarily locked. Enter the password to continue.</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input

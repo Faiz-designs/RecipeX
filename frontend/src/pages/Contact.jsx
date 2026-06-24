@@ -24,7 +24,7 @@ export default function Contact() {
 
   return (
     <>
-      <SEO title="Contact" description="Get in touch with the RecipeX AI team." />
+      <SEO title="Contact" description="Get in touch with the NutriZen AI team." />
       <div className="animate-fadeIn">
       <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 py-20 md:py-28">
         <div className="absolute inset-0 opacity-10">

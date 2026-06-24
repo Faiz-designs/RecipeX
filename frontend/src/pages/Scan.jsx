@@ -139,7 +139,7 @@ export default function Scan() {
                 </div>
               </div>
               <div className="flex gap-2">
-                <ShareButton title="RecipeX Scan Results" text={`Check out this vegetable scan on RecipeX AI!`} />
+                <ShareButton title="NutriZen Scan Results" text={`Check out this vegetable scan on NutriZen AI!`} />
                 <button onClick={handleReset} className="px-5 py-2.5 btn-glass btn-glass-lime rounded-xl active:scale-[0.98] whitespace-nowrap">{t('scan.newScan')}</button>
               </div>
             </div>

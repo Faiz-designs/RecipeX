@@ -14,7 +14,7 @@ export default function Profile() {
 
   return (
     <>
-      <SEO title="Profile" description="Your RecipeX AI account profile." />
+      <SEO title="Profile" description="Your NutriZen AI account profile." />
       <div className="max-w-3xl mx-auto px-4 py-8">
       <div className="bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 rounded-2xl p-6 md:p-8 mb-8 text-white shadow-xl shadow-lime-500/10">
         <div className="flex items-center gap-4">

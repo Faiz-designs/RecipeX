@@ -25,7 +25,7 @@ export default function Login() {
 
   return (
     <>
-      <SEO title="Sign In" description="Sign in to your RecipeX AI account." />
+      <SEO title="Sign In" description="Sign in to your NutriZen AI account." />
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="relative glass-card rounded-2xl shadow-xl p-8">

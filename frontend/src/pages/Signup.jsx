@@ -33,7 +33,7 @@ export default function Signup() {
 
   return (
     <>
-      <SEO title="Create Account" description="Create your free RecipeX AI account." />
+      <SEO title="Create Account" description="Create your free NutriZen AI account." />
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="relative glass-card rounded-2xl shadow-xl p-8">

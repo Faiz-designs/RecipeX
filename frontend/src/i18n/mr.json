@@ -185,7 +185,7 @@
     "dinner": "रात्रीचे जेवण"
   },
   "about": {
-    "title": "RecipeX AI बद्दल",
+    "title": "NutriZen AI बद्दल",
     "tagline": "AI-समर्थित स्मार्ट स्वयंपाकघर सहाय्यक",
     "mission": "आमचे ध्येय",
     "missionDesc": "AI च्या सामर्थ्याचा वापर करून अन्नाचा अपव्यय कमी करणे आणि निरोगी स्वयंपाक प्रत्येकासाठी सुलभ करणे. तुमच्या स्वयंपाकघरात काय आहे हे जाणून घेणे सोपे, जलद आणि मोफत असावे असा आमचा विश्वास आहे.",
@@ -203,7 +203,7 @@
       "budgetCooking": "बजेट स्वयंपाक",
       "budgetCookingDesc": "खर्च अंदाज आणि स्मार्ट बचत टिप्स"
     },
-    "team": "RecipeX टीमने ❤️ सह तयार केले",
+    "team": "NutriZen टीमने ❤️ सह तयार केले",
     "techStack": "टेक स्टॅक"
   },
   "contact": {
@@ -234,9 +234,9 @@
   },
   "auth": {
     "welcomeBack": "पुन्हा स्वागत आहे",
-    "signInDesc": "तुमच्या RecipeX खात्यात साइन इन करा",
+    "signInDesc": "तुमच्या NutriZen खात्यात साइन इन करा",
     "createAccount": "खाते तयार करा",
-    "signUpDesc": "RecipeX AI मध्ये मोफत सामील व्हा",
+    "signUpDesc": "NutriZen AI मध्ये मोफत सामील व्हा",
     "username": "वापरकर्तानाव",
     "password": "पासवर्ड",
     "confirmPassword": "पुष्टी करा",

@@ -311,7 +311,7 @@ def application(environ, start_response):
         d, s = site_lock_remove(rb(environ))
         st = {200: '200 OK', 403: '403 Forbidden', 500: '500 Internal Server Error'}.get(s, '200 OK')
         return jr(start_response, d, st)
-    routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'RecipeX AI', 'status': 'running', 'version': '2.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
+    routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'NutriZen AI', 'status': 'running', 'version': '2.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
     h = routes.get(p)
     if not h: return jr(start_response, {'error': 'Not found'}, '404 Not Found')
     return jr(start_response, h())

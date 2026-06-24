@@ -185,7 +185,7 @@
     "dinner": "রাতের খাবার"
   },
   "about": {
-    "title": "RecipeX AI সম্পর্কে",
+    "title": "NutriZen AI সম্পর্কে",
     "tagline": "AI-চালিত স্মার্ট রান্নাঘর সহায়ক",
     "mission": "আমাদের লক্ষ্য",
     "missionDesc": "AI-এর শক্তি ব্যবহার করে খাদ্য অপচয় কমানো এবং স্বাস্থ্যকর রান্নাকে সবার জন্য অ্যাক্সেসযোগ্য করা। আমরা বিশ্বাস করি আপনার রান্নাঘরে কী আছে তা জানা সহজ, দ্রুত এবং বিনামূল্যে হওয়া উচিত।",
@@ -203,7 +203,7 @@
       "budgetCooking": "বাজেট রান্না",
       "budgetCookingDesc": "খরচ Estimation এবং স্মার্ট সঞ্চয় টিপস"
     },
-    "team": "RecipeX টিম ❤️ দিয়ে তৈরি",
+    "team": "NutriZen টিম ❤️ দিয়ে তৈরি",
     "techStack": "টেক স্ট্যাক"
   },
   "contact": {
@@ -234,9 +234,9 @@
   },
   "auth": {
     "welcomeBack": "ফিরে আসার জন্য স্বাগতম",
-    "signInDesc": "আপনার RecipeX অ্যাকাউন্টে সাইন ইন করুন",
+    "signInDesc": "আপনার NutriZen অ্যাকাউন্টে সাইন ইন করুন",
     "createAccount": "অ্যাকাউন্ট তৈরি করুন",
-    "signUpDesc": "RecipeX AI-তে বিনামূল্যে যোগ দিন",
+    "signUpDesc": "NutriZen AI-তে বিনামূল্যে যোগ দিন",
     "username": "ব্যবহারকারীর নাম",
     "password": "পাসওয়ার্ড",
     "confirmPassword": "নিশ্চিত করুন",

@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async'
 
 export default function SEO({ title, description }) {
-  const siteName = 'RecipeX AI'
+  const siteName = 'NutriZen AI'
   const fullTitle = title ? `${title} | ${siteName}` : siteName
   const desc = description || 'AI-powered smart kitchen assistant. Scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.'
 

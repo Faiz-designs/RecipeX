@@ -163,7 +163,7 @@ function AppContent() {
               <span className="text-lg">🥗</span>
             </div>
             <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-lime-600 to-lime-600 dark:from-lime-400 dark:to-lime-400 text-sm md:text-base hidden md:inline">
-              RecipeX AI
+              NutriZen AI
             </span>
           </Link>
           <Nav />
@@ -256,7 +256,7 @@ function AppContent() {
                   <span className="text-sm">🥗</span>
                 </div>
                 <div>
-                  <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-lime-600 to-lime-600 dark:from-lime-400 dark:to-lime-400">RecipeX AI</span>
+                  <span className="text-sm font-bold text-transparent bg-clip-text bg-gradient-to-r from-lime-600 to-lime-600 dark:from-lime-400 dark:to-lime-400">NutriZen AI</span>
                   <p className="text-xs text-stone-400 dark:text-stone-500 mt-0.5">{t('footer.tagline')}</p>
                 </div>
               </div>
@@ -266,7 +266,7 @@ function AppContent() {
               </div>
             </div>
             <div className="mt-8 text-center text-xs text-stone-400 dark:text-stone-600">
-              &copy; {new Date().getFullYear()} RecipeX AI. All rights reserved.
+              &copy; {new Date().getFullYear()} NutriZen AI. All rights reserved.
             </div>
           </div>
         </div>

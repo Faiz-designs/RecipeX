@@ -9,7 +9,7 @@ from routes.nutrition import router as nutrition_router
 from routes.site_lock import router as site_lock_router
 
 app = FastAPI(
-    title="RecipeX AI — Food Management System",
+    title="NutriZen AI — Food Management System",
     description="AI-powered smart kitchen assistant. Scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.",
     version="2.0.0",
 )
@@ -38,7 +38,7 @@ def startup():
 @app.get("/")
 def root():
     return {
-        "app": "RecipeX AI",
+        "app": "NutriZen AI",
         "status": "running",
         "version": "2.0.0",
     }

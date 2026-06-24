@@ -1,6 +1,6 @@
 {
-  "name": "RecipeX AI",
-  "short_name": "RecipeX",
+  "name": "NutriZen AI",
+  "short_name": "NutriZen",
   "description": "AI-powered smart kitchen assistant — scan vegetables, get recipes, nutrition, allergy info, and smart substitutions.",
   "start_url": "/",
   "display": "standalone",

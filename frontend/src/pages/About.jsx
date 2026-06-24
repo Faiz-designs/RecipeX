@@ -16,7 +16,7 @@ export default function About() {
 
   return (
     <>
-      <SEO title="About" description="Learn about RecipeX AI — the AI-powered smart kitchen assistant." />
+      <SEO title="About" description="Learn about NutriZen AI — the AI-powered smart kitchen assistant." />
       <div className="animate-fadeIn">
       <div className="relative overflow-hidden bg-gradient-to-br from-lime-600 via-lime-500 to-lime-600 py-20 md:py-28">
         <div className="absolute inset-0 opacity-10">

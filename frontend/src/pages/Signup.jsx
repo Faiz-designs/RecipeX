@@ -37,41 +37,41 @@ export default function Signup() {
       <div className="min-h-[70vh] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
         <div className="relative glass-card rounded-2xl shadow-xl p-8">
-          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-red-600/5 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/5 to-transparent pointer-events-none" />
           <div className="relative">
             <div className="text-center mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-red-600/20 text-2xl">📝</div>
-              <h1 className="text-2xl font-extrabold text-stone-800 dark:text-stone-100">{t('auth.createAccount')}</h1>
-              <p className="text-sm text-stone-400 dark:text-stone-500 mt-1.5">{t('auth.signUpDesc')}</p>
+              <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-emerald-500/20 text-2xl">📝</div>
+              <h1 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100">{t('auth.createAccount')}</h1>
+              <p className="text-sm text-slate-400 dark:text-slate-500 mt-1.5">{t('auth.signUpDesc')}</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.fullName')}</label>
-                  <input value={form.full_name} onChange={e => setForm({...form, full_name: e.target.value})} className="w-full px-3 py-2.5 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:border-red-400 transition-all shadow-sm placeholder-stone-400 dark:placeholder-stone-500" placeholder={t('auth.fullName')} />
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.fullName')}</label>
+                  <input value={form.full_name} onChange={e => setForm({...form, full_name: e.target.value})} className="w-full px-3 py-2.5 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.fullName')} />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.age')}</label>
-                  <input type="number" value={form.age} onChange={e => setForm({...form, age: e.target.value})} className="w-full px-3 py-2.5 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:border-red-400 transition-all shadow-sm placeholder-stone-400 dark:placeholder-stone-500" placeholder={t('auth.age')} />
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.age')}</label>
+                  <input type="number" value={form.age} onChange={e => setForm({...form, age: e.target.value})} className="w-full px-3 py-2.5 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.age')} />
                 </div>
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.username')} *</label>
-                <input value={form.username} onChange={e => setForm({...form, username: e.target.value})} required className="w-full px-3 py-2.5 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:border-red-400 transition-all shadow-sm placeholder-stone-400 dark:placeholder-stone-500" placeholder={t('auth.username')} />
+                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.username')} *</label>
+                <input value={form.username} onChange={e => setForm({...form, username: e.target.value})} required className="w-full px-3 py-2.5 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.username')} />
               </div>
               <div>
-                <label className="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.email')} *</label>
-                <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required className="w-full px-3 py-2.5 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:border-red-400 transition-all shadow-sm placeholder-stone-400 dark:placeholder-stone-500" placeholder={t('auth.email')} />
+                <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.email')} *</label>
+                <input type="email" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required className="w-full px-3 py-2.5 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.email')} />
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.password')} *</label>
-                  <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required minLength={6} className="w-full px-3 py-2.5 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:border-red-400 transition-all shadow-sm placeholder-stone-400 dark:placeholder-stone-500" placeholder={t('auth.password')} />
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.password')} *</label>
+                  <input type="password" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required minLength={6} className="w-full px-3 py-2.5 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.password')} />
                 </div>
                 <div>
-                  <label className="block text-xs font-medium text-stone-700 dark:text-stone-300 mb-1.5">{t('auth.confirmPassword')} *</label>
-                  <input type="password" value={form.confirm} onChange={e => setForm({...form, confirm: e.target.value})} required className="w-full px-3 py-2.5 bg-white dark:bg-stone-700/80 border border-stone-200/80 dark:border-stone-600/60 rounded-xl text-sm text-stone-700 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-red-400/60 focus:border-red-400 transition-all shadow-sm placeholder-stone-400 dark:placeholder-stone-500" placeholder={t('auth.confirmPassword')} />
+                  <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1.5">{t('auth.confirmPassword')} *</label>
+                  <input type="password" value={form.confirm} onChange={e => setForm({...form, confirm: e.target.value})} required className="w-full px-3 py-2.5 bg-white dark:bg-slate-700/80 border border-slate-200/80 dark:border-slate-600/60 rounded-xl text-sm text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-emerald-400/60 focus:border-emerald-400 transition-all shadow-sm placeholder-slate-400 dark:placeholder-slate-500" placeholder={t('auth.confirmPassword')} />
                 </div>
               </div>
 
@@ -82,13 +82,13 @@ export default function Signup() {
                 </div>
               )}
 
-              <button type="submit" disabled={loading} className="w-full py-3 btn-glass btn-glass-red rounded-xl disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2.5">
+              <button type="submit" disabled={loading} className="w-full py-3 btn-glass btn-glass-emerald rounded-xl disabled:cursor-not-allowed disabled:opacity-50 flex items-center justify-center gap-2.5">
                 {loading ? <><span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" /> {t('auth.creating')}</> : t('auth.createAccount_btn')}
               </button>
             </form>
 
-            <p className="text-center text-sm text-stone-500 dark:text-stone-400 mt-7 pt-5 border-t border-stone-200/60 dark:border-stone-700/40">
-              {t('auth.hasAccount')} <Link to="/login" className="text-red-600 dark:text-red-400 font-semibold hover:text-red-700 dark:hover:text-red-300 transition-colors">{t('auth.signIn')}</Link>
+            <p className="text-center text-sm text-slate-500 dark:text-slate-400 mt-7 pt-5 border-t border-slate-200/60 dark:border-slate-700/40">
+              {t('auth.hasAccount')} <Link to="/login" className="text-emerald-600 dark:text-emerald-400 font-semibold hover:text-emerald-700 dark:hover:text-emerald-300 transition-colors">{t('auth.signIn')}</Link>
             </p>
           </div>
         </div>

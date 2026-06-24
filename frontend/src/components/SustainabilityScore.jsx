@@ -35,26 +35,26 @@ export default function SustainabilityScore({ vegetables, freshnessStatuses }) {
   return (
     <div className="glass-card rounded-2xl p-5 shadow-sm">
       <div className="flex items-center gap-2 mb-4">
-        <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-red-600 rounded-lg flex items-center justify-center text-sm shadow-sm">🌱</div>
-        <h2 className="text-xl font-bold text-stone-800 dark:text-stone-100">{t('sustainability.title')}</h2>
+        <div className="w-8 h-8 bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg flex items-center justify-center text-sm shadow-sm">🌱</div>
+        <h2 className="text-xl font-bold text-slate-800 dark:text-slate-100">{t('sustainability.title')}</h2>
       </div>
       <div className="flex flex-col sm:flex-row items-center gap-6">
         <div className="relative w-24 h-24 shrink-0">
           <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
-            <circle cx="18" cy="18" r="15.5" fill="none" className="stroke-stone-200 dark:stroke-stone-600" strokeWidth="3" />
+            <circle cx="18" cy="18" r="15.5" fill="none" className="stroke-slate-200 dark:stroke-slate-600" strokeWidth="3" />
             <circle cx="18" cy="18" r="15.5" fill="none" stroke={totalScore >= 70 ? '#10b981' : totalScore >= 40 ? '#f59e0b' : '#ef4444'} strokeWidth="3" strokeDasharray={`${totalScore} 100`} strokeLinecap="round" />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-2xl font-extrabold text-stone-700 dark:text-stone-200">{totalScore}</span>
+            <span className="text-2xl font-extrabold text-slate-700 dark:text-slate-200">{totalScore}</span>
           </div>
         </div>
         <div className="flex-1">
-          <p className="text-sm text-stone-600 dark:text-stone-300">
+          <p className="text-sm text-slate-600 dark:text-slate-300">
             🌍 <strong>{t('sustainability.co2Saved')}:</strong> ~{co2Saved} kg CO₂
           </p>
           <div className="mt-3 space-y-1">
             {getTips().map((tip, i) => (
-              <p key={i} className="text-xs text-stone-500 dark:text-stone-400 flex items-center gap-1.5">
+              <p key={i} className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
                 <span className="text-green-500">💚</span> {tip}
               </p>
             ))}

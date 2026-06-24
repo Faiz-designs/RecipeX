@@ -49,8 +49,8 @@ export default function SiteLockGate({ children }) {
 
   if (state === 'loading') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-stone-50 via-red-50/20 to-white dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-red-200 border-t-red-600 rounded-full animate-spin" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center">
+        <div className="w-10 h-10 border-4 border-emerald-200 border-t-emerald-500 rounded-full animate-spin" />
       </div>
     )
   }
@@ -58,13 +58,13 @@ export default function SiteLockGate({ children }) {
   if (state === 'unlocked') return children
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-red-50/20 to-white dark:from-stone-900 dark:via-stone-800 dark:to-stone-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-emerald-50/20 to-white dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex items-center justify-center p-4">
       <div className="w-full max-w-md glass-card rounded-3xl shadow-2xl p-8 text-center">
-        <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/50 dark:to-rose-900/50 border-2 border-red-200 dark:border-red-700/50 flex items-center justify-center text-4xl shadow-lg">
+        <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-emerald-200 dark:border-emerald-700/50 flex items-center justify-center text-4xl shadow-lg">
           🔒
         </div>
-        <h1 className="text-2xl font-extrabold text-stone-800 dark:text-stone-100 mb-2">RecipeX AI</h1>
-        <p className="text-sm text-stone-500 dark:text-stone-400 mb-6">This site is temporarily locked. Enter the password to continue.</p>
+        <h1 className="text-2xl font-extrabold text-slate-800 dark:text-slate-100 mb-2">RecipeX AI</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">This site is temporarily locked. Enter the password to continue.</p>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="password"
@@ -72,7 +72,7 @@ export default function SiteLockGate({ children }) {
             onChange={e => { setPassword(e.target.value); setError('') }}
             placeholder="Enter site password"
             autoFocus
-            className="w-full px-4 py-3 bg-stone-50 dark:bg-stone-700/60 border border-stone-200 dark:border-stone-600 rounded-xl text-sm text-center text-stone-800 dark:text-stone-200 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-red-400/50 transition-all"
+            className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 rounded-xl text-sm text-center text-slate-800 dark:text-slate-200 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 transition-all"
           />
           {error && (
             <p className="text-sm text-red-500 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-lg px-3 py-2">{error}</p>
@@ -80,7 +80,7 @@ export default function SiteLockGate({ children }) {
           <button
             type="submit"
             disabled={submitting || !password.trim()}
-            className="w-full py-3 btn-glass btn-glass-red rounded-xl text-base"
+            className="w-full py-3 btn-glass btn-glass-emerald rounded-xl text-base"
           >
             {submitting ? 'Verifying...' : 'Unlock'}
           </button>

@@ -36,21 +36,16 @@ export function findMatchingRecipes(fridgeItems, allRecipes, scannedItems = []) 
       .filter(w => w.length > 2 && !['the','and','with','for','in','on','of','a','an','or','by'].includes(w))
 
     const extra = (recipe.additional_ingredients_required || []).map(i => i.toLowerCase())
-    const allIngredientWords = [...new Set([...recipeWords, ...extra])]
+    const allIngredientWords = [...new Set([...recipeWords, ...extra, ...scannedNames])]
 
     const matched = allIngredientWords.filter(word =>
       fridgeNames.some(f => f.includes(word) || word.includes(f))
     )
 
-    const scannedMatch = scannedNames.filter(s =>
-      fridgeNames.some(f => f.includes(s) || s.includes(f))
-    )
-
-    const combined = [...new Set([...matched, ...recipeWords.filter(w => fridgeNames.some(f => f.includes(w) || w.includes(f)))])]
     const matchPercent = allIngredientWords.length > 0
-      ? Math.round((combined.length / allIngredientWords.length) * 100)
-      : scannedMatch.length > 0 ? 100 : 0
+      ? Math.round((matched.length / allIngredientWords.length) * 100)
+      : 0
 
-    return { ...recipe, matchPercent, matchedIngredients: combined }
+    return { ...recipe, matchPercent, matchedIngredients: [...new Set(matched)] }
   }).sort((a, b) => b.matchPercent - a.matchPercent)
 }

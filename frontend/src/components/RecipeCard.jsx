@@ -370,7 +370,7 @@ export default function RecipeCard({ recipes, showActions }) {
     if (ageGroup === 'child') return level === 'easy'
     if (ageGroup === 'elderly') return level === 'easy' || level === 'intermediate'
     return true
-  })
+  }).filter(level => recipes[level] && recipes[level].name)
 
   const handleAgeGroupChange = (group) => {
     setAgeGroupState(group)
@@ -386,9 +386,8 @@ export default function RecipeCard({ recipes, showActions }) {
         <PersonalizationBar onAgeGroupChange={handleAgeGroupChange} />
       </div>
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {filteredLevels.map(level => {
+        {filteredLevels.length > 0 ? filteredLevels.map(level => {
           const r = recipes[level]
-          if (!r) return null
           return (
             <RecipeCardItem
               key={level}
@@ -398,7 +397,12 @@ export default function RecipeCard({ recipes, showActions }) {
               showActions={showActions}
             />
           )
-        })}
+        }) : (
+          <div className="col-span-full text-center py-10 text-stone-400 dark:text-stone-500">
+            <p className="text-lg mb-1">🍽️</p>
+            <p className="text-sm">{t('recipes.noRecipes', 'No recipes available for this scan. Try scanning different vegetables.')}</p>
+          </div>
+        )}
       </div>
     </div>
   )

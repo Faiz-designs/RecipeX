@@ -230,7 +230,7 @@ def analyze_image(image_bytes: bytes) -> dict:
     response = client.chat.completions.create(
         model=MODEL,
         temperature=0.3,
-        max_tokens=8192,
+        max_tokens=16384,
         messages=[
             {
                 "role": "user",

@@ -107,6 +107,20 @@ async def scan_vegetables(file: UploadFile = File(...), db: Session = Depends(ge
 
     result = analyze_image(image_bytes)
 
+    result.setdefault("recipes", {})
+    for level in ["easy", "intermediate", "advanced"]:
+        result["recipes"].setdefault(level, {})
+    result.setdefault("scan_summary", {})
+    result["scan_summary"].setdefault("items", [])
+    result.setdefault("nutrition", [])
+    result.setdefault("allergy_report", [])
+    result.setdefault("substitutions", [])
+    result.setdefault("health_benefits", [])
+    result.setdefault("storage_tips", [])
+    result.setdefault("cooking_tips", [])
+    result.setdefault("cost_estimation", [])
+    result.setdefault("improvements", {})
+
     scan = Scan(
         user_id=current_user.id if current_user else None,
         image_path=file.filename or "capture.jpg",

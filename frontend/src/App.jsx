@@ -20,6 +20,7 @@ const Signup = lazy(() => import('./pages/Signup'))
 const Profile = lazy(() => import('./pages/Profile'))
 import OnboardingTour from './components/OnboardingTour'
 import { ToastProvider } from './utils/ToastContext'
+import SiteLockGate from './components/SiteLockGate'
 
 function Nav() {
   const { pathname } = useLocation()
@@ -160,7 +161,9 @@ export default function App() {
       <BrowserRouter>
         <AuthProvider>
           <ToastProvider>
-            <AppContent />
+            <SiteLockGate>
+              <AppContent />
+            </SiteLockGate>
           </ToastProvider>
         </AuthProvider>
       </BrowserRouter>

@@ -22,3 +22,5 @@ dist/
 Thumbs.db
 
 .vercel
+backend/wsgi_deploy_prod.py
+site_lock.json

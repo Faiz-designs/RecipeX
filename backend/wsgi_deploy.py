@@ -1,4 +1,4 @@
-import sys, json, os, base64
+import sys, json, os, base64, hashlib
 from datetime import datetime, timedelta, date
 sys.path.insert(0, '/home/FaizBasha05/RecipeX/backend')
 # Set GROQ_API_KEY as environment variable on PythonAnywhere via Web tab -> Environment variables
@@ -12,6 +12,8 @@ from models.user import User
 from models.favorite import Favorite
 from models.nutrition_log import NutritionLog
 from models.scan import Scan
+LOCK_FILE = '/home/FaizBasha05/RecipeX/backend/site_lock.json'
+ADMIN_SECRET = 'RecipeXAdmin2024!'
 from passlib.context import CryptContext
 from jose import jwt, JWTError
 pwd_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
@@ -181,6 +183,55 @@ def parse_path(p):
     parts = p.strip('/').split('/')
     return parts
 
+def _hash_pw(pw):
+    return hashlib.sha256(pw.encode()).hexdigest()
+
+def _is_locked():
+    if not os.path.exists(LOCK_FILE):
+        return False
+    try:
+        with open(LOCK_FILE) as f:
+            data = json.load(f)
+        return bool(data.get('password_hash'))
+    except:
+        return False
+
+def site_lock_status():
+    return {'locked': _is_locked()}
+
+def site_lock_verify(b):
+    if not _is_locked():
+        return {'valid': True}
+    try:
+        with open(LOCK_FILE) as f:
+            data = json.load(f)
+        return {'valid': data.get('password_hash') == _hash_pw(b.get('password',''))}
+    except:
+        return {'valid': False}
+
+def site_lock_set(b):
+    if not b or b.get('admin_secret') != ADMIN_SECRET:
+        return {'error': 'Invalid admin secret'}, 403
+    pw = b.get('password','')
+    if len(pw) < 4:
+        return {'error': 'Password must be at least 4 characters'}, 400
+    try:
+        with open(LOCK_FILE, 'w') as f:
+            json.dump({'password_hash': _hash_pw(pw)}, f)
+        return {'message': 'Site locked', 'locked': True}, 200
+    except Exception as e:
+        return {'error': str(e)}, 500
+
+def site_lock_remove(b):
+    if not b or b.get('admin_secret') != ADMIN_SECRET:
+        return {'error': 'Invalid admin secret'}, 403
+    try:
+        if os.path.exists(LOCK_FILE):
+            os.remove(LOCK_FILE)
+        return {'message': 'Site unlocked', 'locked': False}, 200
+    except Exception as e:
+        return {'error': str(e)}, 500
+
 def application(environ, start_response):
     p = environ.get('PATH_INFO','').rstrip('/')
     m = environ.get('REQUEST_METHOD','GET')
@@ -232,6 +283,19 @@ def application(environ, start_response):
     if p == '/nutrition/history' and m == 'GET':
         d, s = nut_history(a, qs)
         return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
+    if p == '/site-lock' and m == 'GET':
+        return jr(start_response, site_lock_status())
+    if p == '/site-lock/verify' and m == 'POST':
+        d = site_lock_verify(rb(environ))
+        return jr(start_response, d)
+    if p == '/site-lock/set' and m == 'POST':
+        d, s = site_lock_set(rb(environ))
+        st = {200: '200 OK', 400: '400 Bad Request', 403: '403 Forbidden', 500: '500 Internal Server Error'}.get(s, '200 OK')
+        return jr(start_response, d, st)
+    if p == '/site-lock/remove' and m == 'POST':
+        d, s = site_lock_remove(rb(environ))
+        st = {200: '200 OK', 403: '403 Forbidden', 500: '500 Internal Server Error'}.get(s, '200 OK')
+        return jr(start_response, d, st)
     routes = {'/health': lambda: {'status': 'healthy'}, '': lambda: {'app': 'RecipeX AI', 'status': 'running', 'version': '2.0.0'}, '/scan/demo': lambda: {'scan_id': 1, 'result': DEMO_DATA}}
     h = routes.get(p)
     if not h: return jr(start_response, {'error': 'Not found'}, '404 Not Found')

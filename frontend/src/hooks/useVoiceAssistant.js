@@ -36,8 +36,9 @@ export default function useVoiceAssistant() {
       const recipe = res.data?.recipe
       if (recipe && recipe.name && recipe.steps?.length) {
         setStatus(`Starting ${recipe.name}`)
-        sessionStorage.setItem('nutrivision_cook_recipe', JSON.stringify(recipe))
-        navigate('/cooking-mode', { state: { recipe, autoSpeak: true } })
+        window.__NUTRIVIZEN_RECIPE__ = recipe
+        window.__NUTRIVIZEN_AUTOSPEAK__ = true
+        navigate('/cooking-mode')
         setTimeout(() => speak(`${recipe.name}. ${recipe.steps[0]}`), 500)
       } else {
         setStatus('Could not generate recipe')

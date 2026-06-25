@@ -7,7 +7,7 @@ from services.image_service import image_to_base64, preprocess_image
 load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-MODEL = "llama-3.2-11b-vision-preview"
+MODEL = "meta-llama/llama-4-scout-17b-16e-instruct"
 
 SYSTEM_PROMPT = """You are NutriZen AI — a certified nutritionist AI with deep expertise in food science, clinical dietetics, culinary arts, and medical nutrition therapy. You analyze food images (vegetables, fruits, dairy, meat, poultry, seafood, eggs, herbs, spices, grains, legumes, condiments — any edible item) and deliver a complete, structured kitchen intelligence report.
 
@@ -230,7 +230,7 @@ def analyze_image(image_bytes: bytes) -> dict:
     response = client.chat.completions.create(
         model=MODEL,
         temperature=0.3,
-        max_tokens=16384,
+        max_tokens=8192,
         messages=[
             {
                 "role": "user",

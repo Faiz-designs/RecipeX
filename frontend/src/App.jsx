@@ -5,6 +5,7 @@ import { lazy, Suspense, useState, useEffect, useRef } from 'react'
 import { HelmetProvider } from 'react-helmet-async'
 import useDarkMode from './utils/useDarkMode'
 import { AnimatePresence, motion } from 'framer-motion'
+import VoiceAssistant from './components/VoiceAssistant'
 
 const Home = lazy(() => import('./pages/Home'))
 const Scan = lazy(() => import('./pages/Scan'))
@@ -246,6 +247,7 @@ function AppContent() {
           </AnimatePresence>
           </Suspense>
       </main>
+      <VoiceAssistant />
       <BackToTop />
       <footer className="mt-auto">
         <div className="max-w-6xl mx-auto px-4 pb-6 mb-4">

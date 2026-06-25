@@ -162,6 +162,7 @@ export default function useVoiceAssistant() {
 
     recognition.onend = () => {
       setIsListening(false)
+      recognitionRef.current = null
       clearTimeout(silenceTimerRef.current)
       const finalText = finalTranscriptRef.current || latestTranscriptRef.current
       if (finalText) {
@@ -171,6 +172,7 @@ export default function useVoiceAssistant() {
 
     recognition.onerror = (e) => {
       setIsListening(false)
+      recognitionRef.current = null
       if (e.error === 'not-allowed') {
         speak('Please allow microphone access in your browser settings')
       }
@@ -180,11 +182,12 @@ export default function useVoiceAssistant() {
     recognitionRef.current = recognition
     silenceTimerRef.current = setTimeout(() => {
       recognition.stop()
+      recognitionRef.current = null
     }, 10000)
   }, [processTranscript, speak])
 
   const stopListening = useCallback(() => {
-    if (recognitionRef.current) recognitionRef.current.stop()
+    if (recognitionRef.current) { recognitionRef.current.stop(); recognitionRef.current = null }
     clearTimeout(silenceTimerRef.current)
     setIsListening(false)
   }, [])
@@ -196,7 +199,7 @@ export default function useVoiceAssistant() {
 
   useEffect(() => {
     return () => {
-      if (recognitionRef.current) recognitionRef.current.abort()
+      if (recognitionRef.current) { recognitionRef.current.abort(); recognitionRef.current = null }
       clearTimeout(silenceTimerRef.current)
     }
   }, [])

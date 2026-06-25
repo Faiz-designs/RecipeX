@@ -7,7 +7,9 @@ export default function CookingMode() {
   const { t, i18n } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
-  const recipe = location.state?.recipe || JSON.parse(sessionStorage.getItem('nutrivision_cook_recipe') || 'null')
+  let recipe
+  try { recipe = location.state?.recipe || JSON.parse(sessionStorage.getItem('nutrivision_cook_recipe')) } catch {}
+  if (!recipe || typeof recipe !== 'object') recipe = null
 
   const [currentStep, setCurrentStep] = useState(0)
   const wakeLockRef = useRef(null)
@@ -36,10 +38,13 @@ export default function CookingMode() {
 
   useEffect(() => {
     sessionStorage.removeItem('nutrivision_cook_recipe')
-    if (location.state?.autoSpeak && steps[currentStep]) {
-      speak(steps[currentStep])
-    }
   }, [])
+
+  useEffect(() => {
+    if (location.state?.autoSpeak && currentStep === 0 && steps[0]) {
+      setTimeout(() => speak(steps[0]), 300)
+    }
+  }, [steps])
 
   useEffect(() => {
     if (speaking && steps[currentStep]) {
@@ -95,13 +100,24 @@ export default function CookingMode() {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
         <div className="glass-card rounded-2xl p-8 shadow-xl text-center">
           <p className="text-white/80 text-xl font-medium">No recipe selected</p>
+          <p className="text-stone-500 text-sm mt-2">Use the AI Assistant (🤖) to generate a recipe</p>
+        </div>
+      </div>
+    )
+  }
+  if (steps.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
+        <div className="glass-card rounded-2xl p-8 shadow-xl text-center">
+          <p className="text-white/80 text-xl font-medium">{recipe.name || 'Recipe'}</p>
+          <p className="text-stone-500 text-sm mt-2">This recipe has no steps</p>
         </div>
       </div>
     )
   }
 
-  const steps = recipe.steps || []
-  const ingredients = recipe.additional_ingredients_required || []
+  const steps = Array.isArray(recipe?.steps) ? recipe.steps : []
+  const ingredients = Array.isArray(recipe?.additional_ingredients_required) ? recipe.additional_ingredients_required : []
 
   const toggleIngredient = (i) => {
     setChecked(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i])

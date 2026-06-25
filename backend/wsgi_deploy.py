@@ -72,6 +72,22 @@ def me(a):
     if not u: return {'error': 'Not authenticated'}, 401
     return {'id': u.id, 'username': u.username, 'email': u.email, 'full_name': u.full_name or '', 'age': u.age or 0, 'allergies': u.allergies or '', 'medical_conditions': u.medical_conditions or '', 'dietary_preferences': u.dietary_preferences or '', 'created_at': str(u.created_at) if u.created_at else ''}, 200
 
+def get_scan(scan_id, a):
+    u = get_user(a)
+    if not u: return {'error': 'Not authenticated'}, 401
+    db = SessionLocal()
+    try:
+        scan = db.query(Scan).filter(Scan.id == scan_id, Scan.user_id == u.id).first()
+        if not scan: return {'error': 'Scan not found'}, 404
+        raw = json.loads(scan.raw_response) if scan.raw_response else {}
+        return {
+            'id': scan.id,
+            'created_at': str(scan.created_at) if scan.created_at else '',
+            'total_vegetables': scan.total_vegetables,
+            'full_response': raw,
+        }, 200
+    finally: db.close()
+
 def scan_history(a):
     u = get_user(a)
     if not u: return {'error': 'Not authenticated'}, 401
@@ -125,7 +141,9 @@ def add_fav(b, a):
     try:
         existing = db.query(Favorite).filter(Favorite.user_id == u.id, Favorite.recipe_name == b['recipe_name']).first()
         if existing: return {'error': 'Already in favorites'}, 400
-        f = Favorite(user_id=u.id, recipe_name=b['recipe_name'], recipe_data=b.get('recipe_data',''))
+        rd = b.get('recipe_data', '')
+        if isinstance(rd, dict): rd = json.dumps(rd)
+        f = Favorite(user_id=u.id, recipe_name=b['recipe_name'], recipe_data=rd)
         db.add(f); db.commit(); db.refresh(f)
         return {'id': f.id, 'recipe_name': f.recipe_name, 'message': 'Added to favorites'}, 200
     finally: db.close()
@@ -273,6 +291,13 @@ def application(environ, start_response):
     if p == '/scan/history' and m == 'GET':
         d, s = scan_history(a)
         return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
+    parts = parse_path(p)
+    if len(parts) == 2 and parts[0] == 'scan' and m == 'GET':
+        try:
+            d, s = get_scan(int(parts[1]), a)
+            st = {200: '200 OK', 401: '401 Unauthorized', 404: '404 Not Found'}.get(s, '200 OK')
+            return jr(start_response, d, st)
+        except: return jr(start_response, {'error': 'Invalid ID'}, '400 Bad Request')
     if p == '/meal-planner/generate' and m == 'POST':
         d, s = meal_plan(rb(environ), a)
         st = {200: '200 OK', 400: '400 Bad Request', 401: '401 Unauthorized', 500: '500 Internal Server Error'}.get(s, '200 OK')
@@ -284,7 +309,6 @@ def application(environ, start_response):
         d, s = add_fav(rb(environ), a)
         st = {200: '200 OK', 400: '400 Bad Request', 401: '401 Unauthorized'}.get(s, '200 OK')
         return jr(start_response, d, st)
-    parts = parse_path(p)
     if len(parts) == 2 and parts[0] == 'favorites' and m == 'DELETE':
         try:
             d, s = del_fav(int(parts[1]), a)

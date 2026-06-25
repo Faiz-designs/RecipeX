@@ -223,6 +223,42 @@ def _parse_response(response) -> dict:
     return json.loads(cleaned)
 
 
+RECIPE_PROMPT = """You are NutriZen AI Recipe Generator. Given a recipe request, generate a complete recipe in valid JSON only, with exactly this structure:
+{
+  "name": "Recipe Name",
+  "total_time_minutes": 30,
+  "prep_time_minutes": 10,
+  "cook_time_minutes": 20,
+  "servings": 4,
+  "additional_ingredients_required": ["ingredient 1", "ingredient 2"],
+  "steps": ["Step 1 instruction", "Step 2 instruction"],
+  "plating_suggestion": "How to plate and serve",
+  "estimated_cost": "₹200 - ₹400",
+  "budget_friendly": true
+}
+Return ONLY the JSON object. Make sure steps are detailed and clear."""
+
+
+def generate_recipe(prompt: str) -> dict:
+    response = client.chat.completions.create(
+        model=MODEL,
+        temperature=0.5,
+        max_tokens=4096,
+        messages=[
+            {"role": "system", "content": RECIPE_PROMPT},
+            {"role": "user", "content": f"Generate a recipe for: {prompt}"}
+        ]
+    )
+    raw = response.choices[0].message.content.strip()
+    cleaned = raw
+    if cleaned.startswith("```"):
+        cleaned = cleaned.split("\n", 1)[-1]
+        cleaned = cleaned.rsplit("```", 1)[0]
+    if cleaned.startswith("json"):
+        cleaned = cleaned[4:].strip()
+    return json.loads(cleaned)
+
+
 def analyze_image(image_bytes: bytes) -> dict:
     processed = preprocess_image(image_bytes)
     base64_image = image_to_base64(processed)

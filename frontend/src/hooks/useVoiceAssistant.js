@@ -8,22 +8,14 @@ export default function useVoiceAssistant() {
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [isSupported, setIsSupported] = useState(true)
-  const [recipes, setRecipes] = useState([])
-  const [lastCommand, setLastCommand] = useState('')
+  const [status, setStatus] = useState('')
   const navigate = useNavigate()
   const recognitionRef = useRef(null)
   const timerRef = useRef(null)
   const finalRef = useRef('')
 
   useEffect(() => {
-    const hasSR = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
-    setIsSupported(hasSR)
-    axios.get(`${API}/scan/demo`).then(res => {
-      const flat = []
-      const r = res.data?.result?.recipes
-      if (r) { ['easy', 'intermediate', 'advanced'].forEach(d => { if (r[d]) flat.push({ ...r[d], difficulty: d }) }) }
-      setRecipes(flat)
-    }).catch(() => {})
+    setIsSupported('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)
   }, [])
 
   const speak = useCallback((text) => {
@@ -34,64 +26,35 @@ export default function useVoiceAssistant() {
     window.speechSynthesis.speak(u)
   }, [])
 
-  const parseCommand = useCallback((text) => {
-    const lower = text.toLowerCase().trim()
-    if (!lower) return false
+  const process = useCallback(async (text) => {
+    const t = text.trim()
+    if (!t) return
+    setTranscript(t)
+    setStatus('Thinking...')
 
-    const navs = [
-      { k: ['go to scan', 'open scan', 'scan vegetables', 'start scan'], p: '/scan', l: 'Scan' },
-      { k: ['go home', 'home page'], p: '/', l: 'Home' },
-      { k: ['show recipes', 'open recipes', 'browse recipes', 'all recipes', 'recipes'], p: '/recipes', l: 'Recipes' },
-      { k: ['show history', 'scan history', 'history'], p: '/history', l: 'History' },
-      { k: ['meal planner', 'meal plan', 'plan meals', 'meal'], p: '/meal-planner', l: 'Meal Planner' },
-      { k: ['shopping list', 'my list', 'shopping'], p: '/shopping-list', l: 'Shopping List' },
-      { k: ['nutrition', 'nutrition tracker'], p: '/nutrition', l: 'Nutrition' },
-      { k: ['profile', 'my profile'], p: '/profile', l: 'Profile' },
-    ]
-    for (const c of navs) {
-      if (c.k.some(k => lower.includes(k))) { navigate(c.p); speak(`Opening ${c.l}`); return true }
-    }
-
-    const prefixes = ['prepare ', 'show ', 'how to cook ', 'how to make ', 'find ', 'make ', 'cook ', 'i want ']
-    for (const p of prefixes) {
-      if (lower.includes(p)) {
-        const idx = lower.indexOf(p)
-        let q = lower.slice(idx + p.length).trim()
-          .replace(/^(recipe|a|an|the|some)\s+/, '')
-          .replace(/\s+recipe$/, '')
-          .replace(/[^a-z0-9\s]/g, '').trim()
-        if (!q || q.length < 2) continue
-
-        const exact = recipes.find(r => r.name.toLowerCase().includes(q))
-        if (exact) { navigate('/cooking-mode', { state: { recipe: exact } }); speak(`Starting ${exact.name}`); return true }
-
-        const fuzzy = recipes.find(r => {
-          const rw = r.name.toLowerCase().split(/\s+/)
-          return q.split(/\s+/).some(w => w.length > 2 && rw.some(n => n.includes(w) || w.includes(n)))
-        })
-        if (fuzzy) { navigate('/cooking-mode', { state: { recipe: fuzzy } }); speak(`Starting ${fuzzy.name}`); return true }
-
-        speak(`Sorry, no recipe found for ${q}`)
-        return true
+    try {
+      const res = await axios.post(`${API}/ai/command`, { prompt: t }, { timeout: 30000 })
+      const recipe = res.data?.recipe
+      if (recipe && recipe.name && recipe.steps?.length) {
+        setStatus(`Starting ${recipe.name}`)
+        navigate('/cooking-mode', { state: { recipe, autoSpeak: true } })
+        setTimeout(() => speak(`Starting ${recipe.name}. ${recipe.steps[0]}`), 500)
+      } else {
+        setStatus('Could not generate recipe')
+        speak('Sorry, could not generate that recipe')
       }
+    } catch {
+      setStatus('Error reaching AI')
+      speak('Sorry, something went wrong')
     }
-
-    if (lower.includes('hello') || lower.includes('hi')) { speak('Hi! Say prepare a recipe or go to scan'); return true }
-    return false
-  }, [navigate, recipes, speak])
-
-  const process = useCallback((text) => {
-    setTranscript(text)
-    if (!text || !text.trim()) return
-    const handled = parseCommand(text)
-    if (!handled) speak("Sorry, I didn't catch that")
-  }, [parseCommand, speak])
+  }, [navigate, speak])
 
   const startListening = useCallback(() => {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SR) return
     setIsListening(true)
     setTranscript('')
+    setStatus('')
     finalRef.current = ''
 
     let rec
@@ -121,12 +84,7 @@ export default function useVoiceAssistant() {
       if (finalRef.current) process(finalRef.current)
     }
 
-    rec.onerror = (e) => {
-      setIsListening(false)
-      if (e.error === 'not-allowed') {
-        setLastCommand('Please allow microphone access in browser settings')
-      }
-    }
+    rec.onerror = () => { setIsListening(false) }
 
     try { rec.start(); recognitionRef.current = rec } catch { setIsListening(false) }
     timerRef.current = setTimeout(() => { try { rec.stop() } catch {} }, 10000)
@@ -151,5 +109,5 @@ export default function useVoiceAssistant() {
     return () => { if (recognitionRef.current) { try { recognitionRef.current.abort() } catch {} }; clearTimeout(timerRef.current) }
   }, [])
 
-  return { isListening, transcript, isSupported, lastCommand, startListening, stopListening, toggleListening, submitText }
+  return { isListening, transcript, isSupported, status, startListening, stopListening, toggleListening, submitText }
 }

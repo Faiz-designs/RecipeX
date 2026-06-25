@@ -35,6 +35,12 @@ export default function CookingMode() {
   }, [])
 
   useEffect(() => {
+    if (location.state?.autoSpeak && steps[currentStep]) {
+      speak(steps[currentStep])
+    }
+  }, [])
+
+  useEffect(() => {
     if (speaking && steps[currentStep]) {
       speak(steps[currentStep])
     }

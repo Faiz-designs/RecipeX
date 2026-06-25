@@ -5,7 +5,7 @@ sys.path.insert(0, '/home/FaizBasha05/RecipeX/backend')
 # or uncomment the line below with your actual key:
 # os.environ['GROQ_API_KEY'] = 'your-key-here'
 from services.demo_data import DEMO_DATA
-from services.groq_service import analyze_image
+from services.groq_service import analyze_image, generate_recipe
 from services.meal_planner_service import generate_meal_plan
 from database import SessionLocal, init_db
 from models.user import User
@@ -302,6 +302,14 @@ def application(environ, start_response):
         d, s = meal_plan(rb(environ), a)
         st = {200: '200 OK', 400: '400 Bad Request', 401: '401 Unauthorized', 500: '500 Internal Server Error'}.get(s, '200 OK')
         return jr(start_response, d, st)
+    if p == '/ai/command' and m == 'POST':
+        try:
+            b = rb(environ)
+            prompt = (b or {}).get('prompt', '')
+            if not prompt: return jr(start_response, {'error': 'prompt required'}, '400 Bad Request')
+            recipe = generate_recipe(prompt)
+            return jr(start_response, {'recipe': recipe})
+        except Exception as e: return jr(start_response, {'error': str(e)}, '500 Internal Server Error')
     if p == '/favorites' and m == 'GET':
         d, s = list_favs(a)
         return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')

@@ -95,6 +95,9 @@ export default function CookingMode() {
     }
   }, [listening])
 
+  const steps = Array.isArray(recipe?.steps) ? recipe.steps : []
+  const ingredients = Array.isArray(recipe?.additional_ingredients_required) ? recipe.additional_ingredients_required : []
+
   if (!recipe) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-stone-900 via-stone-800 to-stone-900">
@@ -115,9 +118,6 @@ export default function CookingMode() {
       </div>
     )
   }
-
-  const steps = Array.isArray(recipe?.steps) ? recipe.steps : []
-  const ingredients = Array.isArray(recipe?.additional_ingredients_required) ? recipe.additional_ingredients_required : []
 
   const toggleIngredient = (i) => {
     setChecked(prev => prev.includes(i) ? prev.filter(x => x !== i) : [...prev, i])

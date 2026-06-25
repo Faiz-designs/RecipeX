@@ -89,9 +89,10 @@ export default function Scanner({ onScanComplete }) {
       const token = getToken()
       const headers = token ? { Authorization: `Bearer ${token}` } : {}
       const res = await axios.post(`${API}/scan/`, { image: base64 }, { headers })
+      if (res.data?.error) { setError(res.data.error); return }
       if (onScanComplete) onScanComplete(res.data)
     } catch (err) {
-      setError(err.response?.data?.message || t('scanner.scanFailed'))
+      setError(err.response?.data?.error || err.response?.data?.message || t('scanner.scanFailed'))
     } finally { setLoading(false) }
   }
 

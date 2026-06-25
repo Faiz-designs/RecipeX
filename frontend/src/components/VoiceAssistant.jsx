@@ -5,8 +5,6 @@ import useVoiceAssistant from '../hooks/useVoiceAssistant'
 export default function VoiceAssistant() {
   const location = useLocation()
   const { isListening, transcript, isSupported, status, toggleListening, submitText } = useVoiceAssistant()
-
-  if (location.pathname === '/cooking-mode') return null
   const [open, setOpen] = useState(false)
   const [text, setText] = useState('')
   const inputRef = useRef(null)
@@ -18,6 +16,8 @@ export default function VoiceAssistant() {
   useEffect(() => {
     if (transcript && isListening) setText(transcript)
   }, [transcript, isListening])
+
+  if (location.pathname === '/cooking-mode') return null
 
   const handleSubmit = (e) => {
     e.preventDefault()

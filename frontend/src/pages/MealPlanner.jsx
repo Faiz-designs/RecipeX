@@ -63,7 +63,7 @@ export default function MealPlanner() {
     setGenerating(true)
     setAiError('')
     try {
-      const pantry = JSON.parse(localStorage.getItem('nutrivision_pantry_items') || '[]')
+      const pantry = JSON.parse(localStorage.getItem('nutrivision_pantry') || '[]')
       const res = await fetch('https://FaizBasha05.pythonanywhere.com/meal-planner/generate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },

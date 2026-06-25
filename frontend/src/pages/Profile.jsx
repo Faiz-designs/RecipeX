@@ -8,7 +8,22 @@ export default function Profile() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
 
-  if (!user) return null
+  if (!user) return (
+    <>
+      <SEO title="Profile" description="Your NutriZen AI account profile." />
+      <div className="max-w-3xl mx-auto px-4 py-8 text-center">
+        <div className="glass-card rounded-2xl p-8 shadow-sm">
+          <div className="w-20 h-20 mx-auto mb-5 rounded-full bg-gradient-to-br from-emerald-100 to-teal-100 dark:from-emerald-900/50 dark:to-teal-900/50 border-2 border-lime-200 dark:border-lime-700/50 flex items-center justify-center text-4xl shadow-lg">🔒</div>
+          <p className="text-xl font-bold text-stone-700 dark:text-stone-200 mb-2">{t('auth.signInRequired')}</p>
+          <p className="text-sm text-stone-500 dark:text-stone-400 mb-8">{t('auth.signInDesc')}</p>
+          <div className="flex gap-3 justify-center">
+            <Link to="/login" className="px-6 py-3 btn-glass btn-glass-lime rounded-xl text-sm">{t('nav.signIn')}</Link>
+            <Link to="/signup" className="px-6 py-3 btn-glass btn-glass-blue rounded-xl text-sm">{t('nav.signUp')}</Link>
+          </div>
+        </div>
+      </div>
+    </>
+  )
 
   const handleLogout = () => { logout(); navigate('/') }
 

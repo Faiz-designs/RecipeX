@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import SEO from '../components/SEO'
@@ -10,9 +10,9 @@ export default function CookingMode() {
   const recipe = location.state?.recipe
 
   const [currentStep, setCurrentStep] = useState(0)
-  const [wakeLock, setWakeLock] = useState(null)
+  const wakeLockRef = useRef(null)
+  const timerRef = useRef(null)
   const [checked, setChecked] = useState([])
-  const [timer, setTimer] = useState(null)
   const [timerSeconds, setTimerSeconds] = useState(0)
   const [speaking, setSpeaking] = useState(false)
   const [voiceInput, setVoiceInput] = useState('')
@@ -42,9 +42,12 @@ export default function CookingMode() {
 
   useEffect(() => {
     if ('wakeLock' in navigator) {
-      navigator.wakeLock.request('screen').then(l => setWakeLock(l)).catch(() => {})
+      navigator.wakeLock.request('screen').then(l => { wakeLockRef.current = l }).catch(() => {})
     }
-    return () => { if (wakeLock) wakeLock.release() }
+    return () => {
+      if (wakeLockRef.current) wakeLockRef.current.release()
+      if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
+    }
   }, [])
 
   useEffect(() => {
@@ -98,10 +101,11 @@ export default function CookingMode() {
   }
 
   const startTimer = (minutes) => {
+    if (timerRef.current) clearInterval(timerRef.current)
     setTimerSeconds(minutes * 60)
-    setTimer(setInterval(() => {
-      setTimerSeconds(s => { if (s <= 1) { clearInterval(timer); return 0 }; return s - 1 })
-    }, 1000))
+    timerRef.current = setInterval(() => {
+      setTimerSeconds(s => { if (s <= 1) { clearInterval(timerRef.current); timerRef.current = null; return 0 }; return s - 1 })
+    }, 1000)
   }
 
   return (

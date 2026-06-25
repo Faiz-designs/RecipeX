@@ -32,6 +32,12 @@ export function toggleShoppingItem(id) {
   return list
 }
 
+export function reorderShoppingList(items) {
+  const sorted = items.map((item, idx) => ({ ...item, order: idx }))
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sorted))
+  return sorted
+}
+
 export function clearShoppingList() {
   localStorage.removeItem(STORAGE_KEY)
 }

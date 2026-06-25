@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { motion, Reorder } from 'framer-motion'
 import SEO from '../components/SEO'
 import EmptyState from '../components/EmptyState'
-import { getShoppingList, addToShoppingList, removeFromShoppingList, toggleShoppingItem, clearShoppingList } from '../utils/shoppingList'
+import { getShoppingList, addToShoppingList, removeFromShoppingList, toggleShoppingItem, clearShoppingList, reorderShoppingList } from '../utils/shoppingList'
 
 const CATEGORIES = {
   'Produce': {
@@ -220,7 +220,9 @@ export default function ShoppingList() {
                     const all = items
                     const other = all.filter(i => !catItems.find(c => c.id === i.id))
                     const reindexed = reordered.map((item, idx) => ({ ...item, order: idx }))
-                    setItems([...other, ...reindexed].sort((a,b) => (a.order || 0) - (b.order || 0)))
+                    const sorted = [...other, ...reindexed].sort((a,b) => (a.order || 0) - (b.order || 0))
+                    setItems(sorted)
+                    reorderShoppingList(sorted)
                   }} className="px-3 pb-3 space-y-0.5">
                     {catItems.map(item => (
                       <SwipeItem key={item.id} item={item} onToggle={handleToggle} onRemove={handleRemove} />

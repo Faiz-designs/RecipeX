@@ -46,7 +46,9 @@ export default function History() {
 
   const handleSelectServer = async (id) => {
     try {
-      const res = await fetch(`https://FaizBasha05.pythonanywhere.com/scan/${id}`)
+      const res = await fetch(`https://FaizBasha05.pythonanywhere.com/scan/${id}`, {
+        headers: { 'Authorization': `Bearer ${token}` },
+      })
       const data = await res.json()
       setSelected({ id, timestamp: data.created_at, result: data.full_response })
     } catch (err) {
@@ -54,6 +56,7 @@ export default function History() {
   }
 
   const r = selected?.result
+  const score = r?.improvements?.meal_balance_score_out_of_10 ?? 0
 
   return (
     <>
@@ -112,9 +115,9 @@ export default function History() {
                     <div className="relative w-20 h-20">
                       <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
                         <circle cx="18" cy="18" r="15.5" fill="none" className="stroke-stone-200 dark:stroke-stone-600" strokeWidth="3" />
-                        <circle cx="18" cy="18" r="15.5" fill="none" stroke={r.improvements.meal_balance_score_out_of_10 >= 8 ? '#10b981' : r.improvements.meal_balance_score_out_of_10 >= 5 ? '#f59e0b' : '#ef4444'} strokeWidth="3" strokeDasharray={`${r.improvements.meal_balance_score_out_of_10 / 10 * 100} 100`} strokeLinecap="round" />
+                        <circle cx="18" cy="18" r="15.5" fill="none" stroke={score >= 8 ? '#10b981' : score >= 5 ? '#f59e0b' : '#ef4444'} strokeWidth="3" strokeDasharray={`${score / 10 * 100} 100`} strokeLinecap="round" />
                       </svg>
-                      <div className="absolute inset-0 flex items-center justify-center"><span className="text-xl font-extrabold text-stone-700 dark:text-stone-200">{r.improvements.meal_balance_score_out_of_10}</span></div>
+                      <div className="absolute inset-0 flex items-center justify-center"><span className="text-xl font-extrabold text-stone-700 dark:text-stone-200">{score}</span></div>
                     </div>
                     <div><span className="text-xs font-semibold text-stone-500 dark:text-stone-400 uppercase tracking-wide">{t('scan.score')}</span><p className="text-lg font-bold text-stone-800 dark:text-stone-100">{t('scan.mealBalance')}</p></div>
                   </div>

@@ -195,7 +195,7 @@ export default function CookingMode() {
             {timerSeconds > 0 && (
               <div className="mt-5 text-center bg-slate-700/30 rounded-xl p-4 border border-slate-600/40">
                 <p className="text-4xl font-mono font-bold text-lime-400">{Math.floor(timerSeconds / 60)}:{(timerSeconds % 60).toString().padStart(2, '0')}</p>
-                <button onClick={() => { clearInterval(timer); setTimerSeconds(0) }} className="text-sm text-red-400 hover:text-red-300 mt-2.5 transition-colors px-3 py-1 rounded-lg hover:bg-red-900/30">{t('cookingMode.cancel')}</button>
+                <button onClick={() => { if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }; setTimerSeconds(0) }} className="text-sm text-red-400 hover:text-red-300 mt-2.5 transition-colors px-3 py-1 rounded-lg hover:bg-red-900/30">{t('cookingMode.cancel')}</button>
               </div>
             )}
           </div>

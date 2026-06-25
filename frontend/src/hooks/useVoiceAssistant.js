@@ -7,7 +7,7 @@ const API = 'https://FaizBasha05.pythonanywhere.com'
 export default function useVoiceAssistant() {
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState('')
-  const [isSupported, setIsSupported] = useState(true)
+  const [isSupported, setIsSupported] = useState(false)
   const [status, setStatus] = useState('')
   const navigate = useNavigate()
   const recognitionRef = useRef(null)
@@ -31,14 +31,13 @@ export default function useVoiceAssistant() {
     if (!t) return
     setTranscript(t)
     setStatus('Thinking...')
-
     try {
       const res = await axios.post(`${API}/ai/command`, { prompt: t }, { timeout: 30000 })
       const recipe = res.data?.recipe
       if (recipe && recipe.name && recipe.steps?.length) {
         setStatus(`Starting ${recipe.name}`)
         navigate('/cooking-mode', { state: { recipe, autoSpeak: true } })
-        setTimeout(() => speak(`Starting ${recipe.name}. ${recipe.steps[0]}`), 500)
+        setTimeout(() => speak(`${recipe.name}. ${recipe.steps[0]}`), 500)
       } else {
         setStatus('Could not generate recipe')
         speak('Sorry, could not generate that recipe')
@@ -58,7 +57,8 @@ export default function useVoiceAssistant() {
     finalRef.current = ''
 
     let rec
-    try { rec = new SR() } catch { setIsListening(false); return }
+    try { rec = new SR() } catch { setIsListening(false); setStatus('Speech recognition not available'); return }
+
     rec.continuous = false
     rec.interimResults = true
     rec.lang = 'en-US'
@@ -84,9 +84,14 @@ export default function useVoiceAssistant() {
       if (finalRef.current) process(finalRef.current)
     }
 
-    rec.onerror = () => { setIsListening(false) }
+    rec.onerror = (e) => {
+      setIsListening(false)
+      if (e.error === 'not-allowed') setStatus('Please allow microphone access in browser settings')
+      else if (e.error === 'no-speech') setStatus('No speech detected')
+      else setStatus('Microphone error - try typing instead')
+    }
 
-    try { rec.start(); recognitionRef.current = rec } catch { setIsListening(false) }
+    try { rec.start(); recognitionRef.current = rec } catch { setIsListening(false); setStatus('Could not start microphone') }
     timerRef.current = setTimeout(() => { try { rec.stop() } catch {} }, 10000)
   }, [process])
 
@@ -102,12 +107,15 @@ export default function useVoiceAssistant() {
   }, [startListening, stopListening])
 
   const submitText = useCallback((text) => {
+    if (recognitionRef.current) stopListening()
     if (text && text.trim()) process(text)
-  }, [process])
+  }, [process, stopListening])
+
+  const clearStatus = useCallback(() => setStatus(''), [])
 
   useEffect(() => {
     return () => { if (recognitionRef.current) { try { recognitionRef.current.abort() } catch {} }; clearTimeout(timerRef.current) }
   }, [])
 
-  return { isListening, transcript, isSupported, status, startListening, stopListening, toggleListening, submitText }
+  return { isListening, transcript, isSupported, status, clearStatus, toggleListening, submitText }
 }

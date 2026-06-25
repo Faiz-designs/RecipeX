@@ -7,7 +7,7 @@ export default function CookingMode() {
   const { t, i18n } = useTranslation()
   const location = useLocation()
   const navigate = useNavigate()
-  const recipe = location.state?.recipe
+  const recipe = location.state?.recipe || JSON.parse(sessionStorage.getItem('nutrivision_cook_recipe') || 'null')
 
   const [currentStep, setCurrentStep] = useState(0)
   const wakeLockRef = useRef(null)
@@ -35,6 +35,7 @@ export default function CookingMode() {
   }, [])
 
   useEffect(() => {
+    sessionStorage.removeItem('nutrivision_cook_recipe')
     if (location.state?.autoSpeak && steps[currentStep]) {
       speak(steps[currentStep])
     }

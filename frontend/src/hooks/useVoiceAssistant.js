@@ -13,6 +13,7 @@ export default function useVoiceAssistant() {
   const recognitionRef = useRef(null)
   const silenceTimerRef = useRef(null)
   const finalTranscriptRef = useRef('')
+  const latestTranscriptRef = useRef('')
 
   useEffect(() => {
     const hasSR = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
@@ -123,19 +124,33 @@ export default function useVoiceAssistant() {
     setIsListening(true)
     setTranscript('')
     finalTranscriptRef.current = ''
+    latestTranscriptRef.current = ''
 
     speak('I\'m listening')
 
-    const recognition = new SpeechRecognition()
+    let recognition
+    try {
+      recognition = new SpeechRecognition()
+    } catch {
+      setIsListening(false)
+      return
+    }
     recognition.continuous = false
     recognition.interimResults = true
-    recognition.lang = 'en-IN'
+    const langs = ['en-IN', 'en-US', 'en-GB']
+    for (const l of langs) {
+      try {
+        recognition.lang = l
+        break
+      } catch {}
+    }
 
     recognition.onresult = (event) => {
       for (let i = 0; i < event.results.length; i++) {
         const result = event.results[i]
         const text = result[0].transcript
         setTranscript(text)
+        latestTranscriptRef.current = text
         if (result.isFinal) {
           finalTranscriptRef.current = text
           clearTimeout(silenceTimerRef.current)
@@ -148,16 +163,17 @@ export default function useVoiceAssistant() {
     recognition.onend = () => {
       setIsListening(false)
       clearTimeout(silenceTimerRef.current)
-      if (finalTranscriptRef.current) {
-        processTranscript(finalTranscriptRef.current)
-      } else if (transcript) {
-        processTranscript(transcript)
+      const finalText = finalTranscriptRef.current || latestTranscriptRef.current
+      if (finalText) {
+        processTranscript(finalText)
       }
     }
 
-    recognition.onerror = () => {
+    recognition.onerror = (e) => {
       setIsListening(false)
-      speak('Microphone error. Please allow microphone access.')
+      if (e.error === 'not-allowed') {
+        speak('Please allow microphone access in your browser settings')
+      }
     }
 
     recognition.start()
@@ -165,7 +181,7 @@ export default function useVoiceAssistant() {
     silenceTimerRef.current = setTimeout(() => {
       recognition.stop()
     }, 10000)
-  }, [processTranscript, speak, transcript])
+  }, [processTranscript, speak])
 
   const stopListening = useCallback(() => {
     if (recognitionRef.current) recognitionRef.current.stop()
@@ -174,9 +190,9 @@ export default function useVoiceAssistant() {
   }, [])
 
   const toggleListening = useCallback(() => {
-    if (isListening) stopListening()
+    if (recognitionRef.current) stopListening()
     else startListening()
-  }, [isListening, startListening, stopListening])
+  }, [startListening, stopListening])
 
   useEffect(() => {
     return () => {

@@ -291,6 +291,8 @@ def application(environ, start_response):
     if p == '/scan/history' and m == 'GET':
         d, s = scan_history(a)
         return jr(start_response, d, '401 Unauthorized' if s == 401 else '200 OK')
+    if p == '/scan/demo' and m == 'GET':
+        return jr(start_response, {'scan_id': 1, 'result': DEMO_DATA})
     parts = parse_path(p)
     if len(parts) == 2 and parts[0] == 'scan' and m == 'GET':
         try:
